@@ -96,10 +96,10 @@ export default function Navigation() {
                         gap: 'var(--spacing-xl)',
                         alignItems: 'center'
                     }} className="desktop-menu">
-                        {['Books', 'Articles', 'Achievements'].map((item) => (
+                        {['Store', 'Books', 'Articles', 'Achievements'].map((item) => (
                             <Link
                                 key={item}
-                                href={`#${item.toLowerCase()}`}
+                                href={item === 'Store' ? '/store' : `#${item.toLowerCase()}`}
                                 style={{
                                     color: 'var(--color-text-secondary)',
                                     textDecoration: 'none',

@@ -6,14 +6,14 @@ import dynamic from 'next/dynamic';
 const Globe = dynamic(() => import('react-globe.gl'), { ssr: false });
 
 export default function Globe3D({ realtimeUsers }: { realtimeUsers: number }) {
-    const globeEl = useRef<any>();
+    const globeEl = useRef<any>(null);
     const [heatmapData, setHeatmapData] = useState<any[]>([]);
     const [arcsData, setArcsData] = useState<any[]>([]);
 
     useEffect(() => {
         // Generate heat map points for visitor locations
         const generateHeatmap = () => {
-            const points = [];
+            const points: any[] = [];
             const hotspots = [
                 { lat: 40.7128, lng: -74.0060, weight: 0.8 }, // New York
                 { lat: 51.5074, lng: -0.1278, weight: 0.9 }, // London

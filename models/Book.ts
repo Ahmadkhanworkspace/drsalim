@@ -36,9 +36,6 @@ const BookSchema = new Schema({
     },
 });
 
-BookSchema.pre('save', function (next) {
-    this.updatedAt = new Date();
-    next();
-});
+
 
 export default models.Book || mongoose.model('Book', BookSchema);
