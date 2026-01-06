@@ -36,14 +36,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 position: 'fixed',
                 height: '100vh',
                 overflowY: 'auto',
-                boxShadow: '4px 0 24px rgba(0, 0, 0, 0.04)'
+                boxShadow: '4px 0 24px rgba(0, 0, 0, 0.04)',
+                zIndex: 100
             }}>
                 {/* Logo */}
                 <Link href="/admin/dashboard" style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--spacing-md)',
-                    padding: 'var(--spacing-xl)',
+                    gap: '1rem',
+                    padding: '2rem',
                     textDecoration: 'none',
                     borderBottom: '1px solid #e2e8f0',
                     background: 'white'
@@ -52,12 +53,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                         width: '48px',
                         height: '48px',
                         borderRadius: '12px',
-                        background: 'linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%)',
+                        background: 'linear-gradient(135deg, #fbbf24 0%, #d97706 100%)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '1.5rem',
-                        boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)'
+                        boxShadow: '0 4px 12px rgba(251, 191, 36, 0.3)'
                     }}>
                         📖
                     </div>
@@ -83,15 +84,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 </Link>
 
                 {/* Navigation */}
-                <nav style={{ padding: 'var(--spacing-lg)' }}>
+                <nav style={{ padding: '1.5rem' }}>
                     <div style={{
                         color: '#64748b',
                         fontSize: '0.7rem',
                         fontWeight: 700,
                         textTransform: 'uppercase',
                         letterSpacing: '1px',
-                        marginBottom: 'var(--spacing-md)',
-                        paddingLeft: 'var(--spacing-sm)'
+                        marginBottom: '1rem',
+                        paddingLeft: '0.75rem'
                     }}>
                         Main Menu
                     </div>
@@ -104,17 +105,17 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                 style={{
                                     display: 'flex',
                                     alignItems: 'center',
-                                    gap: 'var(--spacing-md)',
-                                    padding: 'var(--spacing-md) var(--spacing-lg)',
-                                    marginBottom: 'var(--spacing-xs)',
+                                    gap: '1rem',
+                                    padding: '1rem 1.25rem',
+                                    marginBottom: '0.5rem',
                                     borderRadius: '12px',
                                     textDecoration: 'none',
                                     color: isActive ? 'white' : '#64748b',
-                                    background: isActive ? 'linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%)' : 'transparent',
+                                    background: isActive ? 'linear-gradient(135deg, #fbbf24 0%, #d97706 100%)' : 'transparent',
                                     fontWeight: isActive ? 700 : 600,
                                     fontSize: '0.95rem',
                                     transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                                    boxShadow: isActive ? '0 4px 12px rgba(0, 212, 255, 0.3)' : 'none',
+                                    boxShadow: isActive ? '0 4px 12px rgba(251, 191, 36, 0.3)' : 'none',
                                     position: 'relative'
                                 }}
                                 onMouseEnter={(e) => {
@@ -154,15 +155,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     bottom: 0,
                     left: 0,
                     right: 0,
-                    padding: 'var(--spacing-lg)',
+                    padding: '1.5rem',
                     borderTop: '1px solid #e2e8f0',
                     background: 'white'
                 }}>
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--spacing-md)',
-                        padding: 'var(--spacing-md)',
+                        gap: '1rem',
+                        padding: '1rem',
                         borderRadius: '12px',
                         background: '#f8fafc',
                         border: '1px solid #e2e8f0'
@@ -171,12 +172,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             width: '44px',
                             height: '44px',
                             borderRadius: '50%',
-                            background: 'linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%)',
+                            background: 'linear-gradient(135deg, #fbbf24 0%, #d97706 100%)',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             fontSize: '1.2rem',
-                            boxShadow: '0 2px 8px rgba(0, 212, 255, 0.2)'
+                            boxShadow: '0 2px 8px rgba(251, 191, 36, 0.2)'
                         }}>
                             👤
                         </div>
@@ -209,7 +210,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <main style={{
                 marginLeft: '280px',
                 flex: 1,
-                padding: 'var(--spacing-2xl)',
+                padding: '2rem',
                 background: '#f8fafc',
                 minHeight: '100vh'
             }}>
@@ -218,8 +219,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    marginBottom: 'var(--spacing-2xl)',
-                    padding: 'var(--spacing-lg) var(--spacing-xl)',
+                    marginBottom: '2rem',
+                    padding: '1.5rem 2rem',
                     background: 'white',
                     borderRadius: '16px',
                     boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
@@ -228,10 +229,10 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     <div style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: 'var(--spacing-md)'
+                        gap: '1rem'
                     }}>
                         <div style={{
-                            padding: 'var(--spacing-sm) var(--spacing-md)',
+                            padding: '0.75rem 1.5rem',
                             background: '#f1f5f9',
                             borderRadius: '8px',
                             fontSize: '0.85rem',
@@ -243,7 +244,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     </div>
                     <div style={{
                         display: 'flex',
-                        gap: 'var(--spacing-md)',
+                        gap: '1rem',
                         alignItems: 'center'
                     }}>
                         <div style={{
