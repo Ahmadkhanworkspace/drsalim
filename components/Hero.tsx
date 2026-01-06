@@ -44,12 +44,12 @@ export default function Hero() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d5f8d 100%)',
+            background: 'var(--gradient-hero)', // Light Pale Blue
             position: 'relative',
             overflow: 'hidden',
             paddingTop: '80px'
         }}>
-            {/* Animated Grid Background */}
+            {/* Animated Grid Background - Minimal/Subtle */}
             <div style={{
                 position: 'absolute',
                 top: 0,
@@ -57,21 +57,21 @@ export default function Hero() {
                 right: 0,
                 bottom: 0,
                 backgroundImage: `
-          linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px)
+          linear-gradient(rgba(37, 99, 235, 0.05) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(37, 99, 235, 0.05) 1px, transparent 1px)
         `,
                 backgroundSize: '50px 50px',
-                opacity: 0.5
+                opacity: 0.6
             }} />
 
-            {/* Floating Orbs */}
+            {/* Floating Orbs - Soft Blue */}
             <div style={{
                 position: 'absolute',
-                top: '15%',
-                left: '10%',
-                width: '250px',
-                height: '250px',
-                background: 'radial-gradient(circle, rgba(0, 212, 255, 0.12) 0%, transparent 70%)',
+                top: '10%',
+                left: '5%',
+                width: '300px',
+                height: '300px',
+                background: 'radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%)',
                 borderRadius: '50%',
                 animation: 'float 8s ease-in-out infinite',
                 filter: 'blur(40px)'
@@ -79,14 +79,14 @@ export default function Hero() {
 
             <div style={{
                 position: 'absolute',
-                bottom: '20%',
-                right: '15%',
-                width: '300px',
-                height: '300px',
-                background: 'radial-gradient(circle, rgba(90, 155, 212, 0.15) 0%, transparent 70%)',
+                bottom: '10%',
+                right: '10%',
+                width: '400px',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 70%)',
                 borderRadius: '50%',
-                animation: 'float 10s ease-in-out infinite',
-                animationDelay: '2s',
+                animation: 'float 12s ease-in-out infinite',
+                animationDelay: '1s',
                 filter: 'blur(60px)'
             }} />
 
@@ -113,27 +113,27 @@ export default function Hero() {
                                 <div style={{
                                     display: 'inline-block',
                                     padding: '0.5rem 1.2rem',
-                                    background: 'rgba(0, 212, 255, 0.15)',
-                                    border: '2px solid var(--color-accent)',
+                                    background: 'rgba(37, 99, 235, 0.1)',
+                                    border: '1px solid var(--color-primary)',
                                     borderRadius: 'var(--radius-sm)',
-                                    color: 'var(--color-accent)',
+                                    color: 'var(--color-primary)',
                                     fontWeight: 700,
                                     fontSize: '0.75rem',
                                     marginBottom: 'var(--spacing-md)',
                                     textTransform: 'uppercase',
                                     letterSpacing: '2px',
-                                    boxShadow: '0 0 15px rgba(0, 212, 255, 0.3)'
+                                    boxShadow: '0 0 15px rgba(37, 99, 235, 0.1)'
                                 }}>
                                     {slide.highlight}
                                 </div>
 
                                 <h1 style={{
-                                    fontSize: 'clamp(2.2rem, 5vw, 4rem)',
+                                    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                                     marginBottom: 'var(--spacing-sm)',
-                                    color: 'white',
+                                    color: 'var(--color-navy)',
                                     fontWeight: 900,
                                     lineHeight: 1.1,
-                                    textShadow: '0 4px 20px rgba(0, 0, 0, 0.5)'
+                                    letterSpacing: '-1px'
                                 }}>
                                     {slide.title}
                                 </h1>
@@ -142,10 +142,7 @@ export default function Hero() {
                                     fontSize: 'clamp(1.2rem, 2.5vw, 1.8rem)',
                                     marginBottom: 'var(--spacing-md)',
                                     fontWeight: 700,
-                                    background: 'linear-gradient(135deg, #00d4ff 0%, #5a9bd4 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text'
+                                    color: 'var(--color-primary)'
                                 }}>
                                     {slide.subtitle}
                                 </h2>
@@ -153,7 +150,7 @@ export default function Hero() {
                                 <p style={{
                                     fontSize: 'clamp(1rem, 1.8vw, 1.15rem)',
                                     marginBottom: 'var(--spacing-xl)',
-                                    color: 'var(--color-light-blue)',
+                                    color: 'var(--color-text-secondary)',
                                     lineHeight: 1.7,
                                     maxWidth: '550px'
                                 }}>
@@ -165,55 +162,12 @@ export default function Hero() {
                                     gap: 'var(--spacing-md)',
                                     flexWrap: 'wrap'
                                 }}>
-                                    <a href="#books" style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: 'var(--spacing-sm)',
-                                        padding: '0.9rem 2rem',
-                                        background: 'var(--color-accent)',
-                                        color: 'var(--color-navy)',
-                                        textDecoration: 'none',
-                                        borderRadius: 'var(--radius-md)',
-                                        fontWeight: 800,
-                                        fontSize: '1rem',
-                                        transition: 'all var(--transition-normal)',
-                                        boxShadow: '0 6px 20px rgba(0, 212, 255, 0.4)',
-                                        border: 'none'
-                                    }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                            e.currentTarget.style.boxShadow = '0 8px 24px rgba(0, 212, 255, 0.6)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.transform = 'translateY(0)';
-                                            e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 212, 255, 0.4)';
-                                        }}>
+                                    <a href="#books" className="btn btn-primary">
                                         <span>Explore Books</span>
-                                        <span style={{ fontSize: '1.2rem' }}>→</span>
+                                        <span style={{ fontSize: '1.2rem', marginLeft: '0.5rem' }}>→</span>
                                     </a>
 
-                                    <a href="#articles" style={{
-                                        display: 'inline-flex',
-                                        alignItems: 'center',
-                                        gap: 'var(--spacing-sm)',
-                                        padding: '0.9rem 2rem',
-                                        background: 'transparent',
-                                        color: 'white',
-                                        textDecoration: 'none',
-                                        borderRadius: 'var(--radius-md)',
-                                        fontWeight: 700,
-                                        fontSize: '1rem',
-                                        transition: 'all var(--transition-normal)',
-                                        border: '2px solid var(--color-accent)'
-                                    }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.background = 'rgba(0, 212, 255, 0.1)';
-                                            e.currentTarget.style.transform = 'translateY(-2px)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.background = 'transparent';
-                                            e.currentTarget.style.transform = 'translateY(0)';
-                                        }}>
+                                    <a href="#articles" className="btn btn-outline">
                                         <span>Read Articles</span>
                                     </a>
                                 </div>
@@ -235,19 +189,18 @@ export default function Hero() {
                                         height: '12px',
                                         borderRadius: '6px',
                                         background: currentSlide === index
-                                            ? 'var(--color-accent)'
-                                            : 'rgba(255, 255, 255, 0.3)',
+                                            ? 'var(--color-primary)'
+                                            : 'rgba(37, 99, 235, 0.2)',
                                         border: 'none',
                                         cursor: 'pointer',
-                                        transition: 'all var(--transition-normal)',
-                                        boxShadow: currentSlide === index ? '0 0 15px rgba(0, 212, 255, 0.6)' : 'none'
+                                        transition: 'all var(--transition-normal)'
                                     }}
                                 />
                             ))}
                         </div>
                     </div>
 
-                    {/* Right Side - Stats Grid (NO ICON) */}
+                    {/* Right Side - Stats Grid (Clean White Cards) */}
                     <div style={{
                         display: 'grid',
                         gridTemplateColumns: '1fr 1fr',
@@ -262,8 +215,8 @@ export default function Hero() {
                             <div key={idx} className="modern-card" style={{
                                 textAlign: 'center',
                                 padding: 'var(--spacing-lg)',
-                                background: 'rgba(26, 35, 50, 0.6)',
-                                backdropFilter: 'blur(10px)'
+                                background: 'white',
+                                boxShadow: 'var(--shadow-lg)'
                             }}>
                                 <div style={{
                                     fontSize: '2rem',
@@ -274,10 +227,7 @@ export default function Hero() {
                                 <div style={{
                                     fontSize: '2.2rem',
                                     fontWeight: 900,
-                                    background: 'linear-gradient(135deg, #00d4ff 0%, #5a9bd4 100%)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text',
+                                    color: 'var(--color-primary)',
                                     marginBottom: '0.25rem'
                                 }}>
                                     {stat.num}
@@ -294,49 +244,6 @@ export default function Hero() {
                             </div>
                         ))}
                     </div>
-                </div>
-            </div>
-
-            {/* Scroll Indicator */}
-            <div style={{
-                position: 'absolute',
-                bottom: 'var(--spacing-lg)',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                animation: 'float 2s ease-in-out infinite',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: '0.5rem'
-            }}>
-                <span style={{
-                    color: 'var(--color-accent)',
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    textTransform: 'uppercase',
-                    letterSpacing: '2px'
-                }}>
-                    Scroll Down
-                </span>
-                <div style={{
-                    width: '24px',
-                    height: '40px',
-                    border: '2px solid var(--color-accent)',
-                    borderRadius: '15px',
-                    position: 'relative',
-                    boxShadow: '0 0 15px rgba(0, 212, 255, 0.3)'
-                }}>
-                    <div style={{
-                        width: '4px',
-                        height: '8px',
-                        background: 'var(--color-accent)',
-                        borderRadius: '2px',
-                        position: 'absolute',
-                        top: '6px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        animation: 'float 1.5s ease-in-out infinite'
-                    }} />
                 </div>
             </div>
 

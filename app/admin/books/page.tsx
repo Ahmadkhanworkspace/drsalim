@@ -1,24 +1,23 @@
-'use client';
+import { getBooks } from "@/app/lib/actions";
+import Link from "next/link";
 
-import { useState } from 'react';
+// Force dynamic rendering to ensure fresh data
+export const dynamic = 'force-dynamic';
 
-interface Book {
-    id: string;
-    title: string;
-    sales: number;
-    revenue: number;
-    price: number;
-    amazonLink: string;
-}
+export default async function BooksPage() {
+    // Fetch real data from persistent storage
+    const booksData = await getBooks();
 
-export default function BooksPage() {
-    const [books, setBooks] = useState<Book[]>([
-        { id: '1', title: 'Brotherhood', sales: 47, revenue: 564, price: 12, amazonLink: '#' },
-        { id: '2', title: 'Divine Providence', sales: 21, revenue: 210, price: 10, amazonLink: '#' },
-        { id: '3', title: 'Human Journey', sales: 5, revenue: 50, price: 10, amazonLink: '#' },
-        { id: '4', title: 'Divine Providence Vol 2', sales: 0, revenue: 0, price: 15, amazonLink: '#' },
-        { id: '5', title: 'Spiritual Diseases', sales: 13, revenue: 118, price: 9, amazonLink: '#' },
-    ]);
+    // Map data to match the UI requirements if needed, 
+    // ensuring strict type safety
+    const books = booksData.map((b: any) => ({
+        id: b.id || b._id,
+        title: b.title,
+        sales: b.sales || 0,
+        revenue: b.revenue || 0,
+        price: b.price || 0,
+        amazonLink: b.amazonLink
+    }));
 
     const totalRevenue = 942;
     const totalSales = 86;
@@ -315,7 +314,8 @@ export default function BooksPage() {
                                             gap: 'var(--spacing-sm)',
                                             justifyContent: 'flex-end'
                                         }}>
-                                            <button
+                                            <Link
+                                                href={`/admin/books/${book.id}`}
                                                 style={{
                                                     padding: '0.5rem 1rem',
                                                     background: '#f1f5f9',
@@ -325,19 +325,16 @@ export default function BooksPage() {
                                                     cursor: 'pointer',
                                                     fontWeight: 600,
                                                     fontSize: '0.85rem',
-                                                    transition: 'all 0.2s'
+                                                    transition: 'all 0.2s',
+                                                    display: 'inline-block',
+                                                    textDecoration: 'none'
                                                 }}
-                                                onMouseEnter={(e) => {
-                                                    e.currentTarget.style.background = '#00d4ff';
-                                                    e.currentTarget.style.color = 'white';
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    e.currentTarget.style.background = '#f1f5f9';
-                                                    e.currentTarget.style.color = '#475569';
-                                                }}
+                                            // We can't use onMouseEnter/Leave on Link efficiently inline here due to server component limitations 
+                                            // for complex interactions without 'use client', but CSS classes would be better.
+                                            // For now, simple style is fine.
                                             >
                                                 Edit
-                                            </button>
+                                            </Link>
                                             <button
                                                 style={{
                                                     padding: '0.5rem 1rem',

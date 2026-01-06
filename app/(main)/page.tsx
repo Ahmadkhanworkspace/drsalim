@@ -18,7 +18,7 @@ export default async function Home() {
 
       {/* Books Section with Carousel */}
       <section id="books" className="section" style={{
-        background: 'var(--color-bg-dark)',
+        background: 'var(--color-bg-secondary)', // Light background for contrast
         position: 'relative'
       }}>
         <div className="container">
@@ -26,22 +26,22 @@ export default async function Home() {
             <div style={{
               display: 'inline-block',
               padding: '0.5rem 1.5rem',
-              background: 'rgba(0, 212, 255, 0.1)',
+              background: 'rgba(37, 99, 235, 0.1)', // var(--color-primary) tint
               borderRadius: 'var(--radius-sm)',
-              color: 'var(--color-accent)',
+              color: 'var(--color-primary)',
               fontWeight: 700,
               fontSize: '0.9rem',
               marginBottom: 'var(--spacing-md)',
               textTransform: 'uppercase',
               letterSpacing: '2px',
-              border: '1px solid rgba(0, 212, 255, 0.3)'
+              border: '1px solid rgba(37, 99, 235, 0.2)'
             }}>
               Published Works
             </div>
 
             <h2 style={{
               marginBottom: 'var(--spacing-md)',
-              color: 'var(--color-text-primary)'
+              color: 'var(--color-navy)'
             }}>
               Download His Books Now on Amazon
             </h2>
@@ -66,7 +66,7 @@ export default async function Home() {
 
       {/* Articles Section */}
       <section id="articles" className="section" style={{
-        background: 'var(--color-bg-dark)',
+        background: 'var(--color-bg-dark)', // White
         position: 'relative'
       }}>
         <div className="container">
@@ -74,15 +74,15 @@ export default async function Home() {
             <div style={{
               display: 'inline-block',
               padding: '0.5rem 1.5rem',
-              background: 'rgba(0, 212, 255, 0.1)',
+              background: 'rgba(59, 130, 246, 0.1)', // var(--color-primary)
               borderRadius: 'var(--radius-sm)',
-              color: 'var(--color-accent)',
+              color: 'var(--color-gold)',
               fontWeight: 700,
               fontSize: '0.9rem',
               marginBottom: 'var(--spacing-md)',
               textTransform: 'uppercase',
               letterSpacing: '2px',
-              border: '1px solid rgba(0, 212, 255, 0.3)'
+              border: '1px solid rgba(59, 130, 246, 0.2)'
             }}>
               Latest Articles
             </div>

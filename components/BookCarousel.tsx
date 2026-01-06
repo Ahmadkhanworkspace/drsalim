@@ -80,16 +80,16 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
                             {/* Book Cover */}
                             <div style={{
                                 position: 'relative',
-                                height: '400px',
+                                height: '260px', // Reduced from 400px
                                 background: `linear-gradient(135deg, 
-                  ${index % 5 === 0 ? '#2d5f8d' :
-                                        index % 5 === 1 ? '#5a9bd4' :
-                                            index % 5 === 2 ? '#1a2332' :
-                                                index % 5 === 3 ? '#2d5f8d' : '#5a9bd4'} 0%, 
-                  ${index % 5 === 0 ? '#5a9bd4' :
-                                        index % 5 === 1 ? '#a8d8f0' :
-                                            index % 5 === 2 ? '#2d5f8d' :
-                                                index % 5 === 3 ? '#5a9bd4' : '#a8d8f0'} 100%)`,
+                  ${index % 5 === 0 ? '#1e3a8a' :
+                                        index % 5 === 1 ? '#1e40af' :
+                                            index % 5 === 2 ? '#172554' :
+                                                index % 5 === 3 ? '#1e3a8a' : '#1e40af'} 0%, 
+                  ${index % 5 === 0 ? '#3b82f6' :
+                                        index % 5 === 1 ? '#60a5fa' :
+                                            index % 5 === 2 ? '#2563eb' :
+                                                index % 5 === 3 ? '#3b82f6' : '#60a5fa'} 100%)`,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -97,7 +97,7 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
                             }}>
                                 {/* Book Icon */}
                                 <div style={{
-                                    fontSize: '8rem',
+                                    fontSize: '5rem', // Reduced from 8rem
                                     filter: 'drop-shadow(0 10px 40px rgba(0, 0, 0, 0.5))',
                                     transition: 'transform var(--transition-normal)'
                                 }} className="book-icon">
