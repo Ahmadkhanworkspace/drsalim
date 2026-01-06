@@ -1,3 +1,5 @@
+'use client';
+
 export default function AboutPage() {
     return (
         <main style={{ background: 'var(--color-bg-sand)', minHeight: '100vh', paddingBottom: '4rem' }}>
