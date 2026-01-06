@@ -3,57 +3,60 @@
 export default function Footer() {
     return (
         <footer style={{
-            background: 'var(--color-bg-secondary)',
-            borderTop: '1px solid rgba(0, 212, 255, 0.2)',
-            padding: 'var(--spacing-2xl) 0 var(--spacing-lg)',
+            background: 'var(--color-bg-navy)',
+            borderTop: '1px solid rgba(251, 191, 36, 0.2)',
+            padding: '3rem 0 1.5rem',
             position: 'relative'
         }}>
             {/* Top Accent Line */}
             <div style={{
-                height: '3px',
-                background: 'var(--gradient-accent)',
-                marginBottom: 'var(--spacing-2xl)'
+                height: '2px',
+                background: 'var(--color-gold)',
+                marginBottom: '2rem'
             }} />
 
-            <div className="container">
+            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                    gap: 'var(--spacing-2xl)',
-                    marginBottom: 'var(--spacing-2xl)'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                    gap: '2rem',
+                    marginBottom: '2rem'
                 }}>
                     {/* About */}
                     <div>
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            gap: 'var(--spacing-sm)',
-                            marginBottom: 'var(--spacing-md)'
+                            gap: '0.75rem',
+                            marginBottom: '1rem'
                         }}>
                             <div style={{
-                                width: '40px',
-                                height: '40px',
-                                background: 'var(--gradient-accent)',
-                                borderRadius: 'var(--radius-sm)',
+                                width: '35px',
+                                height: '35px',
+                                background: 'var(--color-gold)',
+                                borderRadius: '4px',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1.3rem'
+                                fontSize: '1.2rem'
                             }}>
                                 📚
                             </div>
-                            <h3 className="gradient-text" style={{
-                                fontSize: '1.4rem',
+                            <h3 style={{
+                                fontSize: '1.3rem',
                                 margin: 0,
-                                fontWeight: 800
+                                fontWeight: 700,
+                                color: 'var(--color-gold)',
+                                fontFamily: 'var(--font-heading)'
                             }}>
                                 Dr. M. Salim
                             </h3>
                         </div>
                         <p style={{
-                            color: 'var(--color-text-secondary)',
-                            lineHeight: 1.8,
-                            fontSize: '1rem'
+                            color: 'rgba(255,255,255,0.7)',
+                            lineHeight: 1.6,
+                            fontSize: '0.95rem',
+                            margin: 0
                         }}>
                             A lifetime dedicated to scholarly research, writing, and sharing profound insights on spirituality, philosophy, and Islamic studies.
                         </p>
@@ -62,31 +65,31 @@ export default function Footer() {
                     {/* Quick Links */}
                     <div>
                         <h4 style={{
-                            color: 'var(--color-text-primary)',
-                            marginBottom: 'var(--spacing-md)',
-                            fontSize: '1.2rem',
+                            color: 'white',
+                            marginBottom: '1rem',
+                            fontSize: '1.1rem',
                             fontWeight: 700
                         }}>
                             Quick Links
                         </h4>
-                        <ul style={{ listStyle: 'none', padding: 0 }}>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                             {['Books', 'Articles', 'Achievements', 'Newsletter'].map((item) => (
-                                <li key={item} style={{ marginBottom: 'var(--spacing-sm)' }}>
+                                <li key={item} style={{ marginBottom: '0.5rem' }}>
                                     <a
                                         href={`#${item.toLowerCase()}`}
                                         style={{
-                                            color: 'var(--color-text-secondary)',
+                                            color: 'rgba(255,255,255,0.7)',
                                             textDecoration: 'none',
-                                            transition: 'all var(--transition-fast)',
+                                            transition: 'all 0.3s ease',
                                             display: 'inline-block',
-                                            fontSize: '1rem'
+                                            fontSize: '0.95rem'
                                         }}
                                         onMouseEnter={(e) => {
-                                            e.currentTarget.style.color = 'var(--color-accent)';
+                                            e.currentTarget.style.color = 'var(--color-gold)';
                                             e.currentTarget.style.transform = 'translateX(5px)';
                                         }}
                                         onMouseLeave={(e) => {
-                                            e.currentTarget.style.color = 'var(--color-text-secondary)';
+                                            e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
                                             e.currentTarget.style.transform = 'translateX(0)';
                                         }}
                                     >
@@ -100,42 +103,44 @@ export default function Footer() {
                     {/* Connect */}
                     <div>
                         <h4 style={{
-                            color: 'var(--color-text-primary)',
-                            marginBottom: 'var(--spacing-md)',
-                            fontSize: '1.2rem',
+                            color: 'white',
+                            marginBottom: '1rem',
+                            fontSize: '1.1rem',
                             fontWeight: 700
                         }}>
                             Connect
                         </h4>
                         <p style={{
-                            color: 'var(--color-text-secondary)',
-                            marginBottom: 'var(--spacing-md)',
-                            fontSize: '1rem'
+                            color: 'rgba(255,255,255,0.7)',
+                            marginBottom: '1rem',
+                            fontSize: '0.95rem'
                         }}>
-                            Stay connected for the latest updates and insights.
+                            Stay connected for the latest updates.
                         </p>
-                        <div style={{ display: 'flex', gap: 'var(--spacing-sm)' }}>
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
                             {['📧', '🐦', '📘', '📱'].map((icon, index) => (
                                 <a
                                     key={index}
                                     href="#"
-                                    className="modern-card"
                                     style={{
-                                        width: '50px',
-                                        height: '50px',
+                                        width: '40px',
+                                        height: '40px',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
                                         textDecoration: 'none',
-                                        fontSize: '1.4rem',
-                                        padding: '0',
-                                        transition: 'all var(--transition-normal)'
+                                        fontSize: '1.2rem',
+                                        background: 'rgba(255,255,255,0.1)',
+                                        borderRadius: '4px',
+                                        transition: 'all 0.3s ease'
                                     }}
                                     onMouseEnter={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(-5px) scale(1.1)';
+                                        e.currentTarget.style.background = 'var(--color-gold)';
+                                        e.currentTarget.style.transform = 'translateY(-3px)';
                                     }}
                                     onMouseLeave={(e) => {
-                                        e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                                        e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                                        e.currentTarget.style.transform = 'translateY(0)';
                                     }}
                                 >
                                     {icon}
@@ -148,16 +153,13 @@ export default function Footer() {
                 {/* Copyright */}
                 <div style={{
                     textAlign: 'center',
-                    paddingTop: 'var(--spacing-lg)',
-                    borderTop: '1px solid rgba(90, 155, 212, 0.2)',
-                    color: 'var(--color-text-muted)',
-                    fontSize: '0.95rem'
+                    paddingTop: '1.5rem',
+                    borderTop: '1px solid rgba(255,255,255,0.1)',
+                    color: 'rgba(255,255,255,0.5)',
+                    fontSize: '0.9rem'
                 }}>
                     <p style={{ margin: 0 }}>
                         © {new Date().getFullYear()} Dr. Muhammad Salim. All rights reserved.
-                    </p>
-                    <p style={{ margin: '0.5rem 0 0', fontSize: '0.85rem' }}>
-                        Designed with ❤️ for knowledge seekers worldwide
                     </p>
                 </div>
             </div>

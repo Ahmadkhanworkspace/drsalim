@@ -10,9 +10,8 @@ interface PremiumBookShowcaseProps {
 export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-    const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-    const booksPerView = 3; // Show 3 books at a time on desktop
+    const booksPerView = 3;
     const maxIndex = Math.max(0, books.length - booksPerView);
 
     useEffect(() => {
@@ -35,102 +34,120 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
         setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
     };
 
-    const goToBook = (index: number) => {
-        setIsAutoPlaying(false);
-        setCurrentIndex(Math.min(index, maxIndex));
-    };
-
     return (
         <div style={{
             position: 'relative',
-            padding: 'var(--spacing-2xl) 0',
+            padding: '4rem 0',
             overflow: 'hidden'
         }}>
-            {/* Main Carousel Container */}
-            <div
-                ref={scrollContainerRef}
-                style={{
-                    display: 'flex',
-                    transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                    transform: `translateX(-${currentIndex * (100 / booksPerView)}%)`,
-                    gap: 'var(--spacing-xl)',
-                    padding: '0 var(--spacing-md)'
-                }}
-            >
+            {/* Carousel Container */}
+            <div style={{
+                display: 'flex',
+                transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
+                transform: `translateX(-${currentIndex * (100 / booksPerView)}%)`,
+                gap: '2rem',
+                padding: '0 1rem'
+            }}>
                 {books.map((book, index) => (
                     <div
                         key={book.id}
                         style={{
-                            minWidth: `calc(${100 / booksPerView}% - var(--spacing-xl))`,
-                            flex: `0 0 calc(${100 / booksPerView}% - var(--spacing-xl))`
+                            minWidth: `calc(${100 / booksPerView}% - 1.5rem)`,
+                            flex: `0 0 calc(${100 / booksPerView}% - 1.5rem)`
                         }}
+                        className="book-item"
                     >
-                        <div
-                            className="modern-card"
-                            style={{
-                                height: '100%',
-                                display: 'flex',
-                                flexDirection: 'column',
-                                padding: 0,
-                                overflow: 'hidden',
-                                background: 'var(--color-bg-card)',
-                                transition: 'all var(--transition-normal)'
-                            }}
-                        >
-                            {/* Book Cover */}
+                        {/* Premium Book Card */}
+                        <div style={{
+                            height: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            background: 'white',
+                            borderRadius: '12px',
+                            overflow: 'hidden',
+                            boxShadow: '0 20px 60px -10px rgba(0, 0, 0, 0.15)',
+                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            position: 'relative'
+                        }}
+                            className="premium-book-card">
+                            {/* 3D Book Cover */}
                             <div style={{
                                 position: 'relative',
-                                height: '260px', // Reduced from 400px
+                                height: '400px',
                                 background: `linear-gradient(135deg, 
-                  ${index % 5 === 0 ? '#1e3a8a' :
-                                        index % 5 === 1 ? '#1e40af' :
-                                            index % 5 === 2 ? '#172554' :
-                                                index % 5 === 3 ? '#1e3a8a' : '#1e40af'} 0%, 
-                  ${index % 5 === 0 ? '#3b82f6' :
-                                        index % 5 === 1 ? '#60a5fa' :
-                                            index % 5 === 2 ? '#2563eb' :
-                                                index % 5 === 3 ? '#3b82f6' : '#60a5fa'} 100%)`,
+                                    ${index % 4 === 0 ? '#172554' :
+                                        index % 4 === 1 ? '#1e3a8a' :
+                                            index % 4 === 2 ? '#1e40af' : '#0f172a'} 0%, 
+                                    ${index % 4 === 0 ? '#1e3a8a' :
+                                        index % 4 === 1 ? '#2563eb' :
+                                            index % 4 === 2 ? '#3b82f6' : '#172554'} 100%)`,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                                perspective: '1000px'
                             }}>
-                                {/* Book Icon */}
-                                <div style={{
-                                    fontSize: '5rem', // Reduced from 8rem
-                                    filter: 'drop-shadow(0 10px 40px rgba(0, 0, 0, 0.5))',
-                                    transition: 'transform var(--transition-normal)'
-                                }} className="book-icon">
-                                    📚
-                                </div>
-
-                                {/* Decorative Elements */}
+                                {/* Book Spine Effect */}
                                 <div style={{
                                     position: 'absolute',
-                                    top: '-50px',
-                                    right: '-50px',
-                                    width: '200px',
-                                    height: '200px',
-                                    background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%)',
-                                    borderRadius: '50%'
+                                    left: 0,
+                                    top: 0,
+                                    bottom: 0,
+                                    width: '30px',
+                                    background: 'linear-gradient(90deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.1) 100%)',
+                                    zIndex: 2
+                                }} />
+
+                                {/* Gold Accent Stripe */}
+                                <div style={{
+                                    position: 'absolute',
+                                    left: '30px',
+                                    top: 0,
+                                    bottom: 0,
+                                    width: '4px',
+                                    background: 'var(--color-gold)',
+                                    zIndex: 3
+                                }} />
+
+                                {/* Book Icon with 3D effect */}
+                                <div style={{
+                                    fontSize: '7rem',
+                                    filter: 'drop-shadow(0 15px 40px rgba(0, 0, 0, 0.4))',
+                                    transform: 'rotateY(-5deg)',
+                                    transition: 'transform 0.4s ease',
+                                    zIndex: 1
+                                }} className="book-icon-3d">
+                                    📖
+                                </div>
+
+                                {/* Decorative Corner */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 0,
+                                    width: '100px',
+                                    height: '100px',
+                                    background: 'radial-gradient(circle at top right, rgba(251, 191, 36, 0.15) 0%, transparent 70%)'
                                 }} />
 
                                 {/* Book Number Badge */}
                                 <div style={{
                                     position: 'absolute',
-                                    top: 'var(--spacing-md)',
-                                    left: 'var(--spacing-md)',
+                                    top: '1.5rem',
+                                    right: '1.5rem',
                                     width: '50px',
                                     height: '50px',
-                                    background: 'var(--gradient-accent)',
+                                    background: 'var(--color-gold)',
                                     borderRadius: '50%',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     fontWeight: 900,
-                                    fontSize: '1.5rem',
-                                    color: 'var(--color-navy)',
-                                    boxShadow: 'var(--shadow-glow)'
+                                    fontSize: '1.3rem',
+                                    color: 'white',
+                                    boxShadow: '0 8px 20px rgba(251, 191, 36, 0.4)',
+                                    fontFamily: 'var(--font-heading)',
+                                    zIndex: 4
                                 }}>
                                     {index + 1}
                                 </div>
@@ -138,18 +155,20 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
 
                             {/* Book Info */}
                             <div style={{
-                                padding: 'var(--spacing-lg)',
+                                padding: '2rem',
                                 flex: 1,
                                 display: 'flex',
-                                flexDirection: 'column'
+                                flexDirection: 'column',
+                                background: 'white'
                             }}>
                                 <h3 style={{
-                                    fontSize: '1.4rem',
-                                    marginBottom: 'var(--spacing-md)',
-                                    color: 'var(--color-text-primary)',
-                                    fontWeight: 800,
+                                    fontSize: '1.5rem',
+                                    marginBottom: '1rem',
+                                    color: 'var(--color-text-navy)',
+                                    fontWeight: 700,
                                     lineHeight: 1.3,
-                                    minHeight: '3.6em',
+                                    fontFamily: 'var(--font-heading)',
+                                    minHeight: '3.9em',
                                     display: '-webkit-box',
                                     WebkitLineClamp: 2,
                                     WebkitBoxOrient: 'vertical',
@@ -159,10 +178,10 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
                                 </h3>
 
                                 <p style={{
-                                    color: 'var(--color-text-secondary)',
-                                    marginBottom: 'var(--spacing-lg)',
+                                    color: 'var(--color-text-body)',
+                                    marginBottom: '2rem',
                                     lineHeight: 1.7,
-                                    fontSize: '0.95rem',
+                                    fontSize: '1rem',
                                     flex: 1,
                                     display: '-webkit-box',
                                     WebkitLineClamp: 4,
@@ -183,8 +202,9 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        gap: 'var(--spacing-sm)',
-                                        padding: 'var(--spacing-md)'
+                                        gap: '0.75rem',
+                                        padding: '1rem 2rem',
+                                        fontSize: '0.95rem'
                                     }}
                                 >
                                     <span>Get on Amazon</span>
@@ -199,30 +219,74 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
             {/* Navigation Buttons */}
             <button
                 onClick={prevSlide}
-                className="carousel-button prev"
                 style={{
                     position: 'absolute',
                     top: '50%',
-                    left: '-25px',
+                    left: '-60px',
                     transform: 'translateY(-50%)',
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    background: 'white',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.5rem',
+                    color: 'var(--color-text-navy)',
+                    transition: 'all 0.3s ease',
                     zIndex: 10
                 }}
-                aria-label="Previous books"
+                className="nav-button"
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--color-gold)';
+                    e.currentTarget.style.color = 'white';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'white';
+                    e.currentTarget.style.color = 'var(--color-text-navy)';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                }}
             >
                 ←
             </button>
 
             <button
                 onClick={nextSlide}
-                className="carousel-button next"
                 style={{
                     position: 'absolute',
                     top: '50%',
-                    right: '-25px',
+                    right: '-60px',
                     transform: 'translateY(-50%)',
+                    width: '50px',
+                    height: '50px',
+                    borderRadius: '50%',
+                    background: 'white',
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: '1.5rem',
+                    color: 'var(--color-text-navy)',
+                    transition: 'all 0.3s ease',
                     zIndex: 10
                 }}
-                aria-label="Next books"
+                className="nav-button"
+                onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--color-gold)';
+                    e.currentTarget.style.color = 'white';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1.1)';
+                }}
+                onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'white';
+                    e.currentTarget.style.color = 'var(--color-text-navy)';
+                    e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
+                }}
             >
                 →
             </button>
@@ -230,72 +294,65 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
             {/* Indicators */}
             <div style={{
                 display: 'flex',
-                gap: 'var(--spacing-sm)',
+                gap: '0.75rem',
                 justifyContent: 'center',
-                marginTop: 'var(--spacing-xl)',
-                flexWrap: 'wrap'
+                marginTop: '3rem'
             }}>
                 {books.map((_, index) => (
                     <button
                         key={index}
-                        onClick={() => goToBook(index)}
+                        onClick={() => {
+                            setIsAutoPlaying(false);
+                            setCurrentIndex(Math.min(index, maxIndex));
+                        }}
                         style={{
-                            width: '12px',
-                            height: '12px',
-                            borderRadius: '50%',
+                            width: index >= currentIndex && index < currentIndex + booksPerView ? '40px' : '10px',
+                            height: '10px',
+                            borderRadius: '5px',
                             background: index >= currentIndex && index < currentIndex + booksPerView
-                                ? 'var(--color-accent)'
-                                : 'rgba(90, 155, 212, 0.3)',
+                                ? 'var(--color-gold)'
+                                : 'rgba(100, 116, 139, 0.2)',
                             border: 'none',
                             cursor: 'pointer',
-                            transition: 'all var(--transition-normal)',
+                            transition: 'all 0.3s ease',
                             boxShadow: index >= currentIndex && index < currentIndex + booksPerView
-                                ? 'var(--shadow-glow)'
-                                : 'none',
-                            transform: index >= currentIndex && index < currentIndex + booksPerView
-                                ? 'scale(1.3)'
-                                : 'scale(1)'
+                                ? '0 4px 12px rgba(251, 191, 36, 0.4)'
+                                : 'none'
                         }}
-                        aria-label={`Go to book ${index + 1}`}
                     />
                 ))}
             </div>
 
-            {/* Auto-play indicator */}
-            <div style={{
-                textAlign: 'center',
-                marginTop: 'var(--spacing-md)',
-                color: 'var(--color-text-muted)',
-                fontSize: '0.85rem'
-            }}>
-                {isAutoPlaying ? '⏸️ Auto-playing' : '▶️ Paused'} • {books.length} Books Available
-            </div>
-
             <style jsx>{`
-        .modern-card:hover .book-icon {
-          transform: scale(1.1) rotate(5deg);
-        }
+                .premium-book-card:hover {
+                    transform: translateY(-10px);
+                    box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.25);
+                }
 
-        @media (max-width: 1200px) {
-          .carousel-button {
-            display: none !important;
-          }
-        }
+                .premium-book-card:hover .book-icon-3d {
+                    transform: rotateY(0deg) scale(1.05);
+                }
 
-        @media (max-width: 968px) {
-          div[style*="minWidth"] {
-            min-width: calc(50% - var(--spacing-xl)) !important;
-            flex: 0 0 calc(50% - var(--spacing-xl)) !important;
-          }
-        }
+                @media (max-width: 1200px) {
+                    .nav-button {
+                        display: none !important;
+                    }
+                }
 
-        @media (max-width: 640px) {
-          div[style*="minWidth"] {
-            min-width: calc(100% - var(--spacing-xl)) !important;
-            flex: 0 0 calc(100% - var(--spacing-xl)) !important;
-          }
-        }
-      `}</style>
+                @media (max-width: 968px) {
+                    .book-item {
+                        min-width: calc(50% - 1rem) !important;
+                        flex: 0 0 calc(50% - 1rem) !important;
+                    }
+                }
+
+                @media (max-width: 640px) {
+                    .book-item {
+                        min-width: calc(100% - 1rem) !important;
+                        flex: 0 0 calc(100% - 1rem) !important;
+                    }
+                }
+            `}</style>
         </div>
     );
 }

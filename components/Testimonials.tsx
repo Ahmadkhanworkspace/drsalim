@@ -22,129 +22,93 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
 
     return (
         <section id="testimonials" className="section" style={{
-            background: 'var(--color-bg-secondary)',
-            position: 'relative',
-            overflow: 'hidden'
+            background: 'linear-gradient(135deg, rgba(239, 246, 255, 0.5) 0%, rgba(219, 234, 254, 0.3) 100%)',
+            position: 'relative'
         }}>
-            {/* Background */}
-            <div style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                width: '800px',
-                height: '800px',
-                background: 'radial-gradient(circle, rgba(0, 212, 255, 0.05) 0%, transparent 70%)',
-                pointerEvents: 'none'
-            }} />
-
-            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
                 {/* Header */}
-                <div style={{ textAlign: 'center', marginBottom: 'var(--spacing-2xl)' }}>
-                    <div style={{
-                        display: 'inline-block',
-                        padding: '0.5rem 1.5rem',
-                        background: 'rgba(0, 212, 255, 0.1)',
-                        borderRadius: 'var(--radius-sm)',
-                        color: 'var(--color-accent)',
-                        fontWeight: 700,
-                        fontSize: '0.85rem',
-                        marginBottom: 'var(--spacing-md)',
+                <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+                    <span style={{
+                        color: 'var(--color-gold)',
                         textTransform: 'uppercase',
-                        letterSpacing: '2px',
-                        border: '1px solid rgba(0, 212, 255, 0.3)'
+                        letterSpacing: '0.2em',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        display: 'block',
+                        marginBottom: '1rem'
                     }}>
                         Testimonials
-                    </div>
-
+                    </span>
                     <h2 style={{
-                        marginBottom: 'var(--spacing-sm)',
-                        background: 'linear-gradient(135deg, #00d4ff 0%, #5a9bd4 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        fontSize: 'clamp(2rem, 4vw, 3rem)'
+                        color: 'var(--color-text-navy)',
+                        marginBottom: '1.5rem',
+                        fontFamily: 'var(--font-heading)',
+                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)'
                     }}>
                         What Readers Are Saying
                     </h2>
-
                     <p style={{
-                        fontSize: '1.1rem',
-                        color: 'var(--color-text-secondary)',
+                        color: 'var(--color-text-muted)',
                         maxWidth: '600px',
-                        margin: '0 auto'
+                        margin: '0 auto',
+                        fontSize: '1.1rem'
                     }}>
                         {testimonials.length} reviews from satisfied readers worldwide
                     </p>
                 </div>
 
                 {/* Slider Container */}
-                <div style={{
-                    maxWidth: '900px',
-                    margin: '0 auto',
-                    position: 'relative'
-                }}>
-                    {/* Main Card */}
-                    <div className="modern-card" style={{
-                        padding: 'var(--spacing-2xl)',
+                <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
+                    {/* Main Card - Properly grouped testimonial */}
+                    <div style={{
+                        background: 'white',
+                        borderRadius: '8px',
+                        padding: '3rem 2.5rem',
+                        boxShadow: 'var(--shadow-card)',
                         minHeight: '350px',
                         display: 'flex',
                         flexDirection: 'column',
-                        justifyContent: 'center',
-                        background: 'var(--color-bg-card)',
-                        position: 'relative'
+                        justifyContent: 'center'
                     }}>
-                        {/* Stars */}
+                        {/* Gold Quotation Icon */}
                         <div style={{
-                            display: 'flex',
-                            gap: '0.3rem',
-                            marginBottom: 'var(--spacing-lg)',
-                            justifyContent: 'center'
-                        }}>
-                            {[...Array(currentTestimonial.rating)].map((_, i) => (
-                                <span key={i} style={{
-                                    color: 'var(--color-accent)',
-                                    fontSize: '1.5rem',
-                                    filter: 'drop-shadow(0 2px 4px rgba(0, 212, 255, 0.3))'
-                                }}>
-                                    ⭐
-                                </span>
-                            ))}
-                        </div>
+                            color: 'var(--color-gold)',
+                            fontSize: '4rem',
+                            marginBottom: '1.5rem',
+                            opacity: 0.5,
+                            lineHeight: 1
+                        }}>"</div>
 
                         {/* Quote */}
                         <p style={{
-                            color: 'var(--color-text-secondary)',
-                            fontSize: '1.15rem',
-                            lineHeight: 1.9,
-                            marginBottom: 'var(--spacing-xl)',
-                            textAlign: 'center',
-                            fontStyle: 'italic',
-                            maxWidth: '750px',
-                            margin: '0 auto var(--spacing-xl)'
+                            color: 'var(--color-text-body)',
+                            fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
+                            lineHeight: 1.7,
+                            marginBottom: '2rem',
+                            fontStyle: 'italic'
                         }}>
-                            "{currentTestimonial.content}"
+                            {currentTestimonial.content}
                         </p>
 
-                        {/* Author */}
+                        {/* Author Info - Grouped together */}
                         <div style={{
                             display: 'flex',
                             alignItems: 'center',
-                            justifyContent: 'center',
-                            gap: 'var(--spacing-md)',
-                            paddingTop: 'var(--spacing-lg)',
-                            borderTop: '2px solid rgba(0, 212, 255, 0.2)'
+                            gap: '1.5rem',
+                            paddingTop: '2rem',
+                            borderTop: '1px solid rgba(201, 164, 76, 0.2)'
                         }}>
                             <div style={{
                                 width: '60px',
                                 height: '60px',
                                 borderRadius: '50%',
-                                background: 'var(--gradient-primary)',
+                                background: 'var(--gradient-navy)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
+                                color: 'white',
                                 fontSize: '1.8rem',
-                                border: '3px solid var(--color-accent)',
+                                border: '2px solid var(--color-gold)',
                                 flexShrink: 0
                             }}>
                                 👤
@@ -152,9 +116,10 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
 
                             <div>
                                 <h4 style={{
-                                    color: 'var(--color-text-primary)',
+                                    color: 'var(--color-text-navy)',
+                                    fontFamily: 'var(--font-heading)',
+                                    fontWeight: 700,
                                     fontSize: '1.2rem',
-                                    fontWeight: 800,
                                     marginBottom: '0.25rem'
                                 }}>
                                     {currentTestimonial.name}
@@ -167,9 +132,9 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
                                     {currentTestimonial.role}
                                 </p>
                                 <p style={{
-                                    color: 'var(--color-accent)',
-                                    fontSize: '0.85rem',
-                                    fontWeight: 700
+                                    color: 'var(--color-gold)',
+                                    fontSize: '0.9rem',
+                                    fontWeight: 600
                                 }}>
                                     {currentTestimonial.date}
                                 </p>
@@ -180,12 +145,32 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
                     {/* Navigation Buttons */}
                     <button
                         onClick={prevSlide}
-                        className="carousel-button prev"
                         style={{
                             position: 'absolute',
                             top: '50%',
                             left: '-60px',
-                            transform: 'translateY(-50%)'
+                            transform: 'translateY(-50%)',
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            background: 'white',
+                            boxShadow: 'var(--shadow-card)',
+                            border: '1px solid rgba(15, 23, 42, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: 'var(--color-text-navy)',
+                            fontSize: '1.5rem',
+                            transition: 'all 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.color = 'var(--color-gold)';
+                            e.currentTarget.style.boxShadow = 'var(--shadow-hover)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.color = 'var(--color-text-navy)';
+                            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
                         }}
                     >
                         ←
@@ -193,12 +178,32 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
 
                     <button
                         onClick={nextSlide}
-                        className="carousel-button next"
                         style={{
                             position: 'absolute',
                             top: '50%',
                             right: '-60px',
-                            transform: 'translateY(-50%)'
+                            transform: 'translateY(-50%)',
+                            width: '48px',
+                            height: '48px',
+                            borderRadius: '50%',
+                            background: 'white',
+                            boxShadow: 'var(--shadow-card)',
+                            border: '1px solid rgba(15, 23, 42, 0.1)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: 'var(--color-text-navy)',
+                            fontSize: '1.5rem',
+                            transition: 'all 0.3s ease'
+                        }}
+                        onMouseEnter={(e) => {
+                            e.currentTarget.style.color = 'var(--color-gold)';
+                            e.currentTarget.style.boxShadow = 'var(--shadow-hover)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.currentTarget.style.color = 'var(--color-text-navy)';
+                            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
                         }}
                     >
                         →
@@ -207,76 +212,28 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
                     {/* Indicators */}
                     <div style={{
                         display: 'flex',
-                        gap: '0.5rem',
+                        gap: '0.75rem',
                         justifyContent: 'center',
-                        marginTop: 'var(--spacing-xl)'
+                        marginTop: '2.5rem'
                     }}>
                         {testimonials.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
                                 style={{
-                                    width: currentIndex === index ? '30px' : '10px',
-                                    height: '10px',
-                                    borderRadius: '5px',
-                                    background: currentIndex === index ? 'var(--color-accent)' : 'rgba(90, 155, 212, 0.3)',
+                                    height: '8px',
+                                    borderRadius: '4px',
+                                    width: currentIndex === index ? '48px' : '8px',
+                                    background: currentIndex === index ? 'var(--color-gold)' : 'rgba(100, 116, 139, 0.2)',
                                     border: 'none',
                                     cursor: 'pointer',
-                                    transition: 'all var(--transition-normal)',
-                                    boxShadow: currentIndex === index ? '0 0 15px rgba(0, 212, 255, 0.5)' : 'none'
+                                    transition: 'all 0.3s ease'
                                 }}
                             />
                         ))}
                     </div>
-
-                    {/* Counter */}
-                    <div style={{
-                        textAlign: 'center',
-                        marginTop: 'var(--spacing-md)',
-                        color: 'var(--color-text-muted)',
-                        fontSize: '0.9rem',
-                        fontWeight: 600
-                    }}>
-                        {currentIndex + 1} / {testimonials.length}
-                    </div>
-                </div>
-
-                {/* CTA */}
-                <div style={{
-                    textAlign: 'center',
-                    marginTop: 'var(--spacing-2xl)',
-                    padding: 'var(--spacing-xl)',
-                    background: 'rgba(0, 212, 255, 0.05)',
-                    borderRadius: 'var(--radius-lg)',
-                    border: '1px solid rgba(0, 212, 255, 0.2)'
-                }}>
-                    <h3 style={{
-                        color: 'var(--color-text-primary)',
-                        marginBottom: 'var(--spacing-sm)',
-                        fontSize: '1.6rem'
-                    }}>
-                        Join Our Community
-                    </h3>
-                    <p style={{
-                        color: 'var(--color-text-secondary)',
-                        marginBottom: 'var(--spacing-lg)',
-                        fontSize: '1.05rem'
-                    }}>
-                        Subscribe to receive the latest insights
-                    </p>
-                    <a href="#newsletter" className="btn btn-primary">
-                        Subscribe Now →
-                    </a>
                 </div>
             </div>
-
-            <style jsx>{`
-        @media (max-width: 1200px) {
-          .carousel-button {
-            display: none !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }

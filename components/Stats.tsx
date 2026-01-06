@@ -6,14 +6,13 @@ interface StatItemProps {
     number: number;
     label: string;
     suffix?: string;
-    icon: string;
 }
 
-function StatItem({ number, label, suffix = '', icon }: StatItemProps) {
+function StatItem({ number, label, suffix = '' }: StatItemProps) {
     const [count, setCount] = useState(0);
 
     useEffect(() => {
-        const duration = 2000;
+        const duration = 2500;
         const steps = 60;
         const increment = number / steps;
         let current = 0;
@@ -34,65 +33,58 @@ function StatItem({ number, label, suffix = '', icon }: StatItemProps) {
     return (
         <div style={{
             textAlign: 'center',
-            padding: 'var(--spacing-lg)',
-            position: 'relative',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '0.5rem'
+            padding: '2rem 1rem'
         }}>
-            {/* Number */}
             <div style={{
-                fontSize: '3rem',
+                fontSize: 'clamp(3rem, 6vw, 4rem)',
                 fontWeight: 800,
-                color: '#fbbf24', // Premium Gold
-                fontFamily: 'Poppins, sans-serif',
-                lineHeight: 1
+                color: '#fff',
+                fontFamily: 'var(--font-heading)',
+                lineHeight: 1,
+                marginBottom: '0.75rem',
+                textShadow: '0 2px 5px rgba(0,0,0,0.1)'
             }}>
                 {count}{suffix}
             </div>
 
-            {/* Label */}
             <div style={{
-                fontSize: '0.9rem',
-                color: '#e0f2fe', // Light Sky Blue for readability
-                fontWeight: 600,
+                fontSize: '0.85rem',
+                color: '#1c1917',
+                fontWeight: 800,
                 textTransform: 'uppercase',
-                letterSpacing: '1.5px'
+                letterSpacing: '0.15em',
+                fontFamily: 'var(--font-body)'
             }}>
                 {label}
             </div>
-
-            {/* Divider line for elegance */}
-            <div style={{
-                width: '40px',
-                height: '2px',
-                background: '#60a5fa', // Lighter blue divider
-                marginTop: '1rem'
-            }} />
         </div>
     );
 }
 
 export default function Stats() {
     return (
-        <section id="achievements" style={{
-            background: 'var(--color-dark-blue)', // Royal Blue for contrast
-            padding: 'var(--spacing-2xl) 0',
-            borderTop: '1px solid var(--color-primary)',
-            borderBottom: '1px solid var(--color-primary)'
+        <section id="achievements" className="section" style={{
+            background: 'var(--gradient-gold)',
+            position: 'relative',
+            padding: '4rem 0'
         }}>
-            <div className="container">
+            <div className="container" style={{
+                maxWidth: '1200px',
+                margin: '0 auto',
+                padding: '0 2rem',
+                position: 'relative',
+                zIndex: 1
+            }}>
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                     gap: '2rem',
                     alignItems: 'center'
                 }}>
-                    <StatItem number={40} label="Years Experience" suffix="+" icon="⭐" />
-                    <StatItem number={200} label="Publications" suffix="+" icon="📚" />
-                    <StatItem number={20} label="Books Published" suffix="+" icon="📖" />
-                    <StatItem number={20} label="Global Awards" suffix="+" icon="🏆" />
+                    <StatItem number={40} label="Years Experience" suffix="+" />
+                    <StatItem number={200} label="Publications" suffix="+" />
+                    <StatItem number={20} label="Books Published" suffix="+" />
+                    <StatItem number={20} label="Global Awards" suffix="+" />
                 </div>
             </div>
         </section>

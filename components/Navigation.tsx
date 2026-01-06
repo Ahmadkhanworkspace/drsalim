@@ -23,150 +23,116 @@ export default function Navigation() {
             left: 0,
             right: 0,
             zIndex: 1000,
-            background: scrolled
-                ? 'rgba(26, 35, 50, 0.95)'
-                : 'rgba(26, 35, 50, 0.7)',
+            background: scrolled ? 'rgba(23, 37, 84, 0.95)' : 'rgba(23, 37, 84, 0.8)',
             backdropFilter: 'blur(20px)',
-            borderBottom: scrolled
-                ? '1px solid rgba(0, 212, 255, 0.3)'
-                : '1px solid rgba(90, 155, 212, 0.1)',
-            transition: 'all var(--transition-normal)',
-            boxShadow: scrolled ? 'var(--shadow-md)' : 'none'
+            borderBottom: scrolled ? '1px solid rgba(251, 191, 36, 0.2)' : '1px solid rgba(251, 191, 36, 0.1)',
+            transition: 'all 0.3s ease',
+            boxShadow: scrolled ? '0 4px 20px rgba(0,0,0,0.1)' : 'none'
         }}>
             <div className="container">
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
                     alignItems: 'center',
-                    padding: 'var(--spacing-md) 0',
-                    transition: 'padding var(--transition-normal)'
+                    padding: '1rem 0'
                 }}>
-                    {/* Logo */}
                     <Link href="/" style={{ textDecoration: 'none' }}>
                         <h3 style={{
                             margin: 0,
                             fontSize: '1.5rem',
                             fontWeight: 800,
-                            color: '#00d4ff', // Cyan/Blue to match theme
-                            letterSpacing: '-0.5px'
+                            color: 'var(--color-gold)',
+                            fontFamily: 'var(--font-heading)'
                         }}>
                             Dr. Muhammad Salim
                         </h3>
                     </Link>
 
-                    {/* Desktop Menu */}
                     <div style={{
                         display: 'flex',
-                        gap: 'var(--spacing-xl)',
+                        gap: '2rem',
                         alignItems: 'center'
                     }} className="desktop-menu">
-                        {['Store', 'Books', 'Articles', 'Achievements'].map((item) => (
+                        {[
+                            { label: 'Store', href: '/store' },
+                            { label: 'About', href: '/about' },
+                            { label: 'Books', href: '#books' },
+                            { label: 'Articles', href: '#articles' },
+                            { label: 'Contact', href: '/contact' },
+                            { label: 'Suggestions', href: '/suggestions' }
+                        ].map((item) => (
                             <Link
-                                key={item}
-                                href={item === 'Store' ? '/store' : `#${item.toLowerCase()}`}
+                                key={item.label}
+                                href={item.href}
                                 style={{
-                                    color: 'var(--color-text-secondary)',
+                                    color: 'white',
                                     textDecoration: 'none',
                                     fontSize: '1rem',
                                     fontWeight: 600,
-                                    position: 'relative',
-                                    transition: 'color var(--transition-fast)',
-                                    padding: '0.5rem 0'
+                                    transition: 'color 0.3s ease'
                                 }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.color = 'var(--color-accent)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.color = 'var(--color-text-secondary)';
-                                }}
+                                onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-gold)'}
+                                onMouseLeave={(e) => e.currentTarget.style.color = 'white'}
                             >
-                                {item}
-                                <span style={{
-                                    position: 'absolute',
-                                    bottom: 0,
-                                    left: 0,
-                                    width: '0%',
-                                    height: '2px',
-                                    background: 'var(--gradient-accent)',
-                                    transition: 'width var(--transition-normal)'
-                                }} className="nav-underline" />
+                                {item.label}
                             </Link>
                         ))}
 
-                        <Link
-                            href="#newsletter"
-                            className="btn btn-primary"
-                            style={{
-                                fontSize: '0.95rem',
-                                padding: '0.7rem 1.8rem'
-                            }}
-                        >
+                        <Link href="#newsletter" className="btn btn-primary" style={{
+                            fontSize: '0.9rem',
+                            padding: '0.7rem 1.8rem'
+                        }}>
                             Subscribe
                         </Link>
                     </div>
 
-                    {/* Mobile Menu Button */}
                     <button
                         onClick={() => setIsOpen(!isOpen)}
                         className="mobile-menu-btn"
                         style={{
                             display: 'none',
-                            background: 'var(--gradient-accent)',
+                            background: 'var(--color-gold)',
                             border: 'none',
-                            color: 'var(--color-navy)',
+                            color: 'var(--color-text-navy)',
                             fontSize: '1.5rem',
                             cursor: 'pointer',
                             width: '45px',
                             height: '45px',
-                            borderRadius: 'var(--radius-sm)',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: 'var(--shadow-md)',
-                            transition: 'transform var(--transition-normal)'
+                            borderRadius: '4px'
                         }}
-                        onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                        onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
                     >
                         {isOpen ? '✕' : '☰'}
                     </button>
                 </div>
 
-                {/* Mobile Menu */}
                 {isOpen && (
                     <div className="mobile-menu" style={{
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: 'var(--spacing-sm)',
-                        padding: 'var(--spacing-lg)',
-                        background: 'rgba(30, 41, 54, 0.95)',
-                        borderRadius: 'var(--radius-md)',
-                        marginBottom: 'var(--spacing-md)',
-                        border: '1px solid rgba(0, 212, 255, 0.2)',
-                        animation: 'fadeInUp 0.3s ease-out'
+                        gap: '0.5rem',
+                        padding: '1rem',
+                        marginBottom: '1rem'
                     }}>
-                        {['Books', 'About', 'Articles', 'Testimonials', 'Achievements', 'Newsletter'].map((item) => (
+                        {[
+                            { label: 'Store', href: '/store' },
+                            { label: 'About', href: '/about' },
+                            { label: 'Books', href: '#books' },
+                            { label: 'Articles', href: '#articles' },
+                            { label: 'Contact', href: '/contact' },
+                            { label: 'Suggestions', href: '/suggestions' }
+                        ].map((item) => (
                             <Link
-                                key={item}
-                                href={`#${item.toLowerCase()}`}
+                                key={item.label}
+                                href={item.href}
                                 onClick={() => setIsOpen(false)}
                                 style={{
-                                    color: 'var(--color-text-secondary)',
+                                    color: 'white',
                                     textDecoration: 'none',
-                                    padding: 'var(--spacing-sm)',
-                                    borderRadius: 'var(--radius-sm)',
-                                    transition: 'all var(--transition-fast)',
+                                    padding: '0.75rem',
                                     fontWeight: 600
                                 }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.background = 'rgba(0, 212, 255, 0.1)';
-                                    e.currentTarget.style.color = 'var(--color-accent)';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.background = 'transparent';
-                                    e.currentTarget.style.color = 'var(--color-text-secondary)';
-                                }}
                             >
-                                {item}
+                                {item.label}
                             </Link>
                         ))}
                     </div>
@@ -175,16 +141,14 @@ export default function Navigation() {
 
             <style dangerouslySetInnerHTML={{
                 __html: `
-          .desktop-menu a:hover .nav-underline {
-            width: 100%;
-          }
-          
           @media (max-width: 768px) {
             .desktop-menu {
               display: none !important;
             }
             .mobile-menu-btn {
               display: flex !important;
+              align-items: center;
+              justify-content: center;
             }
           }
         `

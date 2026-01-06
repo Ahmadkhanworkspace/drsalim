@@ -22,79 +22,53 @@ export default function Newsletter() {
 
     return (
         <section id="newsletter" className="section" style={{
-            background: 'var(--gradient-hero)',
+            background: 'var(--color-bg-navy)',
             position: 'relative',
             overflow: 'hidden'
         }}>
-            {/* Decorative Elements */}
-            <div style={{
-                position: 'absolute',
-                top: '-100px',
-                right: '-100px',
-                width: '400px',
-                height: '400px',
-                background: 'radial-gradient(circle, rgba(0, 212, 255, 0.2) 0%, transparent 70%)',
-                borderRadius: '50%',
-                animation: 'float 8s ease-in-out infinite'
-            }} />
-
-            <div style={{
-                position: 'absolute',
-                bottom: '-100px',
-                left: '-100px',
-                width: '500px',
-                height: '500px',
-                background: 'radial-gradient(circle, rgba(168, 216, 240, 0.15) 0%, transparent 70%)',
-                borderRadius: '50%',
-                animation: 'float 10s ease-in-out infinite',
-                animationDelay: '2s'
-            }} />
-
-            <div className="container" style={{ position: 'relative', zIndex: 1 }}>
+            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
                 <div style={{
-                    maxWidth: '800px',
+                    maxWidth: '700px',
                     margin: '0 auto',
                     textAlign: 'center'
                 }}>
-                    <div style={{
-                        display: 'inline-block',
-                        padding: '0.5rem 1.5rem',
-                        background: 'rgba(255, 255, 255, 0.1)',
-                        borderRadius: 'var(--radius-sm)',
-                        color: 'var(--color-accent)',
-                        fontWeight: 700,
-                        fontSize: '0.9rem',
-                        marginBottom: 'var(--spacing-md)',
+                    <span style={{
+                        color: 'var(--color-gold)',
                         textTransform: 'uppercase',
-                        letterSpacing: '2px',
-                        border: '1px solid rgba(255, 255, 255, 0.2)'
+                        letterSpacing: '0.2em',
+                        fontSize: '0.85rem',
+                        fontWeight: 700,
+                        display: 'block',
+                        marginBottom: '1rem'
                     }}>
                         Newsletter
-                    </div>
+                    </span>
 
                     <h2 style={{
                         color: 'white',
-                        marginBottom: 'var(--spacing-md)',
-                        fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-                        fontWeight: 900
+                        marginBottom: '1.5rem',
+                        fontFamily: 'var(--font-heading)',
+                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)'
                     }}>
                         Stay Informed with the Latest Insights
                     </h2>
 
                     <p style={{
-                        color: 'var(--color-light-blue)',
-                        fontSize: '1.2rem',
-                        marginBottom: 'var(--spacing-2xl)',
-                        lineHeight: 1.8
+                        color: 'rgba(255,255,255,0.7)',
+                        fontSize: '1.1rem',
+                        marginBottom: '3rem',
+                        lineHeight: 1.7
                     }}>
-                        Subscribe now to receive updates on Dr. Muhammad Salim&apos;s latest articles, reflections, and publications directly to your inbox!
+                        Subscribe now to receive updates on Dr. Muhammad Salim's latest articles, reflections, and publications directly to your inbox!
                     </p>
 
+                    {/* Form - Properly grouped input and button */}
                     <form onSubmit={handleSubmit} style={{
                         display: 'flex',
-                        gap: 'var(--spacing-md)',
-                        maxWidth: '650px',
-                        margin: '0 auto',
+                        flexDirection: 'row',
+                        gap: '1rem',
+                        maxWidth: '600px',
+                        margin: '0 auto 2rem',
                         flexWrap: 'wrap',
                         justifyContent: 'center'
                     }}>
@@ -105,38 +79,46 @@ export default function Newsletter() {
                             placeholder="Enter your email address"
                             required
                             style={{
-                                flex: 1,
-                                minWidth: '280px',
-                                padding: 'var(--spacing-md) var(--spacing-lg)',
-                                borderRadius: 'var(--radius-md)',
-                                border: '2px solid rgba(255, 255, 255, 0.2)',
-                                background: 'rgba(255, 255, 255, 0.1)',
-                                color: 'white',
-                                fontSize: '1.05rem',
-                                outline: 'none',
-                                transition: 'all var(--transition-normal)',
-                                backdropFilter: 'blur(10px)'
-                            }}
-                            onFocus={(e) => {
-                                e.target.style.background = 'rgba(255, 255, 255, 0.15)';
-                                e.target.style.borderColor = 'var(--color-accent)';
-                                e.target.style.boxShadow = 'var(--shadow-glow)';
-                            }}
-                            onBlur={(e) => {
-                                e.target.style.background = 'rgba(255, 255, 255, 0.1)';
-                                e.target.style.borderColor = 'rgba(255, 255, 255, 0.2)';
-                                e.target.style.boxShadow = 'none';
+                                flex: '1 1 300px',
+                                minWidth: '250px',
+                                padding: '1rem 1.5rem',
+                                borderRadius: '8px',
+                                background: 'white',
+                                color: 'var(--color-text-navy)',
+                                fontSize: '1rem',
+                                border: 'none',
+                                outline: 'none'
                             }}
                         />
 
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="btn btn-primary"
                             style={{
+                                padding: '1rem 2.5rem',
+                                background: 'var(--color-gold)',
+                                color: 'var(--color-text-navy)',
+                                fontWeight: 700,
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.05em',
+                                fontSize: '0.9rem',
+                                borderRadius: '8px',
+                                border: 'none',
                                 cursor: isSubmitting ? 'not-allowed' : 'pointer',
                                 opacity: isSubmitting ? 0.7 : 1,
-                                minWidth: '180px'
+                                boxShadow: '0 4px 20px rgba(201, 164, 76, 0.3)',
+                                transition: 'all 0.3s ease',
+                                whiteSpace: 'nowrap'
+                            }}
+                            onMouseEnter={(e) => {
+                                if (!isSubmitting) {
+                                    e.currentTarget.style.background = '#fcd34d';
+                                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(201, 164, 76, 0.4)';
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = 'var(--color-gold)';
+                                e.currentTarget.style.boxShadow = '0 4px 20px rgba(201, 164, 76, 0.3)';
                             }}
                         >
                             {isSubmitting ? 'Subscribing...' : 'Subscribe Now'}
@@ -145,15 +127,14 @@ export default function Newsletter() {
 
                     {message && (
                         <div style={{
-                            marginTop: 'var(--spacing-lg)',
-                            padding: 'var(--spacing-md) var(--spacing-lg)',
-                            background: 'rgba(0, 212, 255, 0.2)',
-                            borderRadius: 'var(--radius-md)',
+                            marginTop: '1.5rem',
+                            padding: '1rem 1.5rem',
+                            background: 'rgba(251, 191, 36, 0.2)',
+                            borderRadius: '8px',
                             color: 'white',
-                            fontSize: '1.1rem',
+                            fontSize: '1rem',
                             fontWeight: 600,
-                            animation: 'fadeIn 0.3s ease-out',
-                            border: '1px solid rgba(0, 212, 255, 0.4)'
+                            border: '1px solid rgba(251, 191, 36, 0.4)'
                         }}>
                             {message}
                         </div>

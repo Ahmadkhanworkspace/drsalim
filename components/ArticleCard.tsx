@@ -1,7 +1,6 @@
 'use client';
 
 import { Article } from '@/data/articles';
-import Image from 'next/image';
 
 interface PremiumArticleCardProps {
     article: Article;
@@ -10,159 +9,127 @@ interface PremiumArticleCardProps {
 
 export default function PremiumArticleCard({ article, index }: PremiumArticleCardProps) {
     return (
-        <article
-            className="modern-card"
-            style={{
-                padding: 0,
-                overflow: 'hidden',
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                animation: `fadeInUp 0.6s ease-out ${index * 0.1}s backwards`,
-                transition: 'all var(--transition-normal)'
-            }}
-            onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px)';
-            }}
-            onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-            }}
-        >
+        <article className="modern-card" style={{
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: 'white',
+            border: 'none',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2)',
+            height: '100%'
+        }}>
             {/* Featured Image */}
             <div style={{
                 position: 'relative',
                 width: '100%',
-                height: '240px',
-                background: `linear-gradient(135deg, 
-          ${index % 3 === 0 ? '#2d5f8d' : index % 3 === 1 ? '#1a2332' : '#5a9bd4'} 0%, 
-          ${index % 3 === 0 ? '#5a9bd4' : index % 3 === 1 ? '#2d5f8d' : '#a8d8f0'} 100%)`,
-                overflow: 'hidden'
+                height: '220px',
+                background: '#f8fafc',
+                overflow: 'hidden',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderBottom: '1px solid rgba(0,0,0,0.05)'
             }}>
-                {/* Placeholder Icon */}
                 <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    fontSize: '4rem',
-                    opacity: 0.3
+                    fontSize: '3rem',
+                    color: 'var(--color-gold)',
+                    opacity: 0.8
                 }}>
-                    📝
+                    ✒️
                 </div>
 
                 {/* Category Badge */}
                 <div style={{
                     position: 'absolute',
-                    top: 'var(--spacing-md)',
-                    left: 'var(--spacing-md)',
-                    padding: '0.4rem 1rem',
-                    background: 'var(--color-accent)',
-                    color: 'var(--color-navy)',
-                    borderRadius: 'var(--radius-sm)',
-                    fontSize: '0.75rem',
-                    fontWeight: 800,
+                    top: '1.5rem',
+                    left: '1.5rem',
+                    color: 'white',
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
                     textTransform: 'uppercase',
-                    letterSpacing: '1px',
-                    boxShadow: '0 4px 12px rgba(0, 212, 255, 0.4)'
+                    letterSpacing: '0.1em',
+                    background: 'var(--color-gold)',
+                    padding: '0.3rem 0.8rem',
+                    borderRadius: '2px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
                 }}>
                     {article.category}
                 </div>
+            </div>
 
-                {/* Date Badge */}
+            {/* Content - Properly grouped */}
+            <div style={{
+                padding: '2rem',
+                flex: 1,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start'
+            }}>
+                {/* Date */}
                 <div style={{
-                    position: 'absolute',
-                    bottom: 'var(--spacing-md)',
-                    right: 'var(--spacing-md)',
-                    padding: '0.4rem 1rem',
-                    background: 'rgba(26, 35, 50, 0.9)',
-                    backdropFilter: 'blur(10px)',
-                    color: 'white',
-                    borderRadius: 'var(--radius-sm)',
-                    fontSize: '0.8rem',
-                    fontWeight: 600,
-                    border: '1px solid rgba(0, 212, 255, 0.3)'
+                    fontSize: '0.75rem',
+                    color: '#94a3b8',
+                    marginBottom: '0.75rem',
+                    fontFamily: 'var(--font-body)',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
+                    fontWeight: 600
                 }}>
                     {article.date}
                 </div>
-            </div>
 
-            {/* Content */}
-            <div style={{
-                padding: 'var(--spacing-lg)',
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column'
-            }}>
                 {/* Title */}
                 <h3 style={{
-                    fontSize: '1.3rem',
-                    marginBottom: 'var(--spacing-sm)',
-                    color: 'var(--color-text-primary)',
-                    fontWeight: 800,
-                    lineHeight: 1.3,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                    minHeight: '2.6em'
+                    fontSize: '1.4rem',
+                    marginBottom: '1rem',
+                    color: '#0f172a',
+                    fontFamily: 'var(--font-heading)',
+                    fontWeight: 700,
+                    lineHeight: 1.3
                 }}>
                     {article.title}
                 </h3>
 
-                {/* Meta Info */}
-                <div style={{
-                    display: 'flex',
-                    gap: 'var(--spacing-md)',
-                    marginBottom: 'var(--spacing-md)',
-                    fontSize: '0.85rem',
-                    color: 'var(--color-text-muted)'
-                }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                        👁️ {article.views.toLocaleString()} views
-                    </span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                        💬 {article.comments} comments
-                    </span>
-                </div>
-
                 {/* Excerpt */}
                 <p style={{
-                    color: 'var(--color-text-secondary)',
+                    color: '#475569',
                     lineHeight: 1.7,
                     fontSize: '0.95rem',
-                    flex: 1,
-                    marginBottom: 'var(--spacing-md)',
+                    marginBottom: '2rem',
                     display: '-webkit-box',
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden'
+                    overflow: 'hidden',
+                    flex: 1
                 }}>
-                    {article.title} - Explore this insightful article on {article.category.toLowerCase()} and discover profound perspectives on spiritual growth and understanding.
+                    {article.title} - Explore this insightful article on {article.category.toLowerCase()} and discover profound perspectives.
                 </p>
 
-                {/* Read More Button */}
+                {/* Read More Link */}
                 <a
                     href={`/articles/${article.id}`}
                     style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: 'var(--color-accent)',
+                        marginTop: 'auto',
+                        color: 'var(--color-gold-dark)',
                         fontWeight: 700,
-                        fontSize: '0.9rem',
+                        fontSize: '0.85rem',
                         textDecoration: 'none',
-                        transition: 'all var(--transition-fast)',
-                        marginTop: 'auto'
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.5rem',
+                        transition: 'all 0.3s ease',
+                        fontFamily: 'var(--font-body)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em'
                     }}
                     onMouseEnter={(e) => {
-                        e.currentTarget.style.gap = 'var(--spacing-md)';
+                        e.currentTarget.style.gap = '0.8rem';
                     }}
                     onMouseLeave={(e) => {
-                        e.currentTarget.style.gap = 'var(--spacing-sm)';
+                        e.currentTarget.style.gap = '0.5rem';
                     }}
                 >
-                    <span>Read Full Article</span>
-                    <span style={{ fontSize: '1.2rem' }}>→</span>
+                    Read Article <span>→</span>
                 </a>
             </div>
         </article>
