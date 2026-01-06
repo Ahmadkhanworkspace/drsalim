@@ -41,10 +41,7 @@ export default async function Home() {
 
             <h2 style={{
               marginBottom: 'var(--spacing-md)',
-              background: 'var(--gradient-accent)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
+              color: 'var(--color-text-primary)'
             }}>
               Download His Books Now on Amazon
             </h2>
@@ -92,10 +89,7 @@ export default async function Home() {
 
             <h2 style={{
               marginBottom: 'var(--spacing-md)',
-              background: 'var(--gradient-accent)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
+              color: 'var(--color-text-primary)'
             }}>
               Expand Your Knowledge with Thought-Provoking Articles
             </h2>

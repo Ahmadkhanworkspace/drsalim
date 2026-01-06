@@ -43,51 +43,15 @@ export default function Navigation() {
                 }}>
                     {/* Logo */}
                     <Link href="/" style={{ textDecoration: 'none' }}>
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: 'var(--spacing-sm)'
+                        <h3 style={{
+                            margin: 0,
+                            fontSize: '1.5rem',
+                            fontWeight: 800,
+                            color: '#00d4ff', // Cyan/Blue to match theme
+                            letterSpacing: '-0.5px'
                         }}>
-                            <div style={{
-                                width: '45px',
-                                height: '45px',
-                                background: 'var(--gradient-accent)',
-                                borderRadius: 'var(--radius-sm)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '1.5rem',
-                                boxShadow: 'var(--shadow-glow)',
-                                transition: 'transform var(--transition-normal)'
-                            }}
-                                onMouseEnter={(e) => e.currentTarget.style.transform = 'rotate(5deg) scale(1.05)'}
-                                onMouseLeave={(e) => e.currentTarget.style.transform = 'rotate(0deg) scale(1)'}>
-                                📚
-                            </div>
-                            <div>
-                                <h3 style={{
-                                    margin: 0,
-                                    fontSize: '1.3rem',
-                                    fontWeight: 800,
-                                    background: 'var(--gradient-accent)',
-                                    WebkitBackgroundClip: 'text',
-                                    WebkitTextFillColor: 'transparent',
-                                    backgroundClip: 'text'
-                                }}>
-                                    Dr. M. Salim
-                                </h3>
-                                <p style={{
-                                    margin: 0,
-                                    fontSize: '0.7rem',
-                                    color: 'var(--color-text-muted)',
-                                    fontWeight: 500,
-                                    letterSpacing: '1px',
-                                    textTransform: 'uppercase'
-                                }}>
-                                    Scholar & Author
-                                </p>
-                            </div>
-                        </div>
+                            Dr. Muhammad Salim
+                        </h3>
                     </Link>
 
                     {/* Desktop Menu */}
