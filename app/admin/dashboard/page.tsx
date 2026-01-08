@@ -6,10 +6,10 @@ import dynamic from 'next/dynamic';
 // Dynamically import Globe3D to avoid SSR issues
 const Globe3D = dynamic(() => import('@/components/admin/Globe3D'), { ssr: false });
 
-// Shared analytics data - matching analytics page
+// Shared analytics data
 const ANALYTICS_DATA = {
-    totalRevenue: 942,  // Total earnings from books
-    totalSales: 86,  // 47 + 21 + 5 + 13 = 86
+    totalRevenue: 942,
+    totalSales: 86,
     publishedBooks: 5,
     publishedArticles: 10,
     pendingComments: 23
@@ -17,23 +17,15 @@ const ANALYTICS_DATA = {
 
 export default function DashboardPage() {
     const [realtimeUsers, setRealtimeUsers] = useState(0);
-    const [pulseAnimation, setPulseAnimation] = useState(false);
 
-    // Initialize and update real-time users
     useEffect(() => {
         const getRandomUsers = () => Math.floor(Math.random() * (432 - 119 + 1)) + 119;
         setRealtimeUsers(getRandomUsers());
 
-        // Update every 5 minutes
         const interval = setInterval(() => {
-            setPulseAnimation(true);
-            setTimeout(() => {
-                setRealtimeUsers(getRandomUsers());
-                setPulseAnimation(false);
-            }, 500);
+            setRealtimeUsers(getRandomUsers());
         }, 300000);
 
-        // Small fluctuations every 3 seconds
         const fluctuation = setInterval(() => {
             setRealtimeUsers(prev => {
                 const change = Math.floor(Math.random() * 5) - 2;
@@ -49,414 +41,245 @@ export default function DashboardPage() {
     }, []);
 
     return (
-        <div>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             {/* Header */}
-            <div style={{ marginBottom: 'var(--spacing-2xl)' }}>
+            <div style={{ marginBottom: '20px' }}>
                 <h1 style={{
-                    fontSize: '2rem',
-                    fontWeight: 800,
-                    color: '#0f172a',
-                    marginBottom: '0.5rem',
-                    letterSpacing: '-0.5px'
+                    fontSize: '1.75rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '4px'
                 }}>
-                    Dashboard Overview
+                    Dashboard
                 </h1>
                 <p style={{
-                    color: '#64748b',
-                    fontSize: '1rem',
-                    fontWeight: 500
+                    color: '#565959',
+                    fontSize: '0.875rem',
+                    margin: 0
                 }}>
-                    Welcome back! Here's what's happening with your content today.
+                    Overview of your content and activity
                 </p>
             </div>
 
-            {/* Real-time Users with 3D Globe */}
+            {/* Real-time Users with Globe */}
             <div style={{
-                background: 'white',
-                borderRadius: '16px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                padding: 'var(--spacing-xl)',
-                marginBottom: 'var(--spacing-2xl)',
-                overflow: 'hidden'
+                background: '#fff',
+                borderRadius: '8px',
+                border: '1px solid #D5D9D9',
+                padding: '16px',
+                marginBottom: '20px'
             }}>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: 'var(--spacing-2xl)',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                    gap: '20px',
                     alignItems: 'center'
                 }}>
-                    {/* 3D Globe */}
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
-                        alignItems: 'center',
-                        minHeight: '300px'
+                        minHeight: '250px'
                     }}>
                         <Globe3D realtimeUsers={realtimeUsers} />
                     </div>
 
-                    {/* Real-time Stats */}
                     <div>
                         <div style={{
                             display: 'inline-flex',
                             alignItems: 'center',
-                            gap: 'var(--spacing-sm)',
-                            padding: '0.5rem 1rem',
-                            background: '#dcfce7',
-                            borderRadius: '8px',
-                            marginBottom: 'var(--spacing-md)'
+                            gap: '6px',
+                            padding: '4px 10px',
+                            background: '#D1F4E0',
+                            borderRadius: '4px',
+                            marginBottom: '12px'
                         }}>
                             <div style={{
-                                width: '8px',
-                                height: '8px',
+                                width: '6px',
+                                height: '6px',
                                 borderRadius: '50%',
-                                background: '#10b981',
-                                animation: 'pulse 2s ease-in-out infinite'
+                                background: '#067D62'
                             }} />
                             <span style={{
-                                color: '#166534',
-                                fontSize: '0.85rem',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.5px'
+                                color: '#067D62',
+                                fontSize: '0.75rem',
+                                fontWeight: 600,
+                                textTransform: 'uppercase'
                             }}>
-                                Live Now
+                                Live
                             </span>
                         </div>
 
                         <h2 style={{
-                            fontSize: '1.3rem',
-                            fontWeight: 700,
-                            color: '#0f172a',
-                            marginBottom: 'var(--spacing-sm)',
-                            letterSpacing: '-0.3px'
+                            fontSize: '1.125rem',
+                            fontWeight: 400,
+                            color: '#0F1111',
+                            marginBottom: '8px'
                         }}>
-                            Real-time Visitors
+                            Real-time visitors
                         </h2>
 
                         <div style={{
-                            fontSize: '4rem',
-                            fontWeight: 900,
-                            color: '#3b82f6',
-                            letterSpacing: '-2px',
-                            marginBottom: 'var(--spacing-md)',
-                            transform: pulseAnimation ? 'scale(1.1)' : 'scale(1)',
-                            transition: 'transform 0.3s ease'
+                            fontSize: '2.5rem',
+                            fontWeight: 700,
+                            color: '#067D62',
+                            marginBottom: '12px'
                         }}>
                             {realtimeUsers}
                         </div>
 
                         <p style={{
-                            color: '#64748b',
-                            fontSize: '0.95rem',
-                            lineHeight: 1.6,
-                            fontWeight: 500,
-                            marginBottom: 'var(--spacing-lg)'
+                            color: '#565959',
+                            fontSize: '0.8125rem',
+                            lineHeight: 1.5,
+                            marginBottom: '12px'
                         }}>
-                            Active users browsing your content right now from around the world
+                            Active users browsing your content from around the world
                         </p>
 
                         <div style={{
-                            padding: 'var(--spacing-md)',
-                            background: '#f8fafc',
-                            borderRadius: '8px',
-                            border: '1px solid #e2e8f0'
+                            padding: '10px',
+                            background: '#F7FAFA',
+                            borderRadius: '4px',
+                            border: '1px solid #D5D9D9'
                         }}>
                             <div style={{
                                 fontSize: '0.75rem',
-                                color: '#64748b',
-                                marginBottom: '0.25rem',
-                                fontWeight: 600
+                                color: '#565959',
+                                marginBottom: '2px'
                             }}>
                                 Updates every 5 minutes
                             </div>
                             <div style={{
-                                fontSize: '0.85rem',
-                                color: '#10b981',
+                                fontSize: '0.8125rem',
+                                color: '#067D62',
                                 fontWeight: 600
                             }}>
-                                ↗ +{Math.floor(Math.random() * 20 + 5)}% from last hour
+                                ↗ +12% from last hour
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <style jsx>{`
-          @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.5); }
-          }
-        `}</style>
             </div>
 
-            {/* Stats Grid - Matching Analytics Design */}
+            {/* Stats Grid */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-                gap: 'var(--spacing-lg)',
-                marginBottom: 'var(--spacing-2xl)'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '12px',
+                marginBottom: '20px'
             }}>
-                {/* Total Revenue */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        marginBottom: 'var(--spacing-md)'
+                {[
+                    { label: 'Total Revenue', value: `$${ANALYTICS_DATA.totalRevenue.toLocaleString()}`, icon: '💰', change: '+12.5%', positive: true },
+                    { label: 'Total Sales', value: ANALYTICS_DATA.totalSales, icon: '📊', change: '+8.2%', positive: true },
+                    { label: 'Published Books', value: ANALYTICS_DATA.publishedBooks, icon: '📚', change: null },
+                    { label: 'Published Articles', value: ANALYTICS_DATA.publishedArticles, icon: '✍️', change: null },
+                    { label: 'Pending Comments', value: ANALYTICS_DATA.pendingComments, icon: '💬', change: 'Needs review', positive: false }
+                ].map((stat, index) => (
+                    <div key={index} style={{
+                        padding: '14px',
+                        background: '#fff',
+                        border: '1px solid #D5D9D9',
+                        borderRadius: '8px'
                     }}>
                         <div style={{
-                            color: '#64748b',
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
-                            fontWeight: 600
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                            marginBottom: '8px'
                         }}>
-                            Total Revenue
+                            <div style={{
+                                color: '#565959',
+                                fontSize: '0.75rem',
+                                textTransform: 'uppercase',
+                                letterSpacing: '0.3px'
+                            }}>
+                                {stat.label}
+                            </div>
+                            <div style={{ fontSize: '1.125rem' }}>{stat.icon}</div>
                         </div>
-                        <div style={{ fontSize: '1.5rem' }}>💰</div>
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        ${ANALYTICS_DATA.totalRevenue.toLocaleString()}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        ↗ +12.5%
-                    </div>
-                </div>
-
-                {/* Total Sales */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        marginBottom: 'var(--spacing-md)'
-                    }}>
                         <div style={{
-                            color: '#64748b',
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
-                            fontWeight: 600
+                            fontSize: '1.75rem',
+                            fontWeight: 700,
+                            color: '#0F1111',
+                            marginBottom: '4px'
                         }}>
-                            Total Sales
+                            {stat.value}
                         </div>
-                        <div style={{ fontSize: '1.5rem' }}>📊</div>
+                        {stat.change && (
+                            <div style={{
+                                color: stat.positive ? '#067D62' : '#C7511F',
+                                fontSize: '0.75rem',
+                                fontWeight: 600
+                            }}>
+                                {stat.change}
+                            </div>
+                        )}
                     </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {ANALYTICS_DATA.totalSales}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        ↗ +8.2%
-                    </div>
-                </div>
-
-                {/* Published Books */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        marginBottom: 'var(--spacing-md)'
-                    }}>
-                        <div style={{
-                            color: '#64748b',
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
-                            fontWeight: 600
-                        }}>
-                            Published<br />Books
-                        </div>
-                        <div style={{ fontSize: '1.5rem' }}>📚</div>
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a'
-                    }}>
-                        {ANALYTICS_DATA.publishedBooks}
-                    </div>
-                </div>
-
-                {/* Published Articles */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        marginBottom: 'var(--spacing-md)'
-                    }}>
-                        <div style={{
-                            color: '#64748b',
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
-                            fontWeight: 600
-                        }}>
-                            Published<br />Articles
-                        </div>
-                        <div style={{ fontSize: '1.5rem' }}>✍️</div>
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a'
-                    }}>
-                        {ANALYTICS_DATA.publishedArticles}
-                    </div>
-                </div>
-
-                {/* Pending Comments */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '12px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                        marginBottom: 'var(--spacing-md)'
-                    }}>
-                        <div style={{
-                            color: '#64748b',
-                            fontSize: '0.75rem',
-                            textTransform: 'uppercase',
-                            letterSpacing: '0.5px',
-                            fontWeight: 600
-                        }}>
-                            Pending<br />Comments
-                        </div>
-                        <div style={{ fontSize: '1.5rem' }}>💬</div>
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {ANALYTICS_DATA.pendingComments}
-                    </div>
-                    <div style={{
-                        color: '#ef4444',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        Needs review
-                    </div>
-                </div>
+                ))}
             </div>
 
             {/* Quick Actions */}
-            <div style={{ marginBottom: 'var(--spacing-2xl)' }}>
+            <div style={{ marginBottom: '20px' }}>
                 <h2 style={{
-                    fontSize: '1.3rem',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    marginBottom: 'var(--spacing-lg)',
-                    letterSpacing: '-0.3px'
+                    fontSize: '1.125rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '12px'
                 }}>
-                    Quick Actions
+                    Quick actions
                 </h2>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-                    gap: 'var(--spacing-md)'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                    gap: '10px'
                 }}>
                     {[
-                        { label: 'Add New Book', icon: '📚', href: '/admin/books/new', color: '#8b5cf6' },
-                        { label: 'Write Article', icon: '✍️', href: '/admin/articles/new', color: '#f59e0b' },
-                        { label: 'Review Comments', icon: '💬', href: '/admin/comments', color: '#ef4444' },
-                        { label: 'View Analytics', icon: '📈', href: '/admin/analytics', color: '#3b82f6' }
+                        { label: 'Add new book', icon: '📚', href: '/admin/books/new' },
+                        { label: 'Write article', icon: '✍️', href: '/admin/articles/new' },
+                        { label: 'Review comments', icon: '💬', href: '/admin/comments' },
+                        { label: 'View analytics', icon: '📈', href: '/admin/analytics' }
                     ].map((action) => (
                         <a
                             key={action.label}
                             href={action.href}
                             style={{
-                                padding: 'var(--spacing-lg)',
+                                padding: '12px',
                                 textDecoration: 'none',
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--spacing-md)',
-                                transition: 'all 0.3s',
-                                background: 'white',
-                                border: '1px solid #e2e8f0',
-                                borderRadius: '12px',
-                                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                                cursor: 'pointer'
+                                gap: '10px',
+                                background: '#fff',
+                                border: '1px solid #D5D9D9',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s'
                             }}
                             onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-2px)';
-                                e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.1)';
-                                e.currentTarget.style.borderColor = action.color;
+                                e.currentTarget.style.borderColor = '#008296';
+                                e.currentTarget.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
                             }}
                             onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.05)';
-                                e.currentTarget.style.borderColor = '#e2e8f0';
+                                e.currentTarget.style.borderColor = '#D5D9D9';
+                                e.currentTarget.style.boxShadow = 'none';
                             }}
                         >
                             <div style={{
-                                width: '48px',
-                                height: '48px',
-                                borderRadius: '12px',
-                                background: `linear-gradient(135deg, ${action.color}15 0%, ${action.color}05 100%)`,
+                                width: '36px',
+                                height: '36px',
+                                borderRadius: '8px',
+                                background: '#F7FAFA',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1.5rem'
+                                fontSize: '1.125rem',
+                                flexShrink: 0
                             }}>
                                 {action.icon}
                             </div>
                             <span style={{
-                                color: '#0f172a',
-                                fontWeight: 600,
-                                fontSize: '0.95rem'
+                                color: '#0F1111',
+                                fontWeight: 400,
+                                fontSize: '0.875rem'
                             }}>
                                 {action.label}
                             </span>
@@ -468,74 +291,67 @@ export default function DashboardPage() {
             {/* Recent Activity */}
             <div>
                 <h2 style={{
-                    fontSize: '1.3rem',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    marginBottom: 'var(--spacing-lg)',
-                    letterSpacing: '-0.3px'
+                    fontSize: '1.125rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '12px'
                 }}>
-                    Recent Activity
+                    Recent activity
                 </h2>
                 <div style={{
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
+                    background: '#fff',
+                    borderRadius: '8px',
+                    border: '1px solid #D5D9D9',
                     overflow: 'hidden'
                 }}>
                     {[
-                        { action: 'New book sale', item: 'Divine Providence', time: '2 hours ago', icon: '📚', color: '#8b5cf6' },
-                        { action: 'New comment', item: 'Article: Spiritual Growth', time: '5 hours ago', icon: '💬', color: '#ef4444' },
-                        { action: 'Article published', item: 'Understanding Faith', time: '1 day ago', icon: '✍️', color: '#f59e0b' },
-                        { action: 'Book updated', item: 'Human Journey', time: '2 days ago', icon: '📖', color: '#3b82f6' }
+                        { action: 'New book sale', item: 'Divine Providence', time: '2 hours ago', icon: '📚' },
+                        { action: 'New comment', item: 'Article: Spiritual Growth', time: '5 hours ago', icon: '💬' },
+                        { action: 'Article published', item: 'Understanding Faith', time: '1 day ago', icon: '✍️' },
+                        { action: 'Book updated', item: 'Human Journey', time: '2 days ago', icon: '📖' }
                     ].map((activity, index) => (
                         <div
                             key={index}
                             style={{
                                 display: 'flex',
                                 alignItems: 'center',
-                                gap: 'var(--spacing-md)',
-                                padding: 'var(--spacing-lg)',
-                                borderBottom: index < 3 ? '1px solid #f1f5f9' : 'none',
-                                transition: 'background 0.2s'
+                                gap: '12px',
+                                padding: '12px 14px',
+                                borderBottom: index < 3 ? '1px solid #E3E6E6' : 'none'
                             }}
-                            onMouseEnter={(e) => e.currentTarget.style.background = '#f8fafc'}
-                            onMouseLeave={(e) => e.currentTarget.style.background = 'white'}
                         >
                             <div style={{
-                                width: '44px',
-                                height: '44px',
-                                borderRadius: '12px',
-                                background: `linear-gradient(135deg, ${activity.color}15 0%, ${activity.color}05 100%)`,
+                                width: '32px',
+                                height: '32px',
+                                borderRadius: '8px',
+                                background: '#F7FAFA',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                fontSize: '1.3rem',
+                                fontSize: '1rem',
                                 flexShrink: 0
                             }}>
                                 {activity.icon}
                             </div>
                             <div style={{ flex: 1 }}>
                                 <div style={{
-                                    color: '#0f172a',
+                                    color: '#0F1111',
                                     fontWeight: 600,
-                                    marginBottom: '0.25rem',
-                                    fontSize: '0.95rem'
+                                    marginBottom: '2px',
+                                    fontSize: '0.875rem'
                                 }}>
                                     {activity.action}
                                 </div>
                                 <div style={{
-                                    color: '#64748b',
-                                    fontSize: '0.85rem',
-                                    fontWeight: 500
+                                    color: '#565959',
+                                    fontSize: '0.8125rem'
                                 }}>
                                     {activity.item}
                                 </div>
                             </div>
                             <div style={{
-                                color: '#94a3b8',
-                                fontSize: '0.8rem',
-                                fontWeight: 500
+                                color: '#6F7373',
+                                fontSize: '0.75rem'
                             }}>
                                 {activity.time}
                             </div>

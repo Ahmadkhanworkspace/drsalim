@@ -3,27 +3,19 @@
 import { useState } from 'react';
 
 export default function AnalyticsPage() {
-    // Sample data - will be replaced with real MongoDB data
     const [analytics] = useState({
-        // Book Sales
         totalBookSales: 86,
-        bookSalesGrowth: '+12.5% from last month',
-
-        // Blog Metrics
+        bookSalesGrowth: '+12.5%',
         totalBlogViews: 4175625,
-        blogViewsGrowth: '+8.3% from last month',
+        blogViewsGrowth: '+8.3%',
         todaysViews: 14449,
-        todaysGrowth: '+15.2% from yesterday',
+        todaysGrowth: '+15.2%',
         last6MonthsViews: 4175625,
-        last6MonthsGrowth: '+22.1% growth',
-
-        // Engagement
+        last6MonthsGrowth: '+22.1%',
         totalBlogComments: 741,
-        commentsGrowth: '+5.7% from last month',
+        commentsGrowth: '+5.7%',
         totalBlogLikes: 4889,
-        likesGrowth: '+18.9% from last month',
-
-        // Individual Book Sales
+        likesGrowth: '+18.9%',
         bookSales: [
             { name: 'Brotherhood', sales: 47 },
             { name: 'Divine Providence', sales: 21 },
@@ -31,12 +23,8 @@ export default function AnalyticsPage() {
             { name: 'Divine Providence Vol 2', sales: 0 },
             { name: 'Spiritual Diseases', sales: 13 }
         ],
-
-        // Financial
         totalEarnings: 942,
         totalPayouts: 49,
-
-        // Monthly Revenue - totals to $942 with 86 sales
         monthlyRevenue: [
             { month: 'Jan', revenue: 120, sales: 11 },
             { month: 'Feb', revenue: 135, sales: 13 },
@@ -50,319 +38,126 @@ export default function AnalyticsPage() {
     const maxRevenue = Math.max(...analytics.monthlyRevenue.map(m => m.revenue));
 
     return (
-        <div>
+        <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             {/* Header */}
-            <div style={{ marginBottom: 'var(--spacing-2xl)' }}>
+            <div style={{ marginBottom: '20px' }}>
                 <h1 style={{
-                    fontSize: '2rem',
-                    fontWeight: 800,
-                    color: '#0f172a',
-                    marginBottom: '0.5rem',
-                    letterSpacing: '-0.5px'
+                    fontSize: '1.75rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '4px'
                 }}>
                     Analytics & Revenue
                 </h1>
                 <p style={{
-                    color: '#64748b',
-                    fontSize: '1rem',
-                    fontWeight: 500
+                    color: '#565959',
+                    fontSize: '0.875rem',
+                    margin: 0
                 }}>
-                    Comprehensive overview of your sales, traffic, and engagement metrics
+                    Sales, traffic, and engagement metrics
                 </p>
             </div>
 
             {/* Top Metrics Grid */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-                gap: 'var(--spacing-lg)',
-                marginBottom: 'var(--spacing-2xl)'
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '12px',
+                marginBottom: '20px'
             }}>
-                {/* Total Book Sales */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: '#64748b',
-                        fontSize: '0.75rem',
-                        marginBottom: '0.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontWeight: 600
+                {[
+                    { label: 'Book Sales', value: analytics.totalBookSales, icon: '📚', change: analytics.bookSalesGrowth },
+                    { label: 'Blog Views', value: analytics.totalBlogViews.toLocaleString(), icon: '👁️', change: analytics.blogViewsGrowth },
+                    { label: "Today's Views", value: analytics.todaysViews.toLocaleString(), icon: '📅', change: analytics.todaysGrowth },
+                    { label: '6 Months Views', value: analytics.last6MonthsViews.toLocaleString(), icon: '📊', change: analytics.last6MonthsGrowth },
+                    { label: 'Comments', value: analytics.totalBlogComments, icon: '💬', change: analytics.commentsGrowth },
+                    { label: 'Likes', value: analytics.totalBlogLikes.toLocaleString(), icon: '❤️', change: analytics.likesGrowth }
+                ].map((stat, index) => (
+                    <div key={index} style={{
+                        padding: '14px',
+                        background: '#fff',
+                        border: '1px solid #D5D9D9',
+                        borderRadius: '8px'
                     }}>
-                        📚 Total Book Sales
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                            marginBottom: '8px'
+                        }}>
+                            <div style={{
+                                color: '#565959',
+                                fontSize: '0.75rem',
+                                textTransform: 'uppercase'
+                            }}>
+                                {stat.label}
+                            </div>
+                            <div style={{ fontSize: '1.125rem' }}>{stat.icon}</div>
+                        </div>
+                        <div style={{
+                            fontSize: '1.5rem',
+                            fontWeight: 700,
+                            color: '#0F1111',
+                            marginBottom: '4px'
+                        }}>
+                            {stat.value}
+                        </div>
+                        <div style={{
+                            color: '#067D62',
+                            fontSize: '0.75rem',
+                            fontWeight: 600
+                        }}>
+                            {stat.change}
+                        </div>
                     </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        letterSpacing: '-1px',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {analytics.totalBookSales}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        {analytics.bookSalesGrowth}
-                    </div>
-                </div>
-
-                {/* Total Blog Views */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: '#64748b',
-                        fontSize: '0.75rem',
-                        marginBottom: '0.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontWeight: 600
-                    }}>
-                        👁️ Total Blog Views
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        letterSpacing: '-1px',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {analytics.totalBlogViews.toLocaleString()}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        {analytics.blogViewsGrowth}
-                    </div>
-                </div>
-
-                {/* Today's Views */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: '#64748b',
-                        fontSize: '0.75rem',
-                        marginBottom: '0.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontWeight: 600
-                    }}>
-                        📅 Today's Views
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        letterSpacing: '-1px',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {analytics.todaysViews.toLocaleString()}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        {analytics.todaysGrowth}
-                    </div>
-                </div>
-
-                {/* Last 6 Months Views */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: '#64748b',
-                        fontSize: '0.75rem',
-                        marginBottom: '0.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontWeight: 600
-                    }}>
-                        📊 Last 6 Months Views
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        letterSpacing: '-1px',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {analytics.last6MonthsViews.toLocaleString()}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        {analytics.last6MonthsGrowth}
-                    </div>
-                </div>
-
-                {/* Total Blog Comments */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: '#64748b',
-                        fontSize: '0.75rem',
-                        marginBottom: '0.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontWeight: 600
-                    }}>
-                        💬 Total Blog Comments
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        letterSpacing: '-1px',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {analytics.totalBlogComments}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        {analytics.commentsGrowth}
-                    </div>
-                </div>
-
-                {/* Total Blog Likes */}
-                <div style={{
-                    padding: 'var(--spacing-xl)',
-                    background: 'white',
-                    borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
-                    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)'
-                }}>
-                    <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'var(--spacing-sm)',
-                        color: '#64748b',
-                        fontSize: '0.75rem',
-                        marginBottom: '0.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        fontWeight: 600
-                    }}>
-                        ❤️ Total Blog Likes
-                    </div>
-                    <div style={{
-                        fontSize: '2.5rem',
-                        fontWeight: 900,
-                        color: '#0f172a',
-                        letterSpacing: '-1px',
-                        marginBottom: 'var(--spacing-sm)'
-                    }}>
-                        {analytics.totalBlogLikes.toLocaleString()}
-                    </div>
-                    <div style={{
-                        color: '#10b981',
-                        fontSize: '0.85rem',
-                        fontWeight: 600
-                    }}>
-                        {analytics.likesGrowth}
-                    </div>
-                </div>
+                ))}
             </div>
 
-            {/* Your Book Sales */}
+            {/* Book Sales */}
             <div style={{
-                background: 'white',
-                borderRadius: '16px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                padding: 'var(--spacing-xl)',
-                marginBottom: 'var(--spacing-2xl)'
+                background: '#fff',
+                borderRadius: '8px',
+                border: '1px solid #D5D9D9',
+                padding: '16px',
+                marginBottom: '20px'
             }}>
                 <h2 style={{
-                    fontSize: '1.3rem',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    marginBottom: 'var(--spacing-lg)',
-                    letterSpacing: '-0.3px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--spacing-sm)'
+                    fontSize: '1.125rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '12px'
                 }}>
-                    📚 Your Book Sales
+                    Book sales by title
                 </h2>
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-                    gap: 'var(--spacing-lg)'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                    gap: '12px'
                 }}>
                     {analytics.bookSales.map((book, index) => (
                         <div
                             key={index}
                             style={{
-                                padding: 'var(--spacing-lg)',
-                                background: '#f8fafc',
-                                borderRadius: '12px',
-                                border: '1px solid #e2e8f0',
+                                padding: '14px',
+                                background: '#F7FAFA',
+                                borderRadius: '8px',
+                                border: '1px solid #D5D9D9',
                                 textAlign: 'center'
                             }}
                         >
                             <div style={{
-                                color: '#64748b',
-                                fontSize: '0.9rem',
-                                marginBottom: 'var(--spacing-sm)',
+                                color: '#565959',
+                                fontSize: '0.8125rem',
+                                marginBottom: '8px',
                                 fontWeight: 600
                             }}>
                                 {book.name}
                             </div>
                             <div style={{
-                                fontSize: '2.5rem',
-                                fontWeight: 900,
-                                color: '#3b82f6'
+                                fontSize: '1.75rem',
+                                fontWeight: 700,
+                                color: '#067D62'
                             }}>
                                 {book.sales}
                             </div>
@@ -373,76 +168,69 @@ export default function AnalyticsPage() {
 
             {/* Financial Overview */}
             <div style={{
-                background: 'white',
-                borderRadius: '16px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                padding: 'var(--spacing-xl)',
-                marginBottom: 'var(--spacing-2xl)'
+                background: '#fff',
+                borderRadius: '8px',
+                border: '1px solid #D5D9D9',
+                padding: '16px',
+                marginBottom: '20px'
             }}>
                 <h2 style={{
-                    fontSize: '1.3rem',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    marginBottom: 'var(--spacing-lg)',
-                    letterSpacing: '-0.3px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--spacing-sm)'
+                    fontSize: '1.125rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '12px'
                 }}>
-                    💰 Financial Overview
+                    Financial overview
                 </h2>
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                    gap: 'var(--spacing-xl)'
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+                    gap: '16px'
                 }}>
                     <div style={{
-                        padding: 'var(--spacing-xl)',
-                        background: 'linear-gradient(135deg, #10b98115 0%, #10b98105 100%)',
-                        borderRadius: '12px',
-                        border: '1px solid #86efac',
+                        padding: '16px',
+                        background: '#D1F4E0',
+                        borderRadius: '8px',
+                        border: '1px solid #067D62',
                         textAlign: 'center'
                     }}>
                         <div style={{
-                            color: '#64748b',
-                            fontSize: '0.9rem',
-                            marginBottom: 'var(--spacing-md)',
+                            color: '#565959',
+                            fontSize: '0.8125rem',
+                            marginBottom: '8px',
                             fontWeight: 600
                         }}>
-                            Total Earnings from Books
+                            Total Earnings
                         </div>
                         <div style={{
-                            fontSize: '3rem',
-                            fontWeight: 900,
-                            color: '#10b981',
-                            letterSpacing: '-1px'
+                            fontSize: '2rem',
+                            fontWeight: 700,
+                            color: '#067D62'
                         }}>
                             ${analytics.totalEarnings}
                         </div>
                     </div>
 
                     <div style={{
-                        padding: 'var(--spacing-xl)',
-                        background: 'linear-gradient(135deg, #ef444415 0%, #ef444405 100%)',
-                        borderRadius: '12px',
-                        border: '1px solid #fecaca',
+                        padding: '16px',
+                        background: '#FFE5E5',
+                        borderRadius: '8px',
+                        border: '1px solid #C7511F',
                         textAlign: 'center'
                     }}>
                         <div style={{
-                            color: '#64748b',
-                            fontSize: '0.9rem',
-                            marginBottom: 'var(--spacing-md)',
+                            color: '#565959',
+                            fontSize: '0.8125rem',
+                            marginBottom: '8px',
                             fontWeight: 600
                         }}>
                             Total Payouts
                         </div>
                         <div style={{
-                            fontSize: '3rem',
-                            fontWeight: 900,
-                            color: '#ef4444',
-                            letterSpacing: '-1px'
+                            fontSize: '2rem',
+                            fontWeight: 700,
+                            color: '#C7511F'
                         }}>
                             ${analytics.totalPayouts}
                         </div>
@@ -452,29 +240,26 @@ export default function AnalyticsPage() {
 
             {/* Revenue Chart */}
             <div style={{
-                background: 'white',
-                borderRadius: '16px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                padding: 'var(--spacing-xl)'
+                background: '#fff',
+                borderRadius: '8px',
+                border: '1px solid #D5D9D9',
+                padding: '16px'
             }}>
                 <h2 style={{
-                    fontSize: '1.3rem',
-                    fontWeight: 700,
-                    color: '#0f172a',
-                    marginBottom: 'var(--spacing-lg)',
-                    letterSpacing: '-0.3px'
+                    fontSize: '1.125rem',
+                    fontWeight: 400,
+                    color: '#0F1111',
+                    marginBottom: '12px'
                 }}>
-                    Revenue Over Time
+                    Revenue over time
                 </h2>
 
-                {/* Simple Bar Chart */}
                 <div style={{
                     display: 'flex',
                     alignItems: 'flex-end',
-                    gap: 'var(--spacing-md)',
-                    height: '300px',
-                    padding: 'var(--spacing-lg) 0'
+                    gap: '12px',
+                    height: '250px',
+                    padding: '16px 0'
                 }}>
                     {analytics.monthlyRevenue.map((data, index) => (
                         <div
@@ -484,50 +269,48 @@ export default function AnalyticsPage() {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
-                                gap: 'var(--spacing-sm)'
+                                gap: '8px'
                             }}
                         >
                             <div style={{
                                 width: '100%',
-                                height: `${(data.revenue / maxRevenue) * 250}px`,
-                                background: 'linear-gradient(180deg, #10b981 0%, #059669 100%)',
-                                borderRadius: '8px 8px 0 0',
-                                transition: 'all 0.3s',
+                                height: `${(data.revenue / maxRevenue) * 200}px`,
+                                background: '#067D62',
+                                borderRadius: '4px 4px 0 0',
+                                transition: 'all 0.2s',
                                 cursor: 'pointer',
                                 position: 'relative'
                             }}
                                 onMouseEnter={(e) => {
-                                    e.currentTarget.style.transform = 'scaleY(1.05)';
-                                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(16, 185, 129, 0.3)';
+                                    e.currentTarget.style.opacity = '0.8';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'scaleY(1)';
-                                    e.currentTarget.style.boxShadow = 'none';
+                                    e.currentTarget.style.opacity = '1';
                                 }}
                             >
                                 <div style={{
                                     position: 'absolute',
-                                    top: '-30px',
+                                    top: '-24px',
                                     left: '50%',
                                     transform: 'translateX(-50%)',
-                                    fontSize: '0.85rem',
+                                    fontSize: '0.75rem',
                                     fontWeight: 700,
-                                    color: '#10b981',
+                                    color: '#067D62',
                                     whiteSpace: 'nowrap'
                                 }}>
                                     ${data.revenue}
                                 </div>
                             </div>
                             <div style={{
-                                fontSize: '0.85rem',
+                                fontSize: '0.75rem',
                                 fontWeight: 600,
-                                color: '#64748b'
+                                color: '#565959'
                             }}>
                                 {data.month}
                             </div>
                             <div style={{
-                                fontSize: '0.75rem',
-                                color: '#94a3b8'
+                                fontSize: '0.6875rem',
+                                color: '#6F7373'
                             }}>
                                 {data.sales} sales
                             </div>

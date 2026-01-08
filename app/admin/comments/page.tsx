@@ -79,13 +79,21 @@ export default function CommentsPage() {
     };
 
     return (
-        <div>
+        <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '0 16px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }}>
             {/* Header */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginBottom: 'var(--spacing-2xl)'
+                marginBottom: 'var(--spacing-2xl)',
+                flexWrap: 'wrap',
+                gap: '12px'
             }}>
                 <div>
                     <h1 style={{
@@ -405,7 +413,7 @@ export default function CommentsPage() {
             {/* Stats */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
                 gap: 'var(--spacing-lg)',
                 marginBottom: 'var(--spacing-2xl)'
             }}>

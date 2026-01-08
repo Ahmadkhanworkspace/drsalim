@@ -25,13 +25,21 @@ export default async function BooksPage() {
     const payoutProgress = (totalRevenue / payoutThreshold) * 100;
 
     return (
-        <div>
+        <div style={{
+            maxWidth: '1400px',
+            margin: '0 auto',
+            padding: '0 16px',
+            width: '100%',
+            boxSizing: 'border-box'
+        }}>
             {/* Header */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                marginBottom: 'var(--spacing-2xl)'
+                marginBottom: 'var(--spacing-2xl)',
+                flexWrap: 'wrap',
+                gap: '12px'
             }}>
                 <div>
                     <h1 style={{
@@ -64,14 +72,6 @@ export default async function BooksPage() {
                         boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)',
                         transition: 'all 0.2s'
                     }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 212, 255, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 212, 255, 0.3)';
-                    }}
                 >
                     ➕ Add New Book
                 </button>
@@ -80,7 +80,7 @@ export default async function BooksPage() {
             {/* Revenue Overview */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
                 gap: 'var(--spacing-lg)',
                 marginBottom: 'var(--spacing-2xl)'
             }}>
@@ -262,12 +262,6 @@ export default async function BooksPage() {
                                     style={{
                                         borderBottom: index < books.length - 1 ? '1px solid #f1f5f9' : 'none',
                                         transition: 'background 0.2s'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                        e.currentTarget.style.background = '#f8fafc';
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        e.currentTarget.style.background = 'white';
                                     }}
                                 >
                                     <td style={{
