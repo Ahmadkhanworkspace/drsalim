@@ -1,19 +1,13 @@
 'use client';
 
 export default function AwardsPage() {
-    const awards = [
-        { id: '1', title: 'Islamic Book of the Year 2024', book: 'Brotherhood', category: 'Award', date: '2024-12-15', organization: 'Islamic Writers Association' },
-        { id: '2', title: 'Amazon Bestseller - Islamic Studies', book: 'Brotherhood', category: 'Bestseller', date: '2024-11-20', organization: 'Amazon' },
-        { id: '3', title: 'Featured in Islamic Horizons Magazine', book: 'Divine Providence', category: 'Media', date: '2024-10-05', organization: 'ISNA' },
-        { id: '4', title: 'Top 10 Spiritual Books 2024', book: 'Spiritual Diseases', category: 'Recognition', date: '2024-09-12', organization: 'Muslim Book Review' },
-        { id: '5', title: 'Editor\'s Choice', book: 'Human Journey', category: 'Recognition', date: '2024-08-18', organization: 'Islamic Book Publishers' },
-    ];
+    const awards: any[] = [];
 
     const stats = {
-        totalAwards: awards.filter(a => a.category === 'Award').length,
-        bestsellers: awards.filter(a => a.category === 'Bestseller').length,
-        mediaFeatures: awards.filter(a => a.category === 'Media').length,
-        recognitions: awards.filter(a => a.category === 'Recognition').length
+        totalAwards: 0,
+        bestsellers: 0,
+        mediaFeatures: 0,
+        recognitions: 0
     };
 
     return (
