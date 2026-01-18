@@ -48,6 +48,10 @@ export default function FinancePage() {
         message: ''
     });
 
+    // Withdrawal confirmation state
+    const [showWithdrawalConfirmation, setShowWithdrawalConfirmation] = useState(false);
+    const [confirmedWithdrawal, setConfirmedWithdrawal] = useState<any>(null);
+
     // Verification State
     const [verificationQuestion, setVerificationQuestion] = useState('');
     const [verificationAnswer, setVerificationAnswer] = useState('');
@@ -99,7 +103,19 @@ export default function FinancePage() {
 
                 setTransactions([newWithdrawal, ...transactions]);
 
-                alert(`Withdrawal request initiated!\n\nWithdrawal ID: ${withdrawalId}\nAmount: $${withdrawalAmount}\nStatus: Pending\n\nYour request is being processed.`);
+                // Deduct from available balance and add to pending
+                setAvailableBalance(prev => prev - parseFloat(withdrawalAmount));
+                setPendingWithdrawals(prev => prev + parseFloat(withdrawalAmount));
+
+                // Show premium confirmation modal
+                setConfirmedWithdrawal({
+                    id: withdrawalId,
+                    amount: parseFloat(withdrawalAmount),
+                    method: paymentMethod === 'bank' ? 'Bank Account' : 'Payment Gateway',
+                    date: new Date().toISOString().split('T')[0],
+                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+                });
+                setShowWithdrawalConfirmation(true);
                 setShowWithdrawalWizard(false);
                 setCurrentStep(1);
                 setWithdrawalAmount('');
@@ -123,10 +139,10 @@ export default function FinancePage() {
         }
     };
 
-    // Financial Data
+    // Financial Data (now with state for dynamic updates)
     const totalEarnings = 942;
-    const availableBalance = 893;
-    const pendingWithdrawals = 49;
+    const [availableBalance, setAvailableBalance] = useState(893);
+    const [pendingWithdrawals, setPendingWithdrawals] = useState(49);
     const minimumWithdrawal = 50;
 
     // Revenue Analytics Data
