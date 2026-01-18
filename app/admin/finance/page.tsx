@@ -48,6 +48,81 @@ export default function FinancePage() {
         message: ''
     });
 
+    // Verification State
+    const [verificationQuestion, setVerificationQuestion] = useState('');
+    const [verificationAnswer, setVerificationAnswer] = useState('');
+    const [correctAnswer, setCorrectAnswer] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const generateVerificationQuestion = () => {
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        setVerificationQuestion(`${num1} + ${num2} = ?`);
+        setCorrectAnswer(num1 + num2);
+        setVerificationAnswer('');
+    };
+
+    const submitWithdrawal = async () => {
+        if (parseInt(verificationAnswer) !== correctAnswer) {
+            alert('Incorrect answer to verification question. Please try again.');
+            generateVerificationQuestion();
+            return;
+        }
+
+        setIsSubmitting(true);
+        try {
+            const response = await fetch('/api/withdrawals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    amount: parseFloat(withdrawalAmount),
+                    method: paymentMethod,
+                    bankDetails: paymentMethod === 'bank' ? bankDetails : undefined,
+                }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const withdrawalId = data.id || `WD-${Date.now()}`;
+
+                // Add new withdrawal to transactions list
+                const newWithdrawal: Transaction = {
+                    id: withdrawalId,
+                    type: 'withdrawal',
+                    amount: -parseFloat(withdrawalAmount),
+                    description: `Withdrawal to ${paymentMethod === 'bank' ? 'Bank Account' : 'Payment Gateway'}`,
+                    date: new Date().toISOString().split('T')[0],
+                    status: 'pending'
+                };
+
+                setTransactions([newWithdrawal, ...transactions]);
+
+                alert(`Withdrawal request initiated!\n\nWithdrawal ID: ${withdrawalId}\nAmount: $${withdrawalAmount}\nStatus: Pending\n\nYour request is being processed.`);
+                setShowWithdrawalWizard(false);
+                setCurrentStep(1);
+                setWithdrawalAmount('');
+                setPaymentMethod('');
+                setBankDetails({
+                    accountName: '',
+                    accountNumber: '',
+                    bankName: '',
+                    routingNumber: '',
+                    swiftCode: ''
+                });
+            } else {
+                const data = await response.json();
+                alert(data.message || 'Failed to request withdrawal');
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            alert('An error occurred. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     // Financial Data
     const totalEarnings = 942;
     const availableBalance = 893;
@@ -79,7 +154,7 @@ export default function FinancePage() {
     const [editingPayment, setEditingPayment] = useState<PaymentMethod | null>(null);
     const [showPaymentEdit, setShowPaymentEdit] = useState(false);
 
-    const [transactions] = useState<Transaction[]>([
+    const [transactions, setTransactions] = useState<Transaction[]>([
         { id: '1', type: 'earning', amount: 517, description: 'Book sales - Brotherhood (47 copies)', date: '2026-01-07', status: 'completed' },
         { id: '2', type: 'earning', amount: 231, description: 'Book sales - Divine Providence (21 copies)', date: '2026-01-06', status: 'completed' },
         { id: '3', type: 'withdrawal', amount: -49, description: 'Withdrawal to Payment Gateway', date: '2026-01-01', status: 'pending' },
@@ -140,6 +215,14 @@ export default function FinancePage() {
                 return;
             }
         }
+
+        if (currentStep === (paymentMethod === 'bank' ? 3 : 2)) {
+            // Prepare for verification step
+            generateVerificationQuestion();
+            setCurrentStep(4); // Jump to verification
+            return;
+        }
+
         setCurrentStep(currentStep + 1);
     };
 
@@ -1019,8 +1102,7 @@ export default function FinancePage() {
                     </div>
                 )}
             </div>
-
-            {/* Withdrawal Wizard Modal (keeping existing functionality) */}
+            {/* Withdrawal Wizard Modal */}
             {showWithdrawalWizard && (
                 <div style={{
                     position: 'fixed',
@@ -1147,6 +1229,44 @@ export default function FinancePage() {
                             </div>
                         )}
 
+                        {/* Step 4: Verification */}
+                        {currentStep === 4 && (
+                            <div>
+                                <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#0F1111', marginBottom: '12px' }}>
+                                    Security Verification
+                                </h3>
+                                <p style={{ fontSize: '0.875rem', color: '#565959', marginBottom: '16px' }}>
+                                    Please answer the following question to confirm your request:
+                                </p>
+                                <div style={{
+                                    background: '#F7FAFA',
+                                    padding: '16px',
+                                    borderRadius: '8px',
+                                    textAlign: 'center',
+                                    marginBottom: '16px',
+                                    border: '1px solid #D5D9D9'
+                                }}>
+                                    <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0F1111' }}>
+                                        {verificationQuestion}
+                                    </span>
+                                </div>
+                                <input
+                                    type="number"
+                                    placeholder="Enter Answer"
+                                    value={verificationAnswer}
+                                    onChange={(e) => setVerificationAnswer(e.target.value)}
+                                    style={{
+                                        width: '100%',
+                                        padding: '10px 12px',
+                                        border: '1px solid #D5D9D9',
+                                        borderRadius: '8px',
+                                        fontSize: '0.875rem',
+                                        marginBottom: '16px'
+                                    }}
+                                />
+                            </div>
+                        )}
+
                         {/* Buttons */}
                         <div style={{ display: 'flex', gap: '10px', justifyContent: 'flex-end' }}>
                             <button
@@ -1162,12 +1282,13 @@ export default function FinancePage() {
                                     fontSize: '0.8125rem',
                                     cursor: 'pointer'
                                 }}
+                                disabled={isSubmitting}
                             >
                                 Cancel
                             </button>
                             {currentStep > 1 && (
                                 <button
-                                    onClick={() => setCurrentStep(currentStep - 1)}
+                                    onClick={() => setCurrentStep(currentStep === 4 && paymentMethod !== 'bank' ? 2 : currentStep - 1)}
                                     style={{
                                         padding: '8px 16px',
                                         background: '#fff',
@@ -1176,29 +1297,50 @@ export default function FinancePage() {
                                         fontSize: '0.8125rem',
                                         cursor: 'pointer'
                                     }}
+                                    disabled={isSubmitting}
                                 >
                                     Back
                                 </button>
                             )}
-                            <button
-                                onClick={handleNextStep}
-                                style={{
-                                    padding: '8px 16px',
-                                    background: '#FFD814',
-                                    border: '1px solid #FCD200',
-                                    borderRadius: '8px',
-                                    fontSize: '0.8125rem',
-                                    fontWeight: 600,
-                                    cursor: 'pointer'
-                                }}
-                            >
-                                {currentStep === 3 || (currentStep === 2 && paymentMethod === 'gateway') ? 'Submit' : 'Next'}
-                            </button>
+                            {currentStep === 4 ? (
+                                <button
+                                    onClick={submitWithdrawal}
+                                    disabled={isSubmitting}
+                                    style={{
+                                        padding: '8px 16px',
+                                        background: '#FFD814',
+                                        border: '1px solid #FCD200',
+                                        borderRadius: '8px',
+                                        fontSize: '0.8125rem',
+                                        fontWeight: 600,
+                                        cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                                        opacity: isSubmitting ? 0.7 : 1
+                                    }}
+                                >
+                                    {isSubmitting ? 'Submitting...' : 'Submit Request'}
+                                </button>
+                            ) : (
+                                <button
+                                    onClick={handleNextStep}
+                                    style={{
+                                        padding: '8px 16px',
+                                        background: '#FFD814',
+                                        border: '1px solid #FCD200',
+                                        borderRadius: '8px',
+                                        fontSize: '0.8125rem',
+                                        fontWeight: 600,
+                                        cursor: 'pointer'
+                                    }}
+                                >
+                                    Next
+                                </button>
+                            )}
                         </div>
                     </div>
                 </div>
             )}
 
+            {/* ... (rest of the render) ... */}
             {/* Payment Method Edit Modal */}
             {showPaymentEdit && editingPayment && (
                 <div style={{
