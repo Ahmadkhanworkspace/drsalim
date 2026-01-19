@@ -107,16 +107,21 @@ export default function FinancePage() {
                 setAvailableBalance(prev => prev - parseFloat(withdrawalAmount));
                 setPendingWithdrawals(prev => prev + parseFloat(withdrawalAmount));
 
-                // Show premium confirmation modal
-                setConfirmedWithdrawal({
+                // Prepare confirmed data first
+                const confirmedData = {
                     id: withdrawalId,
                     amount: parseFloat(withdrawalAmount),
                     method: paymentMethod === 'bank' ? 'Bank Account' : 'Payment Gateway',
                     date: new Date().toISOString().split('T')[0],
                     time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-                });
+                };
+
+                // Show premium confirmation modal and hide wizard
+                setConfirmedWithdrawal(confirmedData);
                 setShowWithdrawalConfirmation(true);
                 setShowWithdrawalWizard(false);
+
+                // Reset form states
                 setCurrentStep(1);
                 setWithdrawalAmount('');
                 setPaymentMethod('');
@@ -1674,142 +1679,142 @@ export default function FinancePage() {
                 </div>
             )}
 
-                {/* Premium Withdrawal Confirmation Modal */}
-{showWithdrawalConfirmation && confirmedWithdrawal && (
-    <div style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        background: 'rgba(0, 0, 0, 0.75)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        zIndex: 1001,
-        backdropFilter: 'blur(4px)'
-    }}>
-        <div style={{
-            background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
-            borderRadius: '16px',
-            padding: '40px',
-            maxWidth: '500px',
-            width: '90%',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-            border: '1px solid rgba(255, 255, 255, 0.8)'
-        }}>
-            {/* Success Icon */}
-            <div style={{
-                width: '80px',
-                height: '80px',
-                background: 'linear-gradient(135deg, #067D62 0%, #04A777 100%)',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 24px',
-                boxShadow: '0 8px 24px rgba(6, 125, 98, 0.3)'
-            }}>
-                <span style={{ fontSize: '3rem' }}>✓</span>
-            </div>
-
-            <h2 style={{
-                fontSize: '1.75rem',
-                fontWeight: 700,
-                color: '#0F1111',
-                marginBottom: '8px',
-                textAlign: 'center'
-            }}>
-                Withdrawal Initiated
-            </h2>
-            
-            <p style={{
-                fontSize: '0.9375rem',
-                color: '#565959',
-                textAlign: 'center',
-                marginBottom: '32px'
-            }}>
-                Your withdrawal request has been successfully submitted
-            </p>
-
-            {/* Withdrawal Details Card */}
-            <div style={{
-                background: '#fff',
-                borderRadius: '12px',
-                padding: '24px',
-                marginBottom: '24px',
-                border: '1px solid #E3E6E6',
-                boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
-            }}>
-                <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
-                        Withdrawal ID
-                    </div>
-                    <div style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F1111', fontFamily: 'monospace' }}>
-                        {confirmedWithdrawal.id}
-                    </div>
-                </div>
-
-                <div style={{ height: '1px', background: '#E3E6E6', margin: '16px 0' }} />
-
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div>
-                        <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
-                            Amount
-                        </div>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#067D62' }}>
-                            ${confirmedWithdrawal.amount}
-                        </div>
-                    </div>
-                    <div>
-                        <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
-                            Status
-                        </div>
+            {/* Premium Withdrawal Confirmation Modal */}
+            {showWithdrawalConfirmation && confirmedWithdrawal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(0, 0, 0, 0.75)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 1001,
+                    backdropFilter: 'blur(4px)'
+                }}>
+                    <div style={{
+                        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                        borderRadius: '16px',
+                        padding: '40px',
+                        maxWidth: '500px',
+                        width: '90%',
+                        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
+                        border: '1px solid rgba(255, 255, 255, 0.8)'
+                    }}>
+                        {/* Success Icon */}
                         <div style={{
-                            display: 'inline-block',
-                            padding: '6px 12px',
-                            background: '#FFF4E5',
-                            color: '#FF9900',
-                            fontSize: '0.8125rem',
-                            fontWeight: 600,
-                            borderRadius: '6px',
-                            marginTop: '4px'
+                            width: '80px',
+                            height: '80px',
+                            background: 'linear-gradient(135deg, #067D62 0%, #04A777 100%)',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: '0 auto 24px',
+                            boxShadow: '0 8px 24px rgba(6, 125, 98, 0.3)'
                         }}>
-                            Pending
+                            <span style={{ fontSize: '3rem' }}>✓</span>
                         </div>
-                    </div>
-                </div>
 
-                <div style={{ height: '1px', background: '#E3E6E6', margin: '16px 0' }} />
+                        <h2 style={{
+                            fontSize: '1.75rem',
+                            fontWeight: 700,
+                            color: '#0F1111',
+                            marginBottom: '8px',
+                            textAlign: 'center'
+                        }}>
+                            Withdrawal Initiated
+                        </h2>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                    <div>
-                        <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
-                            Payment Method
-                        </div>
-                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111' }}>
-                            {confirmedWithdrawal.method}
-                        </div>
-                    </div>
-                    <div>
-                        <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
-                            Date & Time
-                        </div>
-                        <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111' }}>
-                            {confirmedWithdrawal.date}
-                        </div>
-                        <div style={{ fontSize: '0.75rem', color: '#565959' }}>
-                            {confirmedWithdrawal.time}
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <p style={{
+                            fontSize: '0.9375rem',
+                            color: '#565959',
+                            textAlign: 'center',
+                            marginBottom: '32px'
+                        }}>
+                            Your withdrawal request has been successfully submitted
+                        </p>
 
-            {/* Action Buttons */}
-            <div style={{ display: 'flex', gap: '12px' }}>
-                <button
-                    onClick={() => {
-                        const printContent = `
+                        {/* Withdrawal Details Card */}
+                        <div style={{
+                            background: '#fff',
+                            borderRadius: '12px',
+                            padding: '24px',
+                            marginBottom: '24px',
+                            border: '1px solid #E3E6E6',
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)'
+                        }}>
+                            <div style={{ marginBottom: '16px' }}>
+                                <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                    Withdrawal ID
+                                </div>
+                                <div style={{ fontSize: '1.125rem', fontWeight: 700, color: '#0F1111', fontFamily: 'monospace' }}>
+                                    {confirmedWithdrawal.id}
+                                </div>
+                            </div>
+
+                            <div style={{ height: '1px', background: '#E3E6E6', margin: '16px 0' }} />
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                                <div>
+                                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
+                                        Amount
+                                    </div>
+                                    <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#067D62' }}>
+                                        ${confirmedWithdrawal.amount}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
+                                        Status
+                                    </div>
+                                    <div style={{
+                                        display: 'inline-block',
+                                        padding: '6px 12px',
+                                        background: '#FFF4E5',
+                                        color: '#FF9900',
+                                        fontSize: '0.8125rem',
+                                        fontWeight: 600,
+                                        borderRadius: '6px',
+                                        marginTop: '4px'
+                                    }}>
+                                        Pending
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style={{ height: '1px', background: '#E3E6E6', margin: '16px 0' }} />
+
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                                <div>
+                                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
+                                        Payment Method
+                                    </div>
+                                    <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111' }}>
+                                        {confirmedWithdrawal.method}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>
+                                        Date & Time
+                                    </div>
+                                    <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111' }}>
+                                        {confirmedWithdrawal.date}
+                                    </div>
+                                    <div style={{ fontSize: '0.75rem', color: '#565959' }}>
+                                        {confirmedWithdrawal.time}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <button
+                                onClick={() => {
+                                    const printContent = `
                             WITHDRAWAL RECEIPT
                             ==================
                             
@@ -1823,72 +1828,72 @@ export default function FinancePage() {
                             Your withdrawal request is being processed.
                             You will receive a notification once completed.
                         `;
-                        const printWindow = window.open('', '', 'height=600,width=800');
-                        if (printWindow) {
-                            printWindow.document.write('<html><head><title>Withdrawal Receipt</title>');
-                            printWindow.document.write('<style>body{font-family:Arial,sans-serif;padding:40px;line-height:1.6}</style>');
-                            printWindow.document.write('</head><body>');
-                            printWindow.document.write('<pre>' + printContent + '</pre>');
-                            printWindow.document.write('</body></html>');
-                            printWindow.document.close();
-                            printWindow.print();
-                        }
-                    }}
-                    style={{
-                        flex: 1,
-                        padding: '14px 24px',
-                        background: '#fff',
-                        border: '2px solid #D5D9D9',
-                        borderRadius: '10px',
-                        fontSize: '0.9375rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        gap: '8px',
-                        transition: 'all 0.2s',
-                        color: '#0F1111'
-                    }}
-                >
-                    📄 Download PDF
-                </button>
-                <button
-                    onClick={() => setShowWithdrawalConfirmation(false)}
-                    style={{
-                        flex: 1,
-                        padding: '14px 24px',
-                        background: 'linear-gradient(135deg, #067D62 0%, #04A777 100%)',
-                        border: 'none',
-                        borderRadius: '10px',
-                        fontSize: '0.9375rem',
-                        fontWeight: 600,
-                        cursor: 'pointer',
-                        color: '#fff',
-                        boxShadow: '0 4px 12px rgba(6, 125, 98, 0.3)',
-                        transition: 'all 0.2s'
-                    }}
-                >
-                    Done
-                </button>
-            </div>
+                                    const printWindow = window.open('', '', 'height=600,width=800');
+                                    if (printWindow) {
+                                        printWindow.document.write('<html><head><title>Withdrawal Receipt</title>');
+                                        printWindow.document.write('<style>body{font-family:Arial,sans-serif;padding:40px;line-height:1.6}</style>');
+                                        printWindow.document.write('</head><body>');
+                                        printWindow.document.write('<pre>' + printContent + '</pre>');
+                                        printWindow.document.write('</body></html>');
+                                        printWindow.document.close();
+                                        printWindow.print();
+                                    }
+                                }}
+                                style={{
+                                    flex: 1,
+                                    padding: '14px 24px',
+                                    background: '#fff',
+                                    border: '2px solid #D5D9D9',
+                                    borderRadius: '10px',
+                                    fontSize: '0.9375rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '8px',
+                                    transition: 'all 0.2s',
+                                    color: '#0F1111'
+                                }}
+                            >
+                                📄 Download PDF
+                            </button>
+                            <button
+                                onClick={() => setShowWithdrawalConfirmation(false)}
+                                style={{
+                                    flex: 1,
+                                    padding: '14px 24px',
+                                    background: 'linear-gradient(135deg, #067D62 0%, #04A777 100%)',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    fontSize: '0.9375rem',
+                                    fontWeight: 600,
+                                    cursor: 'pointer',
+                                    color: '#fff',
+                                    boxShadow: '0 4px 12px rgba(6, 125, 98, 0.3)',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                Done
+                            </button>
+                        </div>
 
-            {/* Info Note */}
-            <div style={{
-                marginTop: '24px',
-                padding: '16px',
-                background: '#F7FAFA',
-                borderRadius: '8px',
-                border: '1px solid #E3E6E6'
-            }}>
-                <div style={{ fontSize: '0.8125rem', color: '#565959', lineHeight: '1.5' }}>
-                    💡 <strong>What's next?</strong> Your withdrawal will be processed within 1-3 business days. 
-                    You'll receive an email notification once the transfer is complete.
+                        {/* Info Note */}
+                        <div style={{
+                            marginTop: '24px',
+                            padding: '16px',
+                            background: '#F7FAFA',
+                            borderRadius: '8px',
+                            border: '1px solid #E3E6E6'
+                        }}>
+                            <div style={{ fontSize: '0.8125rem', color: '#565959', lineHeight: '1.5' }}>
+                                💡 <strong>What's next?</strong> Your withdrawal will be processed within 1-3 business days.
+                                You'll receive an email notification once the transfer is complete.
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-)}
+            )}
 
 
         </div>
