@@ -193,327 +193,146 @@ export default function CommentsPage() {
         }}>
             {/* Header */}
             <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 'var(--spacing-2xl)',
-                flexWrap: 'wrap',
-                gap: '12px'
+                marginBottom: 'var(--spacing-2xl)'
             }}>
-                <div>
-                    <h1 style={{
-                        fontSize: '2rem',
-                        fontWeight: 800,
-                        color: '#0f172a',
-                        marginBottom: '0.5rem',
-                        letterSpacing: '-0.5px'
-                    }}>
-                        Comments Moderation
-                    </h1>
-                    <p style={{
-                        color: '#64748b',
-                        fontSize: '1rem',
-                        fontWeight: 500
-                    }}>
-                        Review and moderate reader comments
-                    </p>
-                </div>
-                <button
-                    onClick={() => setShowImporter(true)}
-                    style={{
-                        padding: 'var(--spacing-md) var(--spacing-xl)',
-                        fontSize: '1rem',
-                        fontWeight: 700,
-                        background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '12px',
-                        cursor: 'pointer',
-                        boxShadow: '0 4px 12px rgba(139, 92, 246, 0.3)',
-                        transition: 'all 0.2s'
-                    }}
-                    onMouseEnter={(e) => {
-                        e.currentTarget.style.transform = 'translateY(-2px)';
-                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 92, 246, 0.4)';
-                    }}
-                    onMouseLeave={(e) => {
-                        e.currentTarget.style.transform = 'translateY(0)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(139, 92, 246, 0.3)';
-                    }}
-                >
-                    📥 Import WordPress Comments (CSV)
-                </button>
-            </div>
-
-            {/* WordPress CSV Importer Modal */}
-            {showImporter && (
                 <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0, 0, 0, 0.5)',
                     display: 'flex',
+                    justifyContent: 'space-between',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    zIndex: 1000
+                    flexWrap: 'wrap',
+                    gap: '12px',
+                    marginBottom: '1rem'
                 }}>
-                    <div style={{
-                        background: 'white',
-                        borderRadius: '16px',
-                        padding: 'var(--spacing-2xl)',
-                        maxWidth: '700px',
-                        width: '90%',
-                        boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                        maxHeight: '90vh',
-                        overflowY: 'auto'
-                    }}>
-                        <h2 style={{
-                            fontSize: '1.5rem',
+                    <div>
+                        <h1 style={{
+                            fontSize: '2rem',
                             fontWeight: 800,
                             color: '#0f172a',
-                            marginBottom: 'var(--spacing-md)',
+                            marginBottom: '0.5rem',
                             letterSpacing: '-0.5px'
                         }}>
-                            Import WordPress Comments from CSV
-                        </h2>
+                            Comments Moderation
+                        </h1>
                         <p style={{
                             color: '#64748b',
-                            marginBottom: 'var(--spacing-xl)',
-                            lineHeight: 1.6
+                            fontSize: '1rem',
+                            fontWeight: 500
                         }}>
-                            Upload your WordPress comments CSV export. Comments will be automatically mapped to their respective blog articles using the post title.
+                            Review and moderate reader comments
                         </p>
-
-                        {/* CSV Format Info */}
-                        <div style={{
-                            background: '#f0f9ff',
-                            border: '1px solid #bae6fd',
-                            borderRadius: '12px',
-                            padding: 'var(--spacing-lg)',
-                            marginBottom: 'var(--spacing-xl)'
-                        }}>
-                            <h3 style={{
-                                fontSize: '0.9rem',
-                                fontWeight: 700,
-                                color: '#0369a1',
-                                marginBottom: 'var(--spacing-sm)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.5px'
-                            }}>
-                                📋 Required CSV Columns
-                            </h3>
-                            <div style={{
-                                color: '#075985',
-                                fontSize: '0.85rem',
-                                lineHeight: 1.8,
-                                fontFamily: 'monospace'
-                            }}>
-                                • comment_post_title - Article title<br />
-                                • comment_author - Author name<br />
-                                • comment_author_email - Email<br />
-                                • comment_content - Comment text<br />
-                                • comment_approved - Approval status (1/0)<br />
-                                • comment_date - Date posted<br />
-                                • comment_parent - Parent comment ID (optional)
-                            </div>
-                        </div>
-
-                        {/* File Upload */}
-                        <div style={{
-                            border: '2px dashed #cbd5e1',
-                            borderRadius: '12px',
-                            padding: 'var(--spacing-2xl)',
-                            textAlign: 'center',
-                            marginBottom: 'var(--spacing-xl)',
-                            background: '#f8fafc',
+                    </div>
+                    <button
+                        onClick={() => setShowImporter(!showImporter)}
+                        style={{
+                            padding: 'var(--spacing-md) var(--spacing-xl)',
+                            fontSize: '0.9rem',
+                            fontWeight: 700,
+                            background: showImporter ? '#e2e8f0' : '#f8fafc',
+                            color: showImporter ? '#475569' : '#0f172a',
+                            border: '1px solid #cbd5e1',
+                            borderRadius: '10px',
                             cursor: 'pointer',
                             transition: 'all 0.2s',
-                            position: 'relative'
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
                         }}
-                            onMouseEnter={(e) => {
-                                e.currentTarget.style.borderColor = '#8b5cf6';
-                                e.currentTarget.style.background = '#faf5ff';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.borderColor = '#cbd5e1';
-                                e.currentTarget.style.background = '#f8fafc';
-                            }}
-                        >
-                            <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-md)' }}>📄</div>
-                            <div style={{
-                                color: '#0f172a',
-                                fontWeight: 600,
-                                marginBottom: '0.5rem'
-                            }}>
-                                Click to upload or drag and drop
-                            </div>
-                            <div style={{
-                                color: '#64748b',
-                                fontSize: '0.85rem'
-                            }}>
-                                WordPress comments CSV file (.csv)
-                            </div>
-                            <input
-                                type="file"
-                                accept=".csv"
-                                onChange={(e) => setImportFile(e.target.files?.[0] || null)}
-                                style={{
-                                    position: 'absolute',
-                                    opacity: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    top: 0,
-                                    left: 0,
-                                    cursor: 'pointer'
-                                }}
-                            />
-                        </div>
+                    >
+                        {showImporter ? '✕ Close Importer' : '📥 Import CSV'}
+                    </button>
+                </div>
 
-                        {importFile && (
-                            <div style={{
-                                background: '#f0fdf4',
-                                border: '1px solid #86efac',
-                                borderRadius: '8px',
-                                padding: 'var(--spacing-md)',
-                                marginBottom: 'var(--spacing-xl)',
-                                color: '#166534',
-                                fontSize: '0.9rem',
-                                fontWeight: 600
-                            }}>
-                                ✓ File selected: {importFile.name}
-                            </div>
-                        )}
-
-                        {/* Import Options */}
-                        <div style={{
-                            background: '#f8fafc',
-                            borderRadius: '12px',
-                            padding: 'var(--spacing-lg)',
-                            marginBottom: 'var(--spacing-xl)'
-                        }}>
-                            <h3 style={{
-                                fontSize: '0.9rem',
-                                fontWeight: 700,
-                                color: '#0f172a',
-                                marginBottom: 'var(--spacing-md)',
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.5px'
-                            }}>
-                                Import Options
-                            </h3>
-                            <label style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--spacing-sm)',
-                                marginBottom: 'var(--spacing-sm)',
-                                cursor: 'pointer',
-                                color: '#475569',
-                                fontWeight: 500
-                            }}>
-                                <input type="checkbox" defaultChecked />
-                                Auto-map comments to articles by post title
-                            </label>
-                            <label style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--spacing-sm)',
-                                marginBottom: 'var(--spacing-sm)',
-                                cursor: 'pointer',
-                                color: '#475569',
-                                fontWeight: 500
-                            }}>
-                                <input type="checkbox" defaultChecked />
-                                Preserve comment hierarchy (parent/child)
-                            </label>
-                            <label style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--spacing-sm)',
-                                marginBottom: 'var(--spacing-sm)',
-                                cursor: 'pointer',
-                                color: '#475569',
-                                fontWeight: 500
-                            }}>
-                                <input type="checkbox" defaultChecked />
-                                Import approval status from CSV
-                            </label>
-                            <label style={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                gap: 'var(--spacing-sm)',
-                                cursor: 'pointer',
-                                color: '#475569',
-                                fontWeight: 500
-                            }}>
-                                <input type="checkbox" defaultChecked />
-                                Preserve original comment dates
-                            </label>
-                        </div>
-
-                        {/* Actions */}
+                {/* Inline Importer */}
+                {showImporter && (
+                    <div style={{
+                        background: '#f8fafc',
+                        border: '1px solid #e2e8f0',
+                        borderRadius: '12px',
+                        padding: '1.5rem',
+                        marginBottom: '2rem',
+                        animation: 'fadeIn 0.2s ease-out'
+                    }}>
                         <div style={{
                             display: 'flex',
-                            gap: 'var(--spacing-md)',
-                            justifyContent: 'flex-end'
+                            gap: '1.5rem',
+                            alignItems: 'flex-start',
+                            flexWrap: 'wrap'
                         }}>
-                            <button
-                                onClick={() => setShowImporter(false)}
-                                disabled={importing}
-                                style={{
-                                    padding: 'var(--spacing-md) var(--spacing-xl)',
-                                    background: '#f1f5f9',
-                                    border: 'none',
-                                    borderRadius: '10px',
-                                    color: '#475569',
+                            <div style={{ flex: 1, minWidth: '300px' }}>
+                                <label style={{
+                                    display: 'block',
                                     fontWeight: 600,
-                                    cursor: importing ? 'not-allowed' : 'pointer',
-                                    transition: 'all 0.2s',
-                                    opacity: importing ? 0.5 : 1
-                                }}
-                                onMouseEnter={(e) => {
-                                    if (!importing) e.currentTarget.style.background = '#e2e8f0';
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (!importing) e.currentTarget.style.background = '#f1f5f9';
-                                }}
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleImport}
-                                disabled={!importFile || importing}
-                                style={{
-                                    padding: 'var(--spacing-md) var(--spacing-xl)',
-                                    background: importFile && !importing ? 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' : '#cbd5e1',
-                                    border: 'none',
-                                    borderRadius: '10px',
-                                    color: 'white',
-                                    fontWeight: 700,
-                                    cursor: importFile && !importing ? 'pointer' : 'not-allowed',
-                                    transition: 'all 0.2s',
-                                    boxShadow: importFile && !importing ? '0 4px 12px rgba(139, 92, 246, 0.3)' : 'none'
-                                }}
-                                onMouseEnter={(e) => {
-                                    if (importFile && !importing) {
-                                        e.currentTarget.style.transform = 'translateY(-2px)';
-                                        e.currentTarget.style.boxShadow = '0 6px 16px rgba(139, 92, 246, 0.4)';
-                                    }
-                                }}
-                                onMouseLeave={(e) => {
-                                    if (importFile && !importing) {
-                                        e.currentTarget.style.transform = 'translateY(0)';
-                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(139, 92, 246, 0.3)';
-                                    }
-                                }}
-                            >
-                                {importing ? 'Importing...' : 'Import Comments'}
-                            </button>
+                                    color: '#475569',
+                                    marginBottom: '0.5rem',
+                                    fontSize: '0.9rem'
+                                }}>
+                                    Select WordPress CSV File
+                                </label>
+                                <input
+                                    type="file"
+                                    accept=".csv"
+                                    onChange={(e) => setImportFile(e.target.files?.[0] || null)}
+                                    style={{
+                                        display: 'block',
+                                        width: '100%',
+                                        padding: '0.5rem',
+                                        background: 'white',
+                                        border: '1px solid #cbd5e1',
+                                        borderRadius: '8px',
+                                        fontSize: '0.9rem'
+                                    }}
+                                />
+                                <div style={{
+                                    marginTop: '0.5rem',
+                                    fontSize: '0.75rem',
+                                    color: '#64748b'
+                                }}>
+                                    Required columns: comment_post_title, comment_author, comment_content
+                                </div>
+                            </div>
+
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '0.5rem',
+                                minWidth: '200px'
+                            }}>
+                                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#64748b' }}>
+                                    <input type="checkbox" defaultChecked disabled /> Auto-map to Articles
+                                </label>
+                                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#64748b' }}>
+                                    <input type="checkbox" defaultChecked disabled /> Import Status
+                                </label>
+                            </div>
+
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'flex-end',
+                                minHeight: '60px'
+                            }}>
+                                <button
+                                    onClick={handleImport}
+                                    disabled={!importFile || importing}
+                                    style={{
+                                        padding: '0.6rem 1.5rem',
+                                        background: importFile && !importing ? 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)' : '#cbd5e1',
+                                        border: 'none',
+                                        borderRadius: '8px',
+                                        color: 'white',
+                                        fontWeight: 700,
+                                        cursor: importFile && !importing ? 'pointer' : 'not-allowed',
+                                        boxShadow: importFile && !importing ? '0 4px 6px rgba(139, 92, 246, 0.25)' : 'none',
+                                        transition: 'all 0.2s',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    {importing ? 'Importing...' : 'Start Import'}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
 
             {/* Stats */}
             <div style={{
