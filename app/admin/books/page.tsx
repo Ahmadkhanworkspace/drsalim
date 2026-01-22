@@ -4,6 +4,8 @@ import Link from "next/link";
 // Force dynamic rendering to ensure fresh data
 export const dynamic = 'force-dynamic';
 
+import BookActions from './BookActions';
+
 export default async function BooksPage() {
     // Fetch real data from persistent storage
     const booksData = await getBooks();
@@ -59,7 +61,8 @@ export default async function BooksPage() {
                         Manage your published books, track sales and revenue
                     </p>
                 </div>
-                <button
+                <Link
+                    href="/admin/books/new"
                     style={{
                         padding: 'var(--spacing-md) var(--spacing-xl)',
                         fontSize: '1rem',
@@ -70,11 +73,13 @@ export default async function BooksPage() {
                         borderRadius: '12px',
                         cursor: 'pointer',
                         boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)',
-                        transition: 'all 0.2s'
+                        transition: 'all 0.2s',
+                        textDecoration: 'none',
+                        display: 'inline-block'
                     }}
                 >
                     ➕ Add New Book
-                </button>
+                </Link>
             </div>
 
             {/* Revenue Overview */}
@@ -303,56 +308,7 @@ export default async function BooksPage() {
                                         padding: 'var(--spacing-lg)',
                                         textAlign: 'right'
                                     }}>
-                                        <div style={{
-                                            display: 'flex',
-                                            gap: 'var(--spacing-sm)',
-                                            justifyContent: 'flex-end'
-                                        }}>
-                                            <Link
-                                                href={`/admin/books/${book.id}`}
-                                                style={{
-                                                    padding: '0.5rem 1rem',
-                                                    background: '#f1f5f9',
-                                                    border: 'none',
-                                                    borderRadius: '8px',
-                                                    color: '#475569',
-                                                    cursor: 'pointer',
-                                                    fontWeight: 600,
-                                                    fontSize: '0.85rem',
-                                                    transition: 'all 0.2s',
-                                                    display: 'inline-block',
-                                                    textDecoration: 'none'
-                                                }}
-                                            // We can't use onMouseEnter/Leave on Link efficiently inline here due to server component limitations 
-                                            // for complex interactions without 'use client', but CSS classes would be better.
-                                            // For now, simple style is fine.
-                                            >
-                                                Edit
-                                            </Link>
-                                            <button
-                                                style={{
-                                                    padding: '0.5rem 1rem',
-                                                    background: '#fef2f2',
-                                                    border: 'none',
-                                                    borderRadius: '8px',
-                                                    color: '#ef4444',
-                                                    cursor: 'pointer',
-                                                    fontWeight: 600,
-                                                    fontSize: '0.85rem',
-                                                    transition: 'all 0.2s'
-                                                }}
-                                                onMouseEnter={(e) => {
-                                                    e.currentTarget.style.background = '#ef4444';
-                                                    e.currentTarget.style.color = 'white';
-                                                }}
-                                                onMouseLeave={(e) => {
-                                                    e.currentTarget.style.background = '#fef2f2';
-                                                    e.currentTarget.style.color = '#ef4444';
-                                                }}
-                                            >
-                                                Delete
-                                            </button>
-                                        </div>
+                                        <BookActions id={book.id} />
                                     </td>
                                 </tr>
                             ))}

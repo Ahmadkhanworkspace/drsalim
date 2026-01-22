@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { createArticle } from '@/app/lib/actions';
 
 export default function NewArticlePage() {
     const router = useRouter();
@@ -27,11 +28,30 @@ export default function NewArticlePage() {
 
     const handleSave = async () => {
         setSaving(true);
-        // Simulate save
-        setTimeout(() => {
-            alert('Article saved successfully!');
-            router.push('/admin/articles');
-        }, 1000);
+        try {
+            const res = await createArticle({
+                title,
+                category,
+                content,
+                published,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                slug: title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, ''),
+                featuredImage: imagePreview // Saving data URL for now. In production, use file upload.
+            });
+
+            if (res.success) {
+                alert('Article saved successfully!');
+                router.push('/admin/articles');
+                router.refresh();
+            } else {
+                alert('Failed to save article');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('An error occurred');
+        } finally {
+            setSaving(false);
+        }
     };
 
     return (

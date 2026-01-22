@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { getArticles } from '@/app/lib/actions';
+import { getArticles, deleteArticle } from '@/app/lib/actions';
 import { Article } from '@/data/articles';
 
 // Extended interface for Admin view which has extra UI state
@@ -30,6 +30,23 @@ export default function ArticlesPage() {
         };
         fetchArticles();
     }, []);
+
+    const handleDelete = async (id: number) => {
+        if (!confirm('Are you sure you want to delete this article?')) return;
+
+        try {
+            const res = await deleteArticle(id);
+            if (res.success) {
+                // Refresh list locally to avoid full re-fetch
+                setArticles(prev => prev.filter(a => a.id !== id));
+            } else {
+                alert('Failed to delete article');
+            }
+        } catch (error) {
+            console.error(error);
+            alert('Error deleting article');
+        }
+    };
 
     if (loading) return <div style={{ padding: '2rem' }}>Loading articles...</div>;
 
@@ -406,6 +423,7 @@ export default function ArticlesPage() {
                                                 Edit
                                             </button>
                                             <button
+                                                onClick={() => handleDelete(article.id)}
                                                 style={{
                                                     padding: '0.5rem 1rem',
                                                     background: '#fef2f2',

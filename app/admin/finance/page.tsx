@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { createWithdrawal, getWithdrawals } from '@/app/lib/actions';
 
 interface WithdrawalRequest {
     id: string;
@@ -58,6 +59,32 @@ export default function FinancePage() {
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Initial Load
+    useEffect(() => {
+        const loadData = async () => {
+            const serverWithdrawals = await getWithdrawals();
+            if (serverWithdrawals.length > 0) {
+                const mappedTransactions: Transaction[] = serverWithdrawals.map((w: any) => ({
+                    id: w.id,
+                    type: 'withdrawal',
+                    amount: -Math.abs(w.amount),
+                    description: `Withdrawal to ${w.method === 'bank' ? 'Bank Account' : 'Payment Gateway'}`,
+                    date: new Date(w.createdAt).toISOString().split('T')[0],
+                    status: w.status
+                }));
+                // Combine with mock earnings for now, ideally earnings come from DB too
+                const mockEarnings: Transaction[] = [
+                    { id: 'e1', type: 'earning', amount: 517, description: 'Book sales - Brotherhood (47 copies)', date: '2026-01-07', status: 'completed' },
+                    { id: 'e2', type: 'earning', amount: 231, description: 'Book sales - Divine Providence (21 copies)', date: '2026-01-06', status: 'completed' },
+                    { id: 'e3', type: 'earning', amount: 143, description: 'Book sales - Spiritual Diseases (13 copies)', date: '2025-12-30', status: 'completed' },
+                    { id: 'e4', type: 'earning', amount: 51, description: 'Book sales - Human Journey (5 copies)', date: '2025-12-28', status: 'completed' }
+                ];
+                setTransactions([...mappedTransactions, ...mockEarnings]);
+            }
+        };
+        loadData();
+    }, []);
+
     const generateVerificationQuestion = () => {
         const num1 = Math.floor(Math.random() * 10) + 1;
         const num2 = Math.floor(Math.random() * 10) + 1;
@@ -75,21 +102,16 @@ export default function FinancePage() {
 
         setIsSubmitting(true);
         try {
-            const response = await fetch('/api/withdrawals', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    amount: parseFloat(withdrawalAmount),
-                    method: paymentMethod,
-                    bankDetails: paymentMethod === 'bank' ? bankDetails : undefined,
-                }),
+            const res = await createWithdrawal({
+                amount: parseFloat(withdrawalAmount),
+                method: paymentMethod,
+                bankDetails: paymentMethod === 'bank' ? bankDetails : undefined,
+                status: 'pending' // Initial status
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                const withdrawalId = data.id || `WD-${Date.now()}`;
+            if (res.success) {
+                const data = res.withdrawal;
+                const withdrawalId = data.id;
 
                 // Add new withdrawal to transactions list
                 const newWithdrawal: Transaction = {
@@ -133,8 +155,7 @@ export default function FinancePage() {
                     swiftCode: ''
                 });
             } else {
-                const data = await response.json();
-                alert(data.message || 'Failed to request withdrawal');
+                alert(res.error || 'Failed to request withdrawal');
             }
         } catch (error) {
             console.error('Submission error:', error);

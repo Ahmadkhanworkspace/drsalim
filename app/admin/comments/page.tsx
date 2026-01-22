@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getComments, updateComment, deleteComment, importComments } from '@/app/lib/actions';
 
 interface Comment {
     id: string;
@@ -13,11 +14,28 @@ interface Comment {
 }
 
 export default function CommentsPage() {
-    const [comments, setComments] = useState<Comment[]>([
-        { id: '1', articleTitle: 'The Path to Spiritual Enlightenment', author: 'Ahmed Khan', email: 'ahmed@example.com', content: 'This article really opened my eyes to new perspectives. Thank you for sharing!', approved: true, createdAt: '2024-01-20' },
-        { id: '2', articleTitle: 'Understanding Islamic Jurisprudence', author: 'Fatima Ali', email: 'fatima@example.com', content: 'Very insightful analysis. Would love to see more content like this.', approved: false, createdAt: '2024-01-19' },
-        { id: '3', articleTitle: 'Modern Challenges in Faith', author: 'Omar Hassan', email: 'omar@example.com', content: 'Great article! This addresses many questions I had.', approved: true, createdAt: '2024-01-18' },
-    ]);
+    const [comments, setComments] = useState<Comment[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    const refreshComments = async () => {
+        const data = await getComments();
+        // Map database comments to UI interface
+        const mappedData: Comment[] = data?.map((c: any) => ({
+            id: c.id,
+            articleTitle: c.articleTitle || 'Unknown Article',
+            author: c.author,
+            email: c.email,
+            content: c.content,
+            approved: c.approved,
+            createdAt: new Date(c.createdAt).toLocaleDateString()
+        })) || [];
+        setComments(mappedData);
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        refreshComments();
+    }, []);
 
     const [showImporter, setShowImporter] = useState(false);
     const [importFile, setImportFile] = useState<File | null>(null);
@@ -26,12 +44,25 @@ export default function CommentsPage() {
     const pendingCount = comments.filter(c => !c.approved).length;
     const approvedCount = comments.filter(c => c.approved).length;
 
-    const handleApprove = (id: string) => {
-        setComments(comments.map(c => c.id === id ? { ...c, approved: true } : c));
+    const handleApprove = async (id: string) => {
+        try {
+            const res = await updateComment(id, { approved: true });
+            if (res.success) refreshComments();
+            else alert('Failed to approve comment');
+        } catch (e) {
+            alert('Error approving comment');
+        }
     };
 
-    const handleReject = (id: string) => {
-        setComments(comments.filter(c => c.id !== id));
+    const handleReject = async (id: string) => {
+        if (!confirm('Are you sure you want to delete this comment?')) return;
+        try {
+            const res = await deleteComment(id);
+            if (res.success) refreshComments();
+            else alert('Failed to delete comment');
+        } catch (e) {
+            alert('Error deleting comment');
+        }
     };
 
     const handleImport = async () => {
@@ -39,43 +70,67 @@ export default function CommentsPage() {
 
         setImporting(true);
 
-        // Parse CSV file
-        const text = await importFile.text();
-        const lines = text.split('\n');
-        const headers = lines[0].split(',').map(h => h.trim());
+        try {
+            // Parse CSV file
+            const text = await importFile.text();
+            const lines = text.split('\n');
+            const headers = lines[0].split(',').map(h => h.trim());
 
-        // Find column indices
-        const postTitleIdx = headers.findIndex(h => h === 'comment_post_title');
-        const authorIdx = headers.findIndex(h => h === 'comment_author');
-        const emailIdx = headers.findIndex(h => h === 'comment_author_email');
-        const contentIdx = headers.findIndex(h => h === 'comment_content');
-        const approvedIdx = headers.findIndex(h => h === 'comment_approved');
-        const dateIdx = headers.findIndex(h => h === 'comment_date');
+            // Find column indices
+            const postTitleIdx = headers.findIndex(h => h === 'comment_post_title');
+            const authorIdx = headers.findIndex(h => h === 'comment_author');
+            const emailIdx = headers.findIndex(h => h === 'comment_author_email');
+            const contentIdx = headers.findIndex(h => h === 'comment_content');
+            const approvedIdx = headers.findIndex(h => h === 'comment_approved');
+            const dateIdx = headers.findIndex(h => h === 'comment_date');
 
-        // Parse comments
-        const newComments: Comment[] = [];
-        for (let i = 1; i < lines.length; i++) {
-            if (!lines[i].trim()) continue;
+            if (postTitleIdx === -1 || authorIdx === -1 || contentIdx === -1) {
+                alert('Invalid CSV format. Missing required columns.');
+                setImporting(false);
+                return;
+            }
 
-            const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+            // Parse comments
+            const parsedData: any[] = [];
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
 
-            newComments.push({
-                id: `imported-${i}`,
-                articleTitle: values[postTitleIdx] || 'Unknown Article',
-                author: values[authorIdx] || 'Anonymous',
-                email: values[emailIdx] || '',
-                content: values[contentIdx] || '',
-                approved: values[approvedIdx] === '1',
-                createdAt: values[dateIdx] || new Date().toISOString().split('T')[0]
-            });
+                // Simple CSV parsing handling quotes (basic)
+                // For robust parsing consider a library, but basic split/regex for now
+                // This regex splits by comma but ignores commas inside quotes
+                const values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
+
+                // Clean up quotes
+                const cleanValues = values.map(v => v ? v.trim().replace(/^"|"$/g, '') : '');
+
+                parsedData.push({
+                    articleTitle: cleanValues[postTitleIdx] || '',
+                    author: cleanValues[authorIdx] || 'Anonymous',
+                    email: cleanValues[emailIdx] || '',
+                    content: cleanValues[contentIdx] || '',
+                    approved: cleanValues[approvedIdx] === '1',
+                    createdAt: cleanValues[dateIdx] || new Date().toISOString()
+                });
+            }
+
+            const res = await importComments(parsedData);
+
+            if (res.success) {
+                // @ts-ignore
+                alert(`Import Complete!\nImported: ${res.imported}\nSkipped (No Article Match): ${res.skipped}\nFailed: ${res.failed}`);
+                refreshComments();
+                setShowImporter(false);
+                setImportFile(null);
+            } else {
+                // @ts-ignore
+                alert('Import failed: ' + res.error);
+            }
+        } catch (error) {
+            console.error(error);
+            alert('An error occurred during import.');
+        } finally {
+            setImporting(false);
         }
-
-        setComments([...comments, ...newComments]);
-        setImporting(false);
-        setShowImporter(false);
-        setImportFile(null);
-
-        alert(`Successfully imported ${newComments.length} comments and mapped them to their respective articles!`);
     };
 
     return (

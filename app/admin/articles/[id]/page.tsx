@@ -25,8 +25,11 @@ export default function EditArticlePage() {
             if (article) {
                 setTitle(article.title);
                 setCategory(article.category);
-                setContent(`Content for ${article.title}...\n\nThis is a placeholder for the actual article content properly fetched from the database.`);
-                setPublished(true);
+                setContent(article.content || '');
+                setPublished(article.published !== false); // Default true if undefined
+                if (article.featuredImage) {
+                    setImagePreview(article.featuredImage);
+                }
                 setLoading(false);
             } else {
                 alert('Article not found');
@@ -55,7 +58,9 @@ export default function EditArticlePage() {
         const result = await updateArticle(articleId, {
             title,
             category,
-            // In a real app we'd save content too, but we need a content field in data model first
+            content,
+            published,
+            featuredImage: imagePreview
         });
 
         if (result.success) {
