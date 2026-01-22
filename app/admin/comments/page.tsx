@@ -65,16 +65,69 @@ export default function CommentsPage() {
         }
     };
 
+    // Robust CSV Parser that handles quoted fields and newlines
+    const parseCSV = (text: string) => {
+        const rows: string[][] = [];
+        let currentRow: string[] = [];
+        let currentField = '';
+        let insideQuote = false;
+
+        // Normalize line endings
+        const cleanText = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+
+        for (let i = 0; i < cleanText.length; i++) {
+            const char = cleanText[i];
+            const nextChar = cleanText[i + 1];
+
+            if (char === '"') {
+                if (insideQuote && nextChar === '"') {
+                    // Escaped quote
+                    currentField += '"';
+                    i++; // Skip next quote
+                } else {
+                    // Toggle quote state
+                    insideQuote = !insideQuote;
+                }
+            } else if (char === ',' && !insideQuote) {
+                // End of field
+                currentRow.push(currentField);
+                currentField = '';
+            } else if (char === '\n' && !insideQuote) {
+                // End of row
+                currentRow.push(currentField);
+                if (currentRow.length > 0) rows.push(currentRow);
+                currentRow = [];
+                currentField = '';
+            } else {
+                currentField += char;
+            }
+        }
+
+        // Push last field/row if exists
+        if (currentField || currentRow.length > 0) {
+            currentRow.push(currentField);
+            rows.push(currentRow);
+        }
+
+        return rows;
+    };
+
     const handleImport = async () => {
         if (!importFile) return;
 
         setImporting(true);
 
         try {
-            // Parse CSV file
             const text = await importFile.text();
-            const lines = text.split('\n');
-            const headers = lines[0].split(',').map(h => h.trim());
+            const rows = parseCSV(text);
+
+            if (rows.length === 0) {
+                alert('File is empty');
+                setImporting(false);
+                return;
+            }
+
+            const headers = rows[0].map(h => h.trim());
 
             // Find column indices
             const postTitleIdx = headers.findIndex(h => h === 'comment_post_title');
@@ -85,31 +138,28 @@ export default function CommentsPage() {
             const dateIdx = headers.findIndex(h => h === 'comment_date');
 
             if (postTitleIdx === -1 || authorIdx === -1 || contentIdx === -1) {
-                alert('Invalid CSV format. Missing required columns.');
+                alert('Invalid CSV format. Missing required columns:\ncomment_post_title, comment_author, comment_content');
                 setImporting(false);
                 return;
             }
 
-            // Parse comments
+            // Parse comments (skip header row)
             const parsedData: any[] = [];
-            for (let i = 1; i < lines.length; i++) {
-                if (!lines[i].trim()) continue;
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
+                // Skip empty lines that might have been parsed as empty rows
+                if (row.length <= 1 && !row[0]) continue;
 
-                // Simple CSV parsing handling quotes (basic)
-                // For robust parsing consider a library, but basic split/regex for now
-                // This regex splits by comma but ignores commas inside quotes
-                const values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
-
-                // Clean up quotes
-                const cleanValues = values.map(v => v ? v.trim().replace(/^"|"$/g, '') : '');
+                // Ensure row has enough columns, fill with empty if short
+                // (Optional: strict check, but loose is better for dirty data)
 
                 parsedData.push({
-                    articleTitle: cleanValues[postTitleIdx] || '',
-                    author: cleanValues[authorIdx] || 'Anonymous',
-                    email: cleanValues[emailIdx] || '',
-                    content: cleanValues[contentIdx] || '',
-                    approved: cleanValues[approvedIdx] === '1',
-                    createdAt: cleanValues[dateIdx] || new Date().toISOString()
+                    articleTitle: row[postTitleIdx] || '',
+                    author: row[authorIdx] || 'Anonymous',
+                    email: row[emailIdx] || '',
+                    content: row[contentIdx] || '',
+                    approved: row[approvedIdx] === '1',
+                    createdAt: row[dateIdx] || new Date().toISOString()
                 });
             }
 
