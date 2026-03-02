@@ -17,11 +17,11 @@ export default function AnalyticsPage() {
         totalBlogLikes: 8711,
         likesGrowth: '+18.9%',
         bookSales: [
-            { name: 'Brotherhood', sales: 64 },
+            { name: 'Brotherhood', sales: 51 },
             { name: 'Divine Providence', sales: 38 },
-            { name: 'Human Journey', sales: 5 },
+            { name: 'Human Journey', sales: 0 },
             { name: 'Divine Providence Vol 2', sales: 0 },
-            { name: 'Spiritual Diseases', sales: 13 }
+            { name: 'Spiritual Diseases', sales: 31 }
         ],
         totalEarnings: 1314,
         totalPayouts: 49,
