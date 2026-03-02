@@ -4,26 +4,26 @@ import { useState } from 'react';
 
 export default function AnalyticsPage() {
     const [analytics] = useState({
-        totalBookSales: 86,
+        totalBookSales: 120,
         bookSalesGrowth: '+12.5%',
-        totalBlogViews: 4175625,
+        totalBlogViews: 7213922,
         blogViewsGrowth: '+8.3%',
         todaysViews: 14449,
         todaysGrowth: '+15.2%',
-        last6MonthsViews: 4175625,
+        last6MonthsViews: 7213922,
         last6MonthsGrowth: '+22.1%',
-        totalBlogComments: 741,
+        totalBlogComments: 1131,
         commentsGrowth: '+5.7%',
-        totalBlogLikes: 4889,
+        totalBlogLikes: 8711,
         likesGrowth: '+18.9%',
         bookSales: [
-            { name: 'Brotherhood', sales: 47 },
-            { name: 'Divine Providence', sales: 21 },
+            { name: 'Brotherhood', sales: 64 },
+            { name: 'Divine Providence', sales: 38 },
             { name: 'Human Journey', sales: 5 },
             { name: 'Divine Providence Vol 2', sales: 0 },
             { name: 'Spiritual Diseases', sales: 13 }
         ],
-        totalEarnings: 942,
+        totalEarnings: 1314,
         totalPayouts: 49,
         monthlyRevenue: [
             { month: 'Jan', revenue: 120, sales: 11 },

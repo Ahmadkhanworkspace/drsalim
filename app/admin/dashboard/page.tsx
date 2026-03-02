@@ -8,8 +8,8 @@ const Globe3D = dynamic(() => import('@/components/admin/Globe3D'), { ssr: false
 
 // Shared analytics data
 const ANALYTICS_DATA = {
-    totalRevenue: 942,
-    totalSales: 86,
+    totalRevenue: 1314,
+    totalSales: 120,
     publishedBooks: 5,
     publishedArticles: 10,
     pendingComments: 23

@@ -21,8 +21,8 @@ export default async function BooksPage() {
         amazonLink: b.amazonLink
     }));
 
-    const totalRevenue = 942;
-    const totalSales = 86;
+    const totalRevenue = 1314;
+    const totalSales = 120;
     const payoutThreshold = 1000;
     const payoutProgress = (totalRevenue / payoutThreshold) * 100;
 
