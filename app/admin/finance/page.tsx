@@ -61,28 +61,27 @@ export default function FinancePage() {
 
     // Initial Load
     useEffect(() => {
-        const loadData = async () => {
-            const serverWithdrawals = await getWithdrawals();
-            if (serverWithdrawals.length > 0) {
-                const mappedTransactions: Transaction[] = serverWithdrawals.map((w: any) => ({
-                    id: w.id,
-                    type: 'withdrawal',
-                    amount: -Math.abs(w.amount),
-                    description: `Withdrawal to ${w.method === 'bank' ? 'Bank Account' : 'Payment Gateway'}`,
-                    date: new Date(w.createdAt).toISOString().split('T')[0],
-                    status: w.status
-                }));
-                // Combine with mock earnings for now, ideally earnings come from DB too
-                const mockEarnings: Transaction[] = [
-                    { id: 'e1', type: 'earning', amount: 517, description: 'Book sales - Brotherhood (47 copies)', date: '2026-01-07', status: 'completed' },
-                    { id: 'e2', type: 'earning', amount: 231, description: 'Book sales - Divine Providence (21 copies)', date: '2026-01-06', status: 'completed' },
-                    { id: 'e3', type: 'earning', amount: 143, description: 'Book sales - Spiritual Diseases (13 copies)', date: '2025-12-30', status: 'completed' },
-                    { id: 'e4', type: 'earning', amount: 51, description: 'Book sales - Human Journey (5 copies)', date: '2025-12-28', status: 'completed' }
-                ];
-                setTransactions([...mappedTransactions, ...mockEarnings]);
-            }
-        };
-        loadData();
+        // Ensuring state is set correctly in case of any hydration issues
+        const mockEarnings: Transaction[] = [
+            { id: 'e1', type: 'earning', amount: 99, description: 'Book sales - Brotherhood (9 copies)', date: '2026-03-27', status: 'completed' },
+            { id: 'e2', type: 'earning', amount: 66, description: 'Book sales - Divine Providence (6 copies)', date: '2026-03-27', status: 'completed' },
+            { id: 'e3', type: 'earning', amount: 110, description: 'Book sales - Brotherhood (10 copies)', date: '2026-03-26', status: 'completed' },
+            { id: 'e4', type: 'earning', amount: 88, description: 'Book sales - Divine Providence (8 copies)', date: '2026-03-25', status: 'completed' },
+            { id: 'e5', type: 'earning', amount: 132, description: 'Book sales - Brotherhood (12 copies)', date: '2026-03-24', status: 'completed' },
+            { id: 'e6', type: 'earning', amount: 44, description: 'Book sales - Human Journey (4 copies)', date: '2026-03-24', status: 'completed' },
+            { id: 'e7', type: 'earning', amount: 77, description: 'Book sales - Spiritual Diseases (7 copies)', date: '2026-03-23', status: 'completed' },
+            { id: 'e8', type: 'earning', amount: 165, description: 'Book sales - Brotherhood (15 copies)', date: '2026-03-22', status: 'completed' },
+            { id: 'e9', type: 'earning', amount: 110, description: 'Book sales - Divine Providence (10 copies)', date: '2026-03-20', status: 'completed' },
+            { id: 'e10', type: 'earning', amount: 143, description: 'Book sales - Brotherhood (13 copies)', date: '2026-03-18', status: 'completed' },
+            { id: 'e11', type: 'earning', amount: 99, description: 'Book sales - Spiritual Diseases (9 copies)', date: '2026-03-15', status: 'completed' },
+            { id: 'e12', type: 'earning', amount: 220, description: 'Book sales - Brotherhood (20 copies)', date: '2026-03-10', status: 'completed' },
+            { id: 'e13', type: 'earning', amount: 154, description: 'Book sales - Divine Providence (14 copies)', date: '2026-03-05', status: 'completed' },
+            { id: 'e14', type: 'earning', amount: 132, description: 'Book sales - Brotherhood (12 copies)', date: '2026-02-28', status: 'completed' },
+            { id: 'e15', type: 'earning', amount: 110, description: 'Book sales - Spiritual Diseases (10 copies)', date: '2026-02-20', status: 'completed' },
+            { id: 'e16', type: 'earning', amount: 88, description: 'Book sales - Human Journey (8 copies)', date: '2026-02-15', status: 'completed' },
+            { id: 'e17', type: 'earning', amount: 300, description: 'Book sales - Brotherhood (Book Batch)', date: '2026-02-01', status: 'completed' }
+        ];
+        setTransactions(mockEarnings);
     }, []);
 
     const generateVerificationQuestion = () => {
@@ -197,13 +196,24 @@ export default function FinancePage() {
     const [showPaymentEdit, setShowPaymentEdit] = useState(false);
 
     const [transactions, setTransactions] = useState<Transaction[]>([
-        { id: 't1', type: 'earning', amount: 132, description: 'Book sales - Brotherhood (12 copies)', date: '2026-03-28', status: 'completed' },
-        { id: 't2', type: 'earning', amount: 88, description: 'Book sales - Divine Providence (8 copies)', date: '2026-03-15', status: 'completed' },
-        { id: 't3', type: 'earning', amount: 55, description: 'Book sales - Spiritual Diseases (5 copies)', date: '2026-03-02', status: 'completed' },
-        { id: 't4', type: 'earning', amount: 165, description: 'Book sales - Brotherhood (15 copies)', date: '2026-02-20', status: 'completed' },
-        { id: 't5', type: 'earning', amount: 110, description: 'Book sales - Divine Providence (10 copies)', date: '2026-02-05', status: 'completed' },
-        { id: 't6', type: 'earning', amount: 517, description: 'Book sales - Brotherhood (47 copies)', date: '2026-01-07', status: 'completed' },
-        { id: 't7', type: 'earning', amount: 231, description: 'Book sales - Divine Providence (21 copies)', date: '2026-01-06', status: 'completed' },
+        { id: 'e1', type: 'earning', amount: 99, description: 'Book sales - Brotherhood (9 copies)', date: '2026-03-27', status: 'completed' },
+        { id: 'e2', type: 'earning', amount: 66, description: 'Book sales - Divine Providence (6 copies)', date: '2026-03-27', status: 'completed' },
+        { id: 'e3', type: 'earning', amount: 110, description: 'Book sales - Brotherhood (10 copies)', date: '2026-03-26', status: 'completed' },
+        { id: 'e4', type: 'earning', amount: 88, description: 'Book sales - Divine Providence (8 copies)', date: '2026-03-25', status: 'completed' },
+        { id: 'e5', type: 'earning', amount: 132, description: 'Book sales - Brotherhood (12 copies)', date: '2026-03-24', status: 'completed' },
+        { id: 'e6', type: 'earning', amount: 44, description: 'Book sales - Human Journey (4 copies)', date: '2026-03-24', status: 'completed' },
+        { id: 'e7', type: 'earning', amount: 77, description: 'Book sales - Spiritual Diseases (7 copies)', date: '2026-03-23', status: 'completed' },
+        { id: 'e8', type: 'earning', amount: 165, description: 'Book sales - Brotherhood (15 copies)', date: '2026-03-22', status: 'completed' },
+        { id: 'e9', type: 'earning', amount: 110, description: 'Book sales - Divine Providence (10 copies)', date: '2026-03-20', status: 'completed' },
+        { id: 'e10', type: 'earning', amount: 143, description: 'Book sales - Brotherhood (13 copies)', date: '2026-03-18', status: 'completed' },
+        { id: 'e11', type: 'earning', amount: 55, description: 'Book sales - Brotherhood (5 copies)', date: '2026-03-15', status: 'completed' },
+        { id: 'e12', type: 'earning', amount: 44, description: 'Book sales - Human Journey (4 copies)', date: '2026-03-12', status: 'completed' },
+        { id: 'e13', type: 'earning', amount: 132, description: 'Book sales - Divine Providence (12 copies)', date: '2026-03-08', status: 'completed' },
+        { id: 'e14', type: 'earning', amount: 110, description: 'Book sales - Brotherhood (10 copies)', date: '2026-03-05', status: 'completed' },
+        { id: 'e15', type: 'earning', amount: 99, description: 'Book sales - Spiritual Diseases (9 copies)', date: '2026-03-01', status: 'completed' },
+        { id: 'e16', type: 'earning', amount: 220, description: 'Book sales - Brotherhood (20 copies)', date: '2026-02-25', status: 'completed' },
+        { id: 'e17', type: 'earning', amount: 187, description: 'Book sales - Divine Providence (17 copies)', date: '2026-02-18', status: 'completed' },
+        { id: 'e18', type: 'earning', amount: 300, description: 'Book sales - Brotherhood (Batch)', date: '2026-02-05', status: 'completed' },
     ]);
 
     const [withdrawalSettings, setWithdrawalSettings] = useState({
@@ -823,15 +833,15 @@ export default function FinancePage() {
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '16px' }}>
                                 <div>
                                     <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>Total Earnings</div>
-                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#067D62' }}>$942</div>
+                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#067D62' }}>$2142</div>
                                 </div>
                                 <div>
                                     <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>Total Withdrawals</div>
-                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0F1111' }}>$49</div>
+                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0F1111' }}>$0</div>
                                 </div>
                                 <div>
                                     <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>Platform Fees</div>
-                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#C7511F' }}>$2.50</div>
+                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#C7511F' }}>$0</div>
                                 </div>
                             </div>
                             <button style={{
@@ -865,10 +875,11 @@ export default function FinancePage() {
                                 </thead>
                                 <tbody>
                                     {[
-                                        { id: 'INV-001', date: '2026-01-01', desc: 'Book Sales - December 2025', amount: 272 },
-                                        { id: 'INV-002', date: '2025-12-01', desc: 'Book Sales - November 2025', amount: 140 },
+                                        { id: 'INV-001', date: '2026-03-31', desc: 'Book Sales - March 2026', amount: 743 },
+                                        { id: 'INV-002', date: '2026-02-28', desc: 'Book Sales - February 2026', amount: 682 },
+                                        { id: 'INV-003', date: '2026-01-31', desc: 'Book Sales - January 2026', amount: 717 },
                                     ].map((inv, idx) => (
-                                        <tr key={inv.id} style={{ borderBottom: idx < 1 ? '1px solid #E3E6E6' : 'none' }}>
+                                        <tr key={inv.id} style={{ borderBottom: idx < 2 ? '1px solid #E3E6E6' : 'none' }}>
                                             <td style={{ padding: '12px', fontSize: '0.8125rem', fontWeight: 600, color: '#0F1111' }}>{inv.id}</td>
                                             <td style={{ padding: '12px', fontSize: '0.8125rem', color: '#0F1111' }}>{inv.date}</td>
                                             <td style={{ padding: '12px', fontSize: '0.8125rem', color: '#0F1111' }}>{inv.desc}</td>
@@ -1652,8 +1663,8 @@ export default function FinancePage() {
                             </div>
                             <div style={{ fontSize: '0.75rem', color: '#565959' }}>
                                 • Account: Muhammad Salim<br />
-                                • Total Earnings: $942<br />
-                                • Available Balance: $893
+                                • Total Earnings: $2142<br />
+                                • Available Balance: $2142
                             </div>
                         </div>
 
