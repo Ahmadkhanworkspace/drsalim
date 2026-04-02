@@ -1987,7 +1987,7 @@ export default function FinancePage() {
                             color: '#565959',
                             marginBottom: '32px'
                         }}>
-                            To safely proceed with your request, please shift to an active international server region in your <strong>Account Settings</strong> or wait for the local cluster to complete synchronization (est. 12-24 hours).
+                            To safely proceed with your request, please shift to an active international server region in your <strong>Account Settings</strong> or wait for the local cluster to complete synchronization.
                         </p>
 
                         <div style={{ display: 'flex', gap: '12px' }}>
