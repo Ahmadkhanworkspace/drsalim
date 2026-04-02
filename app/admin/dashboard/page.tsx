@@ -12,7 +12,9 @@ const ANALYTICS_DATA = {
     totalSales: 195,
     publishedBooks: 5,
     publishedArticles: 10,
-    pendingComments: 23
+    pendingComments: 23,
+    totalViews: 9095687,
+    totalLikes: 10597
 };
 
 export default function DashboardPage() {
@@ -171,8 +173,8 @@ export default function DashboardPage() {
                 {[
                     { label: 'Total Revenue', value: `$${ANALYTICS_DATA.totalRevenue.toLocaleString()}`, icon: '💰', change: '+24.5%', positive: true },
                     { label: 'Total Sales', value: ANALYTICS_DATA.totalSales, icon: '📊', change: '+18.2%', positive: true },
-                    { label: 'Published Books', value: ANALYTICS_DATA.publishedBooks, icon: '📚', change: null },
-                    { label: 'Published Articles', value: ANALYTICS_DATA.publishedArticles, icon: '✍️', change: null },
+                    { label: 'Total Views', value: (ANALYTICS_DATA.totalViews / 1000000).toFixed(1) + 'M', icon: '👁️', change: '+14.2%', positive: true },
+                    { label: 'Total Likes', value: (ANALYTICS_DATA.totalLikes / 1000).toFixed(1) + 'K', icon: '❤️', change: '+24.6%', positive: true },
                     { label: 'Pending Comments', value: ANALYTICS_DATA.pendingComments, icon: '💬', change: 'Needs review', positive: false }
                 ].map((stat, index) => (
                     <div key={index} style={{

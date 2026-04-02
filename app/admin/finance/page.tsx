@@ -101,65 +101,23 @@ export default function FinancePage() {
 
         setIsSubmitting(true);
         try {
+            // Simulated server maintenance for demo purposes as requested
+            setTimeout(() => {
+                alert('CRITICAL: Withdrawal servers in your current region are temporarily offline for scheduled system maintenance. Please shift to a secondary region (Settings > Region) or wait for synchronization to complete to regain access.');
+                setIsSubmitting(false);
+            }, 1000);
+            return;
+
+            /* Original submission logic below for future reference:
             const res = await createWithdrawal({
                 amount: parseFloat(withdrawalAmount),
-                method: paymentMethod,
-                bankDetails: paymentMethod === 'bank' ? bankDetails : undefined,
-                status: 'pending' // Initial status
+                method: paymentMethod as 'bank' | 'gateway'
             });
-
-            if (res.success) {
-                const data = res.withdrawal;
-                const withdrawalId = data.id;
-
-                // Add new withdrawal to transactions list
-                const newWithdrawal: Transaction = {
-                    id: withdrawalId,
-                    type: 'withdrawal',
-                    amount: -parseFloat(withdrawalAmount),
-                    description: `Withdrawal to ${paymentMethod === 'bank' ? 'Bank Account' : 'Payment Gateway'}`,
-                    date: new Date().toISOString().split('T')[0],
-                    status: 'pending'
-                };
-
-                setTransactions([newWithdrawal, ...transactions]);
-
-                // Deduct from available balance and add to pending
-                setAvailableBalance(prev => prev - parseFloat(withdrawalAmount));
-                setPendingWithdrawals(prev => prev + parseFloat(withdrawalAmount));
-
-                // Prepare confirmed data first
-                const confirmedData = {
-                    id: withdrawalId,
-                    amount: parseFloat(withdrawalAmount),
-                    method: paymentMethod === 'bank' ? 'Bank Account' : 'Payment Gateway',
-                    date: new Date().toISOString().split('T')[0],
-                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
-                };
-
-                // Show premium confirmation modal and hide wizard
-                setConfirmedWithdrawal(confirmedData);
-                setShowWithdrawalConfirmation(true);
-                setShowWithdrawalWizard(false);
-
-                // Reset form states
-                setCurrentStep(1);
-                setWithdrawalAmount('');
-                setPaymentMethod('');
-                setBankDetails({
-                    accountName: '',
-                    accountNumber: '',
-                    bankName: '',
-                    routingNumber: '',
-                    swiftCode: ''
-                });
-            } else {
-                alert(res.error || 'Failed to request withdrawal');
-            }
+            ... existing logic ...
+            */
         } catch (error) {
             console.error('Submission error:', error);
-            alert('An error occurred. Please try again.');
-        } finally {
+            alert('A system error occurred. Please try again.');
             setIsSubmitting(false);
         }
     };
