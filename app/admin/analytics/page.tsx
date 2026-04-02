@@ -4,34 +4,34 @@ import { useState } from 'react';
 
 export default function AnalyticsPage() {
     const [analytics] = useState({
-        totalBookSales: 120,
-        bookSalesGrowth: '+12.5%',
-        totalBlogViews: 7213922,
-        blogViewsGrowth: '+8.3%',
-        todaysViews: 14449,
-        todaysGrowth: '+15.2%',
-        last6MonthsViews: 7213922,
-        last6MonthsGrowth: '+22.1%',
-        totalBlogComments: 1131,
-        commentsGrowth: '+5.7%',
-        totalBlogLikes: 8711,
-        likesGrowth: '+18.9%',
+        totalBookSales: 195,
+        bookSalesGrowth: '+22.5%',
+        totalBlogViews: 8421933,
+        blogViewsGrowth: '+11.3%',
+        todaysViews: 18241,
+        todaysGrowth: '+18.2%',
+        last6MonthsViews: 8421933,
+        last6MonthsGrowth: '+25.1%',
+        totalBlogComments: 1248,
+        commentsGrowth: '+7.7%',
+        totalBlogLikes: 9812,
+        likesGrowth: '+21.9%',
         bookSales: [
-            { name: 'Brotherhood', sales: 51 },
-            { name: 'Divine Providence', sales: 38 },
-            { name: 'Human Journey', sales: 0 },
+            { name: 'Brotherhood', sales: 112 },
+            { name: 'Divine Providence', sales: 48 },
+            { name: 'Human Journey', sales: 9 },
             { name: 'Divine Providence Vol 2', sales: 0 },
-            { name: 'Spiritual Diseases', sales: 31 }
+            { name: 'Spiritual Diseases', sales: 26 }
         ],
-        totalEarnings: 1314,
-        totalPayouts: 49,
+        totalEarnings: 2142,
+        totalPayouts: 0,
         monthlyRevenue: [
-            { month: 'Jan', revenue: 120, sales: 11 },
-            { month: 'Feb', revenue: 135, sales: 13 },
-            { month: 'Mar', revenue: 150, sales: 14 },
-            { month: 'Apr', revenue: 125, sales: 12 },
-            { month: 'May', revenue: 140, sales: 13 },
-            { month: 'Jun', revenue: 272, sales: 23 },
+            { month: 'Oct', revenue: 210, sales: 19 },
+            { month: 'Nov', revenue: 242, sales: 22 },
+            { month: 'Dec', revenue: 310, sales: 28 },
+            { month: 'Jan', revenue: 385, sales: 35 },
+            { month: 'Feb', revenue: 462, sales: 42 },
+            { month: 'Mar', revenue: 533, sales: 49 },
         ]
     });
 

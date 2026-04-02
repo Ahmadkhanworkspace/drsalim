@@ -8,8 +8,8 @@ const Globe3D = dynamic(() => import('@/components/admin/Globe3D'), { ssr: false
 
 // Shared analytics data
 const ANALYTICS_DATA = {
-    totalRevenue: 1314,
-    totalSales: 120,
+    totalRevenue: 2142,
+    totalSales: 195,
     publishedBooks: 5,
     publishedArticles: 10,
     pendingComments: 23
@@ -169,8 +169,8 @@ export default function DashboardPage() {
                 marginBottom: '20px'
             }}>
                 {[
-                    { label: 'Total Revenue', value: `$${ANALYTICS_DATA.totalRevenue.toLocaleString()}`, icon: '💰', change: '+12.5%', positive: true },
-                    { label: 'Total Sales', value: ANALYTICS_DATA.totalSales, icon: '📊', change: '+8.2%', positive: true },
+                    { label: 'Total Revenue', value: `$${ANALYTICS_DATA.totalRevenue.toLocaleString()}`, icon: '💰', change: '+24.5%', positive: true },
+                    { label: 'Total Sales', value: ANALYTICS_DATA.totalSales, icon: '📊', change: '+18.2%', positive: true },
                     { label: 'Published Books', value: ANALYTICS_DATA.publishedBooks, icon: '📚', change: null },
                     { label: 'Published Articles', value: ANALYTICS_DATA.publishedArticles, icon: '✍️', change: null },
                     { label: 'Pending Comments', value: ANALYTICS_DATA.pendingComments, icon: '💬', change: 'Needs review', positive: false }
@@ -305,8 +305,10 @@ export default function DashboardPage() {
                     overflow: 'hidden'
                 }}>
                     {[
-                        { action: 'New book sale', item: 'Divine Providence', time: '2 hours ago', icon: '📚' },
+                        { action: 'New book sale', item: 'Brotherhood (x12 copies)', time: '45 minutes ago', icon: '📚' },
+                        { action: 'New book sale', item: 'Divine Providence (x8 copies)', time: '3 hours ago', icon: '📚' },
                         { action: 'New comment', item: 'Article: Spiritual Growth', time: '5 hours ago', icon: '💬' },
+                        { action: 'New book sale', item: 'Spiritual Diseases (x5 copies)', time: '8 hours ago', icon: '📚' },
                         { action: 'Article published', item: 'Understanding Faith', time: '1 day ago', icon: '✍️' },
                         { action: 'Book updated', item: 'Human Journey', time: '2 days ago', icon: '📖' }
                     ].map((activity, index) => (
@@ -317,9 +319,10 @@ export default function DashboardPage() {
                                 alignItems: 'center',
                                 gap: '12px',
                                 padding: '12px 14px',
-                                borderBottom: index < 3 ? '1px solid #E3E6E6' : 'none'
+                                borderBottom: index < 5 ? '1px solid #E3E6E6' : 'none'
                             }}
                         >
+
                             <div style={{
                                 width: '32px',
                                 height: '32px',

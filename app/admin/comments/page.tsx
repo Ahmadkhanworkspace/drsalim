@@ -177,7 +177,7 @@ export default function CommentsPage() {
             }
         } catch (error) {
             console.error(error);
-            alert('An error occurred during import.');
+            alert('An error occurred during import: ' + (error instanceof Error ? error.message : String(error)));
         } finally {
             setImporting(false);
         }

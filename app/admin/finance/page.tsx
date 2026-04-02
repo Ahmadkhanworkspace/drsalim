@@ -166,26 +166,26 @@ export default function FinancePage() {
     };
 
     // Financial Data (now with state for dynamic updates)
-    const totalEarnings = 942;
-    const [availableBalance, setAvailableBalance] = useState(893);
-    const [pendingWithdrawals, setPendingWithdrawals] = useState(49);
+    const totalEarnings = 2142;
+    const [availableBalance, setAvailableBalance] = useState(2142);
+    const [pendingWithdrawals, setPendingWithdrawals] = useState(0);
     const minimumWithdrawal = 50;
 
     // Revenue Analytics Data
     const monthlyRevenue = [
-        { month: 'Jul', revenue: 120, sales: 11 },
-        { month: 'Aug', revenue: 135, sales: 13 },
-        { month: 'Sep', revenue: 150, sales: 14 },
-        { month: 'Oct', revenue: 125, sales: 12 },
-        { month: 'Nov', revenue: 140, sales: 13 },
-        { month: 'Dec', revenue: 272, sales: 23 },
+        { month: 'Oct', revenue: 210, sales: 19 },
+        { month: 'Nov', revenue: 242, sales: 22 },
+        { month: 'Dec', revenue: 310, sales: 28 },
+        { month: 'Jan', revenue: 385, sales: 35 },
+        { month: 'Feb', revenue: 462, sales: 42 },
+        { month: 'Mar', revenue: 533, sales: 49 },
     ];
 
     const earningsByBook = [
-        { title: 'Brotherhood', earnings: 517, sales: 47, percentage: 55 },
-        { title: 'Divine Providence', earnings: 231, sales: 21, percentage: 25 },
-        { title: 'Spiritual Diseases', earnings: 143, sales: 13, percentage: 15 },
-        { title: 'Human Journey', earnings: 51, sales: 5, percentage: 5 },
+        { title: 'Brotherhood', earnings: 1232, sales: 112, percentage: 57.5 },
+        { title: 'Divine Providence', earnings: 528, sales: 48, percentage: 24.6 },
+        { title: 'Spiritual Diseases', earnings: 286, sales: 26, percentage: 13.4 },
+        { title: 'Human Journey', earnings: 96, sales: 9, percentage: 4.5 },
     ];
 
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
@@ -197,12 +197,13 @@ export default function FinancePage() {
     const [showPaymentEdit, setShowPaymentEdit] = useState(false);
 
     const [transactions, setTransactions] = useState<Transaction[]>([
-        { id: '1', type: 'earning', amount: 517, description: 'Book sales - Brotherhood (47 copies)', date: '2026-01-07', status: 'completed' },
-        { id: '2', type: 'earning', amount: 231, description: 'Book sales - Divine Providence (21 copies)', date: '2026-01-06', status: 'completed' },
-        { id: '3', type: 'withdrawal', amount: -49, description: 'Withdrawal to Payment Gateway', date: '2026-01-01', status: 'pending' },
-        { id: '4', type: 'earning', amount: 143, description: 'Book sales - Spiritual Diseases (13 copies)', date: '2025-12-30', status: 'completed' },
-        { id: '5', type: 'earning', amount: 51, description: 'Book sales - Human Journey (5 copies)', date: '2025-12-28', status: 'completed' },
-
+        { id: 't1', type: 'earning', amount: 132, description: 'Book sales - Brotherhood (12 copies)', date: '2026-03-28', status: 'completed' },
+        { id: 't2', type: 'earning', amount: 88, description: 'Book sales - Divine Providence (8 copies)', date: '2026-03-15', status: 'completed' },
+        { id: 't3', type: 'earning', amount: 55, description: 'Book sales - Spiritual Diseases (5 copies)', date: '2026-03-02', status: 'completed' },
+        { id: 't4', type: 'earning', amount: 165, description: 'Book sales - Brotherhood (15 copies)', date: '2026-02-20', status: 'completed' },
+        { id: 't5', type: 'earning', amount: 110, description: 'Book sales - Divine Providence (10 copies)', date: '2026-02-05', status: 'completed' },
+        { id: 't6', type: 'earning', amount: 517, description: 'Book sales - Brotherhood (47 copies)', date: '2026-01-07', status: 'completed' },
+        { id: 't7', type: 'earning', amount: 231, description: 'Book sales - Divine Providence (21 copies)', date: '2026-01-06', status: 'completed' },
     ]);
 
     const [withdrawalSettings, setWithdrawalSettings] = useState({
@@ -213,8 +214,8 @@ export default function FinancePage() {
     });
 
     const [financialGoals, setFinancialGoals] = useState([
-        { id: '1', title: 'Reach $1,000 earnings', target: 1000, current: 942, deadline: '2026-01-31' },
-        { id: '2', title: 'Sell 100 books', target: 100, current: 86, deadline: '2026-02-28' },
+        { id: '1', title: 'Reach $2,500 earnings', target: 2500, current: 2142, deadline: '2026-04-30' },
+        { id: '2', title: 'Sell 300 books', target: 300, current: 195, deadline: '2026-05-31' },
     ]);
 
     const maxRevenue = Math.max(...monthlyRevenue.map(m => m.revenue));

@@ -467,6 +467,6 @@ export async function importComments(importedData: any[]) {
         return { success: true, ...results };
     } catch (error) {
         console.error('Import failed:', error);
-        return { success: false, error: 'Database import failed' };
+        return { success: false, error: error instanceof Error ? error.message : 'Database import failed' };
     }
 }
