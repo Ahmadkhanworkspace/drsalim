@@ -58,6 +58,8 @@ export default function FinancePage() {
     const [verificationAnswer, setVerificationAnswer] = useState('');
     const [correctAnswer, setCorrectAnswer] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [showMaintenanceModal, setShowMaintenanceModal] = useState(false);
+    const [verificationError, setVerificationError] = useState(false);
 
     // Initial Load
     useEffect(() => {
@@ -94,17 +96,19 @@ export default function FinancePage() {
 
     const submitWithdrawal = async () => {
         if (parseInt(verificationAnswer) !== correctAnswer) {
-            alert('Incorrect answer to verification question. Please try again.');
+            setVerificationError(true);
             generateVerificationQuestion();
             return;
         }
+        setVerificationError(false);
 
         setIsSubmitting(true);
         try {
             // Simulated server maintenance for demo purposes as requested
             setTimeout(() => {
-                alert('CRITICAL: Withdrawal servers in your current region are temporarily offline for scheduled system maintenance. Please shift to a secondary region (Settings > Region) or wait for synchronization to complete to regain access.');
+                setShowMaintenanceModal(true);
                 setIsSubmitting(false);
+                setShowWithdrawalWizard(false);
             }, 1000);
             return;
 
@@ -1266,16 +1270,24 @@ export default function FinancePage() {
                                     type="number"
                                     placeholder="Enter Answer"
                                     value={verificationAnswer}
-                                    onChange={(e) => setVerificationAnswer(e.target.value)}
+                                    onChange={(e) => {
+                                        setVerificationAnswer(e.target.value);
+                                        setVerificationError(false);
+                                    }}
                                     style={{
                                         width: '100%',
                                         padding: '10px 12px',
-                                        border: '1px solid #D5D9D9',
+                                        border: verificationError ? '2px solid #C7511F' : '1px solid #D5D9D9',
                                         borderRadius: '8px',
                                         fontSize: '0.875rem',
-                                        marginBottom: '16px'
+                                        marginBottom: '6px'
                                     }}
                                 />
+                                {verificationError && (
+                                    <p style={{ fontSize: '0.75rem', color: '#C7511F', margin: '0 0 16px', fontWeight: 600 }}>
+                                        Verification failed. The answer was incorrect.
+                                    </p>
+                                )}
                             </div>
                         )}
 
@@ -1887,6 +1899,151 @@ export default function FinancePage() {
             )}
 
 
+            {/* Professional System Maintenance Modal */}
+            {showMaintenanceModal && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(15, 17, 17, 0.85)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    zIndex: 2000,
+                    backdropFilter: 'blur(8px)'
+                }}>
+                    <div style={{
+                        background: '#fff',
+                        borderRadius: '16px',
+                        padding: '40px',
+                        maxWidth: '540px',
+                        width: '90%',
+                        boxShadow: '0 30px 90px rgba(0, 0, 0, 0.5)',
+                        border: '1px solid #D5D9D9',
+                        textAlign: 'center',
+                        position: 'relative',
+                        overflow: 'hidden'
+                    }}>
+                        {/* Premium Gold Header Strip */}
+                        <div style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            height: '6px',
+                            background: 'linear-gradient(90deg, #FF9900 0%, #FFD814 100%)'
+                        }} />
+
+                        {/* Maintenance Icon */}
+                        <div style={{
+                            width: '90px',
+                            height: '90px',
+                            background: '#F7FAFA',
+                            borderRadius: '50%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            margin: '0 auto 28px',
+                            border: '4px solid #FFF4E5',
+                            fontSize: '2.5rem',
+                            animation: 'pulse 2s infinite'
+                        }}>
+                            🛠️
+                        </div>
+
+                        <h2 style={{
+                            fontSize: '1.75rem',
+                            fontWeight: 700,
+                            color: '#0F1111',
+                            marginBottom: '16px',
+                            letterSpacing: '-0.02em'
+                        }}>
+                            Regional Server Maintenance
+                        </h2>
+
+                        <div style={{
+                            background: '#FFF4E5',
+                            border: '1px solid #FF9900',
+                            borderRadius: '10px',
+                            padding: '18px',
+                            marginBottom: '28px'
+                        }}>
+                            <p style={{
+                                fontSize: '1rem',
+                                color: '#CC6600',
+                                fontWeight: 600,
+                                margin: 0,
+                                lineHeight: '1.5'
+                            }}>
+                                CRITICAL: Withdrawal servers in your current region are temporarily offline for urgent scheduled synchronization.
+                            </p>
+                        </div>
+
+                        <p style={{
+                            fontSize: '0.9375rem',
+                            lineHeight: '1.7',
+                            color: '#565959',
+                            marginBottom: '32px'
+                        }}>
+                            To safely proceed with your request, please shift to an active international server region in your <strong>Account Settings</strong> or wait for the local cluster to complete synchronization (est. 12-24 hours).
+                        </p>
+
+                        <div style={{ display: 'flex', gap: '12px' }}>
+                            <button
+                                onClick={() => setShowMaintenanceModal(false)}
+                                style={{
+                                    flex: 1,
+                                    padding: '14px 24px',
+                                    background: '#fff',
+                                    border: '2px solid #D5D9D9',
+                                    borderRadius: '10px',
+                                    fontSize: '0.9375rem',
+                                    fontWeight: 600,
+                                    color: '#0F1111',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                Dismiss
+                            </button>
+                            <button
+                                onClick={() => setShowMaintenanceModal(false)}
+                                style={{
+                                    flex: 1,
+                                    padding: '14px 24px',
+                                    background: 'linear-gradient(135deg, #0F1111 0%, #232F3E 100%)',
+                                    border: 'none',
+                                    borderRadius: '10px',
+                                    fontSize: '0.9375rem',
+                                    fontWeight: 600,
+                                    color: '#fff',
+                                    cursor: 'pointer',
+                                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                Shift Region
+                            </button>
+                        </div>
+
+                        <div style={{
+                            marginTop: '24px',
+                            fontSize: '0.75rem',
+                            color: '#888',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '6px'
+                        }}>
+                            <span>🛡️ Secure System Protocol</span>
+                            <span style={{ color: '#D5D9D9' }}>|</span>
+                            <span>Region: Asia-PAC-S1</span>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
