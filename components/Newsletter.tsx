@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Newsletter() {
     const [email, setEmail] = useState('');
@@ -12,133 +13,68 @@ export default function Newsletter() {
         setIsSubmitting(true);
 
         setTimeout(() => {
-            setMessage('Thank you for subscribing! 🎉');
+            setMessage('You have been initiated into the discourse.');
             setEmail('');
             setIsSubmitting(false);
-
-            setTimeout(() => setMessage(''), 3000);
-        }, 1000);
+            setTimeout(() => setMessage(''), 5000);
+        }, 1500);
     };
 
     return (
-        <section id="newsletter" className="section" style={{
-            background: 'var(--color-bg-navy)',
-            position: 'relative',
-            overflow: 'hidden'
-        }}>
-            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
-                <div style={{
-                    maxWidth: '700px',
-                    margin: '0 auto',
-                    textAlign: 'center'
-                }}>
-                    <span style={{
-                        color: 'var(--color-gold)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.2em',
-                        fontSize: '0.85rem',
-                        fontWeight: 700,
-                        display: 'block',
-                        marginBottom: '1rem'
-                    }}>
-                        Newsletter
-                    </span>
+        <section id="newsletter" className="py-40 relative overflow-hidden bg-charcoal-900 border-t border-white/5">
+            {/* Background Pattern */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none grayscale" style={{ backgroundImage: 'url("/section-bg.png")', backgroundSize: 'cover' }} />
+            
+            <div className="container relative z-10">
+                <div className="max-w-5xl mx-auto glass-card p-12 md:p-24 text-center border-crimson-500/10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <span className="text-crimson-500 font-black uppercase tracking-[0.5em] text-[10px] mb-8 block">
+                            Intellectual Resonance
+                        </span>
+                        
+                        <h2 className="text-5xl md:text-8xl text-white font-bold mb-10 leading-[0.9] tracking-tighter">
+                            Subscribe to the <br />
+                            <span className="text-crimson-500 font-serif-italic font-normal px-2">Discourse</span>
+                        </h2>
+                        
+                        <p className="text-stone-400 text-xl mb-16 max-w-2xl mx-auto leading-relaxed font-light">
+                            Receive curated updates on latest publications, 
+                            philosophical reflections, and scholarly inquiries.
+                        </p>
 
-                    <h2 style={{
-                        color: 'white',
-                        marginBottom: '1.5rem',
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)'
-                    }}>
-                        Stay Informed with the Latest Insights
-                    </h2>
+                        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto">
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Formal Email Address"
+                                required
+                                className="flex-1 bg-charcoal-950 border border-stone-800 px-8 py-6 text-white placeholder:text-stone-600 focus:outline-none focus:border-crimson-500 transition-all duration-500 tracking-wide text-sm"
+                            />
+                            <button
+                                type="submit"
+                                disabled={isSubmitting}
+                                className="btn btn-primary disabled:opacity-50 min-w-[220px]"
+                            >
+                                {isSubmitting ? 'Processing...' : 'Secure Access'}
+                            </button>
+                        </form>
 
-                    <p style={{
-                        color: 'rgba(255,255,255,0.7)',
-                        fontSize: '1.1rem',
-                        marginBottom: '3rem',
-                        lineHeight: 1.7
-                    }}>
-                        Subscribe now to receive updates on Dr. Muhammad Salim's latest articles, reflections, and publications directly to your inbox!
-                    </p>
-
-                    {/* Form - Properly grouped input and button */}
-                    <form onSubmit={handleSubmit} style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '1rem',
-                        maxWidth: '600px',
-                        margin: '0 auto 2rem',
-                        flexWrap: 'wrap',
-                        justifyContent: 'center'
-                    }}>
-                        <input
-                            type="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder="Enter your email address"
-                            required
-                            style={{
-                                flex: '1 1 300px',
-                                minWidth: '250px',
-                                padding: '1rem 1.5rem',
-                                borderRadius: '8px',
-                                background: 'white',
-                                color: 'var(--color-text-navy)',
-                                fontSize: '1rem',
-                                border: 'none',
-                                outline: 'none'
-                            }}
-                        />
-
-                        <button
-                            type="submit"
-                            disabled={isSubmitting}
-                            style={{
-                                padding: '1rem 2.5rem',
-                                background: 'var(--color-gold)',
-                                color: 'var(--color-text-navy)',
-                                fontWeight: 700,
-                                textTransform: 'uppercase',
-                                letterSpacing: '0.05em',
-                                fontSize: '0.9rem',
-                                borderRadius: '8px',
-                                border: 'none',
-                                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                                opacity: isSubmitting ? 0.7 : 1,
-                                boxShadow: '0 4px 20px rgba(201, 164, 76, 0.3)',
-                                transition: 'all 0.3s ease',
-                                whiteSpace: 'nowrap'
-                            }}
-                            onMouseEnter={(e) => {
-                                if (!isSubmitting) {
-                                    e.currentTarget.style.background = '#fcd34d';
-                                    e.currentTarget.style.boxShadow = '0 8px 24px rgba(201, 164, 76, 0.4)';
-                                }
-                            }}
-                            onMouseLeave={(e) => {
-                                e.currentTarget.style.background = 'var(--color-gold)';
-                                e.currentTarget.style.boxShadow = '0 4px 20px rgba(201, 164, 76, 0.3)';
-                            }}
-                        >
-                            {isSubmitting ? 'Subscribing...' : 'Subscribe Now'}
-                        </button>
-                    </form>
-
-                    {message && (
-                        <div style={{
-                            marginTop: '1.5rem',
-                            padding: '1rem 1.5rem',
-                            background: 'rgba(251, 191, 36, 0.2)',
-                            borderRadius: '8px',
-                            color: 'white',
-                            fontSize: '1rem',
-                            fontWeight: 600,
-                            border: '1px solid rgba(251, 191, 36, 0.4)'
-                        }}>
-                            {message}
-                        </div>
-                    )}
+                        {message && (
+                            <motion.div 
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="mt-12 text-crimson-400 text-[10px] font-black tracking-[0.3em] uppercase"
+                            >
+                                {message}
+                            </motion.div>
+                        )}
+                    </motion.div>
                 </div>
             </div>
         </section>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Testimonial } from '@/data/testimonials';
 
 interface TestimonialsSliderProps {
@@ -21,216 +22,97 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
     const currentTestimonial = testimonials[currentIndex];
 
     return (
-        <section id="testimonials" className="section" style={{
-            background: 'linear-gradient(135deg, rgba(239, 246, 255, 0.5) 0%, rgba(219, 234, 254, 0.3) 100%)',
-            position: 'relative'
-        }}>
-            <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+        <section id="testimonials" className="section relative overflow-hidden bg-charcoal-900 border-t border-white/5">
+            {/* Background Atmosphere */}
+            <div className="absolute inset-0 z-0">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-crimson-500/5 rounded-full blur-[150px] pointer-events-none" />
+                <div className="absolute inset-0 bg-[url('/section-bg.png')] opacity-5 grayscale mix-blend-overlay" />
+            </div>
+
+            <div className="container relative z-10">
+                
                 {/* Header */}
-                <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
-                    <span style={{
-                        color: 'var(--color-gold)',
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.2em',
-                        fontSize: '0.85rem',
-                        fontWeight: 700,
-                        display: 'block',
-                        marginBottom: '1rem'
-                    }}>
-                        Testimonials
+                <div className="max-w-4xl mx-auto text-center mb-32">
+                    <span className="text-crimson-500 font-black uppercase tracking-[0.5em] text-[10px] mb-8 block">
+                        Voices of Enlightenment
                     </span>
-                    <h2 style={{
-                        color: 'var(--color-text-navy)',
-                        marginBottom: '1.5rem',
-                        fontFamily: 'var(--font-heading)',
-                        fontSize: 'clamp(2.5rem, 4vw, 3.5rem)'
-                    }}>
-                        What Readers Are Saying
+                    <h2 className="text-5xl md:text-8xl text-white font-bold mb-10 tracking-tighter">
+                        Scholarly <span className="text-crimson-500 font-serif-italic font-normal px-2">Impact</span>
                     </h2>
-                    <p style={{
-                        color: 'var(--color-text-muted)',
-                        maxWidth: '600px',
-                        margin: '0 auto',
-                        fontSize: '1.1rem'
-                    }}>
-                        {testimonials.length} reviews from satisfied readers worldwide
-                    </p>
+                    <div className="w-24 h-[1px] bg-crimson-500/30 mx-auto" />
                 </div>
 
                 {/* Slider Container */}
-                <div style={{ maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
-                    {/* Main Card - Properly grouped testimonial */}
-                    <div style={{
-                        background: 'white',
-                        borderRadius: '8px',
-                        padding: '3rem 2.5rem',
-                        boxShadow: 'var(--shadow-card)',
-                        minHeight: '350px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center'
-                    }}>
-                        {/* Gold Quotation Icon */}
-                        <div style={{
-                            color: 'var(--color-gold)',
-                            fontSize: '4rem',
-                            marginBottom: '1.5rem',
-                            opacity: 0.5,
-                            lineHeight: 1
-                        }}>"</div>
-
-                        {/* Quote */}
-                        <p style={{
-                            color: 'var(--color-text-body)',
-                            fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
-                            lineHeight: 1.7,
-                            marginBottom: '2rem',
-                            fontStyle: 'italic'
-                        }}>
-                            {currentTestimonial.content}
-                        </p>
-
-                        {/* Author Info - Grouped together */}
-                        <div style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1.5rem',
-                            paddingTop: '2rem',
-                            borderTop: '1px solid rgba(201, 164, 76, 0.2)'
-                        }}>
-                            <div style={{
-                                width: '60px',
-                                height: '60px',
-                                borderRadius: '50%',
-                                background: 'var(--gradient-navy)',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                color: 'white',
-                                fontSize: '1.8rem',
-                                border: '2px solid var(--color-gold)',
-                                flexShrink: 0
-                            }}>
-                                👤
+                <div className="max-w-6xl mx-auto relative">
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={currentIndex}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            className="glass-card p-12 md:p-24 relative group"
+                        >
+                            {/* Decorative Large Quote */}
+                            <div className="absolute top-12 left-12 text-crimson-500/10 pointer-events-none select-none">
+                                <span className="text-[15rem] leading-none font-heading italic">"</span>
                             </div>
 
-                            <div>
-                                <h4 style={{
-                                    color: 'var(--color-text-navy)',
-                                    fontFamily: 'var(--font-heading)',
-                                    fontWeight: 700,
-                                    fontSize: '1.2rem',
-                                    marginBottom: '0.25rem'
-                                }}>
-                                    {currentTestimonial.name}
-                                </h4>
-                                <p style={{
-                                    color: 'var(--color-text-muted)',
-                                    fontSize: '0.95rem',
-                                    marginBottom: '0.25rem'
-                                }}>
-                                    {currentTestimonial.role}
-                                </p>
-                                <p style={{
-                                    color: 'var(--color-gold)',
-                                    fontSize: '0.9rem',
-                                    fontWeight: 600
-                                }}>
-                                    {currentTestimonial.date}
-                                </p>
+                            <div className="relative z-10 flex flex-col items-center">
+                                <motion.p 
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.2 }}
+                                    className="text-2xl md:text-4xl font-heading italic text-stone-200 leading-relaxed text-center mb-20 max-w-4xl"
+                                >
+                                    "{currentTestimonial.content}"
+                                </motion.p>
+
+                                <div className="flex flex-col items-center">
+                                    <div className="w-20 h-20 rounded-none bg-charcoal-950 flex items-center justify-center mb-8 border border-crimson-500/30 relative overflow-hidden group-hover:border-crimson-500 transition-colors duration-700">
+                                        <div className="absolute inset-0 bg-crimson-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                        <span className="text-3xl font-bold text-crimson-500 relative z-10">
+                                            {currentTestimonial.name.charAt(0)}
+                                        </span>
+                                    </div>
+                                    <div className="text-center">
+                                        <h4 className="text-2xl font-bold text-white mb-6 tracking-tight">{currentTestimonial.name}</h4>
+                                        <div className="flex gap-2 justify-center">
+                                            {[...Array(5)].map((_, i) => (
+                                                <svg key={i} viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3 text-crimson-500/40">
+                                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                                </svg>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                        </motion.div>
+                    </AnimatePresence>
+
+                    {/* Sophisticated Controls */}
+                    <div className="flex justify-center items-center gap-12 mt-16">
+                        <button
+                            onClick={prevSlide}
+                            className="group flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-stone-500 hover:text-white transition-all duration-500"
+                        >
+                            <span className="w-12 h-[1px] bg-stone-800 group-hover:bg-crimson-500 group-hover:w-20 transition-all duration-700" />
+                            <span>Previous</span>
+                        </button>
+                        
+                        <div className="text-stone-600 text-[10px] font-black tracking-[0.2em]">
+                            <span className="text-crimson-500">{String(currentIndex + 1).padStart(2, '0')}</span>
+                            <span className="mx-2">/</span>
+                            <span>{String(testimonials.length).padStart(2, '0')}</span>
                         </div>
-                    </div>
 
-                    {/* Navigation Buttons */}
-                    <button
-                        onClick={prevSlide}
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '-60px',
-                            transform: 'translateY(-50%)',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            background: 'white',
-                            boxShadow: 'var(--shadow-card)',
-                            border: '1px solid rgba(15, 23, 42, 0.1)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            color: 'var(--color-text-navy)',
-                            fontSize: '1.5rem',
-                            transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.color = 'var(--color-gold)';
-                            e.currentTarget.style.boxShadow = 'var(--shadow-hover)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.color = 'var(--color-text-navy)';
-                            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
-                        }}
-                    >
-                        ←
-                    </button>
-
-                    <button
-                        onClick={nextSlide}
-                        style={{
-                            position: 'absolute',
-                            top: '50%',
-                            right: '-60px',
-                            transform: 'translateY(-50%)',
-                            width: '48px',
-                            height: '48px',
-                            borderRadius: '50%',
-                            background: 'white',
-                            boxShadow: 'var(--shadow-card)',
-                            border: '1px solid rgba(15, 23, 42, 0.1)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            cursor: 'pointer',
-                            color: 'var(--color-text-navy)',
-                            fontSize: '1.5rem',
-                            transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={(e) => {
-                            e.currentTarget.style.color = 'var(--color-gold)';
-                            e.currentTarget.style.boxShadow = 'var(--shadow-hover)';
-                        }}
-                        onMouseLeave={(e) => {
-                            e.currentTarget.style.color = 'var(--color-text-navy)';
-                            e.currentTarget.style.boxShadow = 'var(--shadow-card)';
-                        }}
-                    >
-                        →
-                    </button>
-
-                    {/* Indicators */}
-                    <div style={{
-                        display: 'flex',
-                        gap: '0.75rem',
-                        justifyContent: 'center',
-                        marginTop: '2.5rem'
-                    }}>
-                        {testimonials.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCurrentIndex(index)}
-                                style={{
-                                    height: '8px',
-                                    borderRadius: '4px',
-                                    width: currentIndex === index ? '48px' : '8px',
-                                    background: currentIndex === index ? 'var(--color-gold)' : 'rgba(100, 116, 139, 0.2)',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s ease'
-                                }}
-                            />
-                        ))}
+                        <button
+                            onClick={nextSlide}
+                            className="group flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-stone-500 hover:text-white transition-all duration-500"
+                        >
+                            <span>Next</span>
+                            <span className="w-12 h-[1px] bg-stone-800 group-hover:bg-crimson-500 group-hover:w-20 transition-all duration-700" />
+                        </button>
                     </div>
                 </div>
             </div>

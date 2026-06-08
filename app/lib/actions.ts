@@ -470,3 +470,77 @@ export async function importComments(importedData: any[]) {
         return { success: false, error: error instanceof Error ? error.message : 'Database import failed' };
     }
 }
+
+export async function getCommentsForArticle(articleIdStr: string) {
+    try {
+        await dbConnect();
+        const comments = await Comment.find({ articleId: articleIdStr, approved: true }).sort({ createdAt: -1 });
+        return comments.map(c => {
+            const obj = c.toObject();
+            return {
+                _id: obj._id.toString(),
+                articleId: obj.articleId.toString(),
+                author: obj.author,
+                email: obj.email,
+                content: obj.content,
+                approved: obj.approved,
+                createdAt: obj.createdAt ? new Date(obj.createdAt).toISOString() : new Date().toISOString()
+            };
+        });
+    } catch (error) {
+        console.warn('MongoDB Get Comments for Article failed. Using JSON.');
+        try {
+            const comments = await getJsonComments();
+            return comments.filter((c: any) => c.articleId === articleIdStr && c.approved);
+        } catch (e) {
+            return [];
+        }
+    }
+}
+
+export async function submitComment(articleIdStr: string, author: string, email: string, content: string) {
+    try {
+        await dbConnect();
+        const newComment = await Comment.create({
+            articleId: articleIdStr,
+            author,
+            email,
+            content,
+            approved: false, // Default to false, requires admin approval
+            createdAt: new Date()
+        });
+        const obj = newComment.toObject();
+        return { 
+            success: true, 
+            comment: {
+                _id: obj._id.toString(),
+                articleId: obj.articleId.toString(),
+                author: obj.author,
+                email: obj.email,
+                content: obj.content,
+                approved: obj.approved,
+                createdAt: obj.createdAt ? new Date(obj.createdAt).toISOString() : new Date().toISOString()
+            }
+        };
+    } catch (error) {
+        console.error('Failed to submit comment in DB:', error);
+        try {
+            const comments = await getJsonComments();
+            const newComment = {
+                _id: `C-${Date.now()}`,
+                articleId: articleIdStr,
+                author,
+                email,
+                content,
+                approved: false,
+                createdAt: new Date().toISOString()
+            };
+            comments.unshift(newComment);
+            await saveJsonComments(comments);
+            return { success: true, comment: newComment };
+        } catch (fsError) {
+            return { success: false, error: 'Failed to save comment.' };
+        }
+    }
+}
+

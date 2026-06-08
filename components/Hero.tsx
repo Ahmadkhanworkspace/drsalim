@@ -1,205 +1,145 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-
-const slides = [
-    {
-        title: "Wisdom for the Modern Soul",
-        subtitle: "Dr. Muhammad Salim",
-        description: "Exploring the intersection of Islamic spirituality, classic philosophy, and contemporary thought.",
-        label: "Featured Author"
-    },
-    {
-        title: "A Legacy of Scholarship",
-        subtitle: "40+ Years of Excellence",
-        description: "Discover a lifetime of research, teaching, and profound literary contributions.",
-        label: "Academic Excellence"
-    },
-    {
-        title: "The Path to Enlightenment",
-        subtitle: "New Publications",
-        description: "Begin your journey of discovery with the latest published works and articles.",
-        label: "Latest Works"
-    }
-];
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 export default function Hero() {
-    const [currentSlide, setCurrentSlide] = useState(0);
+    const containerRef = useRef(null);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end start"]
+    });
 
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 6000);
-        return () => clearInterval(timer);
-    }, []);
+    const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+    const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <section style={{
-            minHeight: '85vh',
-            display: 'flex',
-            alignItems: 'center',
-            background: 'var(--gradient-navy)',
-            position: 'relative',
-            overflow: 'hidden',
-            color: 'white',
-            paddingTop: '80px'
-        }}>
-            <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: '1.2fr 1fr',
-                    gap: '4rem',
-                    alignItems: 'center'
-                }} className="hero-layout">
+        <section 
+            ref={containerRef}
+            className="relative h-screen flex items-center justify-center overflow-hidden bg-charcoal-950"
+        >
+            {/* Cinematic Background Layer */}
+            <motion.div 
+                style={{ y, opacity }}
+                className="absolute inset-0 z-0"
+            >
+                <div 
+                    className="absolute inset-0 bg-cover bg-center scale-110"
+                    style={{ 
+                        backgroundImage: 'url("/hero-bg.png")',
+                        filter: 'brightness(0.2) contrast(1.1) grayscale(1)'
+                    }}
+                />
+                
+                {/* Dynamic Mesh Gradient Overlays (Crimson & Charcoal) */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(153,0,0,0.15),transparent_60%)]" />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-transparent to-black" />
+            </motion.div>
 
-                    {/* Left Column */}
-                    <div style={{ position: 'relative', zIndex: 10 }}>
-                        {slides.map((slide, index) => (
-                            <div
-                                key={index}
-                                style={{
-                                    display: currentSlide === index ? 'block' : 'none'
-                                }}
-                            >
-                                {/* Gold Label */}
-                                <div style={{
-                                    fontFamily: 'var(--font-body)',
-                                    color: 'var(--color-gold)',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '0.2em',
-                                    fontSize: '0.9rem',
-                                    fontWeight: 700,
-                                    marginBottom: '1.5rem',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '1rem'
-                                }}>
-                                    <span style={{ width: '40px', height: '2px', background: 'var(--color-gold)' }}></span>
-                                    {slide.label}
-                                </div>
+            {/* Floating Ethereal Elements */}
+            <div className="absolute inset-0 pointer-events-none">
+                <motion.div 
+                    animate={{ 
+                        y: [0, -30, 0],
+                        opacity: [0.05, 0.1, 0.05]
+                    }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-1/4 left-[15%] w-96 h-96 bg-crimson-500/10 rounded-full blur-[120px]"
+                />
+            </div>
 
-                                {/* Main Title */}
-                                <h1 style={{
-                                    color: 'white',
-                                    marginBottom: '1.5rem',
-                                    fontSize: 'clamp(3rem, 5vw, 4.5rem)',
-                                    lineHeight: '1.1',
-                                    textShadow: 'var(--shadow-text)',
-                                    fontFamily: 'var(--font-heading)',
-                                    fontWeight: 700
-                                }}>
-                                    {slide.title}
-                                </h1>
+            <div className="container relative z-10 px-6">
+                <div className="max-w-6xl mx-auto text-center">
+                    
+                    {/* Minimalist Accent (Crimson) */}
+                    <motion.div
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        animate={{ scaleX: 1, opacity: 1 }}
+                        transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="w-24 h-[1px] bg-crimson-500/60 mx-auto mb-12"
+                    />
 
-                                {/* Subtitle */}
-                                <div style={{
-                                    fontSize: '1.8rem',
-                                    color: 'var(--color-gold)',
-                                    marginBottom: '2rem',
-                                    fontFamily: 'var(--font-heading)',
-                                    fontStyle: 'italic',
-                                    fontWeight: 400
-                                }}>
-                                    {slide.subtitle}
-                                </div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.3 }}
+                        className="mb-10"
+                    >
+                        <span className="text-stone-300 font-bold uppercase tracking-[0.5em] text-[9px] md:text-[11px] block">
+                            Islamic Thought & Modern Philosophy
+                        </span>
+                    </motion.div>
 
-                                <p style={{
-                                    fontSize: '1.2rem',
-                                    color: 'rgba(255,255,255,0.8)',
-                                    marginBottom: '3rem',
-                                    maxWidth: '550px',
-                                    lineHeight: 1.8
-                                }}>
-                                    {slide.description}
-                                </p>
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="relative mb-12"
+                    >
+                        <h1 className="text-7xl md:text-[10rem] font-bold text-white tracking-tighter leading-[0.85] font-heading">
+                            A <span className="text-crimson-500 font-serif-italic font-normal px-2">Legacy</span> <br />
+                            <span className="opacity-95 text-stone-100">of Thought</span>
+                        </h1>
+                    </motion.div>
 
-                                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-                                    <a href="#books" className="btn btn-primary">
-                                        View Books
-                                    </a>
-                                    <a href="#articles" className="btn btn-outline">
-                                        Read Articles
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 0.6 }}
+                        transition={{ duration: 2, delay: 1 }}
+                        className="text-lg md:text-2xl text-stone-200 max-w-3xl mx-auto mb-20 font-light leading-relaxed tracking-wide italic"
+                    >
+                        Navigating the profound intersections of classical wisdom, 
+                        modern philosophy, and the enduring human spirit.
+                    </motion.p>
 
-                    {/* Right Column: Visual */}
-                    <div style={{
-                        position: 'relative',
-                        height: '500px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center'
-                    }} className="hero-visual">
-                        <div style={{
-                            width: '350px',
-                            height: '500px',
-                            background: 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
-                            boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            border: '1px solid rgba(251, 191, 36, 0.3)',
-                            position: 'relative',
-                            transform: 'rotateY(-10deg) rotateX(5deg)',
-                            transformStyle: 'preserve-3d'
-                        }}>
-                            <div style={{
-                                textAlign: 'center',
-                                color: 'var(--color-gold)',
-                                fontSize: '5rem'
-                            }}>
-                                📖
-                            </div>
-                            <div style={{
-                                position: 'absolute',
-                                left: 0, top: 0, bottom: 0,
-                                width: '20px',
-                                background: 'var(--color-gold)'
-                            }} />
-                        </div>
-                    </div>
-                </div>
-
-                {/* Slide Indicators */}
-                <div style={{
-                    position: 'absolute',
-                    bottom: '40px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    display: 'flex',
-                    gap: '1rem'
-                }}>
-                    {slides.map((_, idx) => (
-                        <button
-                            key={idx}
-                            onClick={() => setCurrentSlide(idx)}
-                            style={{
-                                width: '12px',
-                                height: '12px',
-                                borderRadius: '50%',
-                                background: currentSlide === idx ? 'var(--color-gold)' : 'rgba(255,255,255,0.2)',
-                                border: 'none',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease'
-                            }}
-                        />
-                    ))}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 1.4 }}
+                        className="flex flex-col sm:flex-row items-center justify-center gap-10"
+                    >
+                        <a 
+                            href="#books" 
+                            className="btn btn-primary"
+                        >
+                            Access Library
+                        </a>
+                        
+                        <a 
+                            href="#articles" 
+                            className="btn btn-outline"
+                        >
+                            Read the Blog
+                        </a>
+                    </motion.div>
                 </div>
             </div>
 
-            <style jsx>{`
-                @media (max-width: 968px) {
-                    .hero-layout {
-                        grid-template-columns: 1fr !important;
-                        text-align: center;
-                    }
-                    .hero-visual { display: none !important; }
-                    h1 { font-size: 3rem !important; }
-                }
-            `}</style>
+            {/* Premium Progress Ornament (Crimson) */}
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 2.5, duration: 1.5 }}
+                className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center"
+            >
+                <div className="w-[1px] h-20 bg-gradient-to-b from-transparent via-crimson-500/40 to-transparent relative">
+                    <motion.div 
+                        animate={{ y: [0, 80] }}
+                        transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                        className="absolute top-0 left-[-1px] w-[3px] h-8 bg-crimson-500 blur-[2px]"
+                    />
+                </div>
+            </motion.div>
+
+
+
+            {/* Side Ornaments */}
+            <div className="absolute left-10 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-20 opacity-20">
+                <span className="rotate-90 text-[10px] tracking-[1em] uppercase text-white font-black">Est. 1984</span>
+            </div>
+            <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden xl:flex flex-col gap-20 opacity-20">
+                <span className="rotate-90 text-[10px] tracking-[1em] uppercase text-white font-black">Scholarly Works</span>
+            </div>
         </section>
     );
 }

@@ -8,130 +8,105 @@ export default async function StorePage() {
     const books = await getBooks();
 
     return (
-        <main style={{ background: '#0f172a', minHeight: '100vh', paddingBottom: '6rem' }}>
-            {/* Hero Section */}
-            <div style={{
-                background: 'linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #172554 100%)',
-                padding: '8rem 2rem 6rem',
-                color: 'white',
-                textAlign: 'center',
-                position: 'relative',
-                overflow: 'hidden'
-            }}>
-                {/* Background Decoration */}
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'radial-gradient(circle at 50% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
-                    pointerEvents: 'none'
-                }} />
+        <main className="bg-charcoal-950 min-h-screen pb-24 text-stone-100 relative overflow-hidden">
+            {/* Ambient Background Glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[radial-gradient(circle_at_top,rgba(153,0,0,0.08)_0%,transparent_70%)] pointer-events-none z-0" />
 
-                <div className="container" style={{ position: 'relative', zIndex: 2, maxWidth: '900px', margin: '0 auto' }}>
-                    <div style={{
-                        display: 'inline-block',
-                        padding: '0.5rem 1.5rem',
-                        background: 'rgba(59, 130, 246, 0.1)',
-                        borderRadius: '20px',
-                        color: '#60a5fa',
-                        fontWeight: 600,
-                        fontSize: '0.9rem',
-                        marginBottom: '1.5rem',
-                        textTransform: 'uppercase',
-                        letterSpacing: '2px',
-                        border: '1px solid rgba(59, 130, 246, 0.2)'
-                    }}>
+            {/* Hero Header */}
+            <div className="relative z-10 pt-36 pb-16 border-b border-white/5">
+                <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+                    <div className="inline-block px-5 py-1.5 text-[9px] font-black uppercase tracking-[0.3em] text-white mb-8 bg-crimson-500">
                         Official Bookstore
                     </div>
 
-                    <h1 style={{
-                        fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                        fontWeight: 800,
-                        marginBottom: '1.5rem',
-                        background: 'linear-gradient(135deg, #ffffff 0%, #94a3b8 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        letterSpacing: '-1px'
-                    }}>
+                    <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-8 font-heading text-white tracking-tighter">
                         Scholarly Works of <br /> Dr. Muhammad Salim
                     </h1>
 
-                    <p style={{
-                        fontSize: '1.25rem',
-                        color: '#94a3b8',
-                        maxWidth: '650px',
-                        margin: '0 auto',
-                        lineHeight: 1.7
-                    }}>
+                    <p className="text-stone-400 text-lg max-w-2xl mx-auto leading-relaxed font-light">
                         Explore a lifetime of research and spiritual insight. Each volume offers a unique perspective on theology, philosophy, and the human condition.
                     </p>
                 </div>
             </div>
 
             {/* Book Grid */}
-            <div className="container" style={{
-                maxWidth: '1200px',
-                margin: '-4rem auto 0',
-                padding: '0 2rem',
-                position: 'relative',
-                zIndex: 10
-            }}>
+            <div className="container relative z-10" style={{ maxWidth: '1200px', margin: '3rem auto 0', padding: '0 1.5rem' }}>
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                     gap: '2.5rem'
                 }}>
                     {books.map((book, index) => (
-                        <div key={book.id || index} className="book-card-hover" style={{
-                            background: '#1e293b',
-                            borderRadius: '20px',
-                            overflow: 'hidden',
-                            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-                            border: '1px solid rgba(148, 163, 184, 0.1)',
-                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                        <div key={book.id || index} className="book-card-hover glass-card flex flex-col border border-white/5 relative rounded-none" style={{
+                            backgroundColor: 'rgba(20, 20, 20, 0.6)',
+                            transition: 'transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.5s ease, box-shadow 0.5s ease',
                             display: 'flex',
                             flexDirection: 'column'
                         }}>
                             {/* Book Cover Area */}
                             <div style={{
-                                height: '240px',
-                                background: `linear-gradient(135deg, 
-                  ${index % 5 === 0 ? '#1e3a8a' :
-                                        index % 5 === 1 ? '#1e40af' :
-                                            index % 5 === 2 ? '#172554' :
-                                                index % 5 === 3 ? '#1e3a8a' : '#1e40af'} 0%, 
-                  ${index % 5 === 0 ? '#3b82f6' :
-                                        index % 5 === 1 ? '#60a5fa' :
-                                            index % 5 === 2 ? '#2563eb' :
-                                                index % 5 === 3 ? '#3b82f6' : '#60a5fa'} 100%)`,
+                                height: '260px',
+                                background: 'linear-gradient(135deg, hsl(0 0% 12%) 0%, hsl(0 100% 10%) 100%)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 position: 'relative',
-                                overflow: 'hidden'
+                                overflow: 'hidden',
+                                borderBottom: '1px solid rgba(255, 255, 255, 0.05)'
                             }}>
-                                {/* Book Icon */}
+                                {/* Ambient grid pattern overlay inside cover */}
+                                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'url("/section-bg.png")', backgroundSize: 'cover' }} />
+                                
+                                {/* Elegant Book Mockup */}
                                 <div style={{
-                                    fontSize: '6rem',
-                                    filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.3))',
-                                    transform: 'rotate(-5deg)'
-                                }}>📖</div>
+                                    width: '120px',
+                                    height: '170px',
+                                    backgroundColor: 'hsl(0 100% 18%)',
+                                    borderLeft: '4px solid hsl(0 100% 28%)',
+                                    boxShadow: '10px 10px 20px rgba(0,0,0,0.5)',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'space-between',
+                                    padding: '1rem 0.75rem',
+                                    position: 'relative',
+                                    transform: 'rotate(-4deg)',
+                                    transition: 'transform 0.5s ease',
+                                    border: '1px solid rgba(255, 255, 255, 0.1)'
+                                }} className="book-spine-glow">
+                                    <div style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold' }}>
+                                        Salim
+                                    </div>
+                                    <div style={{ 
+                                        fontFamily: 'var(--font-heading), serif',
+                                        fontSize: '0.85rem', 
+                                        fontWeight: 'bold', 
+                                        color: '#ffffff', 
+                                        lineHeight: '1.2',
+                                        marginTop: '0.5rem',
+                                        marginBottom: 'auto'
+                                    }}>
+                                        {book.title}
+                                    </div>
+                                    <div style={{ fontSize: '0.5rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                        Volume {index + 1}
+                                    </div>
+                                </div>
 
-                                {/* Badge */}
+                                {/* Price Badge */}
                                 {book.price && (
                                     <div style={{
                                         position: 'absolute',
                                         top: '1.5rem',
                                         right: '1.5rem',
-                                        background: '#fbbf24',
-                                        color: '#0f172a',
-                                        padding: '0.5rem 1rem',
-                                        borderRadius: '12px',
-                                        fontWeight: 700,
-                                        fontSize: '1rem',
-                                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                                        background: 'hsl(0 100% 30%)',
+                                        color: 'white',
+                                        padding: '0.4rem 0.8rem',
+                                        borderRadius: '0px',
+                                        fontWeight: 900,
+                                        fontSize: '0.8rem',
+                                        letterSpacing: '1px',
+                                        border: '1px solid rgba(255,255,255,0.2)',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.5)'
                                     }}>
                                         ${book.price}
                                     </div>
@@ -139,30 +114,26 @@ export default async function StorePage() {
                             </div>
 
                             <div style={{ padding: '2rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                                <div style={{
-                                    color: '#94a3b8',
-                                    fontSize: '0.8rem',
-                                    textTransform: 'uppercase',
-                                    letterSpacing: '1px',
-                                    fontWeight: 600,
-                                    marginBottom: '0.5rem'
-                                }}>
-                                    Best Seller
+                                <div className="flex items-center gap-2 mb-3">
+                                    <span className="w-4 h-[1px] bg-crimson-500/50"></span>
+                                    <span style={{
+                                        color: 'var(--color-crimson-500)',
+                                        fontSize: '9px',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '2px',
+                                        fontWeight: 'black'
+                                    }}>
+                                        Scholarly Work
+                                    </span>
                                 </div>
 
-                                <h3 style={{
-                                    fontSize: '1.5rem',
-                                    fontWeight: 700,
-                                    color: 'white',
-                                    marginBottom: '1rem',
-                                    lineHeight: 1.3
-                                }}>
+                                <h3 className="text-xl font-bold text-white mb-3 font-heading">
                                     {book.title}
                                 </h3>
 
                                 <p style={{
-                                    fontSize: '1rem',
-                                    color: '#cbd5e1',
+                                    fontSize: '0.9rem',
+                                    color: '#a3a3a3',
                                     lineHeight: 1.6,
                                     marginBottom: '2rem',
                                     flex: 1,
@@ -179,24 +150,15 @@ export default async function StorePage() {
                                         href={book.amazonLink || '#'}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        className="btn btn-primary w-full text-center"
                                         style={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            gap: '0.8rem',
-                                            background: 'white',
-                                            color: '#0f172a',
+                                            display: 'block',
                                             padding: '1rem',
-                                            borderRadius: '12px',
-                                            textDecoration: 'none',
-                                            fontWeight: 700,
-                                            fontSize: '1rem',
-                                            transition: 'transform 0.2s ease, box-shadow 0.2s ease'
+                                            fontSize: '10px',
+                                            letterSpacing: '0.2em'
                                         }}
-                                        className="buy-button"
                                     >
-                                        <span>Purchase on Amazon</span>
-                                        <span>→</span>
+                                        Purchase on Amazon
                                     </a>
                                 </div>
                             </div>
@@ -206,16 +168,17 @@ export default async function StorePage() {
             </div>
 
             <style>{`
-        .book-card-hover:hover {
-            transform: translateY(-10px) !important;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
-            border-color: rgba(59, 130, 246, 0.5) !important;
-        }
-        .buy-button:hover {
-            transform: scale(1.02);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-        }
-      `}</style>
+                .book-card-hover:hover {
+                    transform: translateY(-8px) !important;
+                    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6) !important;
+                    border-color: rgba(153, 0, 0, 0.4) !important;
+                }
+                .book-card-hover:hover .book-spine-glow {
+                    transform: rotate(0deg) scale(1.05) !important;
+                    box-shadow: 15px 15px 30px rgba(0,0,0,0.7) !important;
+                }
+            `}</style>
         </main>
     );
 }
+

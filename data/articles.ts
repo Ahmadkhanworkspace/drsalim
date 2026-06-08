@@ -7,6 +7,8 @@ export interface Article {
     comments: number;
     slug: string;
     thumbnail: string;
+    content?: string;
+    _id?: string;
 }
 
 export const articles: Article[] = [
