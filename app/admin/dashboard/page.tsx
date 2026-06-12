@@ -247,7 +247,7 @@ export default function DashboardPage() {
             </div>
 
             {/* KPI STATS CARDS SECTION */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4">
                 {[
                     { label: 'Revenue', value: `$${ANALYTICS_DATA.totalRevenue.toLocaleString()}`, trend: '+100%', color: '#10B981', points: [0, 0, 241, 241] },
                     { label: 'Book Sales', value: ANALYTICS_DATA.totalSales, trend: '+100%', color: '#3b82f6', points: [0, 0, 1, 1] },

@@ -1242,24 +1242,6 @@
         "createdAt": "2023-10-29T10:23:03.000Z"
     },
     {
-        "_id": "6a26d90b458610d94a12b6d2",
-        "articleId": "695d001b0e904cd5cad837ef",
-        "author": "drsalim",
-        "email": "admin@drmuhammadsalim.com",
-        "content": " Thank you for your comments",
-        "approved": true,
-        "createdAt": "2023-10-29T10:25:40.000Z"
-    },
-    {
-        "_id": "6a26d90b458610d94a12b6d4",
-        "articleId": "695d001b0e904cd5cad837ef",
-        "author": "drsalim",
-        "email": "admin@drmuhammadsalim.com",
-        "content": " Thank you for your comments",
-        "approved": true,
-        "createdAt": "2023-10-29T10:26:34.000Z"
-    },
-    {
         "_id": "6a26d90b458610d94a12b6d6",
         "articleId": "695d001b0e904cd5cad837ef",
         "author": "Mazhar Khan",
@@ -1989,15 +1971,6 @@
         "createdAt": "2024-10-11T07:13:00.000Z"
     },
     {
-        "_id": "6a26d911458610d94a12b778",
-        "articleId": "695d001b0e904cd5cad837f2",
-        "author": "Zara",
-        "email": "zara5@hotmail.com",
-        "content": " The Buddhist perspective on moderation is fascinating. Does it align completely with the Islamic view?",
-        "approved": true,
-        "createdAt": "2024-12-11T01:45:00.000Z"
-    },
-    {
         "_id": "6a26d911458610d94a12b77a",
         "articleId": "695d001b0e904cd5cad837f2",
         "author": "Sumaiya",
@@ -2077,33 +2050,6 @@
         "content": " Does the concept of moderation vary between Islamic sects?",
         "approved": true,
         "createdAt": "2024-09-12T15:40:00.000Z"
-    },
-    {
-        "_id": "6a26d911458610d94a12b78c",
-        "articleId": "695d001b0e904cd5cad837f2",
-        "author": "Junaid",
-        "email": "junaid6@hotmail.com",
-        "content": " This is the kind of content we need more of—balanced and insightful. Well done!",
-        "approved": true,
-        "createdAt": "2024-10-12T08:14:00.000Z"
-    },
-    {
-        "_id": "6a26d911458610d94a12b78e",
-        "articleId": "695d001b0e904cd5cad837f2",
-        "author": "Shazia",
-        "email": "shazia7@gmail.com",
-        "content": " The examples from different cultures were very inspiring. Thanks for including them!",
-        "approved": true,
-        "createdAt": "2024-11-12T03:22:00.000Z"
-    },
-    {
-        "_id": "6a26d911458610d94a12b790",
-        "articleId": "695d001b0e904cd5cad837f2",
-        "author": "Usman",
-        "email": "usman8@yahoo.com",
-        "content": " I would love to read more about how Prophet Muhammad (PBUH) exemplified moderation.",
-        "approved": true,
-        "createdAt": "2024-12-12T16:03:00.000Z"
     },
     {
         "_id": "6a26d912458610d94a12b792",

@@ -32,7 +32,7 @@ export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps)
             <div className="flex items-center justify-center min-h-[650px] relative z-10">
                 
                 {/* Carousel Navigation - Ultra Minimalist (Stone & Crimson) */}
-                <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between z-30 pointer-events-none px-4 lg:-mx-16">
+                <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between z-30 pointer-events-none px-4 lg:px-8 xl:-mx-16">
                     <motion.button
                         whileHover={{ scale: 1.1, x: -8 }}
                         whileTap={{ scale: 0.9 }}

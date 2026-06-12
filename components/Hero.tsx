@@ -76,7 +76,7 @@ export default function Hero() {
                         transition={{ duration: 1.2, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
                         className="relative mb-12"
                     >
-                        <h1 className="text-7xl md:text-[10rem] font-bold text-white tracking-tighter leading-[0.85] font-heading">
+                        <h1 className="text-5xl md:text-8xl lg:text-[7rem] xl:text-[9rem] 2xl:text-[10rem] font-bold text-white tracking-tighter leading-[0.85] font-heading">
                             A <span className="text-crimson-500 font-serif-italic font-normal px-2">Legacy</span> <br />
                             <span className="opacity-95 text-stone-100">of Thought</span>
                         </h1>
