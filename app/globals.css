@@ -157,3 +157,161 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-crimson-500);
 }
+
+/* --- Premium SaaS Admin Redesign Theme System --- */
+:root {
+  --admin-primary: #2563EB;
+  --admin-primary-hover: #1D4ED8;
+  --admin-success: #10B981;
+  --admin-warning: #F59E0B;
+  --admin-danger: #EF4444;
+}
+
+.admin-theme-wrapper {
+  --admin-bg: #F8FAFC;
+  --admin-card: #FFFFFF;
+  --admin-border: #E2E8F0;
+  --admin-text-primary: #0F172A;
+  --admin-text-secondary: #475569;
+  --admin-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  --admin-glass-bg: rgba(255, 255, 255, 0.85);
+  --admin-glass-border: rgba(226, 232, 240, 0.8);
+  
+  background-color: var(--admin-bg) !important;
+  color: var(--admin-text-primary) !important;
+  font-family: 'Inter', sans-serif !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-theme-wrapper.dark {
+  --admin-bg: #090D16;
+  --admin-card: #111827;
+  --admin-border: #1F2937;
+  --admin-text-primary: #F8FAFC;
+  --admin-text-secondary: #94A3B8;
+  --admin-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+  --admin-glass-bg: rgba(17, 24, 39, 0.85);
+  --admin-glass-border: rgba(31, 41, 55, 0.8);
+  
+  background-color: var(--admin-bg) !important;
+  color: var(--admin-text-primary) !important;
+}
+
+/* Force modern sharp edges for scholarly admin layout */
+.admin-theme-wrapper * {
+  border-radius: 0px !important;
+}
+
+/* Auto-override white background inline styles */
+.admin-theme-wrapper div[style*="background: #fff" i],
+.admin-theme-wrapper div[style*="background: rgb(255, 255, 255)" i],
+.admin-theme-wrapper div[style*="background: white" i],
+.admin-theme-wrapper div[style*="background-color: #fff" i],
+.admin-theme-wrapper div[style*="background-color: rgb(255, 255, 255)" i],
+.admin-theme-wrapper div[style*="background-color: white" i],
+.admin-theme-wrapper main[style*="background: #EAEDED" i],
+.admin-theme-wrapper main[style*="background-color: #EAEDED" i] {
+  background-color: var(--admin-card) !important;
+  background: var(--admin-card) !important;
+}
+
+/* Auto-override main page wrapper backgrounds */
+.admin-theme-wrapper main,
+.admin-theme-wrapper .admin-page-bg {
+  background-color: var(--admin-bg) !important;
+  background: var(--admin-bg) !important;
+}
+
+/* Overriding soft/light gray backgrounds */
+.admin-theme-wrapper div[style*="background: #F7FAFA" i],
+.admin-theme-wrapper div[style*="background: rgb(247, 250, 250)" i],
+.admin-theme-wrapper div[style*="background-color: #F7FAFA" i],
+.admin-theme-wrapper div[style*="background: #f8fafc" i],
+.admin-theme-wrapper div[style*="background-color: #f8fafc" i] {
+  background-color: rgba(148, 163, 184, 0.08) !important;
+  background: rgba(148, 163, 184, 0.08) !important;
+}
+
+/* Auto-override primary text color (#0F1111, #0f172a, #000) */
+.admin-theme-wrapper *[style*="color: #0F1111" i],
+.admin-theme-wrapper *[style*="color: rgb(15, 17, 17)" i],
+.admin-theme-wrapper *[style*="color: #0f172a" i],
+.admin-theme-wrapper *[style*="color: rgb(15, 23, 42)" i] {
+  color: var(--admin-text-primary) !important;
+}
+
+/* Auto-override secondary text color (#565959, #64748b, #6F7373) */
+.admin-theme-wrapper *[style*="color: #565959" i],
+.admin-theme-wrapper *[style*="color: rgb(86, 89, 89)" i],
+.admin-theme-wrapper *[style*="color: #6F7373" i],
+.admin-theme-wrapper *[style*="color: rgb(111, 115, 115)" i],
+.admin-theme-wrapper *[style*="color: #64748b" i],
+.admin-theme-wrapper *[style*="color: rgb(100, 116, 139)" i] {
+  color: var(--admin-text-secondary) !important;
+}
+
+/* Overriding border color (#D5D9D9, #cbd5e1, #e2e8f0) */
+.admin-theme-wrapper *[style*="border:" i],
+.admin-theme-wrapper *[style*="border-bottom:" i],
+.admin-theme-wrapper *[style*="border-top:" i],
+.admin-theme-wrapper *[style*="border-left:" i],
+.admin-theme-wrapper *[style*="border-right:" i],
+.admin-theme-wrapper table,
+.admin-theme-wrapper td,
+.admin-theme-wrapper th {
+  border-color: var(--admin-border) !important;
+}
+
+/* Clean, modern Stripe-style data table rendering */
+.admin-theme-wrapper table {
+  background-color: var(--admin-card) !important;
+  border-collapse: collapse !important;
+  width: 100% !important;
+}
+
+.admin-theme-wrapper th {
+  background-color: var(--admin-bg) !important;
+  color: var(--admin-text-secondary) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.08em !important;
+  border-bottom: 2px solid var(--admin-border) !important;
+  padding: 0.75rem 1rem !important;
+}
+
+.admin-theme-wrapper td {
+  border-bottom: 1px solid var(--admin-border) !important;
+  color: var(--admin-text-primary) !important;
+  padding: 0.75rem 1rem !important;
+}
+
+/* Style fields and inputs */
+.admin-theme-wrapper input[type="text"],
+.admin-theme-wrapper input[type="email"],
+.admin-theme-wrapper input[type="password"],
+.admin-theme-wrapper select,
+.admin-theme-wrapper textarea {
+  background-color: var(--admin-card) !important;
+  border: 1px solid var(--admin-border) !important;
+  color: var(--admin-text-primary) !important;
+  padding: 0.5rem 0.75rem !important;
+  font-size: 0.85rem !important;
+  outline: none !important;
+  transition: all 0.2s !important;
+}
+
+.admin-theme-wrapper input[type="text"]:focus,
+.admin-theme-wrapper input[type="email"]:focus,
+.admin-theme-wrapper input[type="password"]:focus,
+.admin-theme-wrapper select:focus,
+.admin-theme-wrapper textarea:focus {
+  border-color: var(--admin-primary) !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
+}
+
+/* Custom buttons */
+.admin-theme-wrapper button:not([class*="btn-"]),
+.admin-theme-wrapper a[style*="cursor: pointer"] {
+  border-radius: 0px !important;
+}

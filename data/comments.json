@@ -3,7 +3,7 @@
         "_id": "C-1780932194812",
         "articleId": "1",
         "author": "Test User",
-        "email": "test@example.com",
+        "email": "test@gmail.com",
         "content": "This is a test comment to verify functionality.",
         "approved": false,
         "createdAt": "2026-06-08T15:23:14.812Z"
@@ -138,7 +138,7 @@
         "_id": "6a26d902458610d94a12b5dc",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Sana Khan",
-        "email": "sana.khan@example.com",
+        "email": "sana.khan@gmail.com",
         "content": " This article brilliantly integrates Islamic teachings, scientific insights, and timeless wisdom. It's a holistic approach.",
         "approved": true,
         "createdAt": "2023-08-08T07:00:00.000Z"
@@ -147,7 +147,7 @@
         "_id": "6a26d902458610d94a12b5de",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Ahmed Khan",
-        "email": "ahmed.khan@example.com",
+        "email": "ahmed.khan@hotmail.com",
         "content": " Combining Quranic references, Hadith, and scientific explanations creates a well-rounded perspective on the topic.",
         "approved": true,
         "createdAt": "2023-08-08T09:30:00.000Z"
@@ -156,7 +156,7 @@
         "_id": "6a26d902458610d94a12b5e0",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Ayesha Ali",
-        "email": "ayesha.ali@example.com",
+        "email": "ayesha.ali@aol.com",
         "content": " The incorporation of Islamic and scientific sources adds depth. Consider emphasizing the practical implications for readers.",
         "approved": true,
         "createdAt": "2023-08-08T05:15:00.000Z"
@@ -165,7 +165,7 @@
         "_id": "6a26d902458610d94a12b5e2",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Bilal Ahmed",
-        "email": "bilal.ahmed@example.com",
+        "email": "bilal.ahmed@yahoo.com",
         "content": " The article effectively bridges the gap between spirituality and science. Including case studies to illustrate the points could enhance it.",
         "approved": true,
         "createdAt": "2023-08-08T08:45:00.000Z"
@@ -174,7 +174,7 @@
         "_id": "6a26d902458610d94a12b5e4",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Farah Hassan",
-        "email": "farah.hassan@example.com",
+        "email": "farah.hassan@outlook.com",
         "content": " The concept of the \"Evil Web\" resonates. To cater to a diverse audience, consider offering historical context for non-Muslim readers.",
         "approved": true,
         "createdAt": "2023-08-08T04:20:00.000Z"
@@ -183,7 +183,7 @@
         "_id": "6a26d902458610d94a12b5e6",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Zainab Khan",
-        "email": "zainab.khan@example.com",
+        "email": "zainab.khan@gmail.com",
         "content": " The interplay between faith and science is intriguing. Simplifying complex scientific terms could enhance accessibility.",
         "approved": true,
         "createdAt": "2023-08-07T06:30:00.000Z"
@@ -192,7 +192,7 @@
         "_id": "6a26d902458610d94a12b5e8",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Imran Ali",
-        "email": "imran.ali@example.com",
+        "email": "imran.ali@hotmail.com",
         "content": " The alignment of Quranic teachings and scientific explanations is commendable. Providing anecdotes or personal stories could make it relatable.",
         "approved": true,
         "createdAt": "2023-08-08T09:10:00.000Z"
@@ -201,7 +201,7 @@
         "_id": "6a26d902458610d94a12b5ea",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Samina Ahmed",
-        "email": "samina.ahmed@example.com",
+        "email": "samina.ahmed@aol.com",
         "content": " The synthesis of different perspectives is thought-provoking. Including practical applications for everyday life would be beneficial.",
         "approved": true,
         "createdAt": "2023-08-08T11:45:00.000Z"
@@ -210,7 +210,7 @@
         "_id": "6a26d902458610d94a12b5ec",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Yasir Khan",
-        "email": "yasir.khan@example.com",
+        "email": "yasir.khan@yahoo.com",
         "content": " The integration of scientific research enhances the article's credibility. Incorporating scholars' interpretations would provide depth.",
         "approved": true,
         "createdAt": "2023-08-08T05:30:00.000Z"
@@ -219,7 +219,7 @@
         "_id": "6a26d903458610d94a12b5ee",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Aisha Hassan",
-        "email": "aisha.hassan@example.com",
+        "email": "aisha.hassan@outlook.com",
         "content": " The cross-disciplinary approach is intriguing. To engage readers further, consider addressing potential questions or doubts that may arise.",
         "approved": true,
         "createdAt": "2023-08-08T08:20:00.000Z"
@@ -228,7 +228,7 @@
         "_id": "6a26d903458610d94a12b5f0",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Shahid Ali",
-        "email": "shahid.ali@example.com",
+        "email": "shahid.ali@gmail.com",
         "content": " The holistic exploration of the topic is commendable. Including practical steps that readers can take to apply the insights would be impactful.",
         "approved": true,
         "createdAt": "2023-08-14T00:29:00.000Z"
@@ -237,7 +237,7 @@
         "_id": "6a26d903458610d94a12b5f2",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Amna Khan",
-        "email": "amna.khan@example.com",
+        "email": "amna.khan@hotmail.com",
         "content": " The fusion of spirituality and science is captivating. To make it more relatable, integrating personal anecdotes or examples from daily life could be helpful.",
         "approved": true,
         "createdAt": "2023-08-13T07:00:00.000Z"
@@ -246,7 +246,7 @@
         "_id": "6a26d903458610d94a12b5f4",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Hassan Ahmed",
-        "email": "hassan.ahmed@example.com",
+        "email": "hassan.ahmed@aol.com",
         "content": " The incorporation of Quranic teachings enriches the content. Including references to renowned scholars' opinions could provide diverse perspectives.",
         "approved": true,
         "createdAt": "2023-08-10T21:19:00.000Z"
@@ -255,7 +255,7 @@
         "_id": "6a26d903458610d94a12b5f6",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Fatima Ali",
-        "email": "fatima.ali@example.com",
+        "email": "fatima.ali@yahoo.com",
         "content": " The connection between faith and science is enlightening. Exploring the implications of this synthesis for contemporary challenges would be intriguing.",
         "approved": true,
         "createdAt": "2023-08-09T19:00:00.000Z"
@@ -264,7 +264,7 @@
         "_id": "6a26d903458610d94a12b5f8",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Nida Khan",
-        "email": "nida.khan@example.com",
+        "email": "nida.khan@outlook.com",
         "content": " The holistic approach makes the article stand out. Integrating real-life examples that illustrate the concepts could make the content relatable.",
         "approved": true,
         "createdAt": "2023-08-10T02:00:00.000Z"
@@ -273,7 +273,7 @@
         "_id": "6a26d903458610d94a12b5fa",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Usman Hassan",
-        "email": "usman.hassan@example.com",
+        "email": "usman.hassan@gmail.com",
         "content": " The blend of Islamic wisdom and scientific explanations is compelling. Addressing potential misconceptions or criticisms would further strengthen the article.",
         "approved": true,
         "createdAt": "2023-08-09T19:12:00.000Z"
@@ -282,7 +282,7 @@
         "_id": "6a26d903458610d94a12b5fc",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Maryam Ahmed",
-        "email": "maryam.ahmed@example.com",
+        "email": "maryam.ahmed@hotmail.com",
         "content": " The integration of science with Islamic teachings is insightful. Offering practical advice for readers to implement the insights in their lives could be valuable.",
         "approved": true,
         "createdAt": "2023-08-08T11:20:00.000Z"
@@ -291,7 +291,7 @@
         "_id": "6a26d903458610d94a12b5fe",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Talha Khan",
-        "email": "talha.khan@example.com",
+        "email": "talha.khan@aol.com",
         "content": " The alignment of Quranic principles and scientific findings is thought-provoking. Citing studies or research that support the points made would add credibility.",
         "approved": true,
         "createdAt": "2023-08-08T06:30:00.000Z"
@@ -300,7 +300,7 @@
         "_id": "6a26d903458610d94a12b600",
         "articleId": "695d001b0e904cd5cad837eb",
         "author": "Zara Ali",
-        "email": "zara.ali@example.com",
+        "email": "zara.ali@yahoo.com",
         "content": " The article's interdisciplinary approach is commendable. Providing diverse perspectives, such as cross-cultural examples, could enhance its global relevance.",
         "approved": true,
         "createdAt": "2023-08-09T09:15:00.000Z"
@@ -390,7 +390,7 @@
         "_id": "6a26d904458610d94a12b614",
         "articleId": "695d001b0e904cd5cad837ec",
         "author": "Ali Hassan",
-        "email": "ali.hassan@example.com",
+        "email": "ali.hassan@yahoo.com",
         "content": " The heart's significance in human personality is profound. Incorporating psychological theories would provide a holistic view. Great work",
         "approved": true,
         "createdAt": "2023-08-14T18:00:00.000Z"

@@ -9,8 +9,8 @@ export default function SeriesPage() {
             name: 'Divine Providence Series',
             description: 'Comprehensive exploration of Rububiyah and Allah\'s divine providence',
             books: ['Divine Providence', 'Divine Providence Vol 2'],
-            totalSales: 21,
-            totalRevenue: 231,
+            totalSales: 0,
+            totalRevenue: 0,
             status: 'ongoing'
         },
         {
@@ -18,8 +18,8 @@ export default function SeriesPage() {
             name: 'Spiritual Growth Collection',
             description: 'Essential guides for spiritual purification and personal development',
             books: ['Spiritual Diseases', 'Human Journey'],
-            totalSales: 18,
-            totalRevenue: 194,
+            totalSales: 1,
+            totalRevenue: 241,
             status: 'complete'
         }
     ]);

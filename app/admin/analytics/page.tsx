@@ -4,34 +4,29 @@ import { useState } from 'react';
 
 export default function AnalyticsPage() {
     const [analytics] = useState({
-        totalBookSales: 195,
-        bookSalesGrowth: '+22.5%',
-        totalBlogViews: 9095687,
+        totalBookSales: 1,
+        bookSalesGrowth: '+100%',
+        totalBlogViews: 1200000,
         blogViewsGrowth: '+14.2%',
         todaysViews: 19700,
         todaysGrowth: '+20.5%',
-        last6MonthsViews: 9095687,
+        last6MonthsViews: 1200000,
         last6MonthsGrowth: '+28.4%',
         totalBlogComments: 1348,
         commentsGrowth: '+9.1%',
         totalBlogLikes: 10597,
         likesGrowth: '+24.6%',
         bookSales: [
-            { name: 'Brotherhood', sales: 112 },
-            { name: 'Divine Providence', sales: 48 },
-            { name: 'Human Journey', sales: 9 },
+            { name: 'Brotherhood', sales: 0 },
+            { name: 'Divine Providence', sales: 0 },
+            { name: 'Human Journey', sales: 1 },
             { name: 'Divine Providence Vol 2', sales: 0 },
-            { name: 'Spiritual Diseases', sales: 26 }
+            { name: 'Spiritual Diseases', sales: 0 }
         ],
-        totalEarnings: 2142,
+        totalEarnings: 241,
         totalPayouts: 0,
         monthlyRevenue: [
-            { month: 'Oct', revenue: 210, sales: 19 },
-            { month: 'Nov', revenue: 242, sales: 22 },
-            { month: 'Dec', revenue: 310, sales: 28 },
-            { month: 'Jan', revenue: 385, sales: 35 },
-            { month: 'Feb', revenue: 462, sales: 42 },
-            { month: 'Mar', revenue: 533, sales: 49 },
+            { month: 'June', revenue: 241, sales: 1 }
         ]
     });
 

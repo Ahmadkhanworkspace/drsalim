@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [mounted, setMounted] = useState(false);
@@ -27,6 +29,8 @@ export default function Navigation() {
         { label: 'Contact', href: '/contact' },
         { label: 'Suggestions', href: '/suggestions' }
     ];
+
+    if (pathname?.startsWith('/admin')) return null;
 
     if (!mounted) return (
         <nav className="fixed top-0 left-0 right-0 z-[1000] bg-transparent py-8">

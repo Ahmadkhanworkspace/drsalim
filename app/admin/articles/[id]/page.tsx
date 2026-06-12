@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { getArticle, updateArticle } from '@/app/lib/actions';
 import { useParams, useRouter } from 'next/navigation';
-// Removed: import { articles as actualArticles } from '@/data/articles';
 
 export default function EditArticlePage() {
     const router = useRouter();
@@ -64,7 +63,7 @@ export default function EditArticlePage() {
         });
 
         if (result.success) {
-            alert('Article updated successfully and saved to file!');
+            alert('Article updated successfully!');
             router.push('/admin/articles');
         } else {
             alert('Failed to save article.');
@@ -73,294 +72,178 @@ export default function EditArticlePage() {
     };
 
     if (loading) {
-        return <div style={{ padding: '2rem' }}>Loading article...</div>;
+        return (
+            <div className="flex flex-col items-center justify-center py-24 text-slate-400">
+                <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-4" />
+                <span className="text-xs font-semibold">Loading article details...</span>
+            </div>
+        );
     }
 
     return (
-        <div>
-            {/* Header */}
-            <div style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: 'var(--spacing-2xl)'
-            }}>
+        <div className="space-y-6 max-w-5xl mx-auto">
+            {/* Header Title Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
                 <div>
-                    <h1 style={{
-                        fontSize: '2rem',
-                        fontWeight: 800,
-                        color: '#0f172a',
-                        marginBottom: '0.5rem',
-                        letterSpacing: '-0.5px'
-                    }}>
+                    <div className="text-xs text-slate-400 dark:text-slate-500 font-semibold mb-1">
+                        Dr. Salim Admin / Articles / Edit
+                    </div>
+                    <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-slate-850 dark:text-slate-100">
                         Edit Article
                     </h1>
-                    <p style={{
-                        color: '#64748b',
-                        fontSize: '1rem',
-                        fontWeight: 500
-                    }}>
-                        Edit content, images, and settings for this article
+                    <p className="text-xs sm:text-sm text-slate-400 dark:text-slate-500">
+                        Modify content, images, taxonomy and settings for this scholarly essay
                     </p>
                 </div>
-                <div style={{ display: 'flex', gap: 'var(--spacing-md)' }}>
+                <div className="flex items-center gap-2">
                     <button
                         onClick={() => router.push('/admin/articles')}
-                        style={{
-                            padding: 'var(--spacing-md) var(--spacing-xl)',
-                            background: '#f1f5f9',
-                            border: 'none',
-                            borderRadius: '10px',
-                            color: '#475569',
-                            fontWeight: 600,
-                            cursor: 'pointer'
-                        }}
+                        className="px-4 py-2 text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-350 transition-colors"
+                        style={{ borderRadius: '8px !important' }}
                     >
                         Cancel
                     </button>
                     <button
                         onClick={handleSave}
                         disabled={saving}
-                        style={{
-                            padding: 'var(--spacing-md) var(--spacing-xl)',
-                            background: 'linear-gradient(135deg, #00d4ff 0%, #0ea5e9 100%)',
-                            border: 'none',
-                            borderRadius: '10px',
-                            color: 'white',
-                            fontWeight: 700,
-                            cursor: saving ? 'not-allowed' : 'pointer',
-                            boxShadow: '0 4px 12px rgba(0, 212, 255, 0.3)'
-                        }}
+                        className="px-4 py-2 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/10 disabled:opacity-50"
+                        style={{ borderRadius: '8px !important' }}
                     >
                         {saving ? 'Saving...' : 'Update Article'}
                     </button>
                 </div>
             </div>
 
-            {/* Editor */}
-            <div style={{
-                background: 'white',
-                borderRadius: '16px',
-                border: '1px solid #e2e8f0',
-                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.05)',
-                padding: 'var(--spacing-2xl)'
-            }}>
-                {/* Title */}
-                <div style={{ marginBottom: 'var(--spacing-xl)' }}>
-                    <label style={{
-                        display: 'block',
-                        color: '#0f172a',
-                        fontWeight: 700,
-                        marginBottom: 'var(--spacing-sm)',
-                        fontSize: '0.95rem'
-                    }}>
-                        Article Title *
-                    </label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Enter article title..."
-                        style={{
-                            width: '100%',
-                            padding: 'var(--spacing-md)',
-                            border: '1px solid #e2e8f0',
-                            borderRadius: '8px',
-                            fontSize: '1rem',
-                            fontWeight: 600,
-                            color: '#0f172a'
-                        }}
-                    />
-                </div>
-
-                {/* Category */}
-                <div style={{ marginBottom: 'var(--spacing-xl)' }}>
-                    <label style={{
-                        display: 'block',
-                        color: '#0f172a',
-                        fontWeight: 700,
-                        marginBottom: 'var(--spacing-sm)',
-                        fontSize: '0.95rem'
-                    }}>
-                        Category *
-                    </label>
-                    <select
-                        value={category}
-                        onChange={(e) => setCategory(e.target.value)}
-                        style={{
-                            width: '100%',
-                            padding: 'var(--spacing-md)',
-                            border: '1px solid #e2e8f0',
-                            borderRadius: '8px',
-                            fontSize: '1rem',
-                            fontWeight: 600,
-                            color: '#0f172a'
-                        }}
-                    >
-                        <option>Islamic Studies</option>
-                        <option>Spirituality</option>
-                        <option>Philosophy</option>
-                        <option>Quranic Studies</option>
-                        <option>Faith & Practice</option>
-                        <option>Men & Evil Web</option>
-                    </select>
-                </div>
-
-                {/* Featured Image */}
-                <div style={{ marginBottom: 'var(--spacing-xl)' }}>
-                    <label style={{
-                        display: 'block',
-                        color: '#0f172a',
-                        fontWeight: 700,
-                        marginBottom: 'var(--spacing-sm)',
-                        fontSize: '0.95rem'
-                    }}>
-                        Featured Image
-                    </label>
-
-                    {imagePreview ? (
-                        <div style={{ position: 'relative' }}>
-                            <img
-                                src={imagePreview}
-                                alt="Preview"
-                                style={{
-                                    width: '100%',
-                                    maxHeight: '400px',
-                                    objectFit: 'cover',
-                                    borderRadius: '12px',
-                                    marginBottom: 'var(--spacing-md)'
-                                }}
-                            />
-                            <button
-                                onClick={() => {
-                                    setFeaturedImage(null);
-                                    setImagePreview('');
-                                }}
-                                style={{
-                                    position: 'absolute',
-                                    top: '10px',
-                                    right: '10px',
-                                    padding: '0.5rem 1rem',
-                                    background: '#ef4444',
-                                    color: 'white',
-                                    border: 'none',
-                                    borderRadius: '8px',
-                                    fontWeight: 600,
-                                    cursor: 'pointer'
-                                }}
-                            >
-                                Remove
-                            </button>
-                        </div>
-                    ) : (
-                        <div
-                            style={{
-                                border: '2px dashed #cbd5e1',
-                                borderRadius: '12px',
-                                padding: 'var(--spacing-2xl)',
-                                textAlign: 'center',
-                                background: '#f8fafc',
-                                cursor: 'pointer',
-                                position: 'relative'
-                            }}
-                        >
-                            <div style={{ fontSize: '3rem', marginBottom: 'var(--spacing-md)' }}>🖼️</div>
-                            <div style={{
-                                color: '#0f172a',
-                                fontWeight: 600,
-                                marginBottom: '0.5rem'
-                            }}>
-                                Click to upload featured image
-                            </div>
-                            <div style={{
-                                color: '#64748b',
-                                fontSize: '0.85rem'
-                            }}>
-                                PNG, JPG or WEBP (max. 5MB)
-                            </div>
+            {/* Editor Workspace Container */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                {/* Left Side: Title, Content, Image Upload */}
+                <div className="lg:col-span-2 space-y-6">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6" style={{ borderRadius: '16px !important' }}>
+                        
+                        {/* Title input */}
+                        <div className="space-y-2">
+                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                Article Title <span className="text-red-500">*</span>
+                            </label>
                             <input
-                                type="file"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                                style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: '100%',
-                                    opacity: 0,
-                                    cursor: 'pointer'
-                                }}
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                placeholder="Enter a descriptive scholarly title..."
+                                className="w-full px-4 py-2.5 text-sm border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:bg-white text-slate-850 dark:text-slate-100 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-semibold"
+                                style={{ borderRadius: '8px !important' }}
                             />
                         </div>
-                    )}
-                </div>
 
-                {/* Content Editor */}
-                <div style={{ marginBottom: 'var(--spacing-xl)' }}>
-                    <label style={{
-                        display: 'block',
-                        color: '#0f172a',
-                        fontWeight: 700,
-                        marginBottom: 'var(--spacing-sm)',
-                        fontSize: '0.95rem'
-                    }}>
-                        Article Content *
-                    </label>
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        placeholder="Write your article content here..."
-                        rows={15}
-                        style={{
-                            width: '100%',
-                            padding: 'var(--spacing-lg)',
-                            border: '1px solid #e2e8f0',
-                            borderRadius: '8px',
-                            fontSize: '1rem',
-                            lineHeight: 1.8,
-                            color: '#0f172a',
-                            fontFamily: 'inherit',
-                            resize: 'vertical'
-                        }}
-                    />
-                </div>
+                        {/* Rich Content Area */}
+                        <div className="space-y-2">
+                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                Article Content <span className="text-red-500">*</span>
+                            </label>
+                            <textarea
+                                value={content}
+                                onChange={(e) => setContent(e.target.value)}
+                                placeholder="Write the body of the article here..."
+                                rows={20}
+                                className="w-full px-4 py-3 text-sm border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 focus:bg-white text-slate-850 dark:text-slate-100 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all leading-relaxed font-sans resize-vertical"
+                                style={{ borderRadius: '8px !important' }}
+                            />
+                        </div>
 
-                {/* Publish Toggle */}
-                <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 'var(--spacing-md)',
-                    padding: 'var(--spacing-lg)',
-                    background: '#f8fafc',
-                    borderRadius: '12px'
-                }}>
-                    <input
-                        type="checkbox"
-                        checked={published}
-                        onChange={(e) => setPublished(e.target.checked)}
-                        style={{
-                            width: '20px',
-                            height: '20px',
-                            cursor: 'pointer'
-                        }}
-                    />
-                    <div>
-                        <div style={{
-                            color: '#0f172a',
-                            fontWeight: 700,
-                            marginBottom: '0.25rem'
-                        }}>
-                            Publish status
-                        </div>
-                        <div style={{
-                            color: '#64748b',
-                            fontSize: '0.85rem'
-                        }}>
-                            Toggle to change publication status
-                        </div>
                     </div>
                 </div>
+
+                {/* Right Side: Options, Featured Image, Category, Status */}
+                <div className="space-y-6">
+                    
+                    {/* Settings Panel */}
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-6" style={{ borderRadius: '16px !important' }}>
+                        <h3 className="text-xs font-black uppercase text-slate-400 dark:text-slate-500 tracking-wider">Taxonomy & Status</h3>
+                        
+                        {/* Category Selector */}
+                        <div className="space-y-2">
+                            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                                Category <span className="text-red-500">*</span>
+                            </label>
+                            <select
+                                value={category}
+                                onChange={(e) => setCategory(e.target.value)}
+                                className="w-full px-3 py-2.5 text-xs border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-slate-850 dark:text-slate-100 outline-none"
+                                style={{ borderRadius: '8px !important' }}
+                            >
+                                <option>Islamic Studies</option>
+                                <option>Spirituality</option>
+                                <option>Philosophy</option>
+                                <option>Quranic Studies</option>
+                                <option>Faith & Practice</option>
+                                <option>Men & Evil Web</option>
+                                <option>Articles</option>
+                                <option>Blog</option>
+                            </select>
+                        </div>
+
+                        {/* Status Checkbox Wrapper */}
+                        <div className="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-start gap-3" style={{ borderRadius: '12px !important' }}>
+                            <input
+                                id="published-checkbox"
+                                type="checkbox"
+                                checked={published}
+                                onChange={(e) => setPublished(e.target.checked)}
+                                className="mt-1 w-4 h-4 text-blue-600 border-slate-300 rounded focus:ring-blue-500"
+                            />
+                            <div>
+                                <label htmlFor="published-checkbox" className="block text-xs font-bold text-slate-850 dark:text-slate-200 cursor-pointer">
+                                    Publish status
+                                </label>
+                                <p className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-0.5">
+                                    Make this article visible to public visitors
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    {/* Featured Image Panel */}
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 shadow-sm space-y-4" style={{ borderRadius: '16px !important' }}>
+                        <h3 className="text-xs font-black uppercase text-slate-400 dark:text-slate-500 tracking-wider">Featured Image</h3>
+                        
+                        {imagePreview ? (
+                            <div className="relative border border-slate-200 dark:border-slate-800 overflow-hidden" style={{ borderRadius: '12px !important' }}>
+                                <img
+                                    src={imagePreview}
+                                    alt="Preview"
+                                    className="w-full h-40 object-cover"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setFeaturedImage(null);
+                                        setImagePreview('');
+                                    }}
+                                    className="absolute top-2 right-2 px-2.5 py-1 text-[10px] font-bold text-white bg-red-650 hover:bg-red-700 transition-colors shadow-md"
+                                    style={{ borderRadius: '6px !important' }}
+                                >
+                                    Remove
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="border-2 border-dashed border-slate-350 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 text-center p-6 relative hover:bg-slate-100/50 dark:hover:bg-slate-950/50 transition-all cursor-pointer" style={{ borderRadius: '12px !important' }}>
+                                <div className="text-2xl mb-2">🖼️</div>
+                                <div className="text-xs font-bold text-slate-700 dark:text-slate-300">Click to upload image</div>
+                                <div className="text-[10px] text-slate-400 dark:text-slate-500 font-semibold mt-1">PNG, JPG or WEBP (max. 5MB)</div>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    onChange={handleImageChange}
+                                    className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                </div>
+
             </div>
         </div>
     );

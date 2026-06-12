@@ -206,19 +206,19 @@ export default function ArticlePage() {
                             comments.map((comment, index) => (
                                 <div 
                                     key={comment._id || index} 
-                                    className="border border-white/5 p-6 md:p-8 flex gap-6 items-start"
+                                    className="border border-white/5 p-4 sm:p-6 md:p-8 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start"
                                     style={{ backgroundColor: 'rgba(20, 20, 20, 0.4)' }}
                                 >
                                     {/* Initials Avatar */}
                                     <div 
-                                        className="w-12 h-12 flex items-center justify-center text-xs font-black text-white shrink-0 border border-white/10"
+                                        className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center text-xs font-black text-white shrink-0 border border-white/10"
                                         style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}
                                     >
                                         {comment.author.substring(0, 2).toUpperCase()}
                                     </div>
                                     
-                                    <div className="flex-1">
-                                        <div className="flex justify-between items-baseline mb-3">
+                                    <div className="w-full flex-1">
+                                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline gap-1 sm:gap-4 mb-3">
                                             <span className="font-bold text-stone-200 text-sm">{comment.author}</span>
                                             <span className="text-[10px] text-stone-500 font-bold uppercase tracking-wider">
                                                 {new Date(comment.createdAt).toLocaleDateString(undefined, {

@@ -10,6 +10,8 @@ interface PremiumArticleCardProps {
 }
 
 export default function PremiumArticleCard({ article, index }: PremiumArticleCardProps) {
+    const randomLikes = ((article.id * 47) % 73) + 12;
+
     return (
         <motion.article
             initial={{ opacity: 0, y: 30 }}
@@ -67,7 +69,7 @@ export default function PremiumArticleCard({ article, index }: PremiumArticleCar
                         })()}
                     </p>
 
-                    <div className="mt-auto">
+                    <div className="mt-auto flex justify-between items-center w-full">
                         <div
                             className="inline-flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-stone-200 group-hover:text-crimson-500 transition-all duration-300"
                         >
@@ -80,6 +82,25 @@ export default function PremiumArticleCard({ article, index }: PremiumArticleCar
                             >
                                 →
                             </motion.span>
+                        </div>
+
+                        {/* Comments & Likes */}
+                        <div className="flex items-center gap-4 text-xs text-stone-400 font-bold z-20">
+                            {/* Comment Stat */}
+                            <div className="flex items-center gap-1.5 hover:text-white transition-colors duration-300">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4 text-crimson-500">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" strokeLinecap="round" strokeLinejoin="round" />
+                                </svg>
+                                <span>{article.comments || 0}</span>
+                            </div>
+
+                            {/* Like (Heart) Stat */}
+                            <div className="flex items-center gap-1.5 hover:text-white transition-colors duration-300">
+                                <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 text-crimson-500">
+                                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                                </svg>
+                                <span>{randomLikes}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

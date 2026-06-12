@@ -35,10 +35,10 @@ export default function Globe3D({ realtimeUsers }: { realtimeUsers: number }) {
                 // Add surrounding points for heat effect
                 for (let i = 0; i < 5; i++) {
                     points.push({
-                        lat: spot.lat + (Math.random() - 0.5) * 10,
-                        lng: spot.lng + (Math.random() - 0.5) * 10,
-                        weight: spot.weight * 0.6,
-                        size: 0.3
+                        lat: spot.lat + (Math.random() - 0.5) * 8,
+                        lng: spot.lng + (Math.random() - 0.5) * 8,
+                        weight: spot.weight * 0.5,
+                        size: 0.25
                     });
                 }
             });
@@ -48,30 +48,35 @@ export default function Globe3D({ realtimeUsers }: { realtimeUsers: number }) {
 
         // Generate connection arcs
         const generateArcs = () => {
-            const N = 15;
+            const N = 12;
+            const colors = [
+                'rgba(59, 130, 246, 0.6)', // Blue
+                'rgba(16, 185, 129, 0.6)', // Emerald
+                'rgba(245, 158, 11, 0.6)'  // Amber
+            ];
             return [...Array(N).keys()].map(() => ({
-                startLat: (Math.random() - 0.5) * 180,
-                startLng: (Math.random() - 0.5) * 360,
-                endLat: (Math.random() - 0.5) * 180,
-                endLng: (Math.random() - 0.5) * 360,
-                color: ['rgba(16, 185, 129, 0.6)', 'rgba(59, 130, 246, 0.6)', 'rgba(0, 212, 255, 0.6)'][Math.floor(Math.random() * 3)]
+                startLat: (Math.random() - 0.5) * 120,
+                startLng: (Math.random() - 0.5) * 240,
+                endLat: (Math.random() - 0.5) * 120,
+                endLng: (Math.random() - 0.5) * 240,
+                color: colors[Math.floor(Math.random() * colors.length)]
             }));
         };
 
         setHeatmapData(generateHeatmap());
         setArcsData(generateArcs());
 
-        // Update data every 3 seconds
+        // Update data every 5 seconds
         const interval = setInterval(() => {
             setHeatmapData(generateHeatmap());
             setArcsData(generateArcs());
-        }, 3000);
+        }, 5000);
 
         // Auto-rotate globe
         if (globeEl.current) {
             globeEl.current.controls().autoRotate = true;
-            globeEl.current.controls().autoRotateSpeed = 0.8;
-            globeEl.current.pointOfView({ altitude: 2.5 });
+            globeEl.current.controls().autoRotateSpeed = 0.5;
+            globeEl.current.pointOfView({ altitude: 2.3 });
         }
 
         return () => clearInterval(interval);
@@ -80,20 +85,20 @@ export default function Globe3D({ realtimeUsers }: { realtimeUsers: number }) {
     return (
         <Globe
             ref={globeEl}
-            backgroundColor="rgba(255,255,255,0)"
+            backgroundColor="rgba(0,0,0,0)"
             globeImageUrl={null}
             showAtmosphere={true}
-            atmosphereColor="#00d4ff"
-            atmosphereAltitude={0.15}
+            atmosphereColor="#3b82f6"
+            atmosphereAltitude={0.12}
 
-            // Light blue globe with grid
-            hexPolygonsData={[...Array(1000).keys()].map(() => ({
+            // Translucent primary-blue hex grid polygons
+            hexPolygonsData={[...Array(400).keys()].map(() => ({
                 lat: (Math.random() - 0.5) * 180,
                 lng: (Math.random() - 0.5) * 360
             }))}
             hexPolygonResolution={3}
-            hexPolygonMargin={0.3}
-            hexPolygonColor={() => '#e0f2fe'}
+            hexPolygonMargin={0.25}
+            hexPolygonColor={() => 'rgba(59, 130, 246, 0.15)'}
             hexPolygonAltitude={0.001}
 
             // Heat map points
@@ -107,14 +112,14 @@ export default function Globe3D({ realtimeUsers }: { realtimeUsers: number }) {
             // Connection arcs
             arcsData={arcsData}
             arcColor="color"
-            arcDashLength={0.4}
-            arcDashGap={0.2}
-            arcDashAnimateTime={1500}
-            arcStroke={0.5}
-            arcsTransitionDuration={1000}
+            arcDashLength={0.5}
+            arcDashGap={0.15}
+            arcDashAnimateTime={1200}
+            arcStroke={0.6}
+            arcsTransitionDuration={800}
 
-            width={300}
-            height={300}
+            width={280}
+            height={280}
         />
     );
 }

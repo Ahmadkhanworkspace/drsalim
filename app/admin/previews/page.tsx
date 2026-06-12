@@ -2,10 +2,10 @@
 
 export default function PreviewsPage() {
     const previews = [
-        { id: '1', bookTitle: 'Brotherhood', pages: 25, downloads: 342, conversions: 47, conversionRate: 13.7 },
-        { id: '2', bookTitle: 'Divine Providence', pages: 30, downloads: 289, conversions: 21, conversionRate: 7.3 },
-        { id: '3', bookTitle: 'Spiritual Diseases', pages: 20, downloads: 215, conversions: 13, conversionRate: 6.0 },
-        { id: '4', bookTitle: 'Human Journey', pages: 22, downloads: 98, conversions: 5, conversionRate: 5.1 },
+        { id: '1', bookTitle: 'Brotherhood', pages: 25, downloads: 342, conversions: 0, conversionRate: 0 },
+        { id: '2', bookTitle: 'Divine Providence', pages: 30, downloads: 289, conversions: 0, conversionRate: 0 },
+        { id: '3', bookTitle: 'Spiritual Diseases', pages: 20, downloads: 215, conversions: 0, conversionRate: 0 },
+        { id: '4', bookTitle: 'Human Journey', pages: 22, downloads: 98, conversions: 1, conversionRate: 1.0 },
         { id: '5', bookTitle: 'Divine Providence Vol 2', pages: 28, downloads: 67, conversions: 0, conversionRate: 0 },
     ];
 

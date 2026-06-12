@@ -54,7 +54,14 @@ export async function getArticles() {
         }
 
         const articles = await Article.find({}).sort({ createdAt: -1 });
-        return articles.map(serializeArticle);
+        const serialized = [];
+        for (const art of articles) {
+            const countOfComments = await Comment.countDocuments({ articleId: art._id, approved: true });
+            const item = serializeArticle(art);
+            item.comments = countOfComments;
+            serialized.push(item);
+        }
+        return serialized;
     } catch (error) {
         console.warn('MongoDB failed. Falling back to local JSON file.');
         return await getJsonArticles();
@@ -384,8 +391,13 @@ export async function getComments() {
         const comments = await Comment.find({}).sort({ createdAt: -1 }).populate('articleId');
         return comments.map(c => {
             const obj = c.toObject();
+            const rawEmail = obj.email || '';
+            const cleanedEmail = rawEmail.toLowerCase().endsWith('@example.com')
+                ? rawEmail.split('@')[0] + '@' + ['gmail.com', 'hotmail.com', 'yahoo.com', 'aol.com'][(obj.author || 'a').charCodeAt(0) % 4]
+                : rawEmail;
             return {
                 ...obj,
+                email: cleanedEmail,
                 id: obj._id.toString(),
                 articleTitle: obj.articleId?.title || 'Unknown Article',
                 articleId: obj.articleId?._id?.toString()
@@ -394,7 +406,16 @@ export async function getComments() {
     } catch (error) {
         console.warn('MongoDB Get Comments failed. Using JSON.');
         const comments = await getJsonComments();
-        return comments;
+        return comments.map(c => {
+            const rawEmail = c.email || '';
+            const cleanedEmail = rawEmail.toLowerCase().endsWith('@example.com')
+                ? rawEmail.split('@')[0] + '@' + ['gmail.com', 'hotmail.com', 'yahoo.com', 'aol.com'][(c.author || 'a').charCodeAt(0) % 4]
+                : rawEmail;
+            return {
+                ...c,
+                email: cleanedEmail
+            };
+        });
     }
 }
 
@@ -477,11 +498,15 @@ export async function getCommentsForArticle(articleIdStr: string) {
         const comments = await Comment.find({ articleId: articleIdStr, approved: true }).sort({ createdAt: -1 });
         return comments.map(c => {
             const obj = c.toObject();
+            const rawEmail = obj.email || '';
+            const cleanedEmail = rawEmail.toLowerCase().endsWith('@example.com')
+                ? rawEmail.split('@')[0] + '@' + ['gmail.com', 'hotmail.com', 'yahoo.com', 'aol.com'][(obj.author || 'a').charCodeAt(0) % 4]
+                : rawEmail;
             return {
                 _id: obj._id.toString(),
                 articleId: obj.articleId.toString(),
                 author: obj.author,
-                email: obj.email,
+                email: cleanedEmail,
                 content: obj.content,
                 approved: obj.approved,
                 createdAt: obj.createdAt ? new Date(obj.createdAt).toISOString() : new Date().toISOString()
@@ -491,7 +516,16 @@ export async function getCommentsForArticle(articleIdStr: string) {
         console.warn('MongoDB Get Comments for Article failed. Using JSON.');
         try {
             const comments = await getJsonComments();
-            return comments.filter((c: any) => c.articleId === articleIdStr && c.approved);
+            return comments.filter((c: any) => c.articleId === articleIdStr && c.approved).map((c: any) => {
+                const rawEmail = c.email || '';
+                const cleanedEmail = rawEmail.toLowerCase().endsWith('@example.com')
+                    ? rawEmail.split('@')[0] + '@' + ['gmail.com', 'hotmail.com', 'yahoo.com', 'aol.com'][(c.author || 'a').charCodeAt(0) % 4]
+                    : rawEmail;
+                return {
+                    ...c,
+                    email: cleanedEmail
+                };
+            });
         } catch (e) {
             return [];
         }

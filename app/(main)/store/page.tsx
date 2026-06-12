@@ -31,11 +31,7 @@ export default async function StorePage() {
 
             {/* Book Grid */}
             <div className="container relative z-10" style={{ maxWidth: '1200px', margin: '3rem auto 0', padding: '0 1.5rem' }}>
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '2.5rem'
-                }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {books.map((book, index) => (
                         <div key={book.id || index} className="book-card-hover glass-card flex flex-col border border-white/5 relative rounded-none" style={{
                             backgroundColor: 'rgba(20, 20, 20, 0.6)',

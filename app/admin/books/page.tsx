@@ -12,17 +12,20 @@ export default async function BooksPage() {
 
     // Map data to match the UI requirements if needed, 
     // ensuring strict type safety
-    const books = booksData.map((b: any) => ({
-        id: b.id || b._id,
-        title: b.title,
-        sales: b.sales || 0,
-        revenue: b.revenue || 0,
-        price: b.price || 0,
-        amazonLink: b.amazonLink
-    }));
+    const books = booksData.map((b: any) => {
+        const isHumanJourney = b.title && b.title.toLowerCase().includes('human journey');
+        return {
+            id: b.id || b._id,
+            title: b.title,
+            sales: isHumanJourney ? 1 : 0,
+            revenue: isHumanJourney ? 241 : 0,
+            price: b.price || 0,
+            amazonLink: b.amazonLink
+        };
+    });
 
-    const totalRevenue = 1314;
-    const totalSales = 120;
+    const totalRevenue = 241;
+    const totalSales = 1;
     const payoutThreshold = 1000;
     const payoutProgress = (totalRevenue / payoutThreshold) * 100;
 
