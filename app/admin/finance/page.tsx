@@ -31,6 +31,57 @@ interface PaymentMethod {
 }
 
 export default function FinancePage() {
+    const isSyncing = true;
+
+    if (isSyncing) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 text-center">
+                {/* Pulsing Sync Illustration */}
+                <div className="relative mb-8">
+                    <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-2xl animate-pulse pointer-events-none" />
+                    <div className="relative flex items-center justify-center w-24 h-24 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl">
+                        <svg className="w-10 h-10 text-blue-500 animate-spin" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20 4v5h-.582m0 0a9 9 0 00-13.674 1-9 9 0 000 6h.582m0 0a9 9 0 0013.674-1m0 0H20" />
+                        </svg>
+                    </div>
+                    {/* Secondary Orbiting Spinner */}
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-amber-500/10 dark:bg-amber-400/20 border border-amber-500 dark:border-amber-400 flex items-center justify-center animate-bounce">
+                        <span className="w-2.5 h-2.5 bg-amber-500 dark:bg-amber-400 rounded-full animate-ping" />
+                    </div>
+                </div>
+
+                {/* Content Card */}
+                <div className="w-full max-w-md p-8 bg-white/70 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xl shadow-2xl rounded-2xl">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 dark:text-amber-400 dark:bg-amber-950/40 rounded-full mb-4 animate-pulse">
+                        Database Sync Active
+                    </span>
+                    
+                    <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-3">
+                        Finance Sync in Progress
+                    </h2>
+                    
+                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
+                        Our servers are currently synchronizing live transactions and analytics metrics with the main database. 
+                        To ensure data integrity, access to this administrative module is temporarily suspended.
+                    </p>
+
+                    {/* Progress Indicators */}
+                    <div className="space-y-3">
+                        <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                            <span>Synchronizing tables</span>
+                            <span className="text-blue-500 dark:text-blue-400">In Progress...</span>
+                        </div>
+                        <div className="w-full h-2 bg-slate-100 dark:bg-slate-950 rounded-full overflow-hidden border border-slate-200/50 dark:border-slate-800/50">
+                            <div className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full animate-pulse" style={{
+                                width: '65%'
+                            }} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     const [activeTab, setActiveTab] = useState('overview');
     const [showWithdrawalWizard, setShowWithdrawalWizard] = useState(false);
     const [showEmailSupport, setShowEmailSupport] = useState(false);

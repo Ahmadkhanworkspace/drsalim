@@ -195,9 +195,6 @@ export default function DashboardPage() {
                         Publisher Hub
                     </div>
                     <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Good Morning, Dr. Muhammad Salim</h1>
-                    <p className="text-indigo-100 text-sm max-w-xl leading-relaxed">
-                        Here is what is happening across your literary platform today. Your books have 23 pending reviews and live readership is up 12% from the last hour.
-                    </p>
                 </div>
 
                 <div className="relative z-10 flex flex-wrap gap-4 shrink-0">

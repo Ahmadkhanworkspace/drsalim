@@ -393,14 +393,27 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                                     ) : (
                                         <Link
                                             href={item.href}
-                                            className={`flex items-center gap-3 p-2.5 text-sm transition-all group
+                                            className={`flex items-center gap-3 p-2.5 text-sm transition-all group relative
                                                       ${isActive ? 'text-blue-600 bg-blue-50/50 dark:bg-blue-950/20 font-semibold' : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100/50 dark:hover:bg-slate-900/30'}`}
                                             style={{ borderRadius: '8px !important' }}
                                         >
                                             <span className={`transition-colors duration-200 ${isActive ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600 dark:group-hover:text-slate-300'}`}>
                                                 {item.icon}
                                             </span>
-                                            {sidebarExpanded && <span>{item.label}</span>}
+                                            {sidebarExpanded ? (
+                                                <div className="flex-1 flex items-center justify-between min-w-0">
+                                                    <span className="truncate">{item.label}</span>
+                                                    {(item.label === 'Finance' || item.label === 'Analytics') && (
+                                                        <span className="text-[9px] font-bold text-amber-600 bg-amber-500/10 dark:text-amber-400 dark:bg-amber-400/10 px-1.5 py-0.5 rounded shrink-0 animate-pulse">
+                                                            Syncing
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                (item.label === 'Finance' || item.label === 'Analytics') && (
+                                                    <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full animate-ping pointer-events-none" />
+                                                )
+                                            )}
                                         </Link>
                                     )}
                                 </div>
