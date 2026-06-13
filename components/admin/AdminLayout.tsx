@@ -105,6 +105,11 @@ const Icons = {
         <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
         </svg>
+    ),
+    Logout: () => (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
     )
 };
 
@@ -154,6 +159,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         } else {
             setErrorMsg('Invalid administrative credentials. Please try again.');
         }
+    };
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('admin-authenticated');
+        setIsAuthenticated(false);
     };
 
     if (authLoading) {
@@ -434,15 +444,34 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                     )}
 
                     {/* User profile section */}
-                    {sidebarExpanded && (
-                        <div className="flex items-center gap-3 p-1">
-                            <div className="w-9 h-9 bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/10" style={{ borderRadius: '50% !important' }}>
-                                MS
+                    {sidebarExpanded ? (
+                        <div className="flex items-center justify-between gap-3 p-1">
+                            <div className="flex items-center gap-3 min-w-0">
+                                <div className="w-9 h-9 bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/10" style={{ borderRadius: '50% !important' }}>
+                                    MS
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">Dr. Muhammad Salim</div>
+                                    <div className="text-[10px] text-slate-400 truncate">admin@drsalim.com</div>
+                                </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                                <div className="text-sm font-semibold text-slate-800 dark:text-slate-200 truncate">Dr. Muhammad Salim</div>
-                                <div className="text-[10px] text-slate-400 truncate">admin@drsalim.com</div>
-                            </div>
+                            <button
+                                onClick={handleLogout}
+                                title="Logout"
+                                className="p-2 text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 rounded-lg transition-colors"
+                            >
+                                <Icons.Logout />
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="flex justify-center p-1">
+                            <button
+                                onClick={handleLogout}
+                                title="Logout"
+                                className="p-2 text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 rounded-lg transition-colors"
+                            >
+                                <Icons.Logout />
+                            </button>
                         </div>
                     )}
                 </div>
@@ -535,6 +564,15 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                             >
                                 View Site
                             </Link>
+
+                            <button
+                                onClick={handleLogout}
+                                className="px-4 py-2 text-xs font-semibold border border-red-200 dark:border-red-900/30 hover:bg-red-50 dark:hover:bg-red-950/20 text-red-600 dark:text-red-400 transition-colors flex items-center gap-1.5"
+                                style={{ borderRadius: '8px !important' }}
+                            >
+                                <Icons.Logout />
+                                <span className="max-sm:hidden">Logout</span>
+                            </button>
                         </div>
                     </header>
 
