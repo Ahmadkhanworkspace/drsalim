@@ -92,36 +92,36 @@ export default function AdminDashboardPage() {
         },
         {
             title: 'Active Campaigns',
-            value: '23',
-            badge: 'Needs Action',
-            badgeColor: 'bg-rose-100 text-rose-600',
+            value: '4 Channels',
+            badge: 'Synced',
+            badgeColor: 'bg-emerald-100 text-emerald-700',
             icon: '📢',
             iconBg: 'bg-indigo-100 text-indigo-600',
-            strokeColor: '#EF4444',
+            strokeColor: '#10B981',
             path: 'M0,18 Q30,24 60,12 T120,20 T180,8 T240,14',
         }
     ];
 
     const revenueSources = [
-        { name: 'Amazon KDP', share: '47.5%', amount: '$1,130', color: '#4F46E5' },
+        { name: 'Amazon KDP & FBA', share: '47.5%', amount: '$1,130', color: '#4F46E5' },
         { name: 'Etsy Marketplace', share: '25.4%', amount: '$605', color: '#06B6D4' },
-        { name: 'Pinterest Shop', share: '17.2%', amount: '$410', color: '#F59E0B' },
+        { name: 'Pinterest Commerce', share: '17.2%', amount: '$410', color: '#F59E0B' },
         { name: 'Barnes & Noble', share: '9.9%', amount: '$236', color: '#10B981' }
     ];
 
     const topBooks = [
-        { rank: 1, title: 'Brotherhood (50% Sales)', format: 'Amazon KDP', amount: '$1,190', change: '+24.8%', icon: '📘' },
-        { rank: 2, title: 'Spiritual Diseases & Management', format: 'Etsy / Amazon', amount: '$476', change: '+18.3%', icon: '📗' },
-        { rank: 3, title: 'Divine Providence (Vol 1)', format: 'Barnes & Noble', amount: '$298', change: '+15.6%', icon: '📙' },
-        { rank: 4, title: 'Human Journey from Soul to Abode', format: 'Etsy Hardcover', amount: '$238', change: '+12.4%', icon: '📕' },
-        { rank: 5, title: 'Divine Providence (Vol 2)', format: 'Amazon Kindle', amount: '$179', change: '+9.8%', icon: '📓' },
+        { rank: 1, title: 'Brotherhood (Spiritual Foundations)', format: '58 Copies', amount: '$1,190', change: '50.0% Share', icon: '📘' },
+        { rank: 2, title: 'Spiritual Diseases & Management', format: '24 Copies', amount: '$476', change: '20.0% Share', icon: '📗' },
+        { rank: 3, title: 'Divine Providence (Vol 1)', format: '15 Copies', amount: '$298', change: '12.5% Share', icon: '📙' },
+        { rank: 4, title: 'Human Journey from Soul to Abode', format: '12 Copies', amount: '$238', change: '10.0% Share', icon: '📕' },
+        { rank: 5, title: 'Divine Providence (Vol 2)', format: '9 Copies', amount: '$179', change: '7.5% Share', icon: '📓' },
     ];
 
     const formatSales = [
-        { format: 'Ebook', count: '3.4K', height: '85%', color: '#4F46E5' },
-        { format: 'Paperback', count: '2.8K', height: '70%', color: '#38BDF8' },
-        { format: 'Hardcover', count: '1.4K', height: '42%', color: '#10B981' },
-        { format: 'Audiobook', count: '890', height: '24%', color: '#F97316' },
+        { format: 'Paperback', count: '56', share: '47.5%', height: '85%', color: '#4F46E5' },
+        { format: 'Ebook / Kindle', count: '30', share: '25.4%', height: '58%', color: '#38BDF8' },
+        { format: 'Hardcover Set', count: '20', share: '17.2%', height: '40%', color: '#10B981' },
+        { format: 'Audio Briefs', count: '12', share: '9.9%', height: '26%', color: '#F97316' },
     ];
 
     const recentActivities = [
@@ -445,10 +445,13 @@ export default function AdminDashboardPage() {
                     {/* Bar Chart Visual */}
                     <div className="h-56 flex items-end justify-around pt-6 pb-2 border-b border-slate-100">
                         {formatSales.map((item, i) => (
-                            <div key={i} className="flex flex-col items-center gap-2 h-full justify-end w-12">
-                                <span className="text-[10px] font-bold text-slate-600 font-mono">{item.count}</span>
+                            <div key={i} className="flex flex-col items-center gap-2 h-full justify-end w-14">
+                                <div className="text-center">
+                                    <span className="text-[11px] font-bold text-slate-900 font-mono block">{item.count}</span>
+                                    <span className="text-[9px] font-semibold text-slate-400 font-mono">{item.share}</span>
+                                </div>
                                 <div 
-                                    className="w-full rounded-t-lg transition-all duration-500" 
+                                    className="w-full rounded-t-lg transition-all duration-500 shadow-xs" 
                                     style={{ height: item.height, backgroundColor: item.color }} 
                                 />
                             </div>
@@ -456,9 +459,9 @@ export default function AdminDashboardPage() {
                     </div>
 
                     {/* Labels */}
-                    <div className="flex justify-around text-center text-xs text-slate-500 font-medium">
+                    <div className="flex justify-around text-center text-xs text-slate-600 font-medium">
                         {formatSales.map((item, i) => (
-                            <div key={i} className="w-16 truncate">{item.format}</div>
+                            <div key={i} className="w-16 text-[11px] font-semibold truncate">{item.format}</div>
                         ))}
                     </div>
                 </div>
