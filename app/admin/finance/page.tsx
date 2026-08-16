@@ -55,13 +55,13 @@ export default function FinancePage() {
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-100 dark:text-amber-400 dark:bg-amber-950/40 rounded-full mb-4 animate-pulse">
                         Database Sync Active
                     </span>
-                    
+
                     <h2 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight mb-3">
                         Finance Sync in Progress
                     </h2>
-                    
+
                     <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-6">
-                        Our servers are currently synchronizing live transactions and analytics metrics with the main database. 
+                        Our servers are currently synchronizing live transactions and analytics metrics with the main database.
                         To ensure data integrity, access to this administrative module is temporarily suspended.
                     </p>
 
