@@ -40,6 +40,103 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         setAuthLoading(false);
     }, []);
 
+    // Interactive Top Bar States
+    const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [showMessages, setShowMessages] = useState(false);
+    const [showCommandPalette, setShowCommandPalette] = useState(false);
+    const [showAiDrawer, setShowAiDrawer] = useState(false);
+    const [aiInput, setAiInput] = useState('');
+    const [aiMessages, setAiMessages] = useState<{ role: 'ai' | 'user'; text: string }[]>([
+        { role: 'ai', text: 'Hello Dr. Salim! I am your AuthorHub AI assistant. How can I help optimize your books, SEO, or reader engagement today?' }
+    ]);
+    const [aiLoading, setAiLoading] = useState(false);
+
+    const [notifications, setNotifications] = useState([
+        { id: '1', title: 'PayFast Withdrawal Initiated', desc: '$2,381 USD queued. Processing takes 7 to 10 working days.', time: '10m ago', icon: '⚡', read: false },
+        { id: '2', title: 'Facebook Ads Milestone', desc: '978,134 visits reached from Facebook Ads & 18 academic groups.', time: '1h ago', icon: '🔵', read: false },
+        { id: '3', title: 'Programmatic SEO Deployed', desc: '218 landing pages indexed with 5,252 link mesh.', time: '3h ago', icon: '🚀', read: false },
+        { id: '4', title: '5-Star Review Received', desc: 'New review for "The Evil Web" by Prof. Tariq.', time: '5h ago', icon: '⭐', read: false },
+        { id: '5', title: 'MongoDB Synchronized', desc: '1,218,181 total views verified in live cluster.', time: '1d ago', icon: '📊', read: true },
+    ]);
+
+    // Command palette search
+    const [paletteQuery, setPaletteQuery] = useState('');
+
+    const searchableRoutes = [
+        { href: '/admin/dashboard', label: 'Dashboard & Executive Overview', category: 'General', icon: '📊' },
+        { href: '/admin/books', label: 'All Books Catalog (5 Volumes)', category: 'Books', icon: '📖' },
+        { href: '/admin/series', label: 'Book Series Manager', category: 'Books', icon: '📚' },
+        { href: '/admin/bundles', label: 'Bundles & Box Sets', category: 'Books', icon: '📦' },
+        { href: '/admin/isbn', label: 'ISBN Official Registry', category: 'Books', icon: '🏷️' },
+        { href: '/admin/covers', label: 'Covers & A/B Visuals', category: 'Books', icon: '🖼️' },
+        { href: '/admin/seo', label: 'Programmatic SEO (218 Pages & Mesh)', category: 'Marketing', icon: '🚀' },
+        { href: '/admin/seo', label: 'Facebook Ads & 18 Groups (978K Visits)', category: 'Marketing', icon: '🔵' },
+        { href: '/admin/seo', label: 'Pinterest Visual Redirects (65K Clicks)', category: 'Marketing', icon: '📌' },
+        { href: '/admin/finance', label: 'Finance & PayFast Gateway ($2,381)', category: 'Finance', icon: '💳' },
+        { href: '/admin/analytics', label: 'Multi-Channel Analytics (1.52M Visits)', category: 'Analytics', icon: '📈' },
+        { href: '/admin/articles', label: 'Articles & Essays (1.22M Views)', category: 'Content', icon: '📝' },
+        { href: '/admin/comments', label: 'Reader Comments Moderation (1,383)', category: 'Content', icon: '💬' },
+        { href: '/admin/reviews', label: 'Editorial & Reader Reviews (4.9★)', category: 'Reviews', icon: '⭐' },
+        { href: '/admin/awards', label: 'Presidential Seerat Awards', category: 'Accolades', icon: '🎖️' },
+        { href: '/admin/reading-stats', label: 'Reading Stats & Completion Rates', category: 'Insights', icon: '⏱️' },
+        { href: '/admin/promotions', label: 'Promotions & Seasonal Campaigns', category: 'Marketing', icon: '🏷️' },
+        { href: '/admin/previews', label: 'Sample Chapters & Downloads', category: 'Insights', icon: '👁️' },
+    ];
+
+    const filteredPaletteRoutes = searchableRoutes.filter(r => 
+        r.label.toLowerCase().includes(paletteQuery.toLowerCase()) || 
+        r.category.toLowerCase().includes(paletteQuery.toLowerCase())
+    );
+
+    // Global Key Listener for Cmd+K / Ctrl+K & Esc
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+                e.preventDefault();
+                setShowCommandPalette(prev => !prev);
+            }
+            if (e.key === 'Escape') {
+                setShowCommandPalette(false);
+                setShowProfileDropdown(false);
+                setShowNotifications(false);
+                setShowMessages(false);
+                setShowAiDrawer(false);
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    const handleSendAi = (promptText?: string) => {
+        const query = promptText || aiInput;
+        if (!query.trim()) return;
+
+        const newMessages = [...aiMessages, { role: 'user' as const, text: query }];
+        setAiMessages(newMessages);
+        setAiInput('');
+        setAiLoading(true);
+
+        setTimeout(() => {
+            let response = "I've analyzed your request against Dr. Salim's portfolio and live metrics.";
+            if (query.toLowerCase().includes('seo') || query.toLowerCase().includes('keyword')) {
+                response = "Top SEO Clusters: 'Islamic Epistemology' and 'Tazkiyah Psychological Frameworks'. All 218 programmatic pages are currently indexed with a 5,252 internal link mesh, maintaining a Google SERP average ranking of #2.4.";
+            } else if (query.toLowerCase().includes('sales') || query.toLowerCase().includes('finance') || query.toLowerCase().includes('payfast')) {
+                response = "Financial Summary: Total Royalties: $2,381.00 USD across 118 copies sold. Your PayFast withdrawal request has been submitted and will arrive in 7 to 10 working days.";
+            } else if (query.toLowerCase().includes('traffic') || query.toLowerCase().includes('facebook')) {
+                response = "Acquisition Highlights: 1,520,934 Total Visits. Facebook Ads & 18 Academic Groups generated 978,134 visits at $0.0014 CPC. Pinterest redirects contributed 65,145 high-intent clicks.";
+            } else {
+                response = `AuthorHub AI insight for "${query}": Your books maintain a 4.9★ rating with strong engagement across Cambridge Ethics and Medium. All systems are operating optimally.`;
+            }
+
+            setAiMessages([...newMessages, { role: 'ai', text: response }]);
+            setAiLoading(false);
+        }, 600);
+    };
+
+    const unreadNotificationCount = notifications.filter(n => !n.read).length;
+
     const toggleTheme = () => {
         const nextTheme = !isDarkMode;
         setIsDarkMode(nextTheme);
@@ -166,103 +263,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         { href: '/admin/reading-stats', label: 'Reader Insights', icon: '👥' },
         { href: '/admin/promotions', label: 'Email Campaigns', icon: '✉️' },
     ];
-
-    // Interactive Top Bar States
-    const [showProfileDropdown, setShowProfileDropdown] = useState(false);
-    const [showNotifications, setShowNotifications] = useState(false);
-    const [showMessages, setShowMessages] = useState(false);
-    const [showCommandPalette, setShowCommandPalette] = useState(false);
-    const [showAiDrawer, setShowAiDrawer] = useState(false);
-    const [aiInput, setAiInput] = useState('');
-    const [aiMessages, setAiMessages] = useState<{ role: 'ai' | 'user'; text: string }[]>([
-        { role: 'ai', text: 'Hello Dr. Salim! I am your AuthorHub AI assistant. How can I help optimize your books, SEO, or reader engagement today?' }
-    ]);
-    const [aiLoading, setAiLoading] = useState(false);
-
-    const [notifications, setNotifications] = useState([
-        { id: '1', title: 'PayFast Withdrawal Initiated', desc: '$2,381 USD queued. Processing takes 7 to 10 working days.', time: '10m ago', icon: '⚡', read: false },
-        { id: '2', title: 'Facebook Ads Milestone', desc: '978,134 visits reached from Facebook Ads & 18 academic groups.', time: '1h ago', icon: '🔵', read: false },
-        { id: '3', title: 'Programmatic SEO Deployed', desc: '218 landing pages indexed with 5,252 link mesh.', time: '3h ago', icon: '🚀', read: false },
-        { id: '4', title: '5-Star Review Received', desc: 'New review for "The Evil Web" by Prof. Tariq.', time: '5h ago', icon: '⭐', read: false },
-        { id: '5', title: 'MongoDB Synchronized', desc: '1,218,181 total views verified in live cluster.', time: '1d ago', icon: '📊', read: true },
-    ]);
-
-    // Command palette search
-    const [paletteQuery, setPaletteQuery] = useState('');
-
-    const searchableRoutes = [
-        { href: '/admin/dashboard', label: 'Dashboard & Executive Overview', category: 'General', icon: '📊' },
-        { href: '/admin/books', label: 'All Books Catalog (5 Volumes)', category: 'Books', icon: '📖' },
-        { href: '/admin/series', label: 'Book Series Manager', category: 'Books', icon: '📚' },
-        { href: '/admin/bundles', label: 'Bundles & Box Sets', category: 'Books', icon: '📦' },
-        { href: '/admin/isbn', label: 'ISBN Official Registry', category: 'Books', icon: '🏷️' },
-        { href: '/admin/covers', label: 'Covers & A/B Visuals', category: 'Books', icon: '🖼️' },
-        { href: '/admin/seo', label: 'Programmatic SEO (218 Pages & Mesh)', category: 'Marketing', icon: '🚀' },
-        { href: '/admin/seo', label: 'Facebook Ads & 18 Groups (978K Visits)', category: 'Marketing', icon: '🔵' },
-        { href: '/admin/seo', label: 'Pinterest Visual Redirects (65K Clicks)', category: 'Marketing', icon: '📌' },
-        { href: '/admin/finance', label: 'Finance & PayFast Gateway ($2,381)', category: 'Finance', icon: '💳' },
-        { href: '/admin/analytics', label: 'Multi-Channel Analytics (1.52M Visits)', category: 'Analytics', icon: '📈' },
-        { href: '/admin/articles', label: 'Articles & Essays (1.22M Views)', category: 'Content', icon: '📝' },
-        { href: '/admin/comments', label: 'Reader Comments Moderation (1,383)', category: 'Content', icon: '💬' },
-        { href: '/admin/reviews', label: 'Editorial & Reader Reviews (4.9★)', category: 'Reviews', icon: '⭐' },
-        { href: '/admin/awards', label: 'Presidential Seerat Awards', category: 'Accolades', icon: '🎖️' },
-        { href: '/admin/reading-stats', label: 'Reading Stats & Completion Rates', category: 'Insights', icon: '⏱️' },
-        { href: '/admin/promotions', label: 'Promotions & Seasonal Campaigns', category: 'Marketing', icon: '🏷️' },
-        { href: '/admin/previews', label: 'Sample Chapters & Downloads', category: 'Insights', icon: '👁️' },
-    ];
-
-    const filteredPaletteRoutes = searchableRoutes.filter(r => 
-        r.label.toLowerCase().includes(paletteQuery.toLowerCase()) || 
-        r.category.toLowerCase().includes(paletteQuery.toLowerCase())
-    );
-
-    // Global Key Listener for Cmd+K / Ctrl+K & Esc
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-                e.preventDefault();
-                setShowCommandPalette(prev => !prev);
-            }
-            if (e.key === 'Escape') {
-                setShowCommandPalette(false);
-                setShowProfileDropdown(false);
-                setShowNotifications(false);
-                setShowMessages(false);
-                setShowAiDrawer(false);
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
-
-    const handleSendAi = (promptText?: string) => {
-        const query = promptText || aiInput;
-        if (!query.trim()) return;
-
-        const newMessages = [...aiMessages, { role: 'user' as const, text: query }];
-        setAiMessages(newMessages);
-        setAiInput('');
-        setAiLoading(true);
-
-        setTimeout(() => {
-            let response = "I've analyzed your request against Dr. Salim's portfolio and live metrics.";
-            if (query.toLowerCase().includes('seo') || query.toLowerCase().includes('keyword')) {
-                response = "Top SEO Clusters: 'Islamic Epistemology' and 'Tazkiyah Psychological Frameworks'. All 218 programmatic pages are currently indexed with a 5,252 internal link mesh, maintaining a Google SERP average ranking of #2.4.";
-            } else if (query.toLowerCase().includes('sales') || query.toLowerCase().includes('finance') || query.toLowerCase().includes('payfast')) {
-                response = "Financial Summary: Total Royalties: $2,381.00 USD across 118 copies sold. Your PayFast withdrawal request has been submitted and will arrive in 7 to 10 working days.";
-            } else if (query.toLowerCase().includes('traffic') || query.toLowerCase().includes('facebook')) {
-                response = "Acquisition Highlights: 1,520,934 Total Visits. Facebook Ads & 18 Academic Groups generated 978,134 visits at $0.0014 CPC. Pinterest redirects contributed 65,145 high-intent clicks.";
-            } else {
-                response = `AuthorHub AI insight for "${query}": Your books maintain a 4.9★ rating with strong engagement across Cambridge Ethics and Medium. All systems are operating optimally.`;
-            }
-
-            setAiMessages([...newMessages, { role: 'ai', text: response }]);
-            setAiLoading(false);
-        }, 600);
-    };
-
-    const unreadNotificationCount = notifications.filter(n => !n.read).length;
 
     return (
         <div className={`min-h-screen flex ${isDarkMode ? 'bg-[#0B0E14] text-slate-100' : 'bg-[#F4F6F8] text-slate-900'}`}>
