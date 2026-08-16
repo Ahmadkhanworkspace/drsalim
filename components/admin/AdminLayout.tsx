@@ -154,10 +154,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         { href: '/admin/articles', label: 'Articles', icon: '📝' },
         { href: '/admin/comments', label: 'Comments', icon: '💬', badge: '56' },
         { href: '/admin/finance', label: 'Finance', icon: '💳' },
-        { href: '/admin/analytics', label: 'Analytics', icon: '📊', badge: 'New', badgeColor: 'bg-indigo-600 text-white' },
+        { href: '/admin/analytics', label: 'Analytics', icon: '📊' },
+        { href: '/admin/seo', label: 'Programmatic SEO', icon: '🚀', badge: '542K', badgeColor: 'bg-emerald-600 text-white' },
     ];
 
     const authorTools = [
+        { href: '/admin/seo', label: 'Pinterest Redirects', icon: '📌', badge: '65K', badgeColor: 'bg-rose-500/20 text-rose-300' },
         { href: '/admin/analytics', label: 'AI Assistant', icon: '✨', badge: 'Beta', badgeColor: 'bg-amber-500/20 text-amber-300' },
         { href: '/admin/articles', label: 'Content Planner', icon: '📅' },
         { href: '/admin/reading-stats', label: 'Reader Insights', icon: '👥' },
