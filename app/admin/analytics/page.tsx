@@ -344,13 +344,14 @@ export default function AnalyticsPage() {
                     </span>
                 </div>
 
-                {/* SEO Traffic Channels Split */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', marginBottom: '20px' }}>
+                {/* Multi-Channel Traffic Acquisition Split */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '12px', marginBottom: '20px' }}>
                     {[
-                        { channel: 'Google Organic Search', visits: '314,870', share: '58.0%', color: '#067D62', icon: '🔍' },
-                        { channel: 'Guest Post & Academic Backlinks', visits: '130,290', share: '24.0%', color: '#0066c0', icon: '🔗' },
-                        { channel: 'Social Pins & Community', visits: '65,145', share: '12.0%', color: '#c7511f', icon: '📌' },
-                        { channel: 'Blog Comments & Forum Seeding', visits: '32,585', share: '6.0%', color: '#8844ee', icon: '💬' }
+                        { channel: 'Facebook Ads & Group Posts', visits: '978,134', share: '64.3%', color: '#0066c0', icon: '🔵' },
+                        { channel: 'Google Organic Search', visits: '314,870', share: '20.7%', color: '#067D62', icon: '🔍' },
+                        { channel: 'Guest Post & Academic Backlinks', visits: '130,290', share: '8.6%', color: '#6366F1', icon: '🔗' },
+                        { channel: 'Pinterest Pins & Direct Redirects', visits: '65,145', share: '4.3%', color: '#c7511f', icon: '📌' },
+                        { channel: 'Blog Comments & Forum Seeding', visits: '32,585', share: '2.1%', color: '#8844ee', icon: '💬' }
                     ].map((item, idx) => (
                         <div key={idx} style={{ padding: '12px', background: '#F7FAFA', border: '1px solid #D5D9D9', borderRadius: '6px' }}>
                             <div style={{ fontSize: '0.75rem', color: '#565959', fontWeight: 600, display: 'flex', justifyContent: 'space-between' }}>
@@ -358,7 +359,7 @@ export default function AnalyticsPage() {
                                 <span style={{ color: item.color, fontWeight: 700 }}>{item.share}</span>
                             </div>
                             <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0F1111', marginTop: '6px' }}>
-                                {item.visits} <span style={{ fontSize: '0.75rem', fontWeight: 400, color: '#6F7373' }}>visits/mo</span>
+                                {item.visits} <span style={{ fontSize: '0.75rem', fontWeight: 400, color: '#6F7373' }}>visits</span>
                             </div>
                         </div>
                     ))}

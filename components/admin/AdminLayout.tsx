@@ -159,6 +159,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     ];
 
     const authorTools = [
+        { href: '/admin/seo', label: 'Facebook Ads & Groups', icon: '🔵', badge: '978K', badgeColor: 'bg-blue-500/20 text-blue-300' },
         { href: '/admin/seo', label: 'Pinterest Redirects', icon: '📌', badge: '65K', badgeColor: 'bg-rose-500/20 text-rose-300' },
         { href: '/admin/analytics', label: 'AI Assistant', icon: '✨', badge: 'Beta', badgeColor: 'bg-amber-500/20 text-amber-300' },
         { href: '/admin/articles', label: 'Content Planner', icon: '📅' },

@@ -18,10 +18,12 @@ interface Promotion {
 
 export default function PromotionsPage() {
     const [promotions] = useState<Promotion[]>([
-        { id: '1', title: 'New Year Sale', bookTitle: 'Brotherhood', type: 'discount', discountPercent: 25, code: 'NEWYEAR25', startDate: '2026-01-01', endDate: '2026-01-15', status: 'active', uses: 47, maxUses: 100 },
-        { id: '2', title: 'Spiritual Growth Bundle', bookTitle: 'Spiritual Diseases + Human Journey', type: 'bundle', discountPercent: 30, code: 'SPIRITUAL30', startDate: '2026-01-05', endDate: '2026-01-31', status: 'active', uses: 18, maxUses: 50 },
-        { id: '3', title: 'Free Preview Week', bookTitle: 'Divine Providence Vol 2', type: 'free', code: 'PREVIEW2026', startDate: '2026-01-10', endDate: '2026-01-17', status: 'scheduled', uses: 0, maxUses: 200 },
-        { id: '4', title: 'Brotherhood Launch', bookTitle: 'Brotherhood', type: 'discount', discountPercent: 20, code: 'LAUNCH20', startDate: '2025-12-01', endDate: '2025-12-31', status: 'expired', uses: 156, maxUses: 200 },
+        { id: '1', title: 'Facebook Ad: Justice & Islamic Ethics', bookTitle: 'Justice & Evil Web Treatises', type: 'discount', discountPercent: 20, code: 'METAJUSTICE', startDate: '2026-02-01', endDate: '2026-08-31', status: 'active', uses: 3421, maxUses: 5000 },
+        { id: '2', title: 'Facebook Group Seeding (18 Academic Groups)', bookTitle: 'Spiritual Diseases + Brotherhood', type: 'bundle', discountPercent: 25, code: 'SCHOLARS25', startDate: '2026-01-15', endDate: '2026-08-31', status: 'active', uses: 2845, maxUses: 4000 },
+        { id: '3', title: 'New Year Sale', bookTitle: 'Brotherhood', type: 'discount', discountPercent: 25, code: 'NEWYEAR25', startDate: '2026-01-01', endDate: '2026-01-15', status: 'active', uses: 47, maxUses: 100 },
+        { id: '4', title: 'Spiritual Growth Bundle', bookTitle: 'Spiritual Diseases + Human Journey', type: 'bundle', discountPercent: 30, code: 'SPIRITUAL30', startDate: '2026-01-05', endDate: '2026-01-31', status: 'active', uses: 18, maxUses: 50 },
+        { id: '5', title: 'Free Preview Week', bookTitle: 'Divine Providence Vol 2', type: 'free', code: 'PREVIEW2026', startDate: '2026-01-10', endDate: '2026-01-17', status: 'scheduled', uses: 0, maxUses: 200 },
+        { id: '6', title: 'Brotherhood Launch', bookTitle: 'Brotherhood', type: 'discount', discountPercent: 20, code: 'LAUNCH20', startDate: '2025-12-01', endDate: '2025-12-31', status: 'expired', uses: 156, maxUses: 200 },
     ]);
 
     const stats = {

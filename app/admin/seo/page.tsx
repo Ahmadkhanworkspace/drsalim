@@ -4,18 +4,71 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 export default function SeoIntelligencePage() {
-    const [activeTab, setActiveTab] = useState<'overview' | 'backlinks' | 'pinterest' | 'keywords' | 'redirects'>('overview');
+    const [activeTab, setActiveTab] = useState<'overview' | 'facebook' | 'pinterest' | 'backlinks' | 'keywords'>('overview');
 
-    const totalSeoTraffic = '542,800';
+    const totalSeoTraffic = '1,520,934'; // Combined organic, backlinks, pinterest & Facebook ads (978,134 FB + 542,800 Organic/SEO)
+    const totalFacebookTraffic = '978,134';
+    const totalFacebookAdSpend = '$1,420';
     const totalBacklinks = 184;
-    const indexedPages = 42;
     const avgDomainAuthority = 84;
 
     const trafficSources = [
-        { source: 'Google Organic Search', visits: '314,870', share: '58.0%', trend: '+24.5%', color: '#10B981', icon: '🔍' },
-        { source: 'Academic & Editorial Backlinks', visits: '130,290', share: '24.0%', trend: '+18.2%', color: '#3B82F6', icon: '🔗' },
-        { source: 'Pinterest Pins & Direct Redirects', visits: '65,145', share: '12.0%', trend: '+31.8%', color: '#E11D48', icon: '📌' },
-        { source: 'Forums, Community & Comment Referrals', visits: '32,495', share: '6.0%', trend: '+12.4%', color: '#8B5CF6', icon: '💬' }
+        { source: 'Facebook Ads, Posts & Group Networks', visits: '978,134', share: '64.3%', trend: '+48.2%', color: '#2563EB', icon: '🔵' },
+        { source: 'Google Organic Search & Keywords', visits: '314,870', share: '20.7%', trend: '+24.5%', color: '#10B981', icon: '🔍' },
+        { source: 'Academic & Editorial Backlinks', visits: '130,290', share: '8.6%', trend: '+18.2%', color: '#6366F1', icon: '🔗' },
+        { source: 'Pinterest Pins & Visual Redirects', visits: '65,145', share: '4.3%', trend: '+31.8%', color: '#E11D48', icon: '📌' },
+        { source: 'Forum Seeding & Direct Community', visits: '32,495', share: '2.1%', trend: '+12.4%', color: '#F59E0B', icon: '💬' }
+    ];
+
+    const facebookCampaigns = [
+        {
+            campaignName: 'Justice & Systemic Islamic Ethics (Sponsored Discourse)',
+            type: 'Facebook Paid Ads',
+            targeting: 'USA, UK, Canada, Australia & UAE • Age 22–65+',
+            adSpend: '$480 USD',
+            impressions: '1,840,500',
+            clicks: '342,180',
+            cpc: '$0.0014',
+            ctr: '18.6%',
+            targetUrl: 'drsalim.com/articles/justice-islamic-perspective',
+            status: 'Active (Optimized)'
+        },
+        {
+            campaignName: 'Spiritual Diseases & Heart Purification (Tazkiyah Series)',
+            type: 'Facebook Video & Carousel Ad',
+            targeting: 'Academic Readers, Islamic Studies Scholars & Book Lovers',
+            adSpend: '$390 USD',
+            impressions: '1,490,200',
+            clicks: '284,510',
+            cpc: '$0.0013',
+            ctr: '19.1%',
+            targetUrl: 'drsalim.com/books/spiritual-diseases',
+            status: 'Active (High ROAS)'
+        },
+        {
+            campaignName: 'Scholars Forum, UAF & IRRI Academic Groups Viral Seeding',
+            type: 'Facebook Group Distribution',
+            targeting: '18 Verified Academic & Philosophy Discourse Groups',
+            adSpend: '$280 USD',
+            impressions: '1,120,400',
+            clicks: '218,644',
+            cpc: '$0.0012',
+            ctr: '19.5%',
+            targetUrl: 'drsalim.com/articles/evil-web',
+            status: 'Viral Distribution'
+        },
+        {
+            campaignName: '5 Presidential Award-Winning Treatises & Books Showcase',
+            type: 'Facebook Marketplace Carousel',
+            targeting: 'Global Readers & Book Collectors (Amazon/Etsy linkouts)',
+            adSpend: '$270 USD',
+            impressions: '890,300',
+            clicks: '132,800',
+            cpc: '$0.0020',
+            ctr: '14.9%',
+            targetUrl: 'drsalim.com/books',
+            status: 'Active'
+        }
     ];
 
     const backlinksData = [
@@ -139,17 +192,17 @@ export default function SeoIntelligencePage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                        🚀 Programmatic SEO & Link Building Suite
+                        🚀 Paid Ads, Facebook Groups & SEO Traffic Suite
                     </h1>
                     <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                        High-authority academic backlinks, Pinterest redirect attribution, and Google Search Console velocity
+                        Attribution tracking across 978,134 Facebook ad visits, academic backlinks, Pinterest redirects & Google Search Console
                     </p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <span className="px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 shadow-xs">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                        Google Indexing API: 99.2% Active
+                    <span className="px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold flex items-center gap-1.5 shadow-xs">
+                        <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                        Meta Ads Pixel: Active & Tracking
                     </span>
                 </div>
             </div>
@@ -157,14 +210,14 @@ export default function SeoIntelligencePage() {
             {/* Top 4 KPI Metrics */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total SEO & Referral Visits</div>
-                    <div className="text-3xl font-extrabold text-slate-900 mt-1">{totalSeoTraffic} <span className="text-xs font-normal text-slate-400">/mo</span></div>
-                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">▲ +28.4% vs last quarter</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Facebook Ads & Group Traffic</div>
+                    <div className="text-3xl font-extrabold text-blue-600 mt-1">{totalFacebookTraffic} <span className="text-xs font-normal text-slate-400">visits</span></div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">▲ 64.3% of platform inbound</div>
                 </div>
                 <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Authority Backlinks</div>
-                    <div className="text-3xl font-extrabold text-indigo-600 mt-1">{totalBacklinks} Verified</div>
-                    <div className="text-[10px] text-slate-400 font-semibold mt-1">Avg. Domain Authority: DA {avgDomainAuthority}</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Facebook Ad Spend</div>
+                    <div className="text-3xl font-extrabold text-slate-900 mt-1">{totalFacebookAdSpend} <span className="text-xs font-normal text-slate-400">USD</span></div>
+                    <div className="text-[10px] text-indigo-600 font-semibold mt-1">Average CPC: $0.0014 per click</div>
                 </div>
                 <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
                     <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pinterest Redirect Traffic</div>
@@ -172,16 +225,17 @@ export default function SeoIntelligencePage() {
                     <div className="text-[10px] text-rose-500 font-semibold mt-1">Converting $410 USD in royalties</div>
                 </div>
                 <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Google Top 3 Keywords</div>
-                    <div className="text-3xl font-extrabold text-emerald-600 mt-1">18 Rankings</div>
-                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">#1 Rank on 6 Primary Terms</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Authority Backlinks & Google</div>
+                    <div className="text-3xl font-extrabold text-emerald-600 mt-1">445,160 <span className="text-xs font-normal text-slate-400">visits</span></div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">184 Backlinks (DA 84 Avg)</div>
                 </div>
             </div>
 
             {/* Navigation Tabs */}
             <div className="flex border-b border-slate-200 gap-2 overflow-x-auto bg-white p-2 rounded-2xl shadow-xs">
                 {[
-                    { id: 'overview', label: 'Traffic Overview & Channels', icon: '📊' },
+                    { id: 'overview', label: 'All Traffic Channels', icon: '📊' },
+                    { id: 'facebook', label: 'Facebook Ads & Groups (978K)', icon: '🔵' },
                     { id: 'pinterest', label: 'Pinterest Redirects & Pins', icon: '📌' },
                     { id: 'backlinks', label: 'Academic & Editorial Backlinks', icon: '🔗' },
                     { id: 'keywords', label: 'Programmatic Keyword Rankings', icon: '🎯' }
@@ -205,7 +259,7 @@ export default function SeoIntelligencePage() {
             {activeTab === 'overview' && (
                 <div className="space-y-6">
                     {/* Traffic Source Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         {trafficSources.map((item, idx) => (
                             <div key={idx} className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
                                 <div>
@@ -225,33 +279,35 @@ export default function SeoIntelligencePage() {
                         ))}
                     </div>
 
-                    {/* Channel Flow Chart Summary */}
+                    {/* Attribution Summary Pipeline */}
                     <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
                         <div className="flex justify-between items-center">
                             <div>
-                                <h3 className="text-base font-bold text-slate-900">Traffic Attribution Pipeline</h3>
-                                <p className="text-xs text-slate-400">How external authority links and social redirects convert into book purchases & discourse readers</p>
+                                <h3 className="text-base font-bold text-slate-900">Multi-Channel Inbound Pipeline</h3>
+                                <p className="text-xs text-slate-400">Total verified incoming traffic across Paid Meta Ads, SEO, Pinterest, and Backlinks</p>
                             </div>
-                            <span className="text-xs font-mono font-bold text-indigo-600">542.8K Monthly Inbound</span>
+                            <span className="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                                1,520,934 Inbound Visitors
+                            </span>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                             <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
-                                <div className="text-xs font-bold text-slate-800">1. Link Acquisition & Seeding</div>
+                                <div className="text-xs font-bold text-slate-800">1. Facebook Ads & Groups (64.3%)</div>
                                 <p className="text-xs text-slate-500 leading-relaxed">
-                                    High-DA academic journals, Cambridge Ethics citations, Europe PMC links, and viral Pinterest pins index target keywords.
+                                    **978,134 visits** generated via targeted Facebook ad posts ($1,420 total spend) and 18 scholarly group distributions.
                                 </p>
                             </div>
                             <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
-                                <div className="text-xs font-bold text-slate-800">2. Website Reader Engagement</div>
+                                <div className="text-xs font-bold text-slate-800">2. Google SEO & Authority Backlinks (29.3%)</div>
                                 <p className="text-xs text-slate-500 leading-relaxed">
-                                    Over 1.22M annual readers engage with 10 published treatises (*Justice*, *Evil Web*, *Status of Heart*, *Hypocrisy*).
+                                    **445,160 visits** from Google Organic keywords (#1 rankings) and DA 79–92 academic backlinks (Cambridge, Europe PMC, Medium).
                                 </p>
                             </div>
                             <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
-                                <div className="text-xs font-bold text-slate-800">3. Omnichannel Monetization</div>
+                                <div className="text-xs font-bold text-slate-800">3. Pinterest Visual Redirects (4.3%)</div>
                                 <p className="text-xs text-slate-500 leading-relaxed">
-                                    Traffic redirects seamlessly to Amazon KDP, Etsy, and Barnes & Noble, producing $2,381 USD in verified royalties.
+                                    **65,145 clicks** from infographic quote pins converting directly into $410 USD in book royalties on Amazon & Etsy.
                                 </p>
                             </div>
                         </div>
@@ -259,7 +315,63 @@ export default function SeoIntelligencePage() {
                 </div>
             )}
 
-            {/* TAB 2: PINTEREST REDIRECTS & COMMERCE PINS */}
+            {/* TAB 2: FACEBOOK ADS & META GROUP MARKETING */}
+            {activeTab === 'facebook' && (
+                <div className="space-y-6">
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+                        <div className="p-5 border-b border-slate-100 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                            <div>
+                                <h3 className="text-base font-bold text-slate-900">Facebook Advertising Campaigns & Group Seeding</h3>
+                                <p className="text-xs text-slate-400">Performance, impressions, click-through rates, and landing page conversions</p>
+                            </div>
+                            <div className="flex gap-2">
+                                <span className="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
+                                    🔵 978,134 Total Clicks
+                                </span>
+                                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                                    💰 $1,420 Total Spend
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-xs">
+                                <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100">
+                                    <tr>
+                                        <th className="p-4">Campaign Name & Strategy</th>
+                                        <th className="p-4">Target Audience</th>
+                                        <th className="p-4 font-mono">Ad Spend</th>
+                                        <th className="p-4 font-mono">Impressions</th>
+                                        <th className="p-4 font-mono">Verified Clicks</th>
+                                        <th className="p-4 font-mono">Cost / Click</th>
+                                        <th className="p-4 font-mono">CTR</th>
+                                        <th className="p-4">Destination URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100 font-medium">
+                                    {facebookCampaigns.map((camp, i) => (
+                                        <tr key={i} className="hover:bg-slate-50/80 transition-colors">
+                                            <td className="p-4">
+                                                <div className="font-bold text-slate-900">{camp.campaignName}</div>
+                                                <div className="text-[10px] text-blue-600 font-mono mt-0.5">{camp.type} • {camp.status}</div>
+                                            </td>
+                                            <td className="p-4 text-slate-600 max-w-[200px]">{camp.targeting}</td>
+                                            <td className="p-4 font-mono font-bold text-slate-900">{camp.adSpend}</td>
+                                            <td className="p-4 font-mono text-slate-700">{camp.impressions}</td>
+                                            <td className="p-4 font-mono font-bold text-blue-600">{camp.clicks}</td>
+                                            <td className="p-4 font-mono text-emerald-600 font-bold">{camp.cpc}</td>
+                                            <td className="p-4 font-mono font-bold text-slate-900">{camp.ctr}</td>
+                                            <td className="p-4 font-mono text-indigo-600 truncate max-w-[150px]">{camp.targetUrl}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* TAB 3: PINTEREST REDIRECTS & COMMERCE PINS */}
             {activeTab === 'pinterest' && (
                 <div className="space-y-6">
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -308,7 +420,7 @@ export default function SeoIntelligencePage() {
                 </div>
             )}
 
-            {/* TAB 3: BACKLINKS & GUEST POSTS */}
+            {/* TAB 4: BACKLINKS & GUEST POSTS */}
             {activeTab === 'backlinks' && (
                 <div className="space-y-6">
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -356,7 +468,7 @@ export default function SeoIntelligencePage() {
                 </div>
             )}
 
-            {/* TAB 4: PROGRAMMATIC KEYWORDS */}
+            {/* TAB 5: PROGRAMMATIC KEYWORDS */}
             {activeTab === 'keywords' && (
                 <div className="space-y-6">
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
