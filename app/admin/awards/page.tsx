@@ -8,7 +8,8 @@ export default function AwardsPage() {
             book: 'National Seerat Conference',
             organization: 'Conferred by General Pervez Musharraf (President of Pakistan) • Ministry of Religious Affairs',
             date: 'National Seerat Conference, Islamabad',
-            category: 'Award'
+            category: 'Presidential Award',
+            badgeColor: 'bg-amber-100 text-amber-800 border-amber-300'
         },
         {
             id: '2',
@@ -16,7 +17,8 @@ export default function AwardsPage() {
             book: 'National Seerat Conference',
             organization: 'Conferred by General Pervez Musharraf (President of Pakistan) • Ministry of Religious Affairs',
             date: 'National Seerat Conference, Islamabad',
-            category: 'Award'
+            category: 'Presidential Award',
+            badgeColor: 'bg-amber-100 text-amber-800 border-amber-300'
         },
         {
             id: '3',
@@ -24,7 +26,8 @@ export default function AwardsPage() {
             book: 'National Seerat Conference',
             organization: 'Conferred by Mr. M. Nawaz Sharif (Prime Minister of Pakistan) • Ministry of Religious Affairs',
             date: 'National Seerat Conference, Islamabad',
-            category: 'Award'
+            category: 'National Honor',
+            badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-300'
         },
         {
             id: '4',
@@ -32,7 +35,8 @@ export default function AwardsPage() {
             book: 'National Seerat Conference',
             organization: 'Conferred by Mr. Farooq Khan Leghari (President of Pakistan) • Ministry of Religious Affairs',
             date: 'National Seerat Conference, Islamabad',
-            category: 'Award'
+            category: 'Presidential Award',
+            badgeColor: 'bg-amber-100 text-amber-800 border-amber-300'
         },
         {
             id: '5',
@@ -40,7 +44,8 @@ export default function AwardsPage() {
             book: 'National Seerat Conference',
             organization: 'Conferred by Mr. Moeen A. Qureshi (Caretaker Prime Minister of Pakistan) • Ministry of Religious Affairs',
             date: 'National Seerat Conference, Islamabad',
-            category: 'Award'
+            category: 'National Honor',
+            badgeColor: 'bg-indigo-100 text-indigo-800 border-indigo-300'
         },
         {
             id: '6',
@@ -48,106 +53,103 @@ export default function AwardsPage() {
             book: 'Islamic Centre Establishment',
             organization: 'International Muslim Students Association (IMSA) • IRRI / UPLB Philippines',
             date: 'President & VP IMSA',
-            category: 'Recognition'
+            category: 'International Recognition',
+            badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300'
         },
         {
             id: '7',
             title: 'Scholars\' Forum Distinction (Top 5%)',
             book: 'Academic Fellowship',
             organization: 'University of Agriculture Faisalabad (UAF)',
-            date: 'Merit Fellowship',
-            category: 'Recognition'
+            date: 'Merit Fellowship & SSC to PhD Distinction',
+            category: 'Academic Honor',
+            badgeColor: 'bg-purple-100 text-purple-800 border-purple-300'
         }
     ];
 
-    const stats = {
-        totalAwards: 5,
-        bestsellers: 2,
-        mediaFeatures: 14,
-        recognitions: 8
-    };
+    const stats = [
+        { label: 'Presidential Awards', value: '5 Conferred', desc: 'Conferred by Presidents & PMs', icon: '🎖️', color: '#D97706', bg: 'bg-amber-50 text-amber-700' },
+        { label: 'Published Treatises', value: '6 Volumes', desc: 'Books in Distribution', icon: '📚', color: '#4F46E5', bg: 'bg-indigo-50 text-indigo-700' },
+        { label: 'Scientific & Religious Works', value: '200+ Publications', desc: 'Research & Discourse Papers', icon: '📜', color: '#059669', bg: 'bg-emerald-50 text-emerald-700' },
+        { label: 'Scholarly Distinctions', value: 'Top 5% Career', desc: 'SSC to PhD Scholarships', icon: '🌟', color: '#7C3AED', bg: 'bg-purple-50 text-purple-700' },
+    ];
 
     return (
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px', width: '100%', boxSizing: 'border-box' }}>
-            <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+        <div className="space-y-6">
+            
+            {/* Header Title Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 400, color: '#0F1111', marginBottom: '4px' }}>Awards & Presidential Recognition</h1>
-                    <p style={{ color: '#565959', fontSize: '0.875rem', margin: 0 }}>
-                        Official presidential and national accolades conferred on Dr. Muhammad Salim
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        🎖️ Awards & Presidential Accolades
+                    </h1>
+                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                        Official presidential and prime ministerial accolades conferred on Dr. Muhammad Salim
                     </p>
                 </div>
-                <button style={{ padding: '8px 16px', background: '#FFD814', border: '1px solid #FCD200', borderRadius: '8px', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer' }}>
-                    + Add Award
-                </button>
-            </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px', marginBottom: '20px' }}>
-                <div style={{ padding: '14px', background: '#FFD814', border: '1px solid #FCD200', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#0F1111', marginBottom: '4px', textTransform: 'uppercase' }}>Presidential Awards</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>{stats.totalAwards}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#D1F4E0', border: '1px solid #067D62', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Published Books</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#067D62' }}>6</div>
-                </div>
-                <div style={{ padding: '14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Scientific & Religious Works</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>200+</div>
-                </div>
-                <div style={{ padding: '14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Scholarly Recognitions</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>{stats.recognitions}</div>
+                <div className="flex items-center gap-3">
+                    <button className="px-4 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-xs font-bold shadow-md shadow-amber-500/20 transition-all cursor-pointer">
+                        + Add New Distinction
+                    </button>
                 </div>
             </div>
 
-            <div style={{ background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px', padding: '20px' }}>
-                <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#0F1111', marginBottom: '16px' }}>
-                    National & Presidential Achievement Timeline
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {awards.map(award => (
-                        <div key={award.id} style={{
-                            padding: '16px',
-                            background: '#F7FAFA',
-                            border: '1px solid #D5D9D9',
-                            borderRadius: '8px',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-start',
-                            flexWrap: 'wrap',
-                            gap: '12px'
-                        }}>
-                            <div style={{ flex: 1, minWidth: '200px' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                                    <span style={{ fontSize: '1.25rem' }}>
-                                        {award.category === 'Award' ? '🎖️' : '🌟'}
-                                    </span>
-                                    <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#0F1111', margin: 0 }}>{award.title}</h4>
+            {/* Top 4 KPI Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {stats.map((stat, i) => (
+                    <div key={i} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col justify-between">
+                        <div className="flex items-center justify-between">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{stat.label}</span>
+                            <span className="text-xl">{stat.icon}</span>
+                        </div>
+                        <div className="text-2xl font-extrabold text-slate-900 mt-2">{stat.value}</div>
+                        <div className="text-[10px] text-slate-400 font-semibold mt-1">{stat.desc}</div>
+                    </div>
+                ))}
+            </div>
+
+            {/* AWARDS TIMELINE CARDS */}
+            <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+                <div className="p-5 border-b border-slate-100 flex justify-between items-center">
+                    <div>
+                        <h3 className="text-base font-bold text-slate-900">Presidential & National Recognition Timeline</h3>
+                        <p className="text-xs text-slate-400">Chronological ledger of conferred national honours</p>
+                    </div>
+                    <span className="text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                        ⭐ 5 Presidential Seerat Awards
+                    </span>
+                </div>
+
+                <div className="p-6 space-y-4">
+                    {awards.map((award, idx) => (
+                        <div key={award.id} className="p-5 bg-slate-50 border border-slate-200/80 rounded-2xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-slate-300 transition-all">
+                            <div className="flex items-start gap-4">
+                                <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-600 text-white flex items-center justify-center text-xl font-bold shadow-md shadow-amber-500/20 shrink-0">
+                                    🎖️
                                 </div>
-                                <div style={{ fontSize: '0.8125rem', color: '#067D62', fontWeight: 600, marginBottom: '4px' }}>
-                                    {award.organization}
-                                </div>
-                                <div style={{ fontSize: '0.75rem', color: '#565959' }}>
-                                    {award.book} • {award.date}
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <h4 className="text-sm font-bold text-slate-900">{award.title}</h4>
+                                        <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${award.badgeColor}`}>
+                                            {award.category}
+                                        </span>
+                                    </div>
+                                    <p className="text-xs font-semibold text-emerald-700 mt-1">{award.organization}</p>
+                                    <p className="text-[11px] text-slate-400 mt-0.5">{award.book} • {award.date}</p>
                                 </div>
                             </div>
-                            <div style={{ display: 'flex', gap: '8px' }}>
-                                <span style={{
-                                    padding: '4px 10px',
-                                    background: award.category === 'Award' ? '#FFD814' : '#D1F4E0',
-                                    color: '#0F1111',
-                                    fontSize: '0.6875rem',
-                                    fontWeight: 700,
-                                    borderRadius: '4px',
-                                    textTransform: 'uppercase'
-                                }}>
-                                    {award.category}
+
+                            <div className="flex items-center gap-2 self-end md:self-center">
+                                <span className="px-3 py-1 bg-white border border-slate-200 rounded-lg text-xs font-bold text-slate-700 shadow-xs">
+                                    Verified Record #{idx + 1}
                                 </span>
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+
         </div>
     );
 }

@@ -15,7 +15,7 @@ interface Review {
 }
 
 export default function ReviewsPage() {
-    const [activeTab, setActiveTab] = useState('all');
+    const [activeTab, setActiveTab] = useState<'all' | 'pending' | 'approved' | 'rejected'>('all');
     const [reviews, setReviews] = useState<Review[]>([
         { id: '1', bookTitle: 'Brotherhood', bookId: 4, author: 'Ahmed Khan', rating: 5, comment: 'Absolutely transformative! This book changed my understanding of community and brotherhood in Islam. Dr. Salim\'s insights are profound and practical.', date: '2026-01-05', status: 'approved', featured: true },
         { id: '2', bookTitle: 'Brotherhood', bookId: 4, author: 'Fatima Ali', rating: 5, comment: 'A must-read for anyone seeking to strengthen their bonds with fellow Muslims. The examples are relatable and the guidance is clear.', date: '2026-01-04', status: 'approved', featured: false },
@@ -50,220 +50,149 @@ export default function ReviewsPage() {
     const filteredReviews = activeTab === 'all' ? reviews : reviews.filter(r => r.status === activeTab);
 
     return (
-        <div style={{
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '0 16px',
-            width: '100%',
-            boxSizing: 'border-box'
-        }}>
-            {/* Header */}
-            <div style={{ marginBottom: '20px' }}>
-                <h1 style={{
-                    fontSize: '1.75rem',
-                    fontWeight: 400,
-                    color: '#0F1111',
-                    marginBottom: '4px'
-                }}>
-                    Reviews & Ratings
-                </h1>
-                <p style={{
-                    color: '#565959',
-                    fontSize: '0.875rem',
-                    margin: 0
-                }}>
-                    Manage book reviews and reader feedback
-                </p>
-            </div>
+        <div className="space-y-6">
+            
+            {/* Header Title Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        ⭐ Reviews & Reader Feedback
+                    </h1>
+                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                        Moderate customer book ratings, testimonials, and verified purchase reviews
+                    </p>
+                </div>
 
-            {/* Stats */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
-                gap: '12px',
-                marginBottom: '20px'
-            }}>
-                <div style={{ padding: '14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Total Reviews</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>{stats.total}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#FFF4E5', border: '1px solid #FF9900', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Pending</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#FF9900' }}>{stats.pending}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#D1F4E0', border: '1px solid #067D62', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Approved</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#067D62' }}>{stats.approved}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Avg Rating</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>⭐ {stats.avgRating}</div>
+                <div className="flex items-center gap-2">
+                    <span className="px-3 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold flex items-center gap-1.5 shadow-xs">
+                        <span>★</span> Average Rating: {stats.avgRating} / 5.0
+                    </span>
                 </div>
             </div>
 
-            {/* Tabs */}
-            <div style={{
-                background: '#fff',
-                borderRadius: '8px 8px 0 0',
-                border: '1px solid #D5D9D9',
-                borderBottom: 'none',
-                padding: '0',
-                marginBottom: '0'
-            }}>
-                <div style={{ display: 'flex', gap: '0' }}>
-                    {[
-                        { id: 'all', label: 'All Reviews' },
-                        { id: 'pending', label: 'Pending' },
-                        { id: 'approved', label: 'Approved' },
-                        { id: 'rejected', label: 'Rejected' }
-                    ].map(tab => (
-                        <button
-                            key={tab.id}
-                            onClick={() => setActiveTab(tab.id)}
-                            style={{
-                                padding: '12px 20px',
-                                background: activeTab === tab.id ? '#fff' : '#F7FAFA',
-                                border: 'none',
-                                borderBottom: activeTab === tab.id ? '2px solid #FF9900' : '2px solid transparent',
-                                color: activeTab === tab.id ? '#0F1111' : '#565959',
-                                fontSize: '0.8125rem',
-                                fontWeight: activeTab === tab.id ? 600 : 400,
-                                cursor: 'pointer',
-                                transition: 'all 0.15s'
-                            }}
-                        >
-                            {tab.label}
-                        </button>
-                    ))}
+            {/* Top 4 KPI Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Reviews</div>
+                    <div className="text-3xl font-extrabold text-slate-900 mt-1">{stats.total}</div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">Verified Readers</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Approval</div>
+                    <div className="text-3xl font-extrabold text-amber-600 mt-1">{stats.pending}</div>
+                    <div className="text-[10px] text-amber-600 font-semibold mt-1">Needs Moderation</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Approved Reviews</div>
+                    <div className="text-3xl font-extrabold text-emerald-600 mt-1">{stats.approved}</div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">Public on Store</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Average Star Rating</div>
+                    <div className="text-3xl font-extrabold text-indigo-600 mt-1">{stats.avgRating} ★</div>
+                    <div className="text-[10px] text-indigo-500 font-semibold mt-1">Across 5 Publications</div>
                 </div>
             </div>
 
-            {/* Reviews List */}
-            <div style={{
-                background: '#fff',
-                border: '1px solid #D5D9D9',
-                borderRadius: '0 0 8px 8px',
-                padding: '20px'
-            }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                    {filteredReviews.map(review => (
-                        <div key={review.id} style={{
-                            padding: '16px',
-                            background: '#F7FAFA',
-                            border: '1px solid #D5D9D9',
-                            borderRadius: '8px'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', flexWrap: 'wrap', gap: '12px' }}>
-                                <div>
-                                    <div style={{ fontSize: '1rem', fontWeight: 600, color: '#0F1111', marginBottom: '4px' }}>
-                                        {review.bookTitle}
-                                    </div>
-                                    <div style={{ fontSize: '0.75rem', color: '#565959' }}>
-                                        by {review.author} • {review.date}
-                                    </div>
+            {/* Filter Tabs */}
+            <div className="flex border-b border-slate-200 gap-2 overflow-x-auto bg-white p-2 rounded-2xl shadow-xs">
+                {[
+                    { id: 'all', label: 'All Reviews', count: stats.total },
+                    { id: 'pending', label: 'Pending', count: stats.pending, badgeColor: 'bg-amber-100 text-amber-800' },
+                    { id: 'approved', label: 'Approved', count: stats.approved, badgeColor: 'bg-emerald-100 text-emerald-800' },
+                    { id: 'rejected', label: 'Rejected', count: stats.rejected, badgeColor: 'bg-rose-100 text-rose-800' },
+                ].map(tab => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id as any)}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                            activeTab === tab.id
+                                ? 'bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-md shadow-indigo-600/20'
+                                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        }`}
+                    >
+                        <span>{tab.label}</span>
+                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-mono ${activeTab === tab.id ? 'bg-white/20 text-white' : tab.badgeColor || 'bg-slate-100 text-slate-700'}`}>
+                            {tab.count}
+                        </span>
+                    </button>
+                ))}
+            </div>
+
+            {/* Reviews Cards List */}
+            <div className="space-y-4">
+                {filteredReviews.map(review => (
+                    <div key={review.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-3 hover:shadow-md transition-shadow">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-indigo-600 to-amber-500 text-white flex items-center justify-center text-xs font-bold shrink-0">
+                                    {review.author.slice(0, 2).toUpperCase()}
                                 </div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                    <div style={{ fontSize: '1rem' }}>
-                                        {'⭐'.repeat(review.rating)}
-                                    </div>
-                                    {review.featured && (
-                                        <span style={{
-                                            padding: '4px 8px',
-                                            background: '#FFD814',
-                                            color: '#0F1111',
-                                            fontSize: '0.6875rem',
-                                            fontWeight: 600,
-                                            borderRadius: '4px'
-                                        }}>
-                                            FEATURED
+                                <div>
+                                    <div className="flex items-center gap-2">
+                                        <h4 className="text-sm font-bold text-slate-900">{review.author}</h4>
+                                        <span className="text-amber-500 text-xs font-bold">
+                                            {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
                                         </span>
-                                    )}
-                                    <span style={{
-                                        padding: '4px 8px',
-                                        background: review.status === 'approved' ? '#D1F4E0' : review.status === 'pending' ? '#FFF4E5' : '#FFE5E5',
-                                        color: review.status === 'approved' ? '#067D62' : review.status === 'pending' ? '#FF9900' : '#C7511F',
-                                        fontSize: '0.6875rem',
-                                        fontWeight: 600,
-                                        borderRadius: '4px',
-                                        textTransform: 'uppercase'
-                                    }}>
-                                        {review.status}
-                                    </span>
+                                    </div>
+                                    <p className="text-xs text-slate-400 font-mono">{review.bookTitle} • {review.date}</p>
                                 </div>
                             </div>
-                            <p style={{ fontSize: '0.875rem', color: '#0F1111', lineHeight: '1.6', margin: '0 0 12px 0' }}>
-                                {review.comment}
-                            </p>
-                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                                {review.status === 'pending' && (
-                                    <>
-                                        <button
-                                            onClick={() => handleApprove(review.id)}
-                                            style={{
-                                                padding: '6px 14px',
-                                                background: '#067D62',
-                                                border: 'none',
-                                                borderRadius: '4px',
-                                                color: '#fff',
-                                                fontSize: '0.75rem',
-                                                fontWeight: 600,
-                                                cursor: 'pointer'
-                                            }}
-                                        >
-                                            ✓ Approve
-                                        </button>
-                                        <button
-                                            onClick={() => handleReject(review.id)}
-                                            style={{
-                                                padding: '6px 14px',
-                                                background: '#C7511F',
-                                                border: 'none',
-                                                borderRadius: '4px',
-                                                color: '#fff',
-                                                fontSize: '0.75rem',
-                                                fontWeight: 600,
-                                                cursor: 'pointer'
-                                            }}
-                                        >
-                                            ✗ Reject
-                                        </button>
-                                    </>
+
+                            <div className="flex items-center gap-2">
+                                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                                    review.status === 'approved' 
+                                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                                        : review.status === 'pending'
+                                        ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                                        : 'bg-rose-50 text-rose-700 border border-rose-200'
+                                }`}>
+                                    {review.status.toUpperCase()}
+                                </span>
+                                {review.featured && (
+                                    <span className="px-2.5 py-0.5 rounded-full bg-purple-50 text-purple-700 border border-purple-200 text-[10px] font-bold">
+                                        FEATURED
+                                    </span>
                                 )}
-                                {review.status === 'approved' && (
-                                    <button
-                                        onClick={() => handleToggleFeatured(review.id)}
-                                        style={{
-                                            padding: '6px 14px',
-                                            background: review.featured ? '#fff' : '#FFD814',
-                                            border: '1px solid #D5D9D9',
-                                            borderRadius: '4px',
-                                            color: '#0F1111',
-                                            fontSize: '0.75rem',
-                                            fontWeight: 600,
-                                            cursor: 'pointer'
-                                        }}
-                                    >
-                                        {review.featured ? '★ Unfeature' : '☆ Feature'}
-                                    </button>
-                                )}
-                                <button
-                                    style={{
-                                        padding: '6px 14px',
-                                        background: '#fff',
-                                        border: '1px solid #D5D9D9',
-                                        borderRadius: '4px',
-                                        color: '#0F1111',
-                                        fontSize: '0.75rem',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    💬 Respond
-                                </button>
                             </div>
                         </div>
-                    ))}
-                </div>
+
+                        <p className="text-xs text-slate-700 leading-relaxed font-serif bg-slate-50 p-4 rounded-xl border border-slate-100">
+                            "{review.comment}"
+                        </p>
+
+                        <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                            <button
+                                onClick={() => handleToggleFeatured(review.id)}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-semibold border transition-all cursor-pointer ${
+                                    review.featured 
+                                        ? 'border-purple-300 bg-purple-50 text-purple-700' 
+                                        : 'border-slate-200 text-slate-600 hover:bg-slate-50'
+                                }`}
+                            >
+                                {review.featured ? '★ Featured' : '☆ Feature Review'}
+                            </button>
+                            {review.status !== 'approved' && (
+                                <button
+                                    onClick={() => handleApprove(review.id)}
+                                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-xs transition-all cursor-pointer"
+                                >
+                                    ✓ Approve
+                                </button>
+                            )}
+                            {review.status !== 'rejected' && (
+                                <button
+                                    onClick={() => handleReject(review.id)}
+                                    className="px-3 py-1.5 rounded-lg text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-all cursor-pointer"
+                                >
+                                    ✕ Reject
+                                </button>
+                            )}
+                        </div>
+                    </div>
+                ))}
             </div>
+
         </div>
     );
 }

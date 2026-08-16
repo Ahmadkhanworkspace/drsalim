@@ -4,155 +4,110 @@ export default function CoversPage() {
     const books = [
         {
             id: 1,
-            title: 'Brotherhood',
+            title: 'Brotherhood: Principles & Practice',
             covers: [
-                { id: 'c1', name: 'Original Cover', active: true, performance: 94, clicks: 1247, conversions: 47 },
-                { id: 'c2', name: 'Minimalist Design', active: false, performance: 78, clicks: 892, conversions: 32 },
-                { id: 'c3', name: 'Gold Edition', active: false, performance: 85, clicks: 1054, conversions: 41 }
+                { id: 'c1', name: 'Original Scholarly Edition', active: true, performance: 94, clicks: 1247, conversions: 58 },
+                { id: 'c2', name: 'Minimalist Modern Hardcover', active: false, performance: 78, clicks: 892, conversions: 32 },
+                { id: 'c3', name: 'Gold Foil Collector Edition', active: false, performance: 85, clicks: 1054, conversions: 41 }
             ]
         },
         {
             id: 2,
-            title: 'Divine Providence',
+            title: 'Divine Providence: Understanding Rububiyah',
             covers: [
-                { id: 'c4', name: 'Classic Cover', active: true, performance: 88, clicks: 756, conversions: 21 },
-                { id: 'c5', name: 'Modern Redesign', active: false, performance: 72, clicks: 543, conversions: 15 }
+                { id: 'c4', name: 'Classic Gold Calligraphy', active: true, performance: 88, clicks: 756, conversions: 15 },
+                { id: 'c5', name: 'Contemporary Philosophical Blue', active: false, performance: 72, clicks: 543, conversions: 8 }
             ]
         },
         {
             id: 3,
-            title: 'Spiritual Diseases',
+            title: 'Spiritual Diseases & Heart Remedies',
             covers: [
-                { id: 'c6', name: 'Original Cover', active: true, performance: 91, clicks: 654, conversions: 13 }
+                { id: 'c6', name: 'Standard Emerald Green Cover', active: true, performance: 91, clicks: 654, conversions: 24 }
             ]
         }
     ];
 
     return (
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px', width: '100%', boxSizing: 'border-box' }}>
-            <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+        <div className="space-y-6">
+            
+            {/* Header Title Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 400, color: '#0F1111', marginBottom: '4px' }}>Book Cover Versions</h1>
-                    <p style={{ color: '#565959', fontSize: '0.875rem', margin: 0 }}>Manage multiple cover designs and track performance</p>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        🎨 Book Cover A/B Testing & Variations
+                    </h1>
+                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                        Manage high-resolution jacket art, A/B conversion tests, and collector foil editions
+                    </p>
                 </div>
-                <button style={{ padding: '8px 16px', background: '#FFD814', border: '1px solid #FCD200', borderRadius: '8px', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer' }}>
-                    + Upload Cover
-                </button>
+
+                <div className="flex items-center gap-3">
+                    <button className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition-all cursor-pointer">
+                        + Upload Cover Variation
+                    </button>
+                </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {/* Books Cover Grid */}
+            <div className="space-y-6">
                 {books.map(book => (
-                    <div key={book.id} style={{ background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px', padding: '20px' }}>
-                        <h3 style={{ fontSize: '1.125rem', fontWeight: 600, color: '#0F1111', marginBottom: '16px' }}>
-                            {book.title}
-                        </h3>
+                    <div key={book.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
+                        <div className="flex justify-between items-center border-b border-slate-100 pb-3">
+                            <h3 className="text-base font-bold text-slate-900">{book.title}</h3>
+                            <span className="text-xs font-mono font-bold text-indigo-600">{book.covers.length} Variations</span>
+                        </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '12px' }}>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
                             {book.covers.map(cover => (
-                                <div key={cover.id} style={{
-                                    padding: '14px',
-                                    background: '#F7FAFA',
-                                    border: cover.active ? '2px solid #FF9900' : '1px solid #D5D9D9',
-                                    borderRadius: '8px'
-                                }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
-                                        <div>
-                                            <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111', marginBottom: '2px' }}>
-                                                {cover.name}
-                                            </div>
-                                            {cover.active && (
-                                                <span style={{
-                                                    padding: '2px 6px',
-                                                    background: '#FF9900',
-                                                    color: '#fff',
-                                                    fontSize: '0.6875rem',
-                                                    fontWeight: 600,
-                                                    borderRadius: '3px'
-                                                }}>
-                                                    ACTIVE
+                                <div 
+                                    key={cover.id} 
+                                    className={`p-4 rounded-2xl border transition-all flex flex-col justify-between space-y-3 ${
+                                        cover.active 
+                                            ? 'bg-indigo-50/40 border-indigo-300 ring-2 ring-indigo-500/10' 
+                                            : 'bg-slate-50 border-slate-200'
+                                    }`}
+                                >
+                                    <div>
+                                        <div className="flex justify-between items-start">
+                                            <h4 className="text-xs font-bold text-slate-900">{cover.name}</h4>
+                                            {cover.active ? (
+                                                <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[9px] font-bold">
+                                                    LIVE ACTIVE
+                                                </span>
+                                            ) : (
+                                                <span className="px-2 py-0.5 rounded-full bg-slate-200 text-slate-600 text-[9px] font-bold">
+                                                    IN TESTING
                                                 </span>
                                             )}
                                         </div>
-                                        <div style={{
-                                            fontSize: '1.25rem',
-                                            fontWeight: 700,
-                                            color: cover.performance >= 90 ? '#067D62' : cover.performance >= 80 ? '#FF9900' : '#565959'
-                                        }}>
-                                            {cover.performance}%
+
+                                        <div className="mt-4 grid grid-cols-2 gap-2 text-center">
+                                            <div className="p-2 bg-white rounded-xl border border-slate-100">
+                                                <div className="text-[9px] font-bold text-slate-400">CTR Score</div>
+                                                <div className="text-sm font-extrabold text-emerald-600 mt-0.5">{cover.performance}%</div>
+                                            </div>
+                                            <div className="p-2 bg-white rounded-xl border border-slate-100">
+                                                <div className="text-[9px] font-bold text-slate-400">Purchases</div>
+                                                <div className="text-sm font-extrabold text-indigo-600 mt-0.5">{cover.conversions} sold</div>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <div style={{
-                                        height: '150px',
-                                        background: '#E3E6E6',
-                                        borderRadius: '6px',
-                                        marginBottom: '12px',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '2rem'
-                                    }}>
-                                        📖
-                                    </div>
-
-                                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', marginBottom: '12px' }}>
-                                        <div>
-                                            <div style={{ fontSize: '0.75rem', color: '#565959' }}>Clicks</div>
-                                            <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111' }}>{cover.clicks}</div>
-                                        </div>
-                                        <div>
-                                            <div style={{ fontSize: '0.75rem', color: '#565959' }}>Sales</div>
-                                            <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#067D62' }}>{cover.conversions}</div>
-                                        </div>
-                                    </div>
-
-                                    <div style={{
-                                        height: '4px',
-                                        background: '#E3E6E6',
-                                        borderRadius: '2px',
-                                        overflow: 'hidden',
-                                        marginBottom: '12px'
-                                    }}>
-                                        <div style={{
-                                            width: `${cover.performance}%`,
-                                            height: '100%',
-                                            background: cover.performance >= 90 ? '#067D62' : '#FF9900'
-                                        }} />
-                                    </div>
-
-                                    <div style={{ display: 'flex', gap: '6px' }}>
-                                        {!cover.active && (
-                                            <button style={{
-                                                flex: 1,
-                                                padding: '6px 10px',
-                                                background: '#FFD814',
-                                                border: '1px solid #FCD200',
-                                                borderRadius: '4px',
-                                                fontSize: '0.75rem',
-                                                fontWeight: 600,
-                                                cursor: 'pointer'
-                                            }}>
-                                                Set Active
-                                            </button>
-                                        )}
-                                        <button style={{
-                                            flex: 1,
-                                            padding: '6px 10px',
-                                            background: '#fff',
-                                            border: '1px solid #D5D9D9',
-                                            borderRadius: '4px',
-                                            fontSize: '0.75rem',
-                                            cursor: 'pointer'
-                                        }}>
-                                            View
-                                        </button>
-                                    </div>
+                                    <button className={`w-full py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                                        cover.active 
+                                            ? 'bg-emerald-600 text-white' 
+                                            : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                                    }`}>
+                                        {cover.active ? '✓ Set as Primary Cover' : 'Switch to this Cover'}
+                                    </button>
                                 </div>
                             ))}
                         </div>
                     </div>
                 ))}
             </div>
+
         </div>
     );
 }

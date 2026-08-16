@@ -6,93 +6,109 @@ export default function SeriesPage() {
     const [series] = useState([
         {
             id: '1',
-            name: 'Divine Providence Series',
-            description: 'Comprehensive exploration of Rububiyah and Allah\'s divine providence',
-            books: ['Divine Providence', 'Divine Providence Vol 2'],
-            totalSales: 0,
-            totalRevenue: 0,
-            status: 'ongoing'
+            name: 'Divine Providence Theological Series',
+            description: 'Comprehensive scholarly exploration of Rububiyah and Allah\'s divine providence across ontology & epistemology',
+            books: ['Divine Providence Vol 1', 'Divine Providence Vol 2'],
+            totalSales: 24,
+            totalRevenue: 477,
+            status: 'ongoing',
+            badgeColor: 'bg-amber-50 text-amber-700 border-amber-200'
         },
         {
             id: '2',
-            name: 'Spiritual Growth Collection',
-            description: 'Essential guides for spiritual purification and personal development',
-            books: ['Spiritual Diseases', 'Human Journey'],
-            totalSales: 44,
-            totalRevenue: 901,
-            status: 'complete'
+            name: 'Spiritual Growth & Tazkiyah Collection',
+            description: 'Essential guides for spiritual purification, diagnosing internal diseases, and moral development',
+            books: ['Spiritual Diseases & Heart Remedies', 'Human Journey from Soul to Abode'],
+            totalSales: 36,
+            totalRevenue: 714,
+            status: 'complete',
+            badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200'
+        },
+        {
+            id: '3',
+            name: 'Community & Islamic Ethics Library',
+            description: 'Treatises on Islamic social harmony, brotherhood principles, and governance ethics',
+            books: ['Brotherhood: Principles & Practice', 'Justice: An Islamic Perspective (Companion)'],
+            totalSales: 58,
+            totalRevenue: 1190,
+            status: 'bestseller',
+            badgeColor: 'bg-indigo-50 text-indigo-700 border-indigo-200'
         }
     ]);
 
     return (
-        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 16px', width: '100%', boxSizing: 'border-box' }}>
-            <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+        <div className="space-y-6">
+            
+            {/* Header Title Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 400, color: '#0F1111', marginBottom: '4px' }}>Book Series Manager</h1>
-                    <p style={{ color: '#565959', fontSize: '0.875rem', margin: 0 }}>Organize books into series and manage reading order</p>
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        📚 Book Series & Anthologies
+                    </h1>
+                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                        Organize volumes into multi-book thematic series and manage reading sequences
+                    </p>
                 </div>
-                <button style={{ padding: '8px 16px', background: '#FFD814', border: '1px solid #FCD200', borderRadius: '8px', fontSize: '0.8125rem', fontWeight: 600, cursor: 'pointer' }}>
-                    + Create Series
-                </button>
+
+                <div className="flex items-center gap-3">
+                    <button className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition-all cursor-pointer">
+                        + Create New Series
+                    </button>
+                </div>
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {/* Series Cards */}
+            <div className="space-y-6">
                 {series.map(s => (
-                    <div key={s.id} style={{ background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px', padding: '20px' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', flexWrap: 'wrap', gap: '12px' }}>
+                    <div key={s.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 hover:shadow-md transition-shadow">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
                             <div>
-                                <h2 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#0F1111', marginBottom: '4px' }}>{s.name}</h2>
-                                <p style={{ fontSize: '0.875rem', color: '#565959', margin: 0 }}>{s.description}</p>
+                                <h3 className="text-base font-bold text-slate-900">{s.name}</h3>
+                                <p className="text-xs text-slate-500 mt-1">{s.description}</p>
                             </div>
-                            <span style={{
-                                padding: '4px 10px',
-                                background: s.status === 'complete' ? '#D1F4E0' : '#FFF4E5',
-                                color: s.status === 'complete' ? '#067D62' : '#FF9900',
-                                fontSize: '0.6875rem',
-                                fontWeight: 600,
-                                borderRadius: '4px',
-                                textTransform: 'uppercase'
-                            }}>
+                            <span className={`px-3 py-1 rounded-full text-xs font-bold self-start sm:self-auto uppercase border ${s.badgeColor}`}>
                                 {s.status}
                             </span>
                         </div>
 
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '12px', marginBottom: '16px' }}>
-                            <div style={{ padding: '12px', background: '#F7FAFA', borderRadius: '6px' }}>
-                                <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>Books in Series</div>
-                                <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0F1111' }}>{s.books.length}</div>
-                            </div>
-                            <div style={{ padding: '12px', background: '#F7FAFA', borderRadius: '6px' }}>
-                                <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>Total Sales</div>
-                                <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#067D62' }}>{s.totalSales}</div>
-                            </div>
-                            <div style={{ padding: '12px', background: '#F7FAFA', borderRadius: '6px' }}>
-                                <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px' }}>Revenue</div>
-                                <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#067D62' }}>${s.totalRevenue}</div>
-                            </div>
-                        </div>
-
-                        <div style={{ marginBottom: '12px' }}>
-                            <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111', marginBottom: '8px' }}>Reading Order:</div>
-                            {s.books.map((book, idx) => (
-                                <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px', background: '#F7FAFA', borderRadius: '4px', marginBottom: '4px' }}>
-                                    <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#565959', width: '20px' }}>{idx + 1}.</span>
-                                    <span style={{ fontSize: '0.8125rem', color: '#0F1111' }}>{book}</span>
+                        {/* Series KPIs */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+                            <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Included Volumes</div>
+                                <div className="text-sm font-bold text-slate-800 mt-1 space-y-1">
+                                    {s.books.map((b, i) => (
+                                        <div key={i} className="flex items-center gap-1.5 text-xs">
+                                            <span className="text-indigo-600 font-bold">#{i + 1}</span> {b}
+                                        </div>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+                            <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Total Series Sales</div>
+                                <div className="text-2xl font-extrabold text-slate-900 mt-1">
+                                    {s.totalSales} <span className="text-xs font-normal text-slate-400">Copies</span>
+                                </div>
+                            </div>
+                            <div className="p-3.5 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Attributed Royalties</div>
+                                <div className="text-2xl font-extrabold text-emerald-600 mt-1">
+                                    ${s.totalRevenue} <span className="text-xs font-normal text-slate-400">USD</span>
+                                </div>
+                            </div>
                         </div>
 
-                        <div style={{ display: 'flex', gap: '8px' }}>
-                            <button style={{ padding: '6px 14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>
-                                Edit Series
+                        <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                            <button className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 text-slate-700 hover:bg-slate-50 cursor-pointer">
+                                Manage Reading Order
                             </button>
-                            <button style={{ padding: '6px 14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '4px', fontSize: '0.75rem', cursor: 'pointer' }}>
-                                Manage Books
+                            <button className="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 border border-indigo-200 text-indigo-700 hover:bg-indigo-100 cursor-pointer">
+                                Edit Series Details
                             </button>
                         </div>
                     </div>
                 ))}
             </div>
+
         </div>
     );
 }

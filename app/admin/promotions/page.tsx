@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 
 interface Promotion {
     id: string;
@@ -30,157 +31,116 @@ export default function PromotionsPage() {
         active: promotions.filter(p => p.status === 'active').length,
         scheduled: promotions.filter(p => p.status === 'scheduled').length,
         totalUses: promotions.reduce((sum, p) => sum + p.uses, 0),
-        revenue: 942 * 0.15 // Estimated revenue from promotions
+        revenue: 2381 * 0.28
     };
 
     return (
-        <div style={{
-            maxWidth: '1400px',
-            margin: '0 auto',
-            padding: '0 16px',
-            width: '100%',
-            boxSizing: 'border-box'
-        }}>
-            <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '12px' }}>
+        <div className="space-y-6">
+            
+            {/* Header Title Section */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h1 style={{ fontSize: '1.75rem', fontWeight: 400, color: '#0F1111', marginBottom: '4px' }}>
-                        Book Promotions
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+                        🏷️ Book Promotions & Campaigns
                     </h1>
-                    <p style={{ color: '#565959', fontSize: '0.875rem', margin: 0 }}>
-                        Manage discounts, sales, and promotional campaigns
+                    <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                        Discounts, special bundles, and paid promotional campaign tracking
                     </p>
                 </div>
-                <button style={{
-                    padding: '8px 16px',
-                    background: '#FFD814',
-                    border: '1px solid #FCD200',
-                    borderRadius: '8px',
-                    fontSize: '0.8125rem',
-                    fontWeight: 600,
-                    cursor: 'pointer'
-                }}>
-                    + Create Promotion
-                </button>
-            </div>
 
-            {/* Stats */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-                gap: '12px',
-                marginBottom: '20px'
-            }}>
-                <div style={{ padding: '14px', background: '#D1F4E0', border: '1px solid #067D62', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Active Promotions</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#067D62' }}>{stats.active}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#FFF4E5', border: '1px solid #FF9900', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Scheduled</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#FF9900' }}>{stats.scheduled}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Total Uses</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>{stats.totalUses}</div>
-                </div>
-                <div style={{ padding: '14px', background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px' }}>
-                    <div style={{ fontSize: '0.75rem', color: '#565959', marginBottom: '4px', textTransform: 'uppercase' }}>Est. Revenue</div>
-                    <div style={{ fontSize: '1.75rem', fontWeight: 700, color: '#0F1111' }}>${stats.revenue.toFixed(0)}</div>
+                <div className="flex items-center gap-3">
+                    <button className="px-4 py-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 text-white rounded-xl text-xs font-bold shadow-md shadow-indigo-600/20 transition-all cursor-pointer">
+                        + Create Promotion
+                    </button>
                 </div>
             </div>
 
-            {/* Promotions List */}
-            <div style={{ background: '#fff', border: '1px solid #D5D9D9', borderRadius: '8px', padding: '20px' }}>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                    {promotions.map(promo => (
-                        <div key={promo.id} style={{
-                            padding: '16px',
-                            background: '#F7FAFA',
-                            border: '1px solid #D5D9D9',
-                            borderRadius: '8px'
-                        }}>
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px', flexWrap: 'wrap', gap: '12px' }}>
-                                <div>
-                                    <div style={{ fontSize: '1rem', fontWeight: 600, color: '#0F1111', marginBottom: '4px' }}>
-                                        {promo.title}
-                                    </div>
-                                    <div style={{ fontSize: '0.8125rem', color: '#565959', marginBottom: '4px' }}>
-                                        {promo.bookTitle}
-                                    </div>
-                                    <div style={{ fontSize: '0.75rem', color: '#565959' }}>
-                                        {promo.startDate} to {promo.endDate}
-                                    </div>
-                                </div>
-                                <span style={{
-                                    padding: '4px 10px',
-                                    background: promo.status === 'active' ? '#D1F4E0' : promo.status === 'scheduled' ? '#FFF4E5' : '#E3E6E6',
-                                    color: promo.status === 'active' ? '#067D62' : promo.status === 'scheduled' ? '#FF9900' : '#565959',
-                                    fontSize: '0.6875rem',
-                                    fontWeight: 600,
-                                    borderRadius: '4px',
-                                    textTransform: 'uppercase'
-                                }}>
-                                    {promo.status}
-                                </span>
+            {/* Top 4 KPI Metrics */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Active Campaigns</div>
+                    <div className="text-3xl font-extrabold text-emerald-600 mt-1">{stats.active}</div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">Running Online</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Scheduled</div>
+                    <div className="text-3xl font-extrabold text-amber-600 mt-1">{stats.scheduled}</div>
+                    <div className="text-[10px] text-amber-600 font-semibold mt-1">Upcoming Launches</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Redemptions</div>
+                    <div className="text-3xl font-extrabold text-indigo-600 mt-1">{stats.totalUses.toLocaleString()}</div>
+                    <div className="text-[10px] text-indigo-600 font-semibold mt-1">Coupon Uses</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Attributed Royalties</div>
+                    <div className="text-3xl font-extrabold text-slate-900 mt-1">${stats.revenue.toFixed(0)} <span className="text-xs font-normal text-slate-400">USD</span></div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">From Promos</div>
+                </div>
+            </div>
+
+            {/* Promotions List Cards */}
+            <div className="space-y-4">
+                {promotions.map(promo => (
+                    <div key={promo.id} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4 hover:shadow-md transition-shadow">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                            <div>
+                                <h3 className="text-base font-bold text-slate-900">{promo.title}</h3>
+                                <p className="text-xs text-slate-500 font-semibold mt-0.5">{promo.bookTitle}</p>
+                                <p className="text-[11px] text-slate-400 font-mono mt-0.5">{promo.startDate} ➔ {promo.endDate}</p>
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '12px', marginBottom: '12px' }}>
-                                <div>
-                                    <div style={{ fontSize: '0.75rem', color: '#565959' }}>Discount</div>
-                                    <div style={{ fontSize: '1.25rem', fontWeight: 700, color: '#067D62' }}>
-                                        {promo.discountPercent ? `${promo.discountPercent}% OFF` : promo.type === 'free' ? 'FREE' : 'Bundle'}
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style={{ fontSize: '0.75rem', color: '#565959' }}>Code</div>
-                                    <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111', fontFamily: 'monospace' }}>
-                                        {promo.code}
-                                    </div>
-                                </div>
-                                <div>
-                                    <div style={{ fontSize: '0.75rem', color: '#565959' }}>Uses</div>
-                                    <div style={{ fontSize: '0.875rem', fontWeight: 600, color: '#0F1111' }}>
-                                        {promo.uses} / {promo.maxUses}
-                                    </div>
+                            <span className={`px-3 py-1 rounded-full text-xs font-bold self-start sm:self-auto ${
+                                promo.status === 'active' 
+                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                                    : promo.status === 'scheduled'
+                                    ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                                    : 'bg-slate-100 text-slate-600 border border-slate-200'
+                            }`}>
+                                {promo.status.toUpperCase()}
+                            </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 border-t border-slate-100">
+                            <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Discount Benefit</div>
+                                <div className="text-xl font-extrabold text-emerald-600 mt-0.5">
+                                    {promo.discountPercent ? `${promo.discountPercent}% OFF` : promo.type === 'free' ? 'FREE CHAPTER' : 'BUNDLE SPECIAL'}
                                 </div>
                             </div>
-                            <div style={{
-                                height: '4px',
-                                background: '#E3E6E6',
-                                borderRadius: '2px',
-                                overflow: 'hidden',
-                                marginBottom: '12px'
-                            }}>
-                                <div style={{
-                                    width: `${(promo.uses / promo.maxUses) * 100}%`,
-                                    height: '100%',
-                                    background: '#067D62'
-                                }} />
+                            <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Promo Code</div>
+                                <div className="text-lg font-mono font-bold text-slate-900 mt-0.5">
+                                    {promo.code}
+                                </div>
                             </div>
-                            <div style={{ display: 'flex', gap: '8px' }}>
-                                <button style={{
-                                    padding: '6px 12px',
-                                    background: '#fff',
-                                    border: '1px solid #D5D9D9',
-                                    borderRadius: '4px',
-                                    fontSize: '0.75rem',
-                                    cursor: 'pointer'
-                                }}>
-                                    Edit
-                                </button>
-                                <button style={{
-                                    padding: '6px 12px',
-                                    background: '#fff',
-                                    border: '1px solid #D5D9D9',
-                                    borderRadius: '4px',
-                                    fontSize: '0.75rem',
-                                    cursor: 'pointer'
-                                }}>
-                                    View Analytics
-                                </button>
+                            <div className="p-3 bg-slate-50 border border-slate-100 rounded-xl">
+                                <div className="text-[10px] uppercase font-bold text-slate-400">Uses / Capacity</div>
+                                <div className="text-lg font-mono font-bold text-indigo-600 mt-0.5">
+                                    {promo.uses.toLocaleString()} / {promo.maxUses.toLocaleString()}
+                                </div>
                             </div>
                         </div>
-                    ))}
-                </div>
+
+                        {/* Progress Bar */}
+                        <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                            <div 
+                                className="h-full bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-full" 
+                                style={{ width: `${Math.min(100, (promo.uses / promo.maxUses) * 100)}%` }} 
+                            />
+                        </div>
+
+                        <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                            <button className="px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-slate-50 cursor-pointer">
+                                Edit Promo
+                            </button>
+                            <Link href="/admin/seo" className="px-3 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 cursor-pointer">
+                                View Traffic Attribution →
+                            </Link>
+                        </div>
+                    </div>
+                ))}
             </div>
+
         </div>
     );
 }
