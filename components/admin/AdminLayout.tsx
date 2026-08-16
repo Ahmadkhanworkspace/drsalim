@@ -155,7 +155,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         { href: '/admin/comments', label: 'Comments', icon: '💬', badge: '56' },
         { href: '/admin/finance', label: 'Finance', icon: '💳' },
         { href: '/admin/analytics', label: 'Analytics', icon: '📊' },
-        { href: '/admin/seo', label: 'Programmatic SEO', icon: '🚀', badge: '542K', badgeColor: 'bg-emerald-600 text-white' },
+        { href: '/admin/seo', label: 'Programmatic SEO', icon: '🚀', badge: '218 Pages', badgeColor: 'bg-emerald-600 text-white' },
     ];
 
     const authorTools = [

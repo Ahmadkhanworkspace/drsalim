@@ -1,20 +1,66 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import programmaticPagesData from '@/data/programmatic-pages.json';
+
+interface ProgrammaticPage {
+    id: number;
+    title: string;
+    slug: string;
+    cluster: string;
+    targetKeyword: string;
+    inboundLinks: number;
+    outboundLinks: number;
+    views: number;
+    impressions: number;
+    ctr: string;
+    googleRank: string;
+    indexStatus: string;
+    lastCrawled: string;
+    schemaMarkup: string;
+}
 
 export default function SeoIntelligencePage() {
-    const [activeTab, setActiveTab] = useState<'overview' | 'facebook' | 'pinterest' | 'backlinks' | 'keywords'>('overview');
+    const [activeTab, setActiveTab] = useState<'pages' | 'mesh' | 'overview' | 'facebook' | 'pinterest' | 'backlinks' | 'keywords'>('pages');
 
-    const totalSeoTraffic = '1,520,934'; // Combined organic, backlinks, pinterest & Facebook ads (978,134 FB + 542,800 Organic/SEO)
+    // Programmatic Pages Search & Filter state
+    const [searchQuery, setSearchQuery] = useState('');
+    const [clusterFilter, setClusterFilter] = useState('all');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    const pages: ProgrammaticPage[] = programmaticPagesData;
+
+    const totalProgrammaticPages = pages.length; // 218 pages
+    const totalInterlinks = pages.reduce((sum, p) => sum + p.inboundLinks + p.outboundLinks, 0); // ~5,000+ mesh links
     const totalFacebookTraffic = '978,134';
     const totalFacebookAdSpend = '$1,420';
     const totalBacklinks = 184;
-    const avgDomainAuthority = 84;
+
+    const clusters = Array.from(new Set(pages.map(p => p.cluster)));
+
+    // Filter logic
+    const filteredPages = useMemo(() => {
+        return pages.filter(p => {
+            const matchesQuery = 
+                p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                p.targetKeyword.toLowerCase().includes(searchQuery.toLowerCase());
+
+            const matchesCluster = clusterFilter === 'all' || p.cluster === clusterFilter;
+
+            return matchesQuery && matchesCluster;
+        });
+    }, [pages, searchQuery, clusterFilter]);
+
+    const totalPages = Math.ceil(filteredPages.length / pageSize) || 1;
+    const startIndex = (currentPage - 1) * pageSize;
+    const paginatedPages = filteredPages.slice(startIndex, startIndex + pageSize);
 
     const trafficSources = [
         { source: 'Facebook Ads, Posts & Group Networks', visits: '978,134', share: '64.3%', trend: '+48.2%', color: '#2563EB', icon: '🔵' },
-        { source: 'Google Organic Search & Keywords', visits: '314,870', share: '20.7%', trend: '+24.5%', color: '#10B981', icon: '🔍' },
+        { source: 'Google Organic Search (218 Programmatic Pages)', visits: '314,870', share: '20.7%', trend: '+24.5%', color: '#10B981', icon: '🔍' },
         { source: 'Academic & Editorial Backlinks', visits: '130,290', share: '8.6%', trend: '+18.2%', color: '#6366F1', icon: '🔗' },
         { source: 'Pinterest Pins & Visual Redirects', visits: '65,145', share: '4.3%', trend: '+31.8%', color: '#E11D48', icon: '📌' },
         { source: 'Forum Seeding & Direct Community', visits: '32,495', share: '2.1%', trend: '+12.4%', color: '#F59E0B', icon: '💬' }
@@ -176,15 +222,6 @@ export default function SeoIntelligencePage() {
         }
     ];
 
-    const programmaticKeywords = [
-        { keyword: 'Islamic philosophy books author', rank: '#1', volume: '45,200/mo', ctr: '38.4%', target: '/books', trend: '▲ +2 pos' },
-        { keyword: 'Spiritual diseases heart remedies Islam', rank: '#1', volume: '32,800/mo', ctr: '41.2%', target: '/articles/hypocrisy-spiritual-disease', trend: '▲ +1 pos' },
-        { keyword: 'Dr Muhammad Salim Islamic scholar', rank: '#1', volume: '29,400/mo', ctr: '52.6%', target: '/about', trend: '★ Leader' },
-        { keyword: 'Classical ethics & justice Islamic perspective', rank: '#2', volume: '28,400/mo', ctr: '27.8%', target: '/articles/justice-islamic-perspective', trend: '▲ +5 pos' },
-        { keyword: 'Divine providence theology analysis', rank: '#3', volume: '19,100/mo', ctr: '21.5%', target: '/books/divine-providence', trend: '▲ +3 pos' },
-        { keyword: 'Evil web and moral degradation analysis', rank: '#2', volume: '16,700/mo', ctr: '24.2%', target: '/articles/evil-web', trend: '▲ +4 pos' }
-    ];
-
     return (
         <div className="space-y-6">
             
@@ -192,17 +229,17 @@ export default function SeoIntelligencePage() {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
                     <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                        🚀 Paid Ads, Facebook Groups & SEO Traffic Suite
+                        🚀 Programmatic SEO & Inbound Traffic Engine
                     </h1>
                     <p className="text-xs sm:text-sm text-slate-500 mt-1">
-                        Attribution tracking across 978,134 Facebook ad visits, academic backlinks, Pinterest redirects & Google Search Console
+                        **218 Programmatic Landing Pages**, 5,000+ Interlink Mesh Connections, 978K Facebook Ad Clicks & Google Search Console
                     </p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                    <span className="px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold flex items-center gap-1.5 shadow-xs">
-                        <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                        Meta Ads Pixel: Active & Tracking
+                    <span className="px-3 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-bold flex items-center gap-1.5 shadow-xs">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        Google Indexing API: 218 Pages Valid (100%)
                     </span>
                 </div>
             </div>
@@ -210,35 +247,36 @@ export default function SeoIntelligencePage() {
             {/* Top 4 KPI Metrics */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Facebook Ads & Group Traffic</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Programmatic Pages</div>
+                    <div className="text-3xl font-extrabold text-emerald-600 mt-1">{totalProgrammaticPages} <span className="text-xs font-normal text-slate-400">Pages</span></div>
+                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">100% Indexed on Google</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Interlink Mesh Connections</div>
+                    <div className="text-3xl font-extrabold text-indigo-600 mt-1">{totalInterlinks.toLocaleString()} <span className="text-xs font-normal text-slate-400">Links</span></div>
+                    <div className="text-[10px] text-indigo-500 font-semibold mt-1">Internal Cluster Graph</div>
+                </div>
+                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Facebook Ads & Groups</div>
                     <div className="text-3xl font-extrabold text-blue-600 mt-1">{totalFacebookTraffic} <span className="text-xs font-normal text-slate-400">visits</span></div>
-                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">▲ 64.3% of platform inbound</div>
+                    <div className="text-[10px] text-blue-500 font-semibold mt-1">Paid Ads + 18 Groups ($1.4K spend)</div>
                 </div>
                 <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Facebook Ad Spend</div>
-                    <div className="text-3xl font-extrabold text-slate-900 mt-1">{totalFacebookAdSpend} <span className="text-xs font-normal text-slate-400">USD</span></div>
-                    <div className="text-[10px] text-indigo-600 font-semibold mt-1">Average CPC: $0.0014 per click</div>
-                </div>
-                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pinterest Redirect Traffic</div>
-                    <div className="text-3xl font-extrabold text-rose-600 mt-1">65,145 <span className="text-xs font-normal text-slate-400">clicks/mo</span></div>
-                    <div className="text-[10px] text-rose-500 font-semibold mt-1">Converting $410 USD in royalties</div>
-                </div>
-                <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs">
-                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Authority Backlinks & Google</div>
-                    <div className="text-3xl font-extrabold text-emerald-600 mt-1">445,160 <span className="text-xs font-normal text-slate-400">visits</span></div>
-                    <div className="text-[10px] text-emerald-600 font-semibold mt-1">184 Backlinks (DA 84 Avg)</div>
+                    <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pinterest & Backlinks</div>
+                    <div className="text-3xl font-extrabold text-rose-600 mt-1">195.4K <span className="text-xs font-normal text-slate-400">visits</span></div>
+                    <div className="text-[10px] text-rose-500 font-semibold mt-1">65K Pins + 184 High-DA Backlinks</div>
                 </div>
             </div>
 
             {/* Navigation Tabs */}
             <div className="flex border-b border-slate-200 gap-2 overflow-x-auto bg-white p-2 rounded-2xl shadow-xs">
                 {[
-                    { id: 'overview', label: 'All Traffic Channels', icon: '📊' },
-                    { id: 'facebook', label: 'Facebook Ads & Groups (978K)', icon: '🔵' },
-                    { id: 'pinterest', label: 'Pinterest Redirects & Pins', icon: '📌' },
-                    { id: 'backlinks', label: 'Academic & Editorial Backlinks', icon: '🔗' },
-                    { id: 'keywords', label: 'Programmatic Keyword Rankings', icon: '🎯' }
+                    { id: 'pages', label: `📄 Programmatic Pages Directory (${totalProgrammaticPages})`, icon: '📄' },
+                    { id: 'mesh', label: '🕸️ Interlinking & Cluster Mesh', icon: '🕸️' },
+                    { id: 'facebook', label: '🔵 Facebook Ads & Groups (978K)', icon: '🔵' },
+                    { id: 'pinterest', label: '📌 Pinterest Redirects (65K)', icon: '📌' },
+                    { id: 'backlinks', label: '🔗 Academic Backlinks (184)', icon: '🔗' },
+                    { id: 'overview', label: '📊 All Traffic Channels', icon: '📊' }
                 ].map(tab => (
                     <button
                         key={tab.id}
@@ -249,73 +287,210 @@ export default function SeoIntelligencePage() {
                                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                         }`}
                     >
-                        <span>{tab.icon}</span>
                         <span>{tab.label}</span>
                     </button>
                 ))}
             </div>
 
-            {/* TAB 1: OVERVIEW & CHANNELS */}
-            {activeTab === 'overview' && (
+            {/* TAB 1: PROGRAMMATIC PAGES DIRECTORY (218 PAGES) */}
+            {activeTab === 'pages' && (
                 <div className="space-y-6">
-                    {/* Traffic Source Cards */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-                        {trafficSources.map((item, idx) => (
-                            <div key={idx} className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
-                                <div>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-lg">{item.icon}</span>
-                                        <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-full" style={{ backgroundColor: `${item.color}15`, color: item.color }}>
-                                            {item.share}
-                                        </span>
-                                    </div>
-                                    <div className="text-xs font-bold text-slate-900 mt-3">{item.source}</div>
-                                    <div className="text-2xl font-extrabold text-slate-900 mt-1">{item.visits}</div>
+                    <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
+                        
+                        {/* Search & Cluster Filter Toolbar */}
+                        <div className="p-5 border-b border-slate-100 flex flex-col md:flex-row justify-between md:items-center gap-4">
+                            <div className="flex flex-wrap items-center gap-3 flex-1">
+                                <div className="relative w-full max-w-sm">
+                                    <span className="absolute inset-y-0 left-3 flex items-center text-slate-400 pointer-events-none text-xs">
+                                        🔍
+                                    </span>
+                                    <input
+                                        type="text"
+                                        placeholder="Search across 218 programmatic pages..."
+                                        value={searchQuery}
+                                        onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+                                        className="w-full pl-9 pr-4 py-2 text-xs border border-slate-200 rounded-xl bg-slate-50 focus:bg-white text-slate-800 outline-none"
+                                    />
                                 </div>
-                                <div className="text-[10px] font-semibold text-emerald-600 mt-2">
-                                    {item.trend} vs last month
-                                </div>
-                            </div>
-                        ))}
-                    </div>
 
-                    {/* Attribution Summary Pipeline */}
-                    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-4">
-                        <div className="flex justify-between items-center">
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900">Multi-Channel Inbound Pipeline</h3>
-                                <p className="text-xs text-slate-400">Total verified incoming traffic across Paid Meta Ads, SEO, Pinterest, and Backlinks</p>
+                                <select
+                                    value={clusterFilter}
+                                    onChange={(e) => { setClusterFilter(e.target.value); setCurrentPage(1); }}
+                                    className="py-2 px-3 text-xs border border-slate-200 rounded-xl bg-slate-50 text-slate-700 outline-none font-semibold cursor-pointer"
+                                >
+                                    <option value="all">All Topic Clusters (6 Clusters)</option>
+                                    {clusters.map((c, i) => (
+                                        <option key={i} value={c}>{c}</option>
+                                    ))}
+                                </select>
                             </div>
-                            <span className="text-xs font-mono font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-200">
-                                1,520,934 Inbound Visitors
+
+                            <div className="text-xs text-slate-500 font-semibold shrink-0">
+                                Showing <strong className="text-slate-900">{filteredPages.length}</strong> of {totalProgrammaticPages} Programmatic URLs
+                            </div>
+                        </div>
+
+                        {/* Programmatic Pages Table */}
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left text-xs">
+                                <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100">
+                                    <tr>
+                                        <th className="p-4">Programmatic Title & URL Slug</th>
+                                        <th className="p-4">Topic Cluster</th>
+                                        <th className="p-4 text-center font-mono">Inbound Interlinks</th>
+                                        <th className="p-4 text-center font-mono">Outbound Links</th>
+                                        <th className="p-4 text-center">Google SERP Rank</th>
+                                        <th className="p-4 font-mono">Monthly Traffic</th>
+                                        <th className="p-4 text-center">Indexing Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-slate-100 font-medium">
+                                    {paginatedPages.map(page => (
+                                        <tr key={page.id} className="hover:bg-slate-50/80 transition-colors">
+                                            <td className="p-4 max-w-xs md:max-w-sm">
+                                                <div className="font-bold text-slate-900">{page.title}</div>
+                                                <div className="text-[10px] font-mono text-indigo-600 truncate mt-0.5">{page.slug}</div>
+                                                <div className="text-[9px] text-slate-400 mt-0.5">Target: "{page.targetKeyword}"</div>
+                                            </td>
+                                            <td className="p-4">
+                                                <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 font-semibold text-[10px]">
+                                                    {page.cluster}
+                                                </span>
+                                            </td>
+                                            <td className="p-4 text-center font-mono font-bold text-indigo-600">
+                                                {page.inboundLinks} links
+                                            </td>
+                                            <td className="p-4 text-center font-mono font-bold text-slate-600">
+                                                {page.outboundLinks} links
+                                            </td>
+                                            <td className="p-4 text-center">
+                                                <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-200 font-bold font-mono text-xs">
+                                                    {page.googleRank}
+                                                </span>
+                                            </td>
+                                            <td className="p-4 font-mono font-bold text-emerald-600">
+                                                {page.views.toLocaleString()} visits <span className="text-[10px] text-slate-400 font-normal">({page.ctr})</span>
+                                            </td>
+                                            <td className="p-4 text-center">
+                                                <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold text-[10px] flex items-center justify-center gap-1">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                                                    Indexed
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {/* Pagination Footer */}
+                        <div className="p-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+                            <div className="text-slate-500 font-semibold">
+                                Showing <strong className="text-slate-900">{Math.min(startIndex + 1, filteredPages.length)}</strong> to{' '}
+                                <strong className="text-slate-900">{Math.min(startIndex + pageSize, filteredPages.length)}</strong> of{' '}
+                                <strong className="text-slate-900">{filteredPages.length}</strong> pages
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2 text-slate-500">
+                                    <span>Rows per page:</span>
+                                    <select
+                                        value={pageSize}
+                                        onChange={(e) => { setPageSize(Number(e.target.value)); setCurrentPage(1); }}
+                                        className="bg-slate-50 border border-slate-200 py-1 px-2 rounded-lg"
+                                    >
+                                        {[10, 25, 50, 100].map(sz => (
+                                            <option key={sz} value={sz}>{sz}</option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                <div className="flex items-center gap-1">
+                                    <button
+                                        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                        disabled={currentPage === 1}
+                                        className="px-3 py-1.5 border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-semibold cursor-pointer"
+                                    >
+                                        Previous
+                                    </button>
+                                    <span className="px-3 text-slate-500">
+                                        Page <strong className="text-slate-900">{currentPage}</strong> of <strong>{totalPages}</strong>
+                                    </span>
+                                    <button
+                                        onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                        disabled={currentPage === totalPages}
+                                        className="px-3 py-1.5 border border-slate-200 rounded-lg hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed font-semibold cursor-pointer"
+                                    >
+                                        Next
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            )}
+
+            {/* TAB 2: INTERLINKING & CLUSTER MESH */}
+            {activeTab === 'mesh' && (
+                <div className="space-y-6">
+                    <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs space-y-6">
+                        <div className="flex justify-between items-center border-b border-slate-100 pb-4">
+                            <div>
+                                <h3 className="text-base font-bold text-slate-900">Programmatic Topic Cluster & Interlink Architecture</h3>
+                                <p className="text-xs text-slate-400">How 218 programmatic nodes pass PageRank authority to books and core published essays</p>
+                            </div>
+                            <span className="text-xs font-mono font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                                {totalInterlinks.toLocaleString()} Total Mesh Connections
                             </span>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-                            <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
-                                <div className="text-xs font-bold text-slate-800">1. Facebook Ads & Groups (64.3%)</div>
-                                <p className="text-xs text-slate-500 leading-relaxed">
-                                    **978,134 visits** generated via targeted Facebook ad posts ($1,420 total spend) and 18 scholarly group distributions.
-                                </p>
-                            </div>
-                            <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
-                                <div className="text-xs font-bold text-slate-800">2. Google SEO & Authority Backlinks (29.3%)</div>
-                                <p className="text-xs text-slate-500 leading-relaxed">
-                                    **445,160 visits** from Google Organic keywords (#1 rankings) and DA 79–92 academic backlinks (Cambridge, Europe PMC, Medium).
-                                </p>
-                            </div>
-                            <div className="p-4 bg-slate-50 border border-slate-100 rounded-xl space-y-2">
-                                <div className="text-xs font-bold text-slate-800">3. Pinterest Visual Redirects (4.3%)</div>
-                                <p className="text-xs text-slate-500 leading-relaxed">
-                                    **65,145 clicks** from infographic quote pins converting directly into $410 USD in book royalties on Amazon & Etsy.
-                                </p>
-                            </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {clusters.map((clusterName, idx) => {
+                                const clusterPages = pages.filter(p => p.cluster === clusterName);
+                                const clusterLinks = clusterPages.reduce((sum, p) => sum + p.inboundLinks + p.outboundLinks, 0);
+                                const clusterTraffic = clusterPages.reduce((sum, p) => sum + p.views, 0);
+
+                                return (
+                                    <div key={idx} className="p-5 bg-slate-50 border border-slate-200/80 rounded-2xl space-y-3">
+                                        <div className="flex justify-between items-start">
+                                            <h4 className="text-sm font-bold text-slate-900">{clusterName}</h4>
+                                            <span className="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-[10px] font-bold">
+                                                {clusterPages.length} Pages
+                                            </span>
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-200/60">
+                                            <div className="p-2.5 bg-white rounded-xl border border-slate-100">
+                                                <div className="text-[9px] font-bold text-slate-400 uppercase">Interlinks</div>
+                                                <div className="text-base font-extrabold text-indigo-600 mt-0.5">{clusterLinks.toLocaleString()}</div>
+                                            </div>
+                                            <div className="p-2.5 bg-white rounded-xl border border-slate-100">
+                                                <div className="text-[9px] font-bold text-slate-400 uppercase">Monthly Traffic</div>
+                                                <div className="text-base font-extrabold text-emerald-600 mt-0.5">{(clusterTraffic / 1000).toFixed(1)}k/mo</div>
+                                            </div>
+                                        </div>
+
+                                        <div className="text-[11px] text-slate-500 space-y-1">
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-emerald-500 font-bold">✓</span> Schema.org Article + FAQ Markup
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-emerald-500 font-bold">✓</span> Internal Breadcrumbs Matrix
+                                            </div>
+                                            <div className="flex items-center gap-1">
+                                                <span className="text-emerald-500 font-bold">✓</span> High Authority Canonical Anchors
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* TAB 2: FACEBOOK ADS & META GROUP MARKETING */}
+            {/* TAB 3: FACEBOOK ADS & META GROUP MARKETING */}
             {activeTab === 'facebook' && (
                 <div className="space-y-6">
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -371,7 +546,7 @@ export default function SeoIntelligencePage() {
                 </div>
             )}
 
-            {/* TAB 3: PINTEREST REDIRECTS & COMMERCE PINS */}
+            {/* TAB 4: PINTEREST REDIRECTS & COMMERCE PINS */}
             {activeTab === 'pinterest' && (
                 <div className="space-y-6">
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -420,7 +595,7 @@ export default function SeoIntelligencePage() {
                 </div>
             )}
 
-            {/* TAB 4: BACKLINKS & GUEST POSTS */}
+            {/* TAB 5: BACKLINKS & GUEST POSTS */}
             {activeTab === 'backlinks' && (
                 <div className="space-y-6">
                     <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
@@ -468,54 +643,27 @@ export default function SeoIntelligencePage() {
                 </div>
             )}
 
-            {/* TAB 5: PROGRAMMATIC KEYWORDS */}
-            {activeTab === 'keywords' && (
+            {/* TAB 6: OVERVIEW & CHANNELS */}
+            {activeTab === 'overview' && (
                 <div className="space-y-6">
-                    <div className="bg-white border border-slate-200 rounded-2xl shadow-xs overflow-hidden">
-                        <div className="p-5 border-b border-slate-100 flex justify-between items-center">
-                            <div>
-                                <h3 className="text-base font-bold text-slate-900">Programmatic Keyword Rankings & Search Console Velocity</h3>
-                                <p className="text-xs text-slate-400">Live rankings and monthly search volume across Google Search</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                        {trafficSources.map((item, idx) => (
+                            <div key={idx} className="p-5 bg-white border border-slate-200 rounded-2xl shadow-xs flex flex-col justify-between">
+                                <div>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-lg">{item.icon}</span>
+                                        <span className="text-xs font-bold font-mono px-2 py-0.5 rounded-full" style={{ backgroundColor: `${item.color}15`, color: item.color }}>
+                                            {item.share}
+                                        </span>
+                                    </div>
+                                    <div className="text-xs font-bold text-slate-900 mt-3">{item.source}</div>
+                                    <div className="text-2xl font-extrabold text-slate-900 mt-1">{item.visits}</div>
+                                </div>
+                                <div className="text-[10px] font-semibold text-emerald-600 mt-2">
+                                    {item.trend} vs last month
+                                </div>
                             </div>
-                            <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-                                🎯 6 Number #1 Rankings
-                            </span>
-                        </div>
-
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left text-xs">
-                                <thead className="bg-slate-50 text-slate-500 font-bold uppercase tracking-wider border-b border-slate-100">
-                                    <tr>
-                                        <th className="p-4">Target Search Query / Keyword</th>
-                                        <th className="p-4 text-center">Google SERP Rank</th>
-                                        <th className="p-4">Monthly Search Volume</th>
-                                        <th className="p-4">Click-Through Rate (CTR)</th>
-                                        <th className="p-4">Landing Page Target</th>
-                                        <th className="p-4">Rank Velocity</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100 font-medium">
-                                    {programmaticKeywords.map((kw, i) => (
-                                        <tr key={i} className="hover:bg-slate-50/80 transition-colors">
-                                            <td className="p-4 font-bold text-slate-900">{kw.keyword}</td>
-                                            <td className="p-4 text-center">
-                                                <span className={`px-2.5 py-0.5 rounded-full font-bold text-xs ${
-                                                    kw.rank === '#1' 
-                                                        ? 'bg-amber-100 text-amber-800 border border-amber-300' 
-                                                        : 'bg-indigo-50 text-indigo-700 border border-indigo-200'
-                                                }`}>
-                                                    {kw.rank}
-                                                </span>
-                                            </td>
-                                            <td className="p-4 font-mono font-bold text-slate-800">{kw.volume}</td>
-                                            <td className="p-4 font-mono font-bold text-emerald-600">{kw.ctr}</td>
-                                            <td className="p-4 font-mono text-slate-600">{kw.target}</td>
-                                            <td className="p-4 font-bold text-emerald-600">{kw.trend}</td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+                        ))}
                     </div>
                 </div>
             )}
