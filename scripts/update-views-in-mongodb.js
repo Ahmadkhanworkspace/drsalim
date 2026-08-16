@@ -3,16 +3,16 @@ const mongoose = require('mongoose');
 const MONGODB_URI = 'mongodb+srv://ahmadkhanworkspace_db_user:ggePfHd34W5W0ODc@cluster0.cvlvtoa.mongodb.net/drsaleem?retryWrites=true&w=majority';
 
 const viewUpdates = [
-  { id: 1, title: 'Evil Web', views: 194200, comments: 219 },
-  { id: 2, title: 'The Status of heart in Human Personality', views: 152600, comments: 182 },
-  { id: 3, title: 'Different States of Heart', views: 98700, comments: 116 },
-  { id: 4, title: 'Transformation of the Heart', views: 124300, comments: 146 },
-  { id: 5, title: 'Some Aspects of Diseases', views: 36400, comments: 44 },
-  { id: 6, title: 'Hypocrisy: The Most Serious Spiritual Diseases', views: 168400, comments: 159 },
+  { id: 1, title: 'Evil Web', views: 196432, comments: 224 },
+  { id: 2, title: 'The Status of heart in Human Personality', views: 154918, comments: 187 },
+  { id: 3, title: 'Different States of Heart', views: 99824, comments: 119 },
+  { id: 4, title: 'Transformation of the Heart', views: 126743, comments: 151 },
+  { id: 5, title: 'Some Aspects of Diseases', views: 37281, comments: 46 },
+  { id: 6, title: 'Hypocrisy: The Most Serious Spiritual Diseases', views: 171285, comments: 163 },
   { id: 7, title: 'TAUGHT AS A COMPONENT OF EVIL WEB', views: 20300, comments: 43 },
-  { id: 8, title: 'MODERATION: AN ANALYSIS', views: 84100, comments: 84 },
-  { id: 9, title: 'JUSTICE: AN ISLAMIC PERSPECTIVE', views: 248500, comments: 284 },
-  { id: 10, title: 'Hidayat', views: 72500, comments: 71 }
+  { id: 8, title: 'MODERATION: AN ANALYSIS', views: 85639, comments: 87 },
+  { id: 9, title: 'JUSTICE: AN ISLAMIC PERSPECTIVE', views: 251847, comments: 289 },
+  { id: 10, title: 'Hidayat', views: 73912, comments: 74 }
 ];
 
 async function run() {

@@ -74,7 +74,7 @@ export default function AdminDashboardPage() {
         },
         {
             title: 'Page Views',
-            value: '1.20M',
+            value: '1.22M',
             change: '+42.1% vs last month',
             icon: '👁️',
             iconBg: 'bg-emerald-100 text-emerald-600',
