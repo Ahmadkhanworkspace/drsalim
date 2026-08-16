@@ -6,8 +6,8 @@ export default function AnalyticsPage() {
     const isSyncing = false;
 
     const [analytics] = useState({
-        totalBookSales: 1,
-        bookSalesGrowth: '+100%',
+        totalBookSales: 118,
+        bookSalesGrowth: '+28.5%',
         totalBlogViews: 1200000,
         blogViewsGrowth: '+14.2%',
         todaysViews: 19700,
