@@ -6,125 +6,166 @@ import { usePathname } from 'next/navigation';
 export default function Footer() {
     const pathname = usePathname();
     if (pathname?.startsWith('/admin')) return null;
-    const socialLinks = [
-        {
-            name: 'Facebook',
-            href: '#',
-            icon: (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                </svg>
-            )
-        },
-        {
-            name: 'Twitter',
-            href: '#',
-            icon: (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-            )
-        },
-        {
-            name: 'YouTube',
-            href: '#',
-            icon: (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.518 0-9.388.507a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.87.507 9.388.507 9.388.507s7.518 0 9.388-.507a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-                </svg>
-            )
-        },
-        {
-            name: 'Email',
-            href: 'mailto:contact@drsalim.com',
-            icon: (
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-            )
-        }
+
+    const bookLinks = [
+        { name: 'Brotherhood (#1 Bestseller)', href: '/#books' },
+        { name: 'Spiritual Diseases & Management', href: '/#books' },
+        { name: 'Divine Providence (Vols. 1 & 2)', href: '/#books' },
+        { name: 'Human Journey from Soul to Abode', href: '/#books' },
+        { name: 'Host Plant Resistance (Postgraduate)', href: '/#books' }
     ];
 
-    const quickLinks = [
-        { name: 'Book Store', href: '/store' },
-        { name: 'Read the Blog', href: '/#articles' },
-        { name: 'About the Author', href: '/#about' },
-        { name: 'Suggestions', href: '/suggestions' }
+    const essayLinks = [
+        { name: 'Justice: An Islamic Perspective', href: '/articles/9' },
+        { name: 'Evil Web & Taghut', href: '/articles/1' },
+        { name: 'Status of Heart in Personality', href: '/articles/2' },
+        { name: 'Hidayat (Guidance) for All', href: '/articles/10' },
+        { name: 'Moderation: An Analysis', href: '/articles/8' }
+    ];
+
+    const channelLinks = [
+        { name: 'Amazon KDP (Print & Kindle)', href: 'https://www.amazon.com', icon: '📦' },
+        { name: 'Etsy (Collector Editions)', href: 'https://www.etsy.com', icon: '🎨' },
+        { name: 'Barnes & Noble (Nook & Hardcover)', href: 'https://www.barnesandnoble.com', icon: '📚' },
+        { name: 'Pinterest Visual Library', href: 'https://www.pinterest.com', icon: '📌' }
     ];
 
     return (
-        <footer className="bg-charcoal-950 border-t border-stone-900 py-20 relative overflow-hidden">
-            {/* Ambient Top Line */}
-            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-crimson-500/20 to-transparent" />
-            
-            <div className="container max-w-[1200px] mx-auto px-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mb-16">
-                    
-                    {/* About Section */}
-                    <div className="space-y-6">
-                        <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-crimson-500/10 border border-crimson-500/20 flex items-center justify-center text-crimson-500 rounded-none">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4">
-                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
-                                </svg>
-                            </div>
-                            <span className="text-white font-bold tracking-tight text-lg font-heading">
-                                Dr. Muhammad Salim
-                            </span>
+        <footer className="bg-[#06080B] text-stone-300 border-t border-amber-500/15 pt-20 pb-12 relative overflow-hidden">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-crimson-600/10 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-[500px] h-[300px] bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
+
+            <div className="container max-w-7xl mx-auto px-6 relative z-10 space-y-16">
+                
+                {/* Upper Scholar Banner */}
+                <div className="p-8 sm:p-10 rounded-2xl bg-gradient-to-br from-[#12151B] via-[#0E1117] to-[#0A0D12] border border-amber-500/20 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+                    <div className="space-y-2 text-center lg:text-left">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[10px] font-mono font-bold uppercase tracking-widest">
+                            🎖️ 5x Presidential & Prime Ministerial Seerat Awards
                         </div>
-                        <p className="text-stone-400 text-sm leading-relaxed font-light">
-                            A lifetime dedicated to scholarly research, writing, and sharing profound insights on spirituality, philosophy, and Islamic studies.
+                        <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-heading tracking-tight">
+                            Dr. Muhammad Salim <span className="text-xs font-mono font-normal text-stone-400">(PhD)</span>
+                        </h3>
+                        <p className="text-stone-400 text-xs sm:text-sm font-light max-w-2xl leading-relaxed">
+                            Harmonizing Revealed Knowledge and Acquired Science for the intellectual and spiritual elevation of humanity.
                         </p>
                     </div>
 
-                    {/* Quick Links */}
-                    <div className="space-y-6">
-                        <h4 className="text-white text-xs font-black uppercase tracking-widest">
-                            Quick Links
+                    <div className="flex flex-wrap items-center gap-4">
+                        <Link
+                            href="/about"
+                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-crimson-600 to-amber-600 hover:from-crimson-500 hover:to-amber-500 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-lg shadow-crimson-900/30"
+                        >
+                            Read Scholarly Bio →
+                        </Link>
+                        <Link
+                            href="/#articles"
+                            className="px-6 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-stone-200 border border-white/10 text-xs font-semibold transition-all"
+                        >
+                            Explore 200+ Treatises
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Main 4-Column Navigation Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+                    
+                    {/* Col 1: Books & Monographs */}
+                    <div className="space-y-4">
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-amber-300 flex items-center gap-2">
+                            <span>📚</span> Published Books
                         </h4>
-                        <ul className="space-y-3">
-                            {quickLinks.map((link) => (
-                                <li key={link.name}>
-                                    <Link
-                                        href={link.href}
-                                        className="text-stone-400 hover:text-crimson-500 text-sm font-light transition-all duration-300 flex items-center gap-2 group"
-                                    >
-                                        <span className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs text-crimson-500">→</span>
-                                        <span className="group-hover:translate-x-1 transition-transform duration-300">{link.name}</span>
+                        <div className="w-8 h-[1px] bg-amber-500/40" />
+                        <ul className="space-y-2.5 text-xs">
+                            {bookLinks.map((item, i) => (
+                                <li key={i}>
+                                    <Link href={item.href} className="text-stone-400 hover:text-amber-200 transition-colors flex items-center gap-1.5 group">
+                                        <span className="text-amber-500/60 group-hover:text-amber-400 transition-colors">›</span>
+                                        <span>{item.name}</span>
                                     </Link>
                                 </li>
                             ))}
                         </ul>
                     </div>
 
-                    {/* Connect Section */}
-                    <div className="space-y-6">
-                        <h4 className="text-white text-xs font-black uppercase tracking-widest">
-                            Connect
+                    {/* Col 2: Philosophical Treatises */}
+                    <div className="space-y-4">
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-amber-300 flex items-center gap-2">
+                            <span>📜</span> Featured Treatises
                         </h4>
-                        <p className="text-stone-400 text-sm font-light">
-                            Stay connected for the latest publications and insights.
-                        </p>
-                        <div className="flex gap-3">
-                            {socialLinks.map((social) => (
-                                <a
-                                    key={social.name}
-                                    href={social.href}
-                                    aria-label={social.name}
-                                    className="w-10 h-10 flex items-center justify-center bg-charcoal-900 border border-stone-850 hover:bg-crimson-500 hover:text-white text-stone-400 hover:border-crimson-500 rounded-none transition-all duration-500"
-                                >
-                                    {social.icon}
-                                </a>
+                        <div className="w-8 h-[1px] bg-amber-500/40" />
+                        <ul className="space-y-2.5 text-xs">
+                            {essayLinks.map((item, i) => (
+                                <li key={i}>
+                                    <Link href={item.href} className="text-stone-400 hover:text-amber-200 transition-colors flex items-center gap-1.5 group">
+                                        <span className="text-amber-500/60 group-hover:text-amber-400 transition-colors">›</span>
+                                        <span>{item.name}</span>
+                                    </Link>
+                                </li>
                             ))}
+                        </ul>
+                    </div>
+
+                    {/* Col 3: Official Bookstores & Channels */}
+                    <div className="space-y-4">
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-amber-300 flex items-center gap-2">
+                            <span>🌍</span> Distribution Channels
+                        </h4>
+                        <div className="w-8 h-[1px] bg-amber-500/40" />
+                        <ul className="space-y-2.5 text-xs">
+                            {channelLinks.map((ch, i) => (
+                                <li key={i}>
+                                    <a
+                                        href={ch.href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-stone-400 hover:text-amber-200 transition-colors flex items-center gap-2 group"
+                                    >
+                                        <span>{ch.icon}</span>
+                                        <span>{ch.name}</span>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* Col 4: Institutional & Scholar Portal */}
+                    <div className="space-y-4">
+                        <h4 className="text-xs font-mono font-bold uppercase tracking-widest text-amber-300 flex items-center gap-2">
+                            <span>🏛️</span> Scholar Portal
+                        </h4>
+                        <div className="w-8 h-[1px] bg-amber-500/40" />
+                        <div className="space-y-3 text-xs">
+                            <p className="text-stone-400 font-light leading-relaxed">
+                                Dedicated to the preservation, dissemination, and translation of Dr. Salim's academic corpus.
+                            </p>
+                            <div className="pt-2">
+                                <Link
+                                    href="/admin/dashboard"
+                                    className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white/5 hover:bg-amber-500/15 border border-white/10 hover:border-amber-500/30 text-amber-300 hover:text-amber-200 text-[11px] font-mono font-semibold transition-all"
+                                >
+                                    <span>🔐</span>
+                                    <span>Admin Management Portal</span>
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
                 </div>
 
-                {/* Copyright Row */}
-                <div className="pt-8 border-t border-stone-900/60 text-center text-stone-500 text-xs font-light tracking-wide">
+                {/* Bottom Row: Copyright & Legal */}
+                <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500 font-mono">
                     <p>© {new Date().getFullYear()} Dr. Muhammad Salim. All rights reserved.</p>
+                    <div className="flex items-center gap-6">
+                        <Link href="/about" className="hover:text-stone-300 transition-colors">Biography</Link>
+                        <Link href="/#books" className="hover:text-stone-300 transition-colors">Library</Link>
+                        <Link href="/#articles" className="hover:text-stone-300 transition-colors">Treatises</Link>
+                        <Link href="/admin/dashboard" className="text-amber-400/70 hover:text-amber-300 transition-colors">Admin Panel</Link>
+                    </div>
                 </div>
+
             </div>
         </footer>
     );
