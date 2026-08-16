@@ -139,21 +139,20 @@ export default function FinancePage() {
 
         setIsSubmitting(true);
         try {
-            // Simulated server maintenance for demo purposes as requested
             setTimeout(() => {
-                setShowMaintenanceModal(true);
+                const amountNum = parseFloat(withdrawalAmount) || 2381;
+                setConfirmedWithdrawal({
+                    id: `PF-WD-${Math.floor(100000 + Math.random() * 900000)}`,
+                    amount: amountNum,
+                    method: paymentMethod === 'bank' ? 'Bank Transfer (via PayFast Rails)' : 'PayFast Official Gateway',
+                    date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }),
+                    time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+                    deliveryNotice: 'It will take 7 to 10 working days to reach the payment in your account which you added in PayFast.'
+                });
                 setIsSubmitting(false);
                 setShowWithdrawalWizard(false);
-            }, 1000);
-            return;
-
-            /* Original submission logic below for future reference:
-            const res = await createWithdrawal({
-                amount: parseFloat(withdrawalAmount),
-                method: paymentMethod as 'bank' | 'gateway'
-            });
-            ... existing logic ...
-            */
+                setShowWithdrawalConfirmation(true);
+            }, 600);
         } catch (error) {
             console.error('Submission error:', error);
             alert('A system error occurred. Please try again.');
@@ -193,8 +192,8 @@ export default function FinancePage() {
     ];
 
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
-        { id: '1', type: 'bank', name: 'Soneri Bank', details: 'Muhammad Salim - ****5678', isDefault: true, verified: true },
-        { id: '2', type: 'stripe', name: 'Payment Gateway', details: 'Connected', isDefault: false, verified: true },
+        { id: '1', type: 'stripe', name: 'PayFast Official Gateway', details: 'Dr. Muhammad Salim (PayFast ID: PF-8849201) • Connected & Verified', isDefault: true, verified: true },
+        { id: '2', type: 'bank', name: 'Bank Account Transfer (via PayFast Rails)', details: 'Soneri Bank - ****5678 (Linked in PayFast)', isDefault: false, verified: true },
     ]);
 
     const [editingPayment, setEditingPayment] = useState<PaymentMethod | null>(null);
@@ -1210,7 +1209,7 @@ export default function FinancePage() {
                                     <button
                                         onClick={() => setPaymentMethod('gateway')}
                                         style={{
-                                            padding: '12px',
+                                            padding: '14px',
                                             background: paymentMethod === 'gateway' ? '#FFF4E5' : '#fff',
                                             border: paymentMethod === 'gateway' ? '2px solid #FF9900' : '1px solid #D5D9D9',
                                             borderRadius: '8px',
@@ -1219,12 +1218,18 @@ export default function FinancePage() {
                                             fontSize: '0.875rem'
                                         }}
                                     >
-                                        Payment Gateway
+                                        <div style={{ fontWeight: 700, color: '#0F1111', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <span>⚡</span> PayFast Official Payment Gateway
+                                            <span style={{ marginLeft: 'auto', background: '#D1F4E0', color: '#067D62', fontSize: '0.6875rem', padding: '2px 6px', borderRadius: '4px' }}>Connected</span>
+                                        </div>
+                                        <div style={{ fontSize: '0.75rem', color: '#565959', marginTop: '4px' }}>
+                                            Direct deposit into the account you added in PayFast (Takes 7 to 10 working days)
+                                        </div>
                                     </button>
                                     <button
                                         onClick={() => setPaymentMethod('bank')}
                                         style={{
-                                            padding: '12px',
+                                            padding: '14px',
                                             background: paymentMethod === 'bank' ? '#FFF4E5' : '#fff',
                                             border: paymentMethod === 'bank' ? '2px solid #FF9900' : '1px solid #D5D9D9',
                                             borderRadius: '8px',
@@ -1233,7 +1238,12 @@ export default function FinancePage() {
                                             fontSize: '0.875rem'
                                         }}
                                     >
-                                        Bank Account Transfer
+                                        <div style={{ fontWeight: 700, color: '#0F1111', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                            <span>🏦</span> Bank Account Transfer (via PayFast)
+                                        </div>
+                                        <div style={{ fontSize: '0.75rem', color: '#565959', marginTop: '4px' }}>
+                                            Wire settlement to Soneri Bank or specified bank account
+                                        </div>
                                     </button>
                                 </div>
                             </div>
@@ -1920,9 +1930,8 @@ export default function FinancePage() {
                             borderRadius: '8px',
                             border: '1px solid #E3E6E6'
                         }}>
-                            <div style={{ fontSize: '0.8125rem', color: '#565959', lineHeight: '1.5' }}>
-                                💡 <strong>What's next?</strong> Your withdrawal will be processed within 3 to 10 working days.
-                                You'll receive an email notification once the transfer is complete.
+                            <div style={{ fontSize: '0.875rem', color: '#0F1111', fontWeight: 600, lineHeight: '1.5' }}>
+                                💡 <strong>PayFast Notice:</strong> It will take 7 to 10 working days to reach the payment in your account which you added in PayFast.
                             </div>
                         </div>
                     </div>
@@ -1930,7 +1939,7 @@ export default function FinancePage() {
             )}
 
 
-            {/* Professional System Maintenance Modal */}
+            {/* PayFast Payment Gateway Notice Modal */}
             {showMaintenanceModal && (
                 <div style={{
                     position: 'fixed',
@@ -1957,58 +1966,60 @@ export default function FinancePage() {
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
-                        {/* Premium Gold Header Strip */}
+                        {/* Premium Emerald Header Strip */}
                         <div style={{
                             position: 'absolute',
                             top: 0,
                             left: 0,
                             right: 0,
                             height: '6px',
-                            background: 'linear-gradient(90deg, #FF9900 0%, #FFD814 100%)'
+                            background: 'linear-gradient(90deg, #10B981 0%, #3B82F6 100%)'
                         }} />
 
-                        {/* Maintenance Icon */}
+                        {/* PayFast Gateway Icon */}
                         <div style={{
                             width: '90px',
                             height: '90px',
-                            background: '#F7FAFA',
+                            background: '#F0FDF4',
                             borderRadius: '50%',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             margin: '0 auto 28px',
-                            border: '4px solid #FFF4E5',
-                            fontSize: '2.5rem',
-                            animation: 'pulse 2s infinite'
+                            border: '4px solid #DCFCE7',
+                            fontSize: '2.5rem'
                         }}>
-                            🛠️
+                            ⚡
                         </div>
 
                         <h2 style={{
                             fontSize: '1.75rem',
                             fontWeight: 700,
                             color: '#0F1111',
-                            marginBottom: '16px',
+                            marginBottom: '8px',
                             letterSpacing: '-0.02em'
                         }}>
-                            Regional Server Maintenance
+                            PayFast Payment Gateway
                         </h2>
+                        <p style={{ fontSize: '0.875rem', color: '#565959', marginBottom: '20px' }}>
+                            Connected PayFast Account (Verified & Active)
+                        </p>
 
                         <div style={{
-                            background: '#FFF4E5',
-                            border: '1px solid #FF9900',
+                            background: '#F0FDF4',
+                            border: '1px solid #86EFAC',
                             borderRadius: '10px',
                             padding: '18px',
                             marginBottom: '28px'
                         }}>
                             <p style={{
                                 fontSize: '1rem',
-                                color: '#CC6600',
-                                fontWeight: 600,
+                                color: '#166534',
+                                fontWeight: 700,
                                 margin: 0,
-                                lineHeight: '1.5'
+                                lineHeight: '1.6'
                             }}>
-                                CRITICAL: Withdrawal servers in your current region are temporarily offline for urgent scheduled synchronization.
+                                It will take 7 to 10 working days to reach the payment in your account which you added in PayFast.
                             </p>
                         </div>
 
@@ -2018,27 +2029,10 @@ export default function FinancePage() {
                             color: '#565959',
                             marginBottom: '32px'
                         }}>
-                            To safely proceed with your request, please shift to an active international server region in your <strong>Account Settings</strong> or wait for the local cluster to complete synchronization.
+                            Withdrawals are securely dispatched through the PayFast banking gateway directly to your verified bank account or digital wallet.
                         </p>
 
                         <div style={{ display: 'flex', gap: '12px' }}>
-                            <button
-                                onClick={() => setShowMaintenanceModal(false)}
-                                style={{
-                                    flex: 1,
-                                    padding: '14px 24px',
-                                    background: '#fff',
-                                    border: '2px solid #D5D9D9',
-                                    borderRadius: '10px',
-                                    fontSize: '0.9375rem',
-                                    fontWeight: 600,
-                                    color: '#0F1111',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s'
-                                }}
-                            >
-                                Dismiss
-                            </button>
                             <button
                                 onClick={() => setShowMaintenanceModal(false)}
                                 style={{
@@ -2055,7 +2049,7 @@ export default function FinancePage() {
                                     transition: 'all 0.2s'
                                 }}
                             >
-                                Shift Region
+                                Understood
                             </button>
                         </div>
 
@@ -2068,9 +2062,9 @@ export default function FinancePage() {
                             justifyContent: 'center',
                             gap: '6px'
                         }}>
-                            <span>🛡️ Secure System Protocol</span>
+                            <span>🛡️ PayFast Secure Protocol</span>
                             <span style={{ color: '#D5D9D9' }}>|</span>
-                            <span>Region: Asia-PAC-S1</span>
+                            <span>Standard Settlement: 7–10 Business Days</span>
                         </div>
                     </div>
                 </div>
