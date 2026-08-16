@@ -129,7 +129,7 @@ export default function AdminDashboardPage() {
         { icon: '⭐', title: '5-star review on "Brotherhood" from UK reader', time: '5 hours ago' },
         { icon: '📢', title: 'Omnichannel marketplace sync confirmed ($2,381.00 USD)', time: '1 day ago' },
         { icon: '💬', title: 'New comment on "Justice: An Islamic Perspective"', time: '2 days ago' },
-        { icon: '💵', title: 'Payout of $1,248 completed via Bank transfer', time: '3 days ago' },
+        { icon: '💬', title: 'Scholarly comment approved on "Spiritual Diseases & Cures"', time: '3 days ago' },
     ];
 
     const liveCountries = [
@@ -473,9 +473,9 @@ export default function AdminDashboardPage() {
                             <h3 className="text-base font-bold text-slate-900">Recent Activity</h3>
                             <p className="text-xs text-slate-400">Latest updates from your hub</p>
                         </div>
-                        <button className="text-xs font-semibold text-indigo-600 hover:text-indigo-700">
-                            View All
-                        </button>
+                        <Link href="/admin/comments" className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 cursor-pointer">
+                            View All →
+                        </Link>
                     </div>
 
                     <div className="space-y-3.5">

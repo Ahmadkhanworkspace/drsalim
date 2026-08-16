@@ -20,7 +20,7 @@ export default function AnalyticsPage() {
         totalBlogLikes: 10597,
         likesGrowth: '+24.6%',
         totalEarnings: 2381,
-        totalPayouts: 1248,
+        totalPayouts: 0,
         availableBalance: 2381,
         bookSales: [
             { name: 'Brotherhood', sales: 58, revenue: 1190, share: '50.0%', color: '#4F46E5' },
