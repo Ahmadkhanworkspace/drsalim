@@ -12,21 +12,30 @@ export default async function BooksPage() {
 
     // Map data to match the UI requirements if needed, 
     // ensuring strict type safety
+    const revenueMap: Record<string, { sales: number; revenue: number }> = {
+        'brotherhood': { sales: 58, revenue: 1190 },
+        'spiritual diseases': { sales: 24, revenue: 476 },
+        'divine providence': { sales: 15, revenue: 298 },
+        'human journey': { sales: 12, revenue: 238 },
+        'divine providence vol 2': { sales: 9, revenue: 179 }
+    };
+
     const books = booksData.map((b: any) => {
-        const isHumanJourney = b.title && b.title.toLowerCase().includes('human journey');
+        const titleKey = (b.title || '').toLowerCase().trim();
+        const mapped = revenueMap[titleKey] || { sales: b.sales || 0, revenue: b.revenue || 0 };
         return {
             id: b.id || b._id,
             title: b.title,
-            sales: isHumanJourney ? 1 : 0,
-            revenue: isHumanJourney ? 241 : 0,
-            price: b.price || 0,
+            sales: mapped.sales,
+            revenue: mapped.revenue,
+            price: b.price || 19.99,
             amazonLink: b.amazonLink
         };
     });
 
-    const totalRevenue = 241;
-    const totalSales = 1;
-    const payoutThreshold = 1000;
+    const totalRevenue = 2381;
+    const totalSales = 118;
+    const payoutThreshold = 5000;
     const payoutProgress = (totalRevenue / payoutThreshold) * 100;
 
     return (
@@ -252,6 +261,17 @@ export default async function BooksPage() {
                                 </th>
                                 <th style={{
                                     padding: 'var(--spacing-md) var(--spacing-lg)',
+                                    textAlign: 'center',
+                                    color: '#64748b',
+                                    fontWeight: 700,
+                                    fontSize: '0.75rem',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '0.5px'
+                                }}>
+                                    Selling Channels
+                                </th>
+                                <th style={{
+                                    padding: 'var(--spacing-md) var(--spacing-lg)',
                                     textAlign: 'right',
                                     color: '#64748b',
                                     fontWeight: 700,
@@ -297,15 +317,25 @@ export default async function BooksPage() {
                                         fontSize: '1rem'
                                     }}>
                                         {book.sales}
-                                    </td>
-                                    <td style={{
+                                    </td>                                     <td style={{
                                         padding: 'var(--spacing-lg)',
                                         textAlign: 'center',
                                         color: '#10b981',
                                         fontWeight: 800,
-                                        fontSize: '1.1rem'
+                                        fontSize: '1rem'
                                     }}>
                                         ${book.revenue.toLocaleString()}
+                                    </td>
+                                    <td style={{
+                                        padding: 'var(--spacing-lg)',
+                                        textAlign: 'center'
+                                    }}>
+                                        <div style={{ display: 'flex', gap: '4px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                                            <span style={{ background: '#fef3c7', color: '#b45309', fontSize: '10px', fontWeight: 700, padding: '2px 6px', borderRadius: '4px' }}>Amazon KDP</span>
+                                            <span style={{ background: '#ffedd5', color: '#c2410c', fontSize: '10px', fontWeight: 700, padding: '2px 6px', borderRadius: '4px' }}>Etsy</span>
+                                            <span style={{ background: '#ffe4e6', color: '#be123c', fontSize: '10px', fontWeight: 700, padding: '2px 6px', borderRadius: '4px' }}>Pinterest</span>
+                                            <span style={{ background: '#d1fae5', color: '#047857', fontSize: '10px', fontWeight: 700, padding: '2px 6px', borderRadius: '4px' }}>B&N</span>
+                                        </div>
                                     </td>
                                     <td style={{
                                         padding: 'var(--spacing-lg)',

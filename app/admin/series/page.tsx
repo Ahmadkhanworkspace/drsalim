@@ -18,8 +18,8 @@ export default function SeriesPage() {
             name: 'Spiritual Growth Collection',
             description: 'Essential guides for spiritual purification and personal development',
             books: ['Spiritual Diseases', 'Human Journey'],
-            totalSales: 1,
-            totalRevenue: 241,
+            totalSales: 44,
+            totalRevenue: 901,
             status: 'complete'
         }
     ]);

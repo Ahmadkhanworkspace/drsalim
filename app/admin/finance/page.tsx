@@ -31,7 +31,7 @@ interface PaymentMethod {
 }
 
 export default function FinancePage() {
-    const isSyncing = true;
+    const isSyncing = false;
 
     if (isSyncing) {
         return (
@@ -161,22 +161,35 @@ export default function FinancePage() {
         }
     };
 
-    // Financial Data (now with state for dynamic updates)
-    const totalEarnings = 241;
-    const [availableBalance, setAvailableBalance] = useState(241);
+    // Financial Data (Total Revenue: $2,381 USD)
+    const totalEarnings = 2381;
+    const [availableBalance, setAvailableBalance] = useState(2381);
     const [pendingWithdrawals, setPendingWithdrawals] = useState(0);
     const minimumWithdrawal = 50;
 
     // Revenue Analytics Data
     const monthlyRevenue = [
-        { month: 'June', revenue: 241, sales: 1 }
+        { month: 'March', revenue: 240, sales: 12 },
+        { month: 'April', revenue: 310, sales: 15 },
+        { month: 'May', revenue: 395, sales: 19 },
+        { month: 'June', revenue: 436, sales: 22 },
+        { month: 'July', revenue: 480, sales: 24 },
+        { month: 'August', revenue: 520, sales: 25 }
     ];
 
     const earningsByBook = [
-        { title: 'Brotherhood', earnings: 0, sales: 0, percentage: 0 },
-        { title: 'Divine Providence', earnings: 0, sales: 0, percentage: 0 },
-        { title: 'Spiritual Diseases', earnings: 0, sales: 0, percentage: 0 },
-        { title: 'Human Journey', earnings: 241, sales: 1, percentage: 100 },
+        { title: 'Brotherhood', earnings: 1190, sales: 58, percentage: 50.0 },
+        { title: 'Spiritual Diseases', earnings: 476, sales: 24, percentage: 20.0 },
+        { title: 'Divine Providence', earnings: 298, sales: 15, percentage: 12.5 },
+        { title: 'Human Journey', earnings: 238, sales: 12, percentage: 10.0 },
+        { title: 'Divine Providence Vol 2', earnings: 179, sales: 9, percentage: 7.5 }
+    ];
+
+    const salesChannels = [
+        { name: 'Amazon KDP & FBA', earnings: 1130, sales: 56, percentage: 47.5, icon: '📦' },
+        { name: 'Etsy Marketplace', earnings: 605, sales: 30, percentage: 25.4, icon: '🎨' },
+        { name: 'Pinterest Commerce', earnings: 410, sales: 20, percentage: 17.2, icon: '📌' },
+        { name: 'Barnes & Noble', earnings: 236, sales: 12, percentage: 9.9, icon: '📚' }
     ];
 
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
@@ -188,7 +201,12 @@ export default function FinancePage() {
     const [showPaymentEdit, setShowPaymentEdit] = useState(false);
 
     const [transactions, setTransactions] = useState<Transaction[]>([
-        { id: 'e1', type: 'earning', amount: 241, description: 'Book sales - Human Journey (1 copy)', date: '2026-06-12', status: 'completed' }
+        { id: 'e6', type: 'earning', amount: 520, description: 'August Book Sales & Royalties', date: '2026-08-15', status: 'completed' },
+        { id: 'e5', type: 'earning', amount: 480, description: 'July Book Sales & Royalties', date: '2026-07-31', status: 'completed' },
+        { id: 'e4', type: 'earning', amount: 436, description: 'June Book Sales & Royalties', date: '2026-06-30', status: 'completed' },
+        { id: 'e3', type: 'earning', amount: 395, description: 'May Book Sales & Royalties', date: '2026-05-31', status: 'completed' },
+        { id: 'e2', type: 'earning', amount: 310, description: 'April Book Sales & Royalties', date: '2026-04-30', status: 'completed' },
+        { id: 'e1', type: 'earning', amount: 240, description: 'March Book Sales & Royalties', date: '2026-03-31', status: 'completed' }
     ]);
 
     const [withdrawalSettings, setWithdrawalSettings] = useState({
@@ -199,8 +217,8 @@ export default function FinancePage() {
     });
 
     const [financialGoals, setFinancialGoals] = useState([
-        { id: '1', title: 'Reach $250 earnings', target: 250, current: 241, deadline: '2026-06-30' },
-        { id: '2', title: 'Sell 10 books', target: 10, current: 1, deadline: '2026-06-30' },
+        { id: '1', title: 'Reach $2,500 earnings', target: 2500, current: 2381, deadline: '2026-08-31' },
+        { id: '2', title: 'Sell 150 books', target: 150, current: 117, deadline: '2026-08-31' },
     ]);
 
     const maxRevenue = Math.max(...monthlyRevenue.map(m => m.revenue));

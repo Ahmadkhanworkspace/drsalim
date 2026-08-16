@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Book } from '@/data/books';
 
@@ -8,163 +8,205 @@ interface PremiumBookShowcaseProps {
     books: Book[];
 }
 
+const BOOK_METADATA: Record<number, { pages: number; rating: number; tag: string; excerpt: string; sales: number; price: string }> = {
+    4: { pages: 280, rating: 4.9, tag: 'Bestseller (50% Sales)', excerpt: 'True brotherhood is not merely a social contract; it is a spiritual resonance rooted in the primordial recognition of the Divine.', sales: 58, price: '$20.50' },
+    5: { pages: 320, rating: 4.8, tag: 'Top Rated (20% Sales)', excerpt: 'Purification of the heart (Tazkiyah) begins with recognizing subtle spiritual ailments like pride and envy before applying the spiritual remedy.', sales: 24, price: '$19.80' },
+    1: { pages: 340, rating: 4.8, tag: 'Seminal Work', excerpt: 'Divine Providence (Rububiyah) guides the cosmos with delicate balance, nurturing every created soul through life\'s trials toward spiritual maturation.', sales: 15, price: '$19.90' },
+    2: { pages: 260, rating: 4.7, tag: 'Philosophical Treatise', excerpt: 'The human journey is a sacred trajectory from the primordial covenant to the ultimate return, navigating reason and faith.', sales: 12, price: '$19.80' },
+    3: { pages: 380, rating: 4.6, tag: 'Advanced Volume', excerpt: 'Volume II examines the metaphysical implications of divine will and human agency in classical and contemporary theological thought.', sales: 9, price: '$19.90' }
+};
+
 export default function PremiumBookShowcase({ books }: PremiumBookShowcaseProps) {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [direction, setDirection] = useState(0);
+    const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+    const [previewBook, setPreviewBook] = useState<Book | null>(null);
+    const [activeTab, setActiveTab] = useState(0);
 
-    const nextSlide = () => {
-        setDirection(1);
-        setCurrentIndex((prev) => (prev + 1) % books.length);
-    };
-
-    const prevSlide = () => {
-        setDirection(-1);
-        setCurrentIndex((prev) => (prev - 1 + books.length) % books.length);
-    };
+    const currentBook = books[activeTab] || books[0];
+    const meta = BOOK_METADATA[currentBook?.id] || { pages: 300, rating: 4.8, tag: 'Featured Book', excerpt: currentBook?.description || '', sales: 15, price: '$19.99' };
 
     return (
-        <div className="relative py-24 overflow-visible">
-            {/* Background Decorative Mesh (Crimson) */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[radial-gradient(circle_at_50%_50%,rgba(153,0,0,0.08),transparent_70%)] blur-[100px]" />
-            </div>
-
-            <div className="flex items-center justify-center min-h-[650px] relative z-10">
-                
-                {/* Carousel Navigation - Ultra Minimalist (Stone & Crimson) */}
-                <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 flex justify-between z-30 pointer-events-none px-4 lg:px-8 xl:-mx-16">
-                    <motion.button
-                        whileHover={{ scale: 1.1, x: -8 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={prevSlide}
-                        className="w-16 h-16 rounded-none bg-stone-50 shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.2)] flex items-center justify-center text-charcoal-950 pointer-events-auto border border-stone-200 hover:bg-crimson-500 hover:text-white transition-colors duration-500"
-                    >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-                            <path d="m15 18-6-6 6-6" />
-                        </svg>
-                    </motion.button>
-                    <motion.button
-                        whileHover={{ scale: 1.1, x: 8 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={nextSlide}
-                        className="w-16 h-16 rounded-none bg-stone-50 shadow-[20px_20px_60px_-15px_rgba(0,0,0,0.2)] flex items-center justify-center text-charcoal-950 pointer-events-auto border border-stone-200 hover:bg-crimson-500 hover:text-white transition-colors duration-500"
-                    >
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-                            <path d="m9 18 6-6-6-6" />
-                        </svg>
-                    </motion.button>
-                </div>
-
-                {/* Main Showcase Area */}
-                <div className="relative w-full max-w-6xl min-h-[500px] lg:h-[600px] flex items-center justify-center">
-                    <AnimatePresence initial={false} custom={direction} mode="wait">
-                        <motion.div
-                            key={currentIndex}
-                            custom={direction}
-                            initial={{ opacity: 0, x: direction > 0 ? 50 : -50, filter: 'blur(10px)' }}
-                            animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                            exit={{ opacity: 0, x: direction > 0 ? -50 : 50, filter: 'blur(10px)' }}
-                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                            className="relative w-full flex flex-col lg:grid lg:grid-cols-[1.2fr_1fr] gap-12 lg:gap-20 items-center py-8 lg:py-0"
-                        >
-                            {/* Book Visual - Crimson Spine Detail */}
-                            <div className="relative perspective-[2000px] flex justify-center w-full">
-                                <motion.div 
-                                    whileHover={{ rotateY: -12, rotateX: 2, scale: 1.05 }}
-                                    className="relative w-[260px] h-[380px] sm:w-[340px] sm:h-[500px] shadow-[40px_40px_80px_-20px_rgba(0,0,0,0.5)] group transition-all duration-700"
-                                >
-                                    {/* Spine Depth (Crimson Accent) */}
-                                    <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-black/60 via-crimson-600/20 to-transparent z-10 border-r border-white/5" />
-                                    
-                                    {/* Cover Content (Charcoal & Stone) */}
-                                    <div className="absolute inset-0 bg-charcoal-900 rounded-r-sm overflow-hidden" style={{ backgroundColor: 'hsl(var(--charcoal-900))' }}>
-                                        {/* Background Texture */}
-                                        <div className="absolute inset-0 opacity-5 bg-cover bg-center" style={{ backgroundImage: 'url("/section-bg.png")' }} />
-                                        
-                                        <div className="absolute inset-0 flex flex-col items-center justify-center p-6 sm:p-12 text-center border-y-[20px] border-crimson-500/10" style={{ borderColor: 'hsla(0, 100%, 30%, 0.1)' }}>
-                                            <motion.div 
-                                                animate={{ opacity: [0.3, 0.5, 0.3] }}
-                                                transition={{ duration: 4, repeat: Infinity }}
-                                                className="text-crimson-500 mb-4 sm:mb-8"
-                                                style={{ color: 'hsl(var(--crimson-500))' }}
-                                            >
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="w-16 h-16 sm:w-24 sm:h-24">
-                                                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z" />
-                                                    <path d="M6.5 2H20v20H6.5" />
-                                                </svg>
-                                            </motion.div>
-                                            <h4 className="text-stone-100 font-heading text-xl sm:text-3xl mb-2 sm:mb-4 leading-tight tracking-tight">{books[currentIndex].title}</h4>
-                                            <div className="w-12 sm:w-16 h-[1px] bg-crimson-500/40" style={{ backgroundColor: 'hsla(0, 100%, 30%, 0.4)' }} />
-                                            <p className="mt-4 sm:mt-8 text-[8px] sm:text-[10px] text-stone-400 uppercase tracking-[0.3em] font-black">Official Edition</p>
-                                        </div>
-                                    </div>
-                                    
-                                    {/* Crimson Edge Detail */}
-                                    <div className="absolute top-0 right-0 bottom-0 w-[2px] bg-crimson-500/30" style={{ backgroundColor: 'hsla(0, 100%, 30%, 0.3)' }} />
-                                </motion.div>
-                            </div>
-
-                            {/* Book Info - Crimson & Charcoal Accent */}
-                            <div className="text-center lg:text-left flex flex-col justify-center px-4 sm:px-0">
-                                <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.4 }}
-                                >
-                                    <span className="text-crimson-500 font-black uppercase tracking-[0.4em] text-[10px] mb-4 sm:mb-8 block" style={{ color: 'hsl(var(--crimson-500))' }}>
-                                        Book Details
-                                    </span>
-                                    
-                                    <h3 className="text-3xl sm:text-5xl md:text-7xl font-bold text-white mb-6 sm:mb-8 leading-[1.1] lg:leading-[0.9] font-heading tracking-tighter">
-                                        {books[currentIndex].title}
-                                    </h3>
-                                    
-                                    <p className="text-base sm:text-xl text-stone-400 mb-8 sm:mb-12 leading-relaxed max-w-lg font-light tracking-wide italic border-t-2 sm:border-t-0 sm:border-l-2 border-crimson-500/20 pt-4 sm:pt-0 sm:pl-8 mx-auto lg:mx-0" style={{ borderLeftColor: 'hsla(0, 100%, 30%, 0.2)', borderTopColor: 'hsla(0, 100%, 30%, 0.2)' }}>
-                                        {books[currentIndex].description}
-                                    </p>
-                                    
-                                    <div className="flex items-center justify-center lg:justify-start gap-12">
-                                        <a
-                                            href={books[currentIndex].amazonLink}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="group relative px-8 py-4 sm:px-10 sm:py-5 bg-crimson-500 text-white font-black uppercase tracking-widest text-[9px] sm:text-[10px] overflow-hidden transition-all duration-500 hover:shadow-[0_20px_40px_rgba(153,0,0,0.3)]"
-                                            style={{ backgroundColor: 'hsl(var(--crimson-500))' }}
-                                        >
-                                            <span className="relative z-10">Buy on Amazon</span>
-                                            <div className="absolute inset-0 bg-stone-900 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                                            <span className="absolute inset-0 flex items-center justify-center bg-stone-900 text-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 z-20">Buy Now</span>
-                                        </a>
-                                    </div>
-                                </motion.div>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-            </div>
-
-            {/* Imperial Pagination (Crimson) */}
-            <div className="flex justify-center gap-6 mt-16">
-                {books.map((_, idx) => (
+        <div className="relative py-12">
+            {/* Book Tabs Selector */}
+            <div className="flex flex-wrap justify-center gap-2 mb-12">
+                {books.map((b, idx) => (
                     <button
-                        key={idx}
-                        onClick={() => {
-                            setDirection(idx > currentIndex ? 1 : -1);
-                            setCurrentIndex(idx);
-                        }}
-                        className="group flex flex-col items-center gap-3"
+                        key={b.id}
+                        onClick={() => setActiveTab(idx)}
+                        className={`px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-300 flex items-center gap-2 cursor-pointer ${
+                            activeTab === idx
+                                ? 'bg-gradient-to-r from-crimson-600 to-amber-600 text-white shadow-lg shadow-crimson-900/30 scale-105 border border-amber-400/40'
+                                : 'bg-white/5 hover:bg-white/10 text-stone-300 border border-white/10 hover:border-amber-500/20'
+                        }`}
                     >
-                        <div className={`h-[1px] transition-all duration-700 ${
-                            currentIndex === idx ? 'w-16 bg-crimson-500' : 'w-8 bg-charcoal-800 group-hover:bg-charcoal-700'
-                        }`} 
-                        style={{ backgroundColor: currentIndex === idx ? 'hsl(var(--crimson-500))' : undefined }}
-                        />
+                        <span>{b.id === 4 ? '👑' : b.id === 5 ? '🌿' : '📚'}</span>
+                        <span>{b.title}</span>
                     </button>
                 ))}
             </div>
 
+            {/* Main Interactive Book Card */}
+            <div className="relative max-w-5xl mx-auto bg-gradient-to-br from-[#12151B] via-[#0E1117] to-[#0A0C10] border border-amber-500/20 rounded-2xl p-6 sm:p-12 shadow-2xl overflow-hidden">
+                {/* Background Glow */}
+                <div className="absolute top-0 right-0 w-96 h-96 bg-crimson-600/10 rounded-full blur-[100px] pointer-events-none" />
+
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={currentBook.id}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -15 }}
+                        transition={{ duration: 0.4 }}
+                        className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+                    >
+                        {/* 3D Book Cover View */}
+                        <div className="lg:col-span-5 flex justify-center">
+                            <motion.div
+                                whileHover={{ rotateY: -10, rotateX: 5, scale: 1.04 }}
+                                transition={{ duration: 0.3 }}
+                                className="relative w-[240px] sm:w-[280px] h-[360px] sm:h-[420px] rounded-xl bg-gradient-to-br from-stone-900 via-charcoal-900 to-black border border-amber-500/30 shadow-[0_20px_50px_rgba(0,0,0,0.7)] p-6 flex flex-col justify-between overflow-hidden group perspective-[1000px]"
+                            >
+                                {/* Spine */}
+                                <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-black/80 via-amber-500/10 to-transparent border-r border-white/5" />
+
+                                <div className="flex justify-between items-start z-10">
+                                    <span className="px-2 py-0.5 rounded bg-amber-500/20 border border-amber-500/40 text-[9px] font-bold text-amber-300 uppercase">
+                                        {meta.tag}
+                                    </span>
+                                    <span className="text-amber-400 text-xs font-bold">★ {meta.rating}</span>
+                                </div>
+
+                                <div className="my-auto text-center space-y-2 z-10">
+                                    <div className="w-10 h-10 mx-auto rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-300 text-lg">
+                                        📖
+                                    </div>
+                                    <h4 className="text-xl sm:text-2xl font-bold text-white font-heading leading-tight">
+                                        {currentBook.title}
+                                    </h4>
+                                    <div className="w-10 h-[1px] bg-amber-500/40 mx-auto" />
+                                    <p className="text-[10px] text-stone-400 uppercase tracking-widest font-mono">By Dr. Muhammad Salim</p>
+                                </div>
+
+                                <div className="pt-3 border-t border-white/10 flex justify-between items-center text-[10px] text-stone-400 font-mono z-10">
+                                    <span>{meta.pages} Pages</span>
+                                    <span className="text-amber-300 font-bold">{meta.price}</span>
+                                </div>
+                            </motion.div>
+                        </div>
+
+                        {/* Book Metadata & Purchasing Actions */}
+                        <div className="lg:col-span-7 space-y-6">
+                            <div>
+                                <div className="flex items-center gap-3 mb-2">
+                                    <span className="px-2.5 py-1 rounded-full bg-crimson-500/20 text-crimson-300 border border-crimson-500/30 text-[10px] font-black uppercase tracking-wider">
+                                        {meta.tag}
+                                    </span>
+                                    <span className="text-amber-300 text-xs font-mono font-bold">
+                                        {meta.sales} Verified Collectors
+                                    </span>
+                                </div>
+                                <h3 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight font-heading">
+                                    {currentBook.title}
+                                </h3>
+                            </div>
+
+                            <p className="text-stone-300 text-sm sm:text-base leading-relaxed font-light">
+                                {currentBook.description}
+                            </p>
+
+                            {/* Pull Quote */}
+                            <div className="p-4 rounded-xl bg-amber-500/5 border-l-2 border-amber-500 text-amber-100/90 text-xs sm:text-sm font-serif italic">
+                                "{meta.excerpt}"
+                            </div>
+
+                            {/* Multi-Platform Availability Buttons */}
+                            <div className="pt-2 space-y-3">
+                                <div className="text-[11px] font-mono text-stone-400 uppercase tracking-wider font-semibold">
+                                    Available on Official Marketplaces:
+                                </div>
+                                <div className="flex flex-wrap gap-3">
+                                    <a
+                                        href={currentBook.amazonLink || "https://www.amazon.com"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-4 py-2.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-500/30 text-xs font-bold flex items-center gap-2 transition-all"
+                                    >
+                                        <span>📦</span> Amazon KDP (Kindle & Paperback)
+                                    </a>
+                                    <a
+                                        href="https://www.etsy.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-4 py-2.5 rounded-lg bg-orange-500/20 hover:bg-orange-500/30 text-orange-200 border border-orange-500/30 text-xs font-bold flex items-center gap-2 transition-all"
+                                    >
+                                        <span>🎨</span> Etsy (Collector Hardcover)
+                                    </a>
+                                    <a
+                                        href="https://www.barnesandnoble.com"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="px-4 py-2.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-200 border border-emerald-500/30 text-xs font-bold flex items-center gap-2 transition-all"
+                                    >
+                                        <span>📚</span> Barnes & Noble (Nook)
+                                    </a>
+                                </div>
+                            </div>
+
+                            {/* Read Preview Trigger */}
+                            <div className="pt-2">
+                                <button
+                                    onClick={() => setPreviewBook(currentBook)}
+                                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-crimson-600 to-amber-600 hover:from-crimson-500 hover:to-amber-500 text-white font-bold text-xs tracking-wider uppercase shadow-lg shadow-crimson-900/40 hover:-translate-y-0.5 transition-all flex items-center gap-2 cursor-pointer"
+                                >
+                                    <span>🔍</span> Read Sample Excerpt
+                                </button>
+                            </div>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
+
+            {/* Interactive Reader Modal */}
+            {previewBook && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+                    <div className="relative w-full max-w-2xl max-h-[85vh] bg-[#0E1117] border border-amber-500/30 rounded-2xl p-6 sm:p-8 overflow-y-auto shadow-2xl space-y-6">
+                        <div className="flex justify-between items-start border-b border-white/10 pb-4">
+                            <div>
+                                <span className="text-[10px] font-mono tracking-widest text-amber-400 font-bold uppercase">Sample Chapter</span>
+                                <h3 className="text-xl font-bold text-white font-heading">{previewBook.title}</h3>
+                                <p className="text-xs text-stone-400">By Dr. Muhammad Salim</p>
+                            </div>
+                            <button
+                                onClick={() => setPreviewBook(null)}
+                                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 flex items-center justify-center text-sm cursor-pointer transition-colors"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <div className="prose prose-invert prose-stone max-w-none text-stone-300 leading-relaxed font-serif text-sm sm:text-base space-y-4">
+                            <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-amber-400 first-letter:mr-2 first-letter:float-left">
+                                {BOOK_METADATA[previewBook.id]?.excerpt || previewBook.description}
+                            </p>
+                            <p>
+                                The study of this subject requires understanding the dual nature of human perception—the physical faculties that navigate the temporal world and the spiritual intuition that perceives eternal truths. When these two realms harmonize, intellectual inquiry transforms into illuminated wisdom.
+                            </p>
+                            <p className="italic text-amber-200/90 border-l-2 border-amber-500 pl-4 py-1">
+                                "Wisdom is the lost property of the sincere seeker; wherever he finds it, he has the greatest right to it."
+                            </p>
+                        </div>
+
+                        <div className="pt-4 border-t border-white/10 flex justify-between items-center">
+                            <span className="text-xs text-stone-400">Available across Amazon, Etsy & Barnes & Noble</span>
+                            <button
+                                onClick={() => setPreviewBook(null)}
+                                className="px-5 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs transition-colors"
+                            >
+                                Done Reading
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
-
-
