@@ -83,8 +83,8 @@ export default function AboutUs() {
                         }}>
                             {[
                                 { number: '40+', label: 'Years' },
-                                { number: '20+', label: 'Books' },
-                                { number: '200+', label: 'Articles' }
+                                { number: '5', label: 'Books' },
+                                { number: '10', label: 'Articles' }
                             ].map((stat, index) => (
                                 <div key={index} className="modern-card" style={{
                                     flex: 1,
@@ -152,11 +152,11 @@ export default function AboutUs() {
                             </p>
 
                             <p style={{ marginBottom: 'var(--spacing-md)' }}>
-                                With <strong style={{ color: 'var(--color-accent)' }}>20+ published books</strong> and <strong style={{ color: 'var(--color-accent)' }}>200+ research articles</strong>, Dr. Salim has established himself as a leading voice in contemporary Islamic scholarship. His work bridges classical wisdom with modern understanding, making complex spiritual concepts accessible to all seekers of knowledge.
+                                With <strong style={{ color: 'var(--color-accent)' }}>5 published books</strong> and <strong style={{ color: 'var(--color-accent)' }}>selected research articles</strong>, Dr. Salim has established himself as a respected voice in contemporary Islamic scholarship. His work bridges classical wisdom with modern understanding, making spiritual concepts accessible to all seekers of knowledge.
                             </p>
 
                             <p>
-                                His areas of expertise include Divine Providence, spiritual psychology, Islamic philosophy, and the journey of the human soul. Through his writings, Dr. Salim continues to inspire and guide readers on their path to spiritual enlightenment and deeper understanding.
+                                His areas of study include Divine Providence, spiritual psychology, Islamic philosophy, and the journey of the human soul. Through his writings, Dr. Salim continues to guide readers on their path to spiritual peace and deeper understanding.
                             </p>
                         </div>
 
@@ -168,10 +168,10 @@ export default function AboutUs() {
                             marginTop: 'var(--spacing-xl)'
                         }}>
                             {[
-                                { icon: '🎓', text: 'Ph.D. in Islamic Studies' },
-                                { icon: '📚', text: '20+ Books Published' },
-                                { icon: '✍️', text: '200+ Research Articles' },
-                                { icon: '🏆', text: '20+ Academic Awards' }
+                                { icon: '🎓', text: 'Doctoral Studies & Research' },
+                                { icon: '📚', text: '5 Books Published' },
+                                { icon: '✍️', text: 'Published Articles' },
+                                { icon: '🏆', text: '5 Presidential Awards' }
                             ].map((item, index) => (
                                 <div key={index} style={{
                                     display: 'flex',

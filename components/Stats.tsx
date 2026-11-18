@@ -7,9 +7,10 @@ interface StatItemProps {
     number: number;
     label: string;
     suffix?: string;
+    icon?: string;
 }
 
-function StatItem({ number, label, suffix = '' }: StatItemProps) {
+function StatItem({ number, label, suffix = '', icon }: StatItemProps) {
     const [count, setCount] = useState(0);
     const ref = useRef(null);
     const [hasAnimated, setHasAnimated] = useState(false);
@@ -22,7 +23,7 @@ function StatItem({ number, label, suffix = '' }: StatItemProps) {
                 if (entry.isIntersecting) {
                     setHasAnimated(true);
                     let start = 0;
-                    const duration = 2000;
+                    const duration = 1800;
                     const increment = number / (duration / 16);
                     
                     const animate = () => {
@@ -37,7 +38,7 @@ function StatItem({ number, label, suffix = '' }: StatItemProps) {
                     animate();
                 }
             },
-            { threshold: 0.5 }
+            { threshold: 0.3 }
         );
 
         if (ref.current) observer.observe(ref.current);
@@ -45,50 +46,50 @@ function StatItem({ number, label, suffix = '' }: StatItemProps) {
     }, [number, hasAnimated]);
 
     return (
-        <div ref={ref} className="text-center p-12 relative group transition-all duration-700">
+        <div ref={ref} className="text-center p-6 sm:p-8 lg:p-10 relative group transition-all duration-300">
+            {icon && (
+                <div className="text-xl sm:text-2xl mb-2 sm:mb-3 opacity-80 group-hover:scale-110 transition-transform duration-300">
+                    {icon}
+                </div>
+            )}
+            
             <motion.div 
                 initial={{ opacity: 0, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                className="text-6xl md:text-8xl font-bold text-white mb-6 font-heading tracking-tightest flex items-center justify-center"
+                className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-stone-900 mb-2 sm:mb-3 font-heading tracking-tight flex items-center justify-center"
             >
-                <span className="text-stone-100">{count}</span>
-                <span className="text-crimson-500">{suffix}</span>
+                <span>{count}</span>
+                <span className="text-crimson-600 ml-0.5">{suffix}</span>
             </motion.div>
+
             <motion.div 
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="text-[10px] font-black uppercase tracking-[0.4em] text-stone-400 group-hover:text-crimson-500 transition-colors duration-500"
+                transition={{ delay: 0.2 }}
+                className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-stone-600 group-hover:text-crimson-700 transition-colors"
             >
                 {label}
             </motion.div>
             
-            {/* Decorative flourish */}
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-12 h-[1px] bg-crimson-500/20 group-hover:w-24 group-hover:bg-crimson-500/50 transition-all duration-700" />
+            {/* Subtle Accent Line */}
+            <div className="w-8 h-[2px] bg-stone-200 group-hover:bg-crimson-600 group-hover:w-14 mx-auto mt-3 transition-all duration-300 rounded-full" />
         </div>
     );
 }
 
 export default function Stats() {
     return (
-        <section id="achievements" className="relative py-40 bg-charcoal-950 overflow-hidden border-y border-white/5">
-            {/* Background Texture (Subtle) */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("/section-bg.png")', backgroundSize: 'cover' }} />
-            
-            <div className="container relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-20 lg:gap-0 lg:divide-x lg:divide-white/5">
-                    <StatItem number={40} label="Years of Impact" suffix="+" />
-                    <StatItem number={200} label="Scholarly Works" suffix="+" />
-                    <StatItem number={25} label="Authored Books" suffix="+" />
-                    <StatItem number={15} label="Prestigious Awards" suffix="+" />
+        <section id="achievements" className="relative py-14 sm:py-20 bg-gradient-to-r from-stone-50 via-amber-50/30 to-stone-50 overflow-hidden border-y border-stone-200/80">
+            <div className="container relative z-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-0 lg:divide-x lg:divide-stone-200/80 bg-white/70 backdrop-blur-sm rounded-2xl border border-stone-200/80 shadow-sm">
+                    <StatItem number={40} label="Years of Impact" suffix="+" icon="⏳" />
+                    <StatItem number={200} label="Scholarly Works" suffix="+" icon="📜" />
+                    <StatItem number={25} label="Authored Books" suffix="+" icon="📚" />
+                    <StatItem number={15} label="Prestigious Honors" suffix="+" icon="🎖️" />
                 </div>
             </div>
-
-            {/* Accent Ornaments (Crimson) */}
-            <div className="absolute top-0 left-0 w-96 h-96 bg-crimson-500/5 blur-[150px] rounded-full -translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-crimson-500/5 blur-[180px] rounded-full translate-x-1/3 translate-y-1/3" />
         </section>
     );
 }

@@ -17,9 +17,8 @@ export default function SuggestionsPage() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate form submission
         setTimeout(() => {
-            setSubmitMessage('Thank you for your valuable suggestion. We appreciate your feedback.');
+            setSubmitMessage('✓ Thank you for your valuable suggestion. Dr. Salim\'s research circle appreciates your contribution.');
             setFormData({ name: '', email: '', category: 'general', suggestion: '' });
             setIsSubmitting(false);
 
@@ -35,60 +34,31 @@ export default function SuggestionsPage() {
     };
 
     return (
-        <main className="bg-charcoal-950 min-h-screen text-white pt-32 pb-24 relative overflow-hidden">
+        <main className="bg-white min-h-screen text-stone-900 pt-32 sm:pt-40 pb-24 relative overflow-hidden">
             {/* Background Decorative Glows */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(circle_at_50%_50%,rgba(153,0,0,0.1),transparent_70%)] blur-[80px]" />
-                <div className="absolute inset-0 bg-cover bg-center opacity-5 grayscale" style={{ backgroundImage: 'url("/section-bg.png")' }} />
-            </div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-amber-100/40 rounded-full blur-[140px] pointer-events-none z-0" />
 
-            <div className="container relative z-10 max-w-[1200px] mx-auto px-6">
+            <div className="container relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center mb-20">
-                    <span className="text-crimson-500 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">
-                        We Value Your Input
+                <div className="text-center mb-12 sm:mb-16">
+                    <span className="text-crimson-700 font-mono font-bold uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-3 block">
+                        Community & Intellectual Input
                     </span>
-                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter">
-                        Suggestion <span className="text-crimson-500 font-serif-italic font-normal px-2">Box</span>
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-stone-900 mb-4 tracking-tight font-heading leading-tight">
+                        Scholarly <span className="bg-gradient-to-r from-crimson-700 to-amber-700 bg-clip-text text-transparent font-serif italic font-normal">Suggestions</span>
                     </h1>
-                    <div className="w-16 h-[1px] bg-crimson-500/40 mx-auto mb-8" />
-                    <p className="text-stone-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-                        Share your ideas, feedback, or recommendations to help improve our scholarly platform.
+                    <div className="w-16 h-1 bg-gradient-to-r from-crimson-600 via-amber-500 to-transparent mx-auto mb-6 rounded-full" />
+                    <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed">
+                        Share your ideas, research topics, critique, or recommendations to enrich Dr. Salim's published discourse.
                     </p>
                 </div>
 
-                {/* Info Cards Row */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                    {[
-                        { icon: '💡', title: 'Ideas', desc: 'Share your creative concepts' },
-                        { icon: '📝', title: 'Feedback', desc: 'Share your impressions' },
-                        { icon: '🎯', title: 'Improvements', desc: 'Suggest specific changes' }
-                    ].map((item, index) => (
-                        <div 
-                            key={index} 
-                            className="p-8 bg-charcoal-900/60 border border-stone-900 rounded-none text-center hover:border-crimson-500/20 transition-all duration-500"
-                        >
-                            <div className="text-3xl mb-4">{item.icon}</div>
-                            <h3 className="text-stone-200 font-heading text-lg font-bold mb-2 uppercase tracking-wider">
-                                {item.title}
-                            </h3>
-                            <p className="text-stone-400 font-light text-sm">
-                                {item.desc}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
                 {/* Form Container */}
-                <div className="max-w-[800px] mx-auto bg-charcoal-900/50 border border-stone-900 p-8 md:p-12 rounded-none">
-                    <h2 className="text-2xl font-bold text-white font-heading tracking-tight mb-8 text-center">
-                        Submit Your Suggestion
-                    </h2>
-
-                    <form onSubmit={handleSubmit} className="space-y-8">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <div className="space-y-3">
-                                <label htmlFor="name" className="block text-xs font-black uppercase tracking-wider text-stone-400">
+                <div className="bg-white border border-stone-200/90 p-6 sm:p-10 md:p-12 rounded-2xl sm:rounded-3xl shadow-xl relative">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
+                                <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
                                     Your Name *
                                 </label>
                                 <input
@@ -98,12 +68,13 @@ export default function SuggestionsPage() {
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
-                                    className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm"
+                                    placeholder="Prof. / Researcher / Reader"
+                                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
                                 />
                             </div>
 
-                            <div className="space-y-3">
-                                <label htmlFor="email" className="block text-xs font-black uppercase tracking-wider text-stone-400">
+                            <div className="space-y-1.5">
+                                <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
                                     Email Address *
                                 </label>
                                 <input
@@ -113,34 +84,33 @@ export default function SuggestionsPage() {
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
-                                    className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm"
+                                    placeholder="email@example.com"
+                                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
                                 />
                             </div>
                         </div>
 
-                        <div className="space-y-3">
-                            <label htmlFor="category" className="block text-xs font-black uppercase tracking-wider text-stone-400">
-                                Category *
+                        <div className="space-y-1.5">
+                            <label htmlFor="category" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                Suggestion Domain *
                             </label>
                             <select
                                 id="category"
                                 name="category"
                                 value={formData.category}
                                 onChange={handleChange}
-                                required
-                                className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-stone-300 focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm cursor-pointer"
+                                className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
                             >
-                                <option value="general">General Feedback</option>
-                                <option value="website">Website Improvement</option>
-                                <option value="content">Content Suggestion</option>
-                                <option value="feature">Feature Request</option>
-                                <option value="other">Other</option>
+                                <option value="general">General Reader Feedback</option>
+                                <option value="books">Book Translation / Edition Requests</option>
+                                <option value="articles">Article Topic Suggestion</option>
+                                <option value="technical">Website & Reading Experience</option>
                             </select>
                         </div>
 
-                        <div className="space-y-3">
-                            <label htmlFor="suggestion" className="block text-xs font-black uppercase tracking-wider text-stone-400">
-                                Your Suggestion *
+                        <div className="space-y-1.5">
+                            <label htmlFor="suggestion" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                Your Suggestion or Proposal *
                             </label>
                             <textarea
                                 id="suggestion"
@@ -148,25 +118,25 @@ export default function SuggestionsPage() {
                                 value={formData.suggestion}
                                 onChange={handleChange}
                                 required
-                                rows={8}
-                                placeholder="Please share your thoughts or ideas in detail..."
-                                className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm resize-none"
+                                rows={6}
+                                placeholder="Describe your recommendation, source references, or topic in detail..."
+                                className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm resize-none"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className="w-full bg-crimson-500 hover:bg-stone-900 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 transition-all duration-500 rounded-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full py-4 rounded-xl bg-gradient-to-r from-crimson-600 via-crimson-700 to-amber-600 hover:from-crimson-700 hover:to-amber-700 text-white font-bold uppercase tracking-wider text-xs shadow-md shadow-crimson-900/15 hover:shadow-lg transition-all cursor-pointer disabled:opacity-50 active:scale-98"
                         >
-                            {isSubmitting ? 'Submitting...' : 'Submit Suggestion'}
+                            {isSubmitting ? 'Submitting Proposal...' : 'Submit Suggestion →'}
                         </button>
 
                         {submitMessage && (
                             <motion.div 
-                                initial={{ opacity: 0, y: 10 }}
+                                initial={{ opacity: 0, y: 8 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="mt-6 p-4 border border-crimson-500/20 bg-crimson-500/5 text-crimson-400 text-xs font-semibold tracking-wider text-center uppercase"
+                                className="mt-4 p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-semibold text-center"
                             >
                                 {submitMessage}
                             </motion.div>

@@ -1,33 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const CONTEMPLATIONS = [
     {
-        quote: "True brotherhood is not merely a social contract; it is a spiritual resonance rooted in the primordial recognition of the Divine.",
+        quote: "Real brotherhood is built on sincere hearts, mutual respect, and honest care for one another.",
         source: "From 'Brotherhood'",
-        theme: "Communal Unity"
+        theme: "Unity & Friendship"
     },
     {
-        quote: "When we treat the symptoms of pride and envy, we are not merely refining behavior; we are polishing the mirror of the heart to reflect divine light.",
+        quote: "Finding peace of mind starts by letting go of pride and envy, and filling the heart with gratitude.",
         source: "From 'Spiritual Diseases'",
-        theme: "Purification of the Heart (Tazkiyah)"
+        theme: "Inner Peace"
     },
     {
-        quote: "Divine Providence (Rububiyah) nurtures creation through every joy and tribulation, guiding the soul toward its ultimate destination.",
+        quote: "Every hardship we encounter carries a lesson that helps us grow stronger, wiser, and more compassionate.",
         source: "From 'Divine Providence'",
-        theme: "Theology & Purpose"
+        theme: "Faith & Trust"
     },
     {
-        quote: "Justice is the cosmic equilibrium upon which the heavens and the earth stand; to disrupt it is to invite disharmony into the human condition.",
-        source: "From 'JUSTICE: AN ISLAMIC PERSPECTIVE'",
-        theme: "Moral Philosophy"
+        quote: "Justice brings balance and fairness to our communities; when we act justly, peace naturally follows.",
+        source: "From 'Justice: An Islamic Perspective'",
+        theme: "Fairness & Ethics"
     },
     {
-        quote: "The human journey is an ascent from heedlessness to illuminated awareness through sincere reflection and righteous deed.",
+        quote: "Life is a journey of continuous growth — from simply getting through the day to living with genuine purpose, kindness, and faith.",
         source: "From 'Human Journey'",
-        theme: "Existential Meaning"
+        theme: "Purposeful Living"
     }
 ];
 
@@ -50,54 +49,46 @@ export default function DailyWisdom() {
     const current = CONTEMPLATIONS[index];
 
     return (
-        <section className="relative py-20 bg-[#07090D] overflow-hidden border-b border-white/5">
-            <div className="container relative z-10 px-6 max-w-4xl mx-auto">
-                <div className="rounded-2xl bg-gradient-to-br from-[#151922] via-[#0E1117] to-[#0A0D12] border border-amber-500/30 p-8 sm:p-12 shadow-2xl relative overflow-hidden text-center space-y-6">
-                    {/* Top Tag */}
-                    <div className="flex justify-between items-center border-b border-white/10 pb-4">
-                        <span className="text-[10px] font-mono tracking-widest text-amber-400 font-bold uppercase">
-                            ✨ Daily Contemplation & Wisdom
+        <section className="py-14 sm:py-20 bg-white border-b border-stone-200">
+            <div className="container max-w-4xl mx-auto px-4 sm:px-6">
+                <div className="rounded-2xl bg-stone-50 border border-stone-200 p-6 sm:p-10 text-center space-y-6 shadow-2xs">
+                    
+                    {/* Header */}
+                    <div className="flex flex-wrap justify-between items-center border-b border-stone-200 pb-4 gap-2">
+                        <span className="text-xs font-mono font-bold text-stone-600 uppercase tracking-wider">
+                            Daily Reflection
                         </span>
-                        <span className="text-xs text-crimson-300 font-semibold">
+                        <span className="text-xs font-semibold text-crimson-800 bg-crimson-50 px-2.5 py-0.5 rounded-full border border-crimson-200">
                             {current.theme}
                         </span>
                     </div>
 
-                    {/* Animated Quote */}
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -15 }}
-                            transition={{ duration: 0.4 }}
-                            className="space-y-4 py-4"
-                        >
-                            <p className="text-xl sm:text-2xl lg:text-3xl font-serif text-white/95 leading-relaxed italic">
-                                "{current.quote}"
-                            </p>
-                            <div className="w-16 h-[1px] bg-gradient-to-r from-amber-500 to-crimson-500 mx-auto" />
-                            <p className="text-xs text-amber-300/80 font-mono font-semibold uppercase tracking-wider">
-                                {current.source} • Dr. Muhammad Salim
-                            </p>
-                        </motion.div>
-                    </AnimatePresence>
+                    {/* Quote */}
+                    <div className="space-y-4 py-2 sm:py-4">
+                        <p className="text-xl sm:text-2xl lg:text-3xl font-serif text-stone-900 leading-relaxed italic px-2">
+                            "{current.quote}"
+                        </p>
+                        <p className="text-xs text-stone-500 font-mono font-semibold uppercase tracking-wider">
+                            {current.source} • <span className="text-stone-900">Dr. Muhammad Salim</span>
+                        </p>
+                    </div>
 
                     {/* Buttons */}
-                    <div className="flex flex-wrap justify-center items-center gap-4 pt-4 border-t border-white/10">
+                    <div className="flex flex-col sm:flex-row justify-center items-center gap-3 pt-3 border-t border-stone-200">
                         <button
                             onClick={nextQuote}
-                            className="px-6 py-3 rounded-xl bg-gradient-to-r from-crimson-600 to-amber-600 hover:from-crimson-500 hover:to-amber-500 text-white font-bold text-xs tracking-wider uppercase transition-all shadow-md cursor-pointer"
+                            className="w-full sm:w-auto btn btn-primary text-xs cursor-pointer"
                         >
-                            ✨ Generate Another Reflection
+                            Next Reflection →
                         </button>
                         <button
                             onClick={copyToClipboard}
-                            className="px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-stone-200 border border-white/10 text-xs font-semibold transition-all cursor-pointer"
+                            className="w-full sm:w-auto btn btn-outline text-xs cursor-pointer"
                         >
-                            {copied ? '✓ Copied Quote' : '📋 Copy Wisdom'}
+                            {copied ? '✓ Copied Quote' : 'Copy Quote'}
                         </button>
                     </div>
+
                 </div>
             </div>
         </section>

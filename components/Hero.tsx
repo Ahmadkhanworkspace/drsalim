@@ -1,264 +1,223 @@
 'use client';
 
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Hero() {
-    const containerRef = useRef(null);
     const [isSampleModalOpen, setIsSampleModalOpen] = useState(false);
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end start"]
-    });
-
-    const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-    const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
     return (
-        <section 
-            ref={containerRef}
-            className="relative min-h-[92vh] lg:min-h-screen flex items-center justify-center overflow-hidden bg-[#07090D] pt-24 pb-16 border-b border-amber-500/10"
-        >
-            {/* Cinematic Background Atmosphere */}
-            <motion.div 
-                style={{ y, opacity }}
-                className="absolute inset-0 z-0 pointer-events-none"
-            >
-                {/* Ambient Radial Lights */}
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-[radial-gradient(ellipse_at_center,rgba(180,20,20,0.18),transparent_70%)] blur-[120px]" />
-                <div className="absolute top-1/3 right-10 w-[500px] h-[400px] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_65%)] blur-[100px]" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom,#07090D_20%,transparent_80%)]" />
-            </motion.div>
+        <section className="relative bg-white pt-28 sm:pt-36 pb-16 sm:pb-24 border-b border-stone-200 overflow-hidden">
+            {/* Subtle Accent Glow */}
+            <div className="absolute top-0 right-1/4 w-[500px] h-[300px] bg-amber-50/80 rounded-full blur-[100px] pointer-events-none" />
 
-            {/* Subtle Grid Texture */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] pointer-events-none" />
-
-            <div className="container relative z-10 px-6 max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                     
-                    {/* Left Column: Prestigious Editorial Content */}
-                    <div className="lg:col-span-7 text-center lg:text-left space-y-8">
+                    {/* Left Column: Author Narrative */}
+                    <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
                         
-                        {/* Elite Top Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: -15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 via-crimson-500/10 to-transparent border border-amber-500/20 backdrop-blur-md"
-                        >
-                            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                            <span className="text-[11px] font-mono tracking-widest text-amber-300 font-bold uppercase">
-                                40+ Years of Intellectual Inquiry
-                            </span>
-                        </motion.div>
+                        {/* Award Pill */}
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-50 border border-amber-200 text-amber-900 text-xs font-semibold tracking-wide shadow-2xs">
+                            <span className="w-2 h-2 rounded-full bg-amber-600" />
+                            <span>5-Time Presidential Seerat Award Winner</span>
+                        </div>
 
-                        {/* Grand Title */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 25 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.2 }}
-                        >
-                            <h1 className="text-4xl sm:text-6xl xl:text-7xl font-extrabold text-white tracking-tight leading-[1.05] font-heading">
-                                Illumination of the <br />
-                                <span className="bg-gradient-to-r from-amber-200 via-rose-300 to-amber-400 bg-clip-text text-transparent font-serif italic font-normal">
-                                    Soul & Intellect
+                        {/* Headline */}
+                        <div className="space-y-3">
+                            <h1 className="text-3xl sm:text-5xl md:text-6xl font-bold text-stone-900 tracking-tight leading-[1.15]">
+                                Inspiring Books on <br />
+                                <span className="text-crimson-800 font-serif italic font-normal">
+                                    Faith, Purpose & Life
                                 </span>
                             </h1>
-                            <div className="w-24 h-1 bg-gradient-to-r from-crimson-500 via-amber-500 to-transparent mt-6 mx-auto lg:mx-0 rounded-full" />
-                        </motion.div>
+                            <div className="w-16 h-1 bg-crimson-800 mx-auto lg:mx-0 rounded-full" />
+                        </div>
 
-                        {/* Literary Sub-description */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.4 }}
-                            className="text-base sm:text-lg text-stone-300/90 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0"
-                        >
-                            Bridging classical Islamic philosophy with modern existential inquiry. Explore foundational treatises on divine providence, moral ethics, and the purification of the human heart by <strong className="text-amber-200 font-semibold">Dr. Muhammad Salim</strong>.
-                        </motion.p>
+                        {/* Subtitle */}
+                        <p className="text-base sm:text-lg text-stone-600 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
+                            Explore the published books and articles of <strong className="text-stone-900 font-semibold">Dr. Muhammad Salim</strong> — helping readers find inner peace, build meaningful character, and live a purposeful life.
+                        </p>
 
-                        {/* Action Triggers */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 1, delay: 0.6 }}
-                            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
-                        >
-                            <button
-                                onClick={() => setIsSampleModalOpen(true)}
-                                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-gradient-to-r from-crimson-600 via-red-600 to-amber-600 hover:from-crimson-500 hover:to-amber-500 text-white font-bold text-sm tracking-wide shadow-xl shadow-crimson-900/30 hover:shadow-amber-500/20 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2.5 cursor-pointer group"
-                            >
-                                <span>📖 Read Free Sample Chapter</span>
-                                <span className="group-hover:translate-x-1 transition-transform">→</span>
-                            </button>
-
+                        {/* High-Impact Actions */}
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1">
                             <a
                                 href="#books"
-                                className="w-full sm:w-auto px-7 py-4 rounded-xl bg-white/5 hover:bg-white/10 text-stone-200 hover:text-white font-semibold text-sm border border-white/10 hover:border-amber-500/30 backdrop-blur-md transition-all duration-300 text-center"
+                                className="w-full sm:w-auto btn btn-primary text-center"
                             >
-                                Explore Book Catalogue
+                                Browse Published Books
                             </a>
-                        </motion.div>
+                            <a
+                                href="#articles"
+                                className="w-full sm:w-auto btn btn-outline text-center"
+                            >
+                                Read Articles
+                            </a>
+                        </div>
 
-                        {/* Key Pillars Highlights */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 1.2, delay: 0.8 }}
-                            className="pt-6 grid grid-cols-3 gap-4 border-t border-white/10 max-w-lg mx-auto lg:mx-0"
-                        >
-                            <div>
-                                <div className="text-xl sm:text-2xl font-bold text-amber-300 font-mono">540K+</div>
-                                <div className="text-[11px] text-stone-400 uppercase tracking-wider font-medium">Monthly Readers</div>
+                        {/* Metrics Bar */}
+                        <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-stone-200">
+                            <div className="p-3 bg-stone-50 rounded-xl border border-stone-200/80">
+                                <div className="text-2xl font-bold text-stone-900">40+</div>
+                                <div className="text-xs text-stone-500 uppercase tracking-wider font-mono">Years of Work</div>
                             </div>
-                            <div>
-                                <div className="text-xl sm:text-2xl font-bold text-white font-mono">5 Seminal</div>
-                                <div className="text-[11px] text-stone-400 uppercase tracking-wider font-medium">Core Books</div>
+                            <div className="p-3 bg-stone-50 rounded-xl border border-stone-200/80">
+                                <div className="text-2xl font-bold text-stone-900">5</div>
+                                <div className="text-xs text-stone-500 uppercase tracking-wider font-mono">Core Books</div>
                             </div>
-                            <div>
-                                <div className="text-xl sm:text-2xl font-bold text-amber-300 font-mono">4.9 ★</div>
-                                <div className="text-[11px] text-stone-400 uppercase tracking-wider font-medium">Global Rating</div>
+                            <div className="p-3 bg-stone-50 rounded-xl border border-stone-200/80">
+                                <div className="text-2xl font-bold text-amber-800">5x</div>
+                                <div className="text-xs text-stone-500 uppercase tracking-wider font-mono">National Awards</div>
                             </div>
-                        </motion.div>
+                            <div className="p-3 bg-stone-50 rounded-xl border border-stone-200/80">
+                                <div className="text-2xl font-bold text-crimson-800">4.9 ★</div>
+                                <div className="text-xs text-stone-500 uppercase tracking-wider font-mono">Reader Rating</div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    {/* Right Column: 3D Interactive Bestseller Book Showcase */}
-                    <div className="lg:col-span-5 flex justify-center relative">
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, rotateY: 20 }}
-                            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-                            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                            className="relative group perspective-[1200px]"
-                        >
-                            {/* Glowing Backlight Halo */}
-                            <div className="absolute -inset-4 bg-gradient-to-tr from-crimson-600/30 via-amber-500/20 to-transparent rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500" />
+                    {/* Right Column: Featured Book Card */}
+                    <div className="lg:col-span-5 flex justify-center">
+                        <div className="w-full max-w-md bg-stone-50 border border-stone-200 rounded-2xl p-6 sm:p-8 shadow-md relative">
+                            
+                            {/* Top Badge */}
+                            <div className="flex justify-between items-center mb-6">
+                                <span className="px-3 py-1 rounded-full bg-crimson-50 text-crimson-800 border border-crimson-200 text-xs font-bold uppercase tracking-wider">
+                                    #1 Bestseller
+                                </span>
+                                <span className="text-xs font-mono font-bold text-amber-800">
+                                    ★ 4.9 Rating
+                                </span>
+                            </div>
 
-                            {/* 3D Book Container */}
-                            <motion.div
-                                whileHover={{ rotateY: -8, rotateX: 4, scale: 1.03 }}
-                                transition={{ duration: 0.4 }}
-                                className="relative w-[280px] sm:w-[320px] h-[430px] sm:h-[480px] rounded-xl bg-gradient-to-br from-[#1A1D24] via-[#12151B] to-[#0A0C10] border border-amber-500/30 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col justify-between p-7"
-                            >
-                                {/* Spine Lighting Detail */}
-                                <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-black/70 via-amber-500/10 to-transparent border-r border-white/5" />
-
-                                {/* Top Badge & Emblem */}
-                                <div className="flex justify-between items-start z-10">
-                                    <span className="px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/40 text-[10px] font-black tracking-widest text-amber-300 uppercase">
-                                        #1 Bestseller
+                            {/* Book Visual Mockup */}
+                            <div className="w-48 sm:w-56 h-68 sm:h-76 mx-auto rounded-xl bg-gradient-to-br from-[#7F1D1D] to-[#991B1B] text-white p-5 flex flex-col justify-between shadow-xl relative border border-white/20 mb-6">
+                                <div className="absolute left-0 top-0 bottom-0 w-4 bg-black/30 rounded-l-xl border-r border-white/10" />
+                                
+                                <div className="pl-3">
+                                    <span className="text-[10px] font-mono tracking-widest text-amber-200/80 uppercase block">
+                                        Published Book
                                     </span>
-                                    <div className="w-8 h-8 rounded-full bg-crimson-500/20 border border-crimson-500/40 flex items-center justify-center text-amber-300 font-serif text-sm">
-                                        ⚜
-                                    </div>
+                                    <span className="text-xs font-bold text-white">Dr. Muhammad Salim</span>
                                 </div>
 
-                                {/* Center Book Title & Artwork */}
-                                <div className="my-auto text-center space-y-3 z-10">
-                                    <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-tr from-amber-500/20 to-crimson-500/20 border border-amber-500/30 flex items-center justify-center text-amber-300 text-xl">
-                                        📜
-                                    </div>
-                                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading">
+                                <div className="pl-3 my-auto text-center space-y-1">
+                                    <h3 className="text-xl sm:text-2xl font-bold text-amber-100 font-serif leading-tight">
                                         Brotherhood
                                     </h3>
-                                    <div className="w-12 h-[1px] bg-amber-400/50 mx-auto" />
-                                    <p className="text-xs text-stone-300 font-serif italic line-clamp-2 px-2">
-                                        "The Spiritual & Social Foundations of Communal Unity"
+                                    <p className="text-[10px] text-amber-100/80 italic font-serif">
+                                        The Power of Unity & Sincere Hearts
                                     </p>
                                 </div>
 
-                                {/* Bottom Book Details */}
-                                <div className="pt-4 border-t border-white/10 flex justify-between items-end z-10">
-                                    <div>
-                                        <span className="text-[10px] text-stone-400 uppercase tracking-widest block font-mono">Author</span>
-                                        <span className="text-xs font-bold text-amber-200">Dr. Muhammad Salim</span>
-                                    </div>
-                                    <div className="text-right">
-                                        <span className="text-[10px] text-emerald-400 font-bold block">★★★★★ 4.9</span>
-                                        <span className="text-xs font-mono font-bold text-stone-300">58 Sales (50%)</span>
-                                    </div>
+                                <div className="pl-3 flex justify-between items-center text-[10px] text-amber-200/80 font-mono">
+                                    <span>280 Pages</span>
+                                    <span className="font-bold text-white">$20.50</span>
                                 </div>
-                            </motion.div>
-                        </motion.div>
+                            </div>
+
+                            {/* Pull Quote */}
+                            <p className="text-xs sm:text-sm text-stone-600 italic font-serif leading-relaxed text-center mb-5">
+                                "Real brotherhood is built on sincere hearts, mutual respect, and honest care for one another."
+                            </p>
+
+                            {/* Direct Buttons */}
+                            <div className="grid grid-cols-2 gap-3">
+                                <button
+                                    onClick={() => setIsSampleModalOpen(true)}
+                                    className="btn btn-outline text-xs text-center py-2.5 cursor-pointer"
+                                >
+                                    📖 Read Preview
+                                </button>
+                                <a
+                                    href="https://www.amazon.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-primary text-xs text-center py-2.5"
+                                >
+                                    Buy on Amazon →
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
 
                 </div>
 
-                {/* Marketplace Trust Bar */}
-                <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1, delay: 0.9 }}
-                    className="mt-16 pt-8 border-t border-white/10 flex flex-wrap items-center justify-between gap-6"
-                >
-                    <span className="text-[11px] font-mono tracking-wider text-stone-400 uppercase font-semibold">
-                        Official Editions Available Worldwide:
-                    </span>
-                    <div className="flex flex-wrap items-center gap-6 text-xs text-stone-300 font-medium">
-                        <span className="flex items-center gap-2 hover:text-amber-300 transition-colors">
-                            <span className="w-2 h-2 rounded-full bg-amber-500" /> Amazon KDP (Kindle & Print)
+                {/* Availability Strip */}
+                <div className="mt-12 sm:mt-16 pt-6 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500 font-mono">
+                    <span className="uppercase font-semibold">Published Editions Available Worldwide:</span>
+                    <div className="flex flex-wrap items-center justify-center gap-4 text-stone-700 font-medium">
+                        <span className="inline-flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-amber-600" /> Amazon Paperback
                         </span>
-                        <span className="flex items-center gap-2 hover:text-orange-300 transition-colors">
-                            <span className="w-2 h-2 rounded-full bg-orange-500" /> Etsy Marketplace (Collector Sets)
+                        <span className="inline-flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-stone-700" /> Kindle eBook Edition
                         </span>
-                        <span className="flex items-center gap-2 hover:text-emerald-300 transition-colors">
-                            <span className="w-2 h-2 rounded-full bg-emerald-500" /> Barnes & Noble (Nook & Hardcover)
-                        </span>
-                        <span className="flex items-center gap-2 hover:text-red-300 transition-colors">
-                            <span className="w-2 h-2 rounded-full bg-red-500" /> Pinterest Commerce
+                        <span className="inline-flex items-center gap-1.5">
+                            <span className="w-2 h-2 rounded-full bg-emerald-600" /> Global Library Distribution
                         </span>
                     </div>
-                </motion.div>
+                </div>
+
             </div>
 
             {/* Free Chapter Preview Modal */}
             {isSampleModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-                    <div className="relative w-full max-w-2xl max-h-[85vh] bg-[#0E1117] border border-amber-500/30 rounded-2xl p-6 sm:p-8 overflow-y-auto shadow-2xl space-y-6">
-                        <div className="flex justify-between items-start border-b border-white/10 pb-4">
+                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/50 backdrop-blur-xs">
+                    <div className="relative w-full max-w-2xl max-h-[85vh] bg-white border border-stone-200 rounded-2xl p-6 sm:p-8 overflow-y-auto shadow-2xl space-y-5">
+                        
+                        <div className="flex justify-between items-start border-b border-stone-200 pb-4">
                             <div>
-                                <span className="text-[10px] font-mono tracking-widest text-amber-400 font-bold uppercase">Sample Chapter 1</span>
-                                <h3 className="text-xl font-bold text-white font-heading">Brotherhood: The Soul's Covenant</h3>
-                                <p className="text-xs text-stone-400">By Dr. Muhammad Salim</p>
+                                <span className="text-xs font-mono font-bold text-crimson-800 uppercase tracking-wider">
+                                    Free Preview • Chapter 1
+                                </span>
+                                <h3 className="text-xl sm:text-2xl font-bold text-stone-900 font-serif">
+                                    Brotherhood
+                                </h3>
+                                <p className="text-xs text-stone-500 mt-0.5">By Dr. Muhammad Salim</p>
                             </div>
                             <button
                                 onClick={() => setIsSampleModalOpen(false)}
-                                className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-stone-300 flex items-center justify-center text-sm cursor-pointer transition-colors"
+                                className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center text-sm cursor-pointer"
                             >
                                 ✕
                             </button>
                         </div>
 
-                        <div className="prose prose-invert prose-stone max-w-none text-stone-300 leading-relaxed font-serif text-sm sm:text-base space-y-4">
-                            <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-amber-400 first-letter:mr-2 first-letter:float-left">
-                                True brotherhood is not merely a social contract; it is a spiritual resonance rooted in the primordial recognition of the Creator. When two hearts meet in sincerity, the barriers of ego and worldly division dissolve, revealing the underlying unity of all human souls.
+                        <div className="text-stone-700 font-serif leading-relaxed text-sm sm:text-base space-y-4">
+                            <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-crimson-800 first-letter:mr-2 first-letter:float-left">
+                                True brotherhood is more than a social custom; it is a deep spiritual connection rooted in our shared humanity. When two people meet with genuine sincerity, personal egos and small divisions melt away, revealing true mutual respect.
                             </p>
                             <p>
-                                In classical Islamic psychology, brotherhood acts as a mirror. Just as a mirror reflects flaws without hatred and illuminates beauty without jealousy, the sincere brother guides his companion toward purification (Tazkiyah) with gentle compassion.
+                                A sincere friend acts like a gentle mirror. Just as a mirror reflects what is true without anger and highlights beauty without jealousy, a true brother helps his companion grow in patience, honesty, and kindness.
                             </p>
-                            <p className="italic text-amber-200/90 border-l-2 border-amber-500 pl-4 py-1">
-                                "The strength of a community is not measured by its physical wealth, but by the purity of the bonds that unite the hearts of its people."
-                            </p>
+                            <div className="p-4 rounded-xl bg-amber-50 border-l-4 border-amber-600 text-amber-950 italic text-sm">
+                                "The strength of a community is measured by how sincerely its people care for one another."
+                            </div>
                         </div>
 
-                        <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
-                            <span className="text-xs text-stone-400">Full 280-page edition available online</span>
-                            <div className="flex gap-3 w-full sm:w-auto">
+                        <div className="pt-4 border-t border-stone-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                            <span className="text-xs text-stone-500">Full 280-page book available on Amazon</span>
+                            <div className="flex gap-2.5 w-full sm:w-auto">
                                 <a
-                                    href="#books"
-                                    onClick={() => setIsSampleModalOpen(false)}
-                                    className="px-5 py-2.5 rounded-lg bg-crimson-600 hover:bg-crimson-500 text-white font-bold text-xs transition-colors text-center w-full sm:w-auto"
+                                    href="https://www.amazon.com"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="btn btn-primary flex-1 sm:flex-initial text-xs text-center"
                                 >
-                                    Get Full Book
+                                    Buy on Amazon
                                 </a>
                                 <button
                                     onClick={() => setIsSampleModalOpen(false)}
-                                    className="px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 text-stone-300 text-xs font-semibold"
+                                    className="btn btn-outline flex-1 sm:flex-initial text-xs cursor-pointer"
                                 >
                                     Close Preview
                                 </button>
                             </div>
                         </div>
+
                     </div>
                 </div>
             )}

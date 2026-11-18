@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 
 export default function Newsletter() {
     const [email, setEmail] = useState('');
@@ -13,69 +12,58 @@ export default function Newsletter() {
         setIsSubmitting(true);
 
         setTimeout(() => {
-            setMessage('You have been initiated into the discourse.');
+            setMessage('✓ Thank you for subscribing. You will receive new articles and updates.');
             setEmail('');
             setIsSubmitting(false);
             setTimeout(() => setMessage(''), 5000);
-        }, 1500);
+        }, 1000);
     };
 
     return (
-        <section id="newsletter" className="py-40 relative overflow-hidden bg-charcoal-900 border-t border-white/5">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 opacity-5 pointer-events-none grayscale" style={{ backgroundImage: 'url("/section-bg.png")', backgroundSize: 'cover' }} />
-            
-            <div className="container relative z-10">
-                <div className="max-w-5xl mx-auto glass-card p-12 md:p-24 text-center border-crimson-500/10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
+        <section id="newsletter" className="py-16 sm:py-24 bg-white">
+            <div className="container max-w-3xl mx-auto px-4 sm:px-6 text-center space-y-6">
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-crimson-800 block">
+                    Stay Connected
+                </span>
+                
+                <h2 className="text-3xl sm:text-5xl font-bold text-stone-900 tracking-tight font-heading leading-tight">
+                    Subscribe to <br />
+                    <span className="text-crimson-800 font-serif italic font-normal">
+                        New Articles & Publications
+                    </span>
+                </h2>
+                
+                <p className="text-stone-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed font-light">
+                    Join thousands of readers receiving new articles, book announcements, and insights directly from Dr. Muhammad Salim.
+                </p>
+
+                <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2">
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email..."
+                        required
+                        className="flex-1 bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-crimson-800/20 focus:border-crimson-800 text-sm"
+                    />
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="btn btn-primary text-xs whitespace-nowrap"
                     >
-                        <span className="text-crimson-500 font-black uppercase tracking-[0.5em] text-[10px] mb-8 block">
-                            Intellectual Resonance
-                        </span>
-                        
-                        <h2 className="text-5xl md:text-8xl text-white font-bold mb-10 leading-[0.9] tracking-tighter">
-                            Subscribe to the <br />
-                            <span className="text-crimson-500 font-serif-italic font-normal px-2">Discourse</span>
-                        </h2>
-                        
-                        <p className="text-stone-400 text-xl mb-16 max-w-2xl mx-auto leading-relaxed font-light">
-                            Receive curated updates on latest publications, 
-                            philosophical reflections, and scholarly inquiries.
-                        </p>
+                        {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                    </button>
+                </form>
 
-                        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto">
-                            <input
-                                type="email"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder="Formal Email Address"
-                                required
-                                className="flex-1 bg-charcoal-950 border border-stone-800 px-8 py-6 text-white placeholder:text-stone-600 focus:outline-none focus:border-crimson-500 transition-all duration-500 tracking-wide text-sm"
-                            />
-                            <button
-                                type="submit"
-                                disabled={isSubmitting}
-                                className="btn btn-primary disabled:opacity-50 min-w-[220px]"
-                            >
-                                {isSubmitting ? 'Processing...' : 'Secure Access'}
-                            </button>
-                        </form>
+                <p className="text-xs text-stone-400 font-mono">
+                    Zero spam. Unsubscribe anytime.
+                </p>
 
-                        {message && (
-                            <motion.div 
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="mt-12 text-crimson-400 text-[10px] font-black tracking-[0.3em] uppercase"
-                            >
-                                {message}
-                            </motion.div>
-                        )}
-                    </motion.div>
-                </div>
+                {message && (
+                    <div className="mt-4 text-emerald-700 text-xs font-semibold">
+                        {message}
+                    </div>
+                )}
             </div>
         </section>
     );

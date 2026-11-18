@@ -17,9 +17,8 @@ export default function ContactPage() {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // Simulate form submission
         setTimeout(() => {
-            setSubmitMessage('Thank you for your message. Your inquiry has been received.');
+            setSubmitMessage('✓ Thank you for reaching out. Your scholarly inquiry has been delivered.');
             setFormData({ name: '', email: '', subject: '', message: '' });
             setIsSubmitting(false);
 
@@ -35,53 +34,50 @@ export default function ContactPage() {
     };
 
     return (
-        <main className="bg-charcoal-950 min-h-screen text-white pt-32 pb-24 relative overflow-hidden">
+        <main className="bg-white min-h-screen text-stone-900 pt-32 sm:pt-40 pb-24 relative overflow-hidden">
             {/* Background Decorative Glows */}
-            <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
-                <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[radial-gradient(circle_at_50%_50%,rgba(153,0,0,0.1),transparent_70%)] blur-[80px]" />
-                <div className="absolute inset-0 bg-cover bg-center opacity-5 grayscale" style={{ backgroundImage: 'url("/section-bg.png")' }} />
-            </div>
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-amber-100/40 rounded-full blur-[140px] pointer-events-none z-0" />
 
-            <div className="container relative z-10 max-w-[1200px] mx-auto px-6">
+            <div className="container relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}
-                <div className="text-center mb-20">
-                    <span className="text-crimson-500 font-black uppercase tracking-[0.5em] text-[10px] mb-4 block">
-                        Get in Touch
+                <div className="text-center mb-12 sm:mb-16">
+                    <span className="text-crimson-700 font-mono font-bold uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-3 block">
+                        Direct Inquiries
                     </span>
-                    <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-none tracking-tighter">
-                        Contact the <span className="text-crimson-500 font-serif-italic font-normal px-2">Author</span>
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-stone-900 mb-4 tracking-tight font-heading leading-tight">
+                        Contact the <span className="bg-gradient-to-r from-crimson-700 to-amber-700 bg-clip-text text-transparent font-serif italic font-normal">Author</span>
                     </h1>
-                    <div className="w-16 h-[1px] bg-crimson-500/40 mx-auto mb-8" />
-                    <p className="text-stone-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-                        Have a question, feedback, or want to connect? Please feel free to send a message.
+                    <div className="w-16 h-1 bg-gradient-to-r from-crimson-600 via-amber-500 to-transparent mx-auto mb-6 rounded-full" />
+                    <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed">
+                        Have a question, publishing inquiry, or discussion regarding Dr. Salim's books or articles? Please share your message below.
                     </p>
                 </div>
 
                 {/* Content Grid */}
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-16 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-8 sm:gap-12 items-start">
                     
                     {/* Column 1: Contact Information */}
-                    <div className="space-y-8">
-                        <h2 className="text-2xl font-bold text-white font-heading tracking-tight mb-8">
-                            Information
+                    <div className="space-y-6">
+                        <h2 className="text-xl font-bold text-stone-900 font-heading tracking-tight">
+                            Scholarly Channels
                         </h2>
 
-                        <div className="space-y-6">
+                        <div className="space-y-4">
                             {[
-                                { icon: '📧', label: 'Email Address', value: 'contact@drsalim.com' },
-                                { icon: '📱', label: 'Office Telephone', value: '+1 (555) 123-4567' },
-                                { icon: '📍', label: 'Academic Location', value: 'Academic Center, City' }
+                                { icon: '📧', label: 'Email Correspondence', value: 'contact@drsalim.com' },
+                                { icon: '📱', label: 'Office Telephone', value: '+92 300 000 0000' },
+                                { icon: '📍', label: 'Academic Base', value: 'Islamabad, Punjab, Pakistan' }
                             ].map((item, index) => (
                                 <div 
                                     key={index} 
-                                    className="flex items-start gap-6 p-8 bg-charcoal-900/60 border border-stone-900 rounded-none hover:border-crimson-500/20 transition-all duration-500"
+                                    className="flex items-start gap-4 p-5 rounded-2xl bg-stone-50/80 border border-stone-200/90 hover:border-amber-400 transition-colors shadow-2xs"
                                 >
-                                    <div className="text-2xl mt-1">{item.icon}</div>
+                                    <div className="text-2xl mt-0.5">{item.icon}</div>
                                     <div>
-                                        <div className="text-crimson-500 text-[10px] font-black uppercase tracking-[0.2em] mb-1">
+                                        <div className="text-crimson-700 text-[10px] font-mono font-bold uppercase tracking-wider mb-0.5">
                                             {item.label}
                                         </div>
-                                        <div className="text-stone-200 font-light text-base tracking-wide">
+                                        <div className="text-stone-800 font-medium text-sm">
                                             {item.value}
                                         </div>
                                     </div>
@@ -89,28 +85,28 @@ export default function ContactPage() {
                             ))}
                         </div>
 
-                        {/* Office Hours */}
-                        <div className="p-8 bg-charcoal-900/40 border border-stone-900 rounded-none border-t-2 border-t-crimson-500/30">
-                            <div className="text-crimson-500 text-2xl mb-4 text-center">⏰</div>
-                            <div className="font-bold text-stone-200 text-center uppercase tracking-widest text-xs mb-3">Office Hours</div>
-                            <div className="text-sm text-stone-400 text-center leading-relaxed font-light">
-                                Monday - Friday<br />
-                                9:00 AM - 5:00 PM (EST)
+                        {/* Scholar Consultation Hours */}
+                        <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200 text-center space-y-2">
+                            <div className="text-2xl">⏰</div>
+                            <div className="font-bold text-amber-950 uppercase tracking-widest text-xs">Academic Desk Hours</div>
+                            <div className="text-xs text-stone-600 leading-relaxed font-light">
+                                Monday – Friday: 10:00 AM – 4:00 PM (PKT)<br />
+                                Direct scholarly review of manuscripts & inquiries
                             </div>
                         </div>
                     </div>
 
                     {/* Column 2: Contact Form */}
-                    <div className="bg-charcoal-900/50 border border-stone-900 p-8 md:p-12 rounded-none relative">
-                        <h3 className="text-2xl font-bold text-white font-heading tracking-tight mb-8">
-                            Send a Message
+                    <div className="bg-white border border-stone-200/90 p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-xl relative">
+                        <h3 className="text-xl font-bold text-stone-900 font-heading tracking-tight mb-6">
+                            Send a Scholarly Message
                         </h3>
 
-                        <form onSubmit={handleSubmit} className="space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="space-y-3">
-                                    <label htmlFor="name" className="block text-xs font-black uppercase tracking-wider text-stone-400">
-                                        Your Name *
+                        <form onSubmit={handleSubmit} className="space-y-5">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div className="space-y-1.5">
+                                    <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                        Your Full Name *
                                     </label>
                                     <input
                                         type="text"
@@ -119,12 +115,13 @@ export default function ContactPage() {
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm"
+                                        placeholder="Prof. / Dr. / Reader Name"
+                                        className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
                                     />
                                 </div>
 
-                                <div className="space-y-3">
-                                    <label htmlFor="email" className="block text-xs font-black uppercase tracking-wider text-stone-400">
+                                <div className="space-y-1.5">
+                                    <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
                                         Email Address *
                                     </label>
                                     <input
@@ -134,14 +131,15 @@ export default function ContactPage() {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm"
+                                        placeholder="email@example.com"
+                                        className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
                                     />
                                 </div>
                             </div>
 
-                            <div className="space-y-3">
-                                <label htmlFor="subject" className="block text-xs font-black uppercase tracking-wider text-stone-400">
-                                    Subject *
+                            <div className="space-y-1.5">
+                                <label htmlFor="subject" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                    Inquiry Subject *
                                 </label>
                                 <input
                                     type="text"
@@ -150,13 +148,14 @@ export default function ContactPage() {
                                     value={formData.subject}
                                     onChange={handleChange}
                                     required
-                                    className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm"
+                                    placeholder="e.g. Theological Inquiry / Book Acquisition / Editorial Review"
+                                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
                                 />
                             </div>
 
-                            <div className="space-y-3">
-                                <label htmlFor="message" className="block text-xs font-black uppercase tracking-wider text-stone-400">
-                                    Message *
+                            <div className="space-y-1.5">
+                                <label htmlFor="message" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                    Detailed Message *
                                 </label>
                                 <textarea
                                     id="message"
@@ -164,24 +163,25 @@ export default function ContactPage() {
                                     value={formData.message}
                                     onChange={handleChange}
                                     required
-                                    rows={6}
-                                    className="w-full bg-charcoal-950 border border-stone-850 px-6 py-4 text-white focus:outline-none focus:border-crimson-500 rounded-none transition-all duration-300 text-sm resize-none"
+                                    rows={5}
+                                    placeholder="Please share your questions, suggestions or references..."
+                                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm resize-none"
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-crimson-500 hover:bg-stone-900 text-white font-black uppercase tracking-[0.2em] text-[10px] py-5 transition-all duration-500 rounded-none cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="w-full py-4 rounded-xl bg-gradient-to-r from-crimson-600 via-crimson-700 to-amber-600 hover:from-crimson-700 hover:to-amber-700 text-white font-bold uppercase tracking-wider text-xs shadow-md shadow-crimson-900/15 hover:shadow-lg transition-all cursor-pointer disabled:opacity-50 active:scale-98"
                             >
-                                {isSubmitting ? 'Sending...' : 'Send Message'}
+                                {isSubmitting ? 'Delivering Inquiry...' : 'Send Message →'}
                             </button>
 
                             {submitMessage && (
                                 <motion.div 
-                                    initial={{ opacity: 0, y: 10 }}
+                                    initial={{ opacity: 0, y: 8 }}
                                     animate={{ opacity: 1, y: 0 }}
-                                    className="mt-6 p-4 border border-crimson-500/20 bg-crimson-500/5 text-crimson-400 text-xs font-semibold tracking-wider text-center uppercase"
+                                    className="mt-4 p-4 rounded-xl border border-emerald-300 bg-emerald-50 text-emerald-800 text-xs font-semibold text-center"
                                 >
                                     {submitMessage}
                                 </motion.div>

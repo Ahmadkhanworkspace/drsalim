@@ -9,117 +9,178 @@ export default function Navigation() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
         const handleScroll = () => {
-            setScrolled(window.scrollY > 50);
+            setScrolled(window.scrollY > 15);
         };
 
-        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Prevent body scrolling when mobile drawer is open
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
+    // Close menu when route changes
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
     const navLinks = [
-        { label: 'Store', href: '/store' },
+        { label: 'Books', href: '/#books' },
+        { label: 'Articles', href: '/#articles' },
+        { label: 'Ask Dr. Salim', href: '/qa' },
         { label: 'About', href: '/about' },
-        { label: 'Books', href: '#books' },
-        { label: 'Articles', href: '#articles' },
-        { label: 'Contact', href: '/contact' },
-        { label: 'Suggestions', href: '/suggestions' }
+        { label: 'Store', href: '/store' },
+        { label: 'Contact', href: '/contact' }
     ];
 
     if (pathname?.startsWith('/admin')) return null;
 
-    if (!mounted) return (
-        <nav className="fixed top-0 left-0 right-0 z-[1000] bg-transparent py-8">
-            <div className="container px-6 lg:px-12">
-                <div className="flex justify-between items-center">
-                    <div className="text-xl md:text-2xl font-bold tracking-tighter text-white font-heading">
-                        Dr. Muhammad Salim
-                    </div>
-                </div>
-            </div>
-        </nav>
-    );
-
     return (
-        <nav className={`fixed top-0 left-0 right-0 z-[1000] transition-all duration-700 ${
-            scrolled 
-            ? 'bg-charcoal-950/90 backdrop-blur-2xl border-b border-white/5 py-4' 
-            : 'bg-transparent py-8'
-        }`}
-        style={{ backgroundColor: scrolled ? 'hsla(0, 0%, 8%, 0.9)' : 'transparent' }}
+        <header
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
+                scrolled
+                    ? 'bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-xs py-3.5'
+                    : 'bg-white/80 backdrop-blur-sm border-b border-stone-200/60 py-4 sm:py-5'
+            }`}
         >
-            <div className="container px-6 lg:px-12">
+            <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
-                    <Link href="/" className="group">
-                        <h3 className="text-xl md:text-2xl font-bold tracking-tighter text-white transition-colors duration-500 group-hover:text-crimson-500 font-heading">
-                            Dr. Muhammad Salim
-                        </h3>
+                    
+                    {/* Brand Name */}
+                    <Link href="/" className="group flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-stone-900 text-white flex items-center justify-center font-serif text-lg font-bold group-hover:bg-crimson-800 transition-colors">
+                            S
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 group-hover:text-crimson-800 transition-colors font-heading leading-tight">
+                                Dr. Muhammad Salim
+                            </span>
+                            <span className="text-[11px] font-mono text-stone-500 uppercase tracking-wider">
+                                Author & Scholar
+                            </span>
+                        </div>
                     </Link>
 
-                    {/* Desktop Menu */}
-                    <div className="hidden lg:flex items-center gap-12">
+                    {/* Desktop Navigation */}
+                    <nav className="hidden lg:flex items-center gap-8">
                         {navLinks.map((item) => (
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className="text-[10px] font-black uppercase tracking-[0.3em] text-stone-400 hover:text-white transition-colors duration-500"
+                                className="text-sm font-medium text-stone-600 hover:text-crimson-800 transition-colors py-1"
                             >
                                 {item.label}
                             </Link>
                         ))}
 
-                        <Link href="#newsletter" className="btn btn-primary ml-4">
-                            Subscribe
+                        <Link
+                            href="/#books"
+                            className="btn btn-primary text-xs tracking-wider uppercase"
+                        >
+                            Browse Books
                         </Link>
+                    </nav>
+
+                    {/* Mobile Menu Actions */}
+                    <div className="flex items-center gap-2.5 lg:hidden">
+                        <Link
+                            href="/#books"
+                            className="px-3 py-1.5 rounded-lg bg-crimson-50 text-crimson-800 border border-crimson-200 text-xs font-semibold"
+                        >
+                            Books
+                        </Link>
+
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            aria-label={isOpen ? 'Close Menu' : 'Open Navigation Menu'}
+                            className="w-11 h-11 rounded-xl bg-stone-100 border border-stone-200 text-stone-900 flex flex-col items-center justify-center gap-1.5 focus:outline-none active:scale-95 transition-all"
+                        >
+                            <span
+                                className={`w-5 h-[2px] bg-stone-900 rounded-full transition-transform duration-300 origin-center ${
+                                    isOpen ? 'rotate-45 translate-y-[5px]' : ''
+                                }`}
+                            />
+                            <span
+                                className={`w-5 h-[2px] bg-stone-900 rounded-full transition-opacity duration-300 ${
+                                    isOpen ? 'opacity-0' : 'opacity-100'
+                                }`}
+                            />
+                            <span
+                                className={`w-5 h-[2px] bg-stone-900 rounded-full transition-transform duration-300 origin-center ${
+                                    isOpen ? '-rotate-45 -translate-y-[5px]' : ''
+                                }`}
+                            />
+                        </button>
                     </div>
 
-                    {/* Mobile Menu Button */}
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 z-50"
-                    >
-                        <span className={`w-6 h-[1px] bg-white transition-transform duration-500 ${isOpen ? 'rotate-45 translate-y-2' : ''}`} />
-                        <span className={`w-6 h-[1px] bg-white transition-opacity duration-500 ${isOpen ? 'opacity-0' : ''}`} />
-                        <span className={`w-6 h-[1px] bg-white transition-transform duration-500 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-                    </button>
                 </div>
             </div>
 
-            {/* Mobile Menu Overlay */}
+            {/* Mobile Navigation Drawer */}
             <AnimatePresence>
                 {isOpen && (
-                    <motion.div 
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: '100%' }}
-                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                        className="fixed inset-0 bg-charcoal-950 z-40 flex flex-col items-center justify-center gap-10 lg:hidden"
-                        style={{ backgroundColor: 'hsl(var(--charcoal-950))' }}
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="lg:hidden border-b border-stone-200 bg-white shadow-xl"
                     >
-                        {navLinks.map((item) => (
-                            <Link
-                                key={item.label}
-                                href={item.href}
-                                onClick={() => setIsOpen(false)}
-                                className="text-2xl font-bold tracking-tighter text-stone-200 hover:text-crimson-500 transition-colors duration-500 font-heading"
-                            >
-                                {item.label}
-                            </Link>
-                        ))}
-                        <Link 
-                            href="#newsletter" 
-                            onClick={() => setIsOpen(false)}
-                            className="btn btn-primary mt-10"
-                        >
-                            Subscribe
-                        </Link>
+                        <div className="container px-4 py-6 space-y-4 max-h-[calc(100vh-5rem)] overflow-y-auto">
+                            
+                            <div className="divide-y divide-stone-100">
+                                {navLinks.map((item) => (
+                                    <Link
+                                        key={item.label}
+                                        href={item.href}
+                                        onClick={() => setIsOpen(false)}
+                                        className="flex items-center justify-between py-3.5 px-2 text-stone-800 hover:text-crimson-800 active:bg-stone-50 rounded-lg transition-colors"
+                                    >
+                                        <span className="font-heading text-lg font-semibold">
+                                            {item.label}
+                                        </span>
+                                        <span className="text-stone-400">›</span>
+                                    </Link>
+                                ))}
+                            </div>
+
+                            <div className="pt-2 space-y-2">
+                                <Link
+                                    href="/#books"
+                                    onClick={() => setIsOpen(false)}
+                                    className="w-full btn btn-primary text-center block"
+                                >
+                                    Browse Complete Book Library
+                                </Link>
+                                <Link
+                                    href="/#newsletter"
+                                    onClick={() => setIsOpen(false)}
+                                    className="w-full btn btn-outline text-center block"
+                                >
+                                    Subscribe to Articles
+                                </Link>
+                            </div>
+
+                            <div className="pt-4 border-t border-stone-100 text-center text-xs text-stone-500 font-mono">
+                                © {new Date().getFullYear()} Dr. Muhammad Salim
+                            </div>
+
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
-        </nav>
+        </header>
     );
 }

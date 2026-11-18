@@ -70,7 +70,7 @@ export default function AwardsPage() {
     const stats = [
         { label: 'Presidential Awards', value: '5 Conferred', desc: 'Conferred by Presidents & PMs', icon: '🎖️', color: '#D97706', bg: 'bg-amber-50 text-amber-700' },
         { label: 'Published Treatises', value: '6 Volumes', desc: 'Books in Distribution', icon: '📚', color: '#4F46E5', bg: 'bg-indigo-50 text-indigo-700' },
-        { label: 'Scientific & Religious Works', value: '200+ Publications', desc: 'Research & Discourse Papers', icon: '📜', color: '#059669', bg: 'bg-emerald-50 text-emerald-700' },
+        { label: 'Scientific & Religious Works', value: 'Published Works', desc: 'Articles & Research Papers', icon: '📜', color: '#059669', bg: 'bg-emerald-50 text-emerald-700' },
         { label: 'Scholarly Distinctions', value: 'Top 5% Career', desc: 'SSC to PhD Scholarships', icon: '🌟', color: '#7C3AED', bg: 'bg-purple-50 text-purple-700' },
     ];
 

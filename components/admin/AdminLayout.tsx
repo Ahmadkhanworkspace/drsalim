@@ -75,7 +75,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         { href: '/admin/seo', label: 'Pinterest Visual Redirects (65K Clicks)', category: 'Marketing', icon: '📌' },
         { href: '/admin/finance', label: 'Finance & PayFast Gateway ($2,381)', category: 'Finance', icon: '💳' },
         { href: '/admin/analytics', label: 'Multi-Channel Analytics (1.52M Visits)', category: 'Analytics', icon: '📈' },
-        { href: '/admin/articles', label: 'Articles & Essays (1.22M Views)', category: 'Content', icon: '📝' },
+        { href: '/admin/articles', label: 'Articles (1.22M Views)', category: 'Content', icon: '📝' },
         { href: '/admin/comments', label: 'Reader Comments Moderation (1,383)', category: 'Content', icon: '💬' },
         { href: '/admin/reviews', label: 'Editorial & Reader Reviews (4.9★)', category: 'Reviews', icon: '⭐' },
         { href: '/admin/awards', label: 'Presidential Seerat Awards', category: 'Accolades', icon: '🎖️' },
