@@ -1,11 +1,8 @@
-import { getBooks } from "@/app/lib/actions";
+import { books } from "@/data/books";
 import Link from "next/link";
 import FluidTiltCard from "@/components/3d/FluidTiltCard";
 
-export const dynamic = 'force-dynamic';
-
-export default async function StorePage() {
-    const books = await getBooks();
+export default function StorePage() {
 
     return (
         <main className="bg-[#FCFBF8] min-h-screen pb-24 text-stone-900 relative overflow-hidden">
