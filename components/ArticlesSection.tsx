@@ -30,19 +30,19 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
     };
 
     return (
-        <section id="articles" className="py-16 sm:py-24 bg-stone-50 border-b border-stone-200">
+        <section id="articles" className="py-20 sm:py-28 bg-[#FAF7F2] border-b border-[#E3DBD0]">
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 {/* Section Header */}
                 <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 sm:mb-16 gap-6 sm:gap-8">
                     <div>
-                        <span className="text-xs font-mono font-bold text-crimson-800 uppercase tracking-wider block mb-2">
-                            Articles & Reading
+                        <span className="text-xs font-mono font-bold text-[#7A1C1C] uppercase tracking-widest block mb-2">
+                            Articles & Literary Discourse
                         </span>
-                        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight font-heading text-stone-900 leading-tight">
+                        <h2 className="text-3xl sm:text-5xl font-bold tracking-tight font-heading text-[#1A1715] leading-tight">
                             Thoughtful Articles & <br />
-                            <span className="text-crimson-800 font-serif italic font-normal">
-                                Practical Reflections
+                            <span className="text-[#7A1C1C] font-serif italic font-normal">
+                                Moral Reflections
                             </span>
                         </h2>
                     </div>
@@ -55,8 +55,8 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
                                 onClick={() => setSelectedCategory(cat)}
                                 className={`shrink-0 px-4 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                                     selectedCategory === cat
-                                        ? 'bg-crimson-800 text-white shadow-xs'
-                                        : 'bg-white text-stone-700 border border-stone-200 hover:border-stone-300'
+                                        ? 'bg-[#7A1C1C] text-white shadow-xs'
+                                        : 'bg-white text-[#554E48] border border-[#D9CEBA] hover:border-[#1A1715]'
                                 }`}
                             >
                                 {cat === 'All' ? 'All Articles' : cat}
@@ -67,42 +67,42 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
 
                 {/* FEATURED LEAD ARTICLE */}
                 {selectedCategory === 'All' && featuredArticle && (
-                    <div className="mb-10 sm:mb-14 rounded-2xl bg-white border border-stone-200 p-6 sm:p-10 shadow-sm relative overflow-hidden group">
+                    <div className="mb-10 sm:mb-14 rounded-3xl bg-white border border-[#E3DBD0] p-7 sm:p-11 shadow-sm relative overflow-hidden group hover:border-[#C5A059]/60 transition-all">
                         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                             <div className="lg:col-span-8 space-y-4">
                                 <div className="flex flex-wrap items-center gap-2.5">
-                                    <span className="px-3 py-1 rounded-md bg-amber-100 text-amber-900 border border-amber-200 text-xs font-bold uppercase tracking-wider">
+                                    <span className="px-3 py-1 rounded-full bg-[#C5A059]/15 text-[#5C4A28] border border-[#C5A059]/30 text-xs font-bold uppercase tracking-wider">
                                         Featured Article
                                     </span>
-                                    <span className="text-xs text-stone-500 font-mono">
+                                    <span className="text-xs text-[#7A726A] font-mono">
                                         Published {featuredArticle.date}
                                     </span>
-                                    <span className="text-xs text-stone-600 font-mono">
+                                    <span className="text-xs text-[#7A726A] font-mono">
                                         • {getReadingStats(featuredArticle.content).text}
                                     </span>
                                 </div>
 
-                                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-stone-900 group-hover:text-crimson-800 transition-colors leading-tight">
+                                <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1715] group-hover:text-[#7A1C1C] transition-colors leading-tight font-heading">
                                     <Link href={`/articles/${featuredArticle.id}`}>
                                         {featuredArticle.title}
                                     </Link>
                                 </h3>
 
-                                <p className="text-stone-600 text-sm sm:text-base font-light leading-relaxed max-w-3xl">
+                                <p className="text-[#554E48] text-sm sm:text-base font-light leading-relaxed max-w-3xl">
                                     An insightful examination of what real justice means in everyday society, how moral responsibility builds strong communities, and why fairness matters in personal and public life.
                                 </p>
 
-                                <div className="flex flex-wrap items-center gap-3 pt-2">
+                                <div className="flex flex-wrap items-center gap-3 pt-3">
                                     <Link
                                         href={`/articles/${featuredArticle.id}`}
-                                        className="btn btn-primary text-xs"
+                                        className="px-6 py-3 rounded-xl bg-[#7A1C1C] hover:bg-[#631414] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-xs"
                                     >
                                         Read Full Article →
                                     </Link>
 
                                     <button
                                         onClick={(e) => toggleAudioPlay(e, featuredArticle.id)}
-                                        className="btn btn-outline text-xs cursor-pointer"
+                                        className="px-5 py-3 rounded-xl bg-white hover:bg-[#FAF7F2] border border-[#D9CEBA] text-[#1A1715] font-bold text-xs uppercase tracking-wider transition-all shadow-xs cursor-pointer"
                                     >
                                         <span>{isPlayingAudio === featuredArticle.id ? '⏸ Pause' : '🎧 Listen to Summary'}</span>
                                     </button>
@@ -110,21 +110,21 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
                             </div>
 
                             {/* Right Metadata Block */}
-                            <div className="lg:col-span-4 bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
-                                <div className="text-xs font-mono uppercase tracking-wider text-crimson-800 font-bold">
+                            <div className="lg:col-span-4 bg-[#FAF7F2] border border-[#E3DBD0] rounded-2xl p-6 space-y-3.5">
+                                <div className="text-xs font-mono uppercase tracking-widest text-[#7A1C1C] font-bold">
                                     Article Details
                                 </div>
-                                <div className="flex justify-between items-center py-1.5 border-b border-stone-200 text-xs">
-                                    <span className="text-stone-600">Total Views</span>
-                                    <span className="font-mono font-bold text-stone-900">153+</span>
+                                <div className="flex justify-between items-center py-2 border-b border-[#EAE3D8] text-xs">
+                                    <span className="text-[#7A726A]">Total Views</span>
+                                    <span className="font-mono font-bold text-[#1A1715]">153+</span>
                                 </div>
-                                <div className="flex justify-between items-center py-1.5 border-b border-stone-200 text-xs">
-                                    <span className="text-stone-600">Reader Comments</span>
-                                    <span className="font-mono font-bold text-amber-800">7 Comments</span>
+                                <div className="flex justify-between items-center py-2 border-b border-[#EAE3D8] text-xs">
+                                    <span className="text-[#7A726A]">Reader Comments</span>
+                                    <span className="font-mono font-bold text-[#7A1C1C]">7 Comments</span>
                                 </div>
-                                <div className="flex justify-between items-center py-1 text-xs">
-                                    <span className="text-stone-600">Topic</span>
-                                    <span className="font-semibold text-crimson-800">{featuredArticle.category}</span>
+                                <div className="flex justify-between items-center py-1.5 text-xs">
+                                    <span className="text-[#7A726A]">Topic</span>
+                                    <span className="font-semibold text-[#1A1715]">{featuredArticle.category}</span>
                                 </div>
                             </div>
                         </div>
@@ -132,7 +132,7 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
                 )}
 
                 {/* ARTICLES GRID */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                     {gridArticles.map((article) => {
                         const readTime = ((article.id * 3) % 5) + 4;
                         const likesCount = ((article.id * 47) % 73) + 12;
@@ -140,63 +140,42 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
                         return (
                             <article
                                 key={article.id}
-                                className="group bg-white border border-stone-200 hover:border-stone-300 rounded-2xl p-6 flex flex-col justify-between shadow-2xs hover:shadow-md transition-all"
+                                className="group bg-white border border-[#E3DBD0] hover:border-[#C5A059]/60 rounded-3xl p-7 flex flex-col justify-between shadow-xs hover:shadow-lg transition-all"
                             >
-                                <div className="space-y-3">
+                                <div className="space-y-3.5">
                                     <div className="flex justify-between items-center">
-                                        <span className="px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 text-xs font-medium">
+                                        <span className="px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E3DBD0] text-[#7A1C1C] text-[11px] font-mono font-bold uppercase tracking-wider">
                                             {article.category}
                                         </span>
-                                        <span className="text-xs text-stone-400 font-mono">
-                                            {readTime} min read
+                                        <span className="text-xs text-[#7A726A] font-mono">
+                                            {article.date}
                                         </span>
                                     </div>
 
-                                    <h4 className="text-lg font-bold text-stone-900 group-hover:text-crimson-800 transition-colors leading-snug line-clamp-2">
+                                    <h4 className="text-lg sm:text-xl font-bold text-[#1A1715] group-hover:text-[#7A1C1C] transition-colors leading-snug font-heading">
                                         <Link href={`/articles/${article.id}`}>
                                             {article.title}
                                         </Link>
                                     </h4>
 
-                                    <p className="text-stone-600 text-xs sm:text-sm font-light leading-relaxed line-clamp-3">
-                                        {(() => {
-                                            if (!article.content || article.content.trim() === '' || article.content === 'Seeded content...') {
-                                                return `An inspiring article examining ${article.category.toLowerCase()} and practical lessons for daily life.`;
-                                            }
-                                            const cleanText = article.content.replace(/<\/?[^>]+(>|$)/g, "");
-                                            const normalized = cleanText.replace(/\s+/g, " ").trim();
-                                            return normalized.length > 130 ? normalized.substring(0, 130) + "..." : normalized;
-                                        })()}
+                                    <p className="text-[#554E48] text-xs sm:text-sm font-light leading-relaxed line-clamp-3">
+                                        {article.content ? article.content.slice(0, 140) + '...' : 'An insightful exploration of Islamic ethics, moral values, and spiritual wisdom by Dr. Muhammad Salim.'}
                                     </p>
                                 </div>
 
-                                <div className="pt-4 mt-5 border-t border-stone-100 flex justify-between items-center">
+                                <div className="pt-5 mt-5 border-t border-[#EAE3D8] flex items-center justify-between text-xs text-[#7A726A]">
+                                    <span className="font-mono">{readTime} min read</span>
                                     <Link
                                         href={`/articles/${article.id}`}
-                                        className="text-xs font-bold text-crimson-800 hover:underline inline-flex items-center gap-1"
+                                        className="text-[#7A1C1C] hover:text-[#521010] font-bold text-xs uppercase tracking-wider flex items-center gap-1 group/btn"
                                     >
-                                        <span>Read Article</span>
-                                        <span>→</span>
+                                        <span>Read</span>
+                                        <span className="transition-transform group-hover/btn:translate-x-0.5">→</span>
                                     </Link>
-
-                                    <div className="flex items-center gap-3 text-xs text-stone-400 font-mono">
-                                        <span>💬 {article.comments || 0}</span>
-                                        <span>♥ {likesCount}</span>
-                                    </div>
                                 </div>
                             </article>
                         );
                     })}
-                </div>
-
-                {/* Archive Button */}
-                <div className="mt-12 sm:mt-16 text-center">
-                    <Link
-                        href="/articles"
-                        className="btn btn-outline"
-                    >
-                        Explore All Articles →
-                    </Link>
                 </div>
 
             </div>

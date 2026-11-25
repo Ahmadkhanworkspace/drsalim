@@ -14,22 +14,22 @@ export default async function Home() {
   const articles = await getArticles();
   
   return (
-    <main className="bg-white min-h-screen text-stone-900 overflow-x-hidden">
+    <main className="bg-[#FAF7F2] min-h-screen text-[#1A1715] overflow-x-hidden">
       {/* 1. Hero Section */}
       <Hero />
 
       {/* 2. Published Books Showcase Section */}
-      <section id="books" className="py-16 sm:py-24 bg-white border-b border-stone-200">
+      <section id="books" className="py-20 sm:py-28 bg-[#FAF7F2] border-b border-[#E3DBD0]">
         <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
-            <span className="text-xs font-mono font-bold uppercase tracking-wider text-crimson-800 mb-2 block">
-              Published Library
+          <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-16">
+            <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#7A1C1C] mb-2 block">
+              The Published Canon
             </span>
-            <h2 className="text-3xl sm:text-5xl font-bold text-stone-900 mb-3 tracking-tight font-heading">
-              Books by <span className="text-crimson-800 font-serif italic font-normal">Dr. Muhammad Salim</span>
+            <h2 className="text-3xl sm:text-5xl font-bold text-[#1A1715] mb-3 tracking-tight font-heading">
+              Books by <span className="text-[#7A1C1C] font-serif italic font-normal">Dr. Muhammad Salim</span>
             </h2>
-            <div className="w-16 h-1 bg-crimson-800 mx-auto mb-4 rounded-full" />
-            <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-light">
+            <div className="w-16 h-1 bg-[#7A1C1C] mx-auto mb-4 rounded-full" />
+            <p className="text-[#554E48] text-sm sm:text-base leading-relaxed font-light">
               Authoritative published volumes on Islamic psychology, divine providence, moral philosophy, and human development.
             </p>
           </div>

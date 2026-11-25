@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useState } from 'react';
 import { books, Book } from '@/data/books';
-import FluidTiltCard from '@/components/3d/FluidTiltCard';
+import Image from 'next/image';
 
 export default function BookDetailPage() {
     const params = useParams();
@@ -64,14 +64,25 @@ export default function BookDetailPage() {
                                 </div>
                             )}
 
-                            {/* Fluid 3D Tilt Hardcover Book */}
-                            <FluidTiltCard
-                                coverImage={book.coverImage || '/images/books/brotherhood-cover.jpg'}
-                                title={book.title}
-                                badge={book.award ? 'Official Award' : undefined}
-                                pages={book.pages || 350}
-                                price={book.price || '$18.99'}
-                            />
+                            {/* Pristine 2D Hardcover Book Mockup */}
+                            <div className="relative w-56 sm:w-64 aspect-[2/3] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(26,23,21,0.22)] border border-black/10 my-4 group">
+                                <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/40 via-black/10 to-transparent z-10 pointer-events-none" />
+                                <Image
+                                    src={book.coverImage || '/images/books/brotherhood-cover.jpg'}
+                                    alt={book.title}
+                                    fill
+                                    className="object-cover"
+                                    priority
+                                    sizes="(max-width: 640px) 240px, 260px"
+                                />
+                                {book.award && (
+                                    <div className="absolute top-3 right-3 z-20">
+                                        <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[#C5A059] border border-[#C5A059]/40 text-[9px] font-mono font-bold uppercase tracking-wider shadow-md">
+                                            ★ {book.award}
+                                        </span>
+                                    </div>
+                                )}
+                            </div>
 
                             {/* Clean Pricing summary */}
                             <div className="mt-8 text-center">

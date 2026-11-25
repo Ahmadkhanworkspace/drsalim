@@ -21,33 +21,33 @@ export default function TestimonialsSlider({ testimonials }: TestimonialsSliderP
     const currentTestimonial = testimonials[currentIndex];
 
     return (
-        <section id="testimonials" className="bg-stone-50 border-b border-stone-200 py-16 sm:py-24">
+        <section id="testimonials" className="bg-[#FAF7F2] border-b border-[#E3DBD0] py-20 sm:py-28">
             <div className="container max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 
                 {/* Header */}
-                <div className="text-center mb-10 sm:mb-14">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-crimson-800 mb-2 block">
-                        Global Reader Feedback
+                <div className="text-center mb-12 sm:mb-16">
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#7A1C1C] mb-2 block">
+                        Reader Accolades & Endorsements
                     </span>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 tracking-tight font-heading">
-                        Reader <span className="text-crimson-800 font-serif italic font-normal">Endorsements</span>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1715] tracking-tight font-heading">
+                        Reader <span className="text-[#7A1C1C] font-serif italic font-normal">Reflections</span>
                     </h2>
                 </div>
 
                 {/* Card */}
-                <div className="bg-white border border-stone-200 rounded-2xl p-6 sm:p-12 shadow-xs text-center space-y-6">
-                    <p className="text-lg sm:text-2xl font-serif italic text-stone-800 leading-relaxed max-w-2xl mx-auto">
+                <div className="bg-white border border-[#E3DBD0] rounded-3xl p-8 sm:p-14 shadow-sm text-center space-y-7">
+                    <p className="text-xl sm:text-2xl font-serif italic text-[#1A1715] leading-relaxed max-w-2xl mx-auto">
                         "{currentTestimonial.content}"
                     </p>
 
                     <div className="flex flex-col items-center">
-                        <div className="w-12 h-12 rounded-full bg-stone-900 text-white flex items-center justify-center font-bold text-base mb-2">
+                        <div className="w-12 h-12 rounded-full bg-[#7A1C1C] text-white flex items-center justify-center font-bold text-base mb-2 shadow-xs">
                             {currentTestimonial.name.charAt(0)}
                         </div>
-                        <h4 className="text-base font-bold text-stone-900 font-heading">
+                        <h4 className="text-base font-bold text-[#1A1715] font-heading">
                             {currentTestimonial.name}
                         </h4>
-                        <div className="flex gap-1 justify-center mt-1 text-amber-500 text-sm">
+                        <div className="flex gap-1 justify-center mt-1 text-[#C5A059] text-sm">
                             ★★★★★
                         </div>
                     </div>

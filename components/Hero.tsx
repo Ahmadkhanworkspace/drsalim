@@ -2,53 +2,50 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const InteractiveBook3D = dynamic(() => import('@/components/3d/InteractiveBook3D'), {
-    ssr: false,
-    loading: () => (
-        <div className="w-full h-[450px] sm:h-[520px] flex items-center justify-center bg-stone-50/50 rounded-3xl animate-pulse">
-            <span className="text-xs font-mono text-stone-400">Loading 3D Library Stage...</span>
-        </div>
-    )
-});
+import Image from 'next/image';
 
 const SHOWCASE_BOOKS = [
     {
         id: 4,
+        volume: 'Volume IV',
         title: 'Brotherhood',
-        subtitle: 'A Foundation for Peaceful Society',
-        award: 'National Seerat Award Winner',
+        subtitle: 'A Foundation for Peaceful Society (#1 National Bestseller)',
+        award: 'Conferred National Seerat Award',
+        pages: 428,
         price: '$21.50',
         coverImage: '/images/books/brotherhood-cover.jpg',
-        spineColor: '#7A1C1C',
         quote: 'Real brotherhood is built on sincere hearts, mutual respect, and honest care for one another.',
         amazonLink: 'https://www.amazon.com',
-        detailLink: '/books/4'
+        detailLink: '/books/4',
+        excerpt: 'True brotherhood is not merely polite social courtesy; it is an active spiritual contract. It means desiring for your brother what you desire for yourself, defending his honor in his absence, and covering his faults while gently encouraging his growth.'
     },
     {
         id: 5,
+        volume: 'Volume V',
         title: 'Spiritual Diseases',
         subtitle: 'Management & Purification of the Heart',
-        award: 'Prime Ministerial Award',
+        award: 'Prime Ministerial Award Winner',
+        pages: 352,
         price: '$18.50',
         coverImage: '/images/books/spiritual-diseases-cover.jpg',
-        spineColor: '#104F3B',
         quote: 'Finding inner peace begins when we diagnose the subtle ailments of the heart and apply daily spiritual remedies.',
         amazonLink: 'https://www.amazon.com',
-        detailLink: '/books/5'
+        detailLink: '/books/5',
+        excerpt: 'The heart is the master of the limbs. When it is sound, the entire personality reflects gentle patience, kindness, and moral courage. But when it harbors unchecked resentments or silent pride, no amount of outward ritual can conceal the inner unrest.'
     },
     {
         id: 1,
+        volume: 'Volume I',
         title: 'Divine Providence',
-        subtitle: 'The Reality of Rububiyah in Human Life',
+        subtitle: 'The Reality of Rububiyah & Divine Sustenance in Human Life',
         award: 'Presidential Conference Citation',
+        pages: 364,
         price: '$18.99',
         coverImage: '/images/books/divine-providence-cover.jpg',
-        spineColor: '#172E54',
         quote: 'To understand Divine Providence is to recognize how every hardship is nurtured with hidden divine wisdom.',
         amazonLink: 'https://www.amazon.com',
-        detailLink: '/books/1'
+        detailLink: '/books/1',
+        excerpt: 'To understand Divine Providence, one must first recognize that sustenance is not restricted to material food and shelter. The highest form of Rububiyah is spiritual nourishment—the light of conscious awareness, the capacity to choose good over evil, and the divine reminders that awaken the dormant heart.'
     }
 ];
 
@@ -59,121 +56,139 @@ export default function Hero() {
     const activeBook = SHOWCASE_BOOKS[selectedBookIndex];
 
     return (
-        <section className="relative bg-[#FCFBF8] pt-28 sm:pt-36 pb-16 sm:pb-24 border-b border-stone-200/80 overflow-hidden">
-            {/* Luminous Warm Background Glows */}
-            <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-amber-100/40 rounded-full blur-[140px] pointer-events-none -z-10" />
-            <div className="absolute top-1/3 left-10 w-[450px] h-[450px] bg-rose-100/25 rounded-full blur-[130px] pointer-events-none -z-10" />
+        <section className="relative bg-[#FAF7F2] pt-28 sm:pt-36 pb-20 sm:pb-28 border-b border-[#E8E1D5] overflow-hidden">
+            {/* Ambient Warm Architectural Highlights */}
+            <div className="absolute top-0 right-1/4 w-[600px] h-[350px] bg-[#EFE8DC]/60 rounded-full blur-[140px] pointer-events-none -z-10" />
+            <div className="absolute top-1/3 left-10 w-[450px] h-[450px] bg-[#F7EFE3]/70 rounded-full blur-[130px] pointer-events-none -z-10" />
 
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                     
                     {/* Left Column: Author Narrative & Editorial Authority */}
-                    <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left">
+                    <div className="lg:col-span-7 space-y-7 text-center lg:text-left">
                         
-                        {/* National Award Laurel Badge */}
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-50/90 border border-amber-300/80 text-amber-950 text-xs font-semibold tracking-wide shadow-2xs">
-                            <span className="text-amber-700 text-sm">✦</span>
-                            <span className="uppercase font-mono text-[11px] tracking-wider font-bold">
+                        {/* Presidential Award Laurel Seal */}
+                        <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#F3ECE0] border border-[#D9CEBA] text-[#5C4A28] text-xs font-semibold tracking-wide shadow-xs">
+                            <span className="text-[#C5A059] text-base leading-none">✦</span>
+                            <span className="uppercase font-mono text-[11px] tracking-widest font-bold">
                                 5-Time Presidential & Prime Ministerial Seerat Award Winner
                             </span>
                         </div>
 
-                        {/* Majestic Headline */}
-                        <div className="space-y-3">
-                            <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-stone-900 tracking-tight leading-[1.12] font-heading">
-                                Faith, Moral Philosophy & <br />
-                                <span className="text-crimson-800 font-serif italic font-normal">
-                                    The Human Journey
+                        {/* Grand Editorial Headline */}
+                        <div className="space-y-4">
+                            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[64px] font-extrabold text-[#1A1715] tracking-tight leading-[1.08] font-heading">
+                                Illumination of the <br />
+                                <span className="text-[#7A1C1C] font-serif italic font-normal">
+                                    Soul & Intellect
                                 </span>
                             </h1>
-                            <div className="w-16 h-1 bg-gradient-to-r from-crimson-800 via-amber-600 to-transparent mx-auto lg:mx-0 rounded-full" />
+                            <div className="w-20 h-1 bg-gradient-to-r from-[#7A1C1C] via-[#C5A059] to-transparent mx-auto lg:mx-0 rounded-full" />
                         </div>
 
-                        {/* Subtitle */}
-                        <p className="text-base sm:text-lg text-stone-600 leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
-                            Explore the authoritative published books and discourse of <strong className="text-stone-900 font-semibold">Dr. Muhammad Salim</strong> — examining spiritual psychology, divine providence, and building a peaceful society.
+                        {/* Author Narrative */}
+                        <p className="text-base sm:text-lg text-[#554E48] leading-relaxed font-light max-w-2xl mx-auto lg:mx-0">
+                            Bridging classical Islamic philosophy with modern existential inquiry. Explore foundational published treatises on divine providence, moral ethics, and the purification of the human heart by <strong className="text-[#1A1715] font-semibold">Dr. Muhammad Salim</strong>.
                         </p>
 
                         {/* High-Impact Actions */}
-                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4 pt-1">
+                        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
                             <a
                                 href="#books"
-                                className="w-full sm:w-auto btn btn-primary text-center flex items-center justify-center gap-2"
+                                className="w-full sm:w-auto px-7 py-3.5 rounded-xl bg-[#7A1C1C] hover:bg-[#631414] text-white font-bold text-xs uppercase tracking-widest text-center transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
                             >
-                                <span>Explore The Bookshop</span>
-                                <span>→</span>
+                                <span>Explore The Books</span>
+                                <span>↓</span>
                             </a>
                             <Link
                                 href="/store"
-                                className="w-full sm:w-auto btn btn-outline text-center"
+                                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-white hover:bg-[#F5F1E8] border border-[#D9CEBA] text-[#1A1715] font-bold text-xs uppercase tracking-widest text-center transition-all shadow-xs"
                             >
-                                View All 5 Volumes
+                                Official Bookstore
                             </Link>
                             <a
                                 href="#articles"
-                                className="w-full sm:w-auto px-5 py-3 rounded-xl hover:bg-stone-100 text-stone-700 text-xs font-semibold transition-colors text-center"
+                                className="w-full sm:w-auto px-5 py-3.5 rounded-xl text-[#554E48] hover:text-[#1A1715] hover:bg-[#EFE9DC] text-xs font-semibold tracking-wider uppercase transition-colors text-center"
                             >
                                 Read Articles
                             </a>
                         </div>
 
-                        {/* Authority Metrics Bar */}
-                        <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 border-t border-stone-200">
-                            <div className="p-3.5 bg-white/80 backdrop-blur-xs rounded-xl border border-stone-200/90 shadow-2xs">
-                                <div className="text-2xl font-extrabold text-stone-900 font-heading">40+</div>
-                                <div className="text-[10px] text-stone-500 uppercase tracking-wider font-mono mt-0.5">Years of Research</div>
+                        {/* Authority Metrics Strip */}
+                        <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 border-t border-[#E3DBD0]">
+                            <div className="p-4 bg-white/90 rounded-2xl border border-[#E3DBD0] shadow-xs">
+                                <div className="text-2xl font-extrabold text-[#1A1715] font-heading">40+</div>
+                                <div className="text-[10px] text-[#7A726A] uppercase tracking-wider font-mono mt-1">Years of Research</div>
                             </div>
-                            <div className="p-3.5 bg-white/80 backdrop-blur-xs rounded-xl border border-stone-200/90 shadow-2xs">
-                                <div className="text-2xl font-extrabold text-stone-900 font-heading">5</div>
-                                <div className="text-[10px] text-stone-500 uppercase tracking-wider font-mono mt-0.5">Published Books</div>
+                            <div className="p-4 bg-white/90 rounded-2xl border border-[#E3DBD0] shadow-xs">
+                                <div className="text-2xl font-extrabold text-[#1A1715] font-heading">5</div>
+                                <div className="text-[10px] text-[#7A726A] uppercase tracking-wider font-mono mt-1">Seminal Works</div>
                             </div>
-                            <div className="p-3.5 bg-white/80 backdrop-blur-xs rounded-xl border border-stone-200/90 shadow-2xs">
-                                <div className="text-2xl font-extrabold text-amber-800 font-heading">5x</div>
-                                <div className="text-[10px] text-stone-500 uppercase tracking-wider font-mono mt-0.5">National Honors</div>
+                            <div className="p-4 bg-white/90 rounded-2xl border border-[#E3DBD0] shadow-xs">
+                                <div className="text-2xl font-extrabold text-[#7A1C1C] font-heading">5x</div>
+                                <div className="text-[10px] text-[#7A726A] uppercase tracking-wider font-mono mt-1">National Honors</div>
                             </div>
-                            <div className="p-3.5 bg-white/80 backdrop-blur-xs rounded-xl border border-stone-200/90 shadow-2xs">
-                                <div className="text-2xl font-extrabold text-crimson-800 font-heading">4.9 ★</div>
-                                <div className="text-[10px] text-stone-500 uppercase tracking-wider font-mono mt-0.5">Reader Rating</div>
+                            <div className="p-4 bg-white/90 rounded-2xl border border-[#E3DBD0] shadow-xs">
+                                <div className="text-2xl font-extrabold text-[#C5A059] font-heading">4.9 ★</div>
+                                <div className="text-[10px] text-[#7A726A] uppercase tracking-wider font-mono mt-1">Global Rating</div>
                             </div>
                         </div>
 
                     </div>
 
-                    {/* Right Column: Fluid 3D Interactive Book Showcase */}
+                    {/* Right Column: Pristine 2D Luxury Book Presentation */}
                     <div className="lg:col-span-5 flex flex-col items-center">
-                        <div className="w-full max-w-md bg-white/90 backdrop-blur-sm border border-stone-200/90 rounded-3xl p-5 sm:p-7 shadow-xl relative">
+                        <div className="w-full max-w-md bg-white border border-[#E3DBD0] rounded-3xl p-6 sm:p-8 shadow-xl relative">
                             
-                            {/* Top Card Bar: Active Book Badge & Price */}
-                            <div className="flex items-center justify-between mb-2 px-1">
-                                <span className="px-3 py-1 rounded-full bg-amber-50 text-amber-900 border border-amber-200 text-[11px] font-bold uppercase tracking-wider">
-                                    ★ {activeBook.award}
-                                </span>
-                                <span className="text-xs font-mono font-bold text-stone-900">
+                            {/* Top Card Bar: Volume and Price */}
+                            <div className="flex items-center justify-between mb-5">
+                                <div className="flex items-center gap-2">
+                                    <span className="px-3 py-1 rounded-full bg-[#7A1C1C]/10 text-[#7A1C1C] font-mono text-[11px] font-bold uppercase tracking-wider">
+                                        {activeBook.volume}
+                                    </span>
+                                    <span className="text-[11px] font-mono text-[#7A726A]">
+                                        {activeBook.pages} Pages
+                                    </span>
+                                </div>
+                                <span className="text-sm font-mono font-bold text-[#1A1715]">
                                     {activeBook.price}
                                 </span>
                             </div>
 
-                            {/* THE FLUID 3D INTERACTIVE BOOK */}
-                            <InteractiveBook3D
-                                key={activeBook.id}
-                                coverImage={activeBook.coverImage}
-                                title={activeBook.title}
-                                spineColor={activeBook.spineColor}
-                            />
+                            {/* Crisp 2D Book Cover Display */}
+                            <div className="relative mx-auto w-56 sm:w-64 aspect-[2/3] rounded-xl overflow-hidden shadow-[0_20px_50px_rgba(26,23,21,0.22)] border border-black/10 group">
+                                {/* Left book spine shadow bar */}
+                                <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/40 via-black/15 to-transparent z-10 pointer-events-none" />
+                                
+                                <Image
+                                    src={activeBook.coverImage}
+                                    alt={activeBook.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-102"
+                                    priority
+                                    sizes="(max-width: 640px) 240px, 260px"
+                                />
 
-                            {/* Interactive Book Selector Switcher */}
-                            <div className="mt-3 space-y-3">
-                                <div className="flex items-center justify-center gap-1.5 p-1 bg-stone-100/90 rounded-2xl border border-stone-200">
+                                {/* Conferred Award Badge Overlay */}
+                                <div className="absolute top-3 right-3 z-20">
+                                    <span className="px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md text-[#C5A059] border border-[#C5A059]/40 text-[9px] font-mono font-bold uppercase tracking-wider shadow-md">
+                                        ★ {activeBook.award}
+                                    </span>
+                                </div>
+                            </div>
+
+                            {/* Book Switcher Selector */}
+                            <div className="mt-6 space-y-4">
+                                <div className="flex items-center justify-center gap-1.5 p-1 bg-[#F5F1E8] rounded-2xl border border-[#E3DBD0]">
                                     {SHOWCASE_BOOKS.map((b, idx) => (
                                         <button
                                             key={b.id}
                                             onClick={() => setSelectedBookIndex(idx)}
-                                            className={`flex-1 py-1.5 px-2 rounded-xl text-[11px] font-semibold transition-all cursor-pointer truncate ${
+                                            className={`flex-1 py-2 px-2.5 rounded-xl text-xs font-semibold transition-all cursor-pointer truncate ${
                                                 selectedBookIndex === idx
-                                                    ? 'bg-white text-stone-900 shadow-xs font-bold'
-                                                    : 'text-stone-600 hover:text-stone-900'
+                                                    ? 'bg-white text-[#1A1715] shadow-xs font-bold border border-[#D9CEBA]'
+                                                    : 'text-[#7A726A] hover:text-[#1A1715]'
                                             }`}
-                                            title={`Switch 3D View to ${b.title}`}
                                         >
                                             {b.title}
                                         </button>
@@ -181,25 +196,27 @@ export default function Hero() {
                                 </div>
 
                                 {/* Pull Quote */}
-                                <p className="text-xs text-stone-600 italic font-serif leading-relaxed text-center px-2">
+                                <p className="text-xs text-[#554E48] italic font-serif leading-relaxed text-center px-2">
                                     "{activeBook.quote}"
                                 </p>
 
-                                {/* Direct Action Buttons */}
-                                <div className="grid grid-cols-2 gap-2.5 pt-1">
+                                {/* Action Buttons */}
+                                <div className="grid grid-cols-2 gap-3 pt-2">
                                     <button
                                         onClick={() => setIsSampleModalOpen(true)}
-                                        className="btn btn-outline text-xs text-center py-2.5 cursor-pointer"
+                                        className="py-2.5 px-4 rounded-xl border border-[#D9CEBA] bg-white hover:bg-[#F5F1E8] text-[#1A1715] text-xs font-bold uppercase tracking-wider text-center transition-all cursor-pointer shadow-xs"
                                     >
-                                        📖 Read Preview
+                                        📖 Read Sample
                                     </button>
-                                    <Link
-                                        href={activeBook.detailLink}
-                                        className="btn btn-primary text-xs text-center py-2.5 flex items-center justify-center gap-1"
+                                    <a
+                                        href={activeBook.amazonLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="py-2.5 px-4 rounded-xl bg-[#7A1C1C] hover:bg-[#631414] text-white text-xs font-bold uppercase tracking-wider text-center transition-all shadow-xs flex items-center justify-center gap-1"
                                     >
-                                        <span>Order Volume</span>
-                                        <span>→</span>
-                                    </Link>
+                                        <span>Order Amazon</span>
+                                        <span>↗</span>
+                                    </a>
                                 </div>
                             </div>
 
@@ -207,82 +224,54 @@ export default function Hero() {
                     </div>
 
                 </div>
-
-                {/* Published Editions Strip */}
-                <div className="mt-14 sm:mt-18 pt-6 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-stone-500 font-mono">
-                    <span className="uppercase font-semibold tracking-wider">Official Editions Available Worldwide:</span>
-                    <div className="flex flex-wrap items-center justify-center gap-5 text-stone-700 font-medium">
-                        <span className="inline-flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-amber-600" /> Amazon Paperback Edition
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-stone-700" /> Kindle Digital Edition
-                        </span>
-                        <span className="inline-flex items-center gap-1.5">
-                            <span className="w-2 h-2 rounded-full bg-emerald-700" /> Global Library Distribution
-                        </span>
-                    </div>
-                </div>
-
             </div>
 
-            {/* Reading Preview Modal */}
+            {/* Read Sample Modal */}
             {isSampleModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-900/50 backdrop-blur-xs">
-                    <div className="relative w-full max-w-2xl max-h-[85vh] bg-white border border-stone-200 rounded-3xl p-6 sm:p-8 overflow-y-auto shadow-2xl space-y-5 animate-fadeIn">
-                        <div className="flex justify-between items-start border-b border-stone-200 pb-4">
+                <div 
+                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+                    onClick={() => setIsSampleModalOpen(false)}
+                >
+                    <div 
+                        className="bg-[#FAF7F2] border border-[#D9CEBA] rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-5 shadow-2xl relative"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <div className="flex items-center justify-between border-b border-[#E3DBD0] pb-4">
                             <div>
-                                <span className="text-xs font-mono font-bold text-crimson-800 uppercase tracking-wider">
-                                    Official Preview • Chapter 1 Excerpt
+                                <span className="text-[10px] font-mono font-bold text-[#7A1C1C] uppercase tracking-wider">
+                                    {activeBook.volume} · Excerpt
                                 </span>
-                                <h3 className="text-xl sm:text-2xl font-bold text-stone-900 font-heading mt-0.5">
+                                <h3 className="text-xl font-bold text-[#1A1715] font-heading">
                                     {activeBook.title}
                                 </h3>
-                                <p className="text-xs text-stone-500">{activeBook.subtitle} — By Dr. Muhammad Salim</p>
                             </div>
-                            <button
+                            <button 
                                 onClick={() => setIsSampleModalOpen(false)}
-                                className="w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 flex items-center justify-center text-sm cursor-pointer"
+                                className="w-8 h-8 rounded-full bg-[#EFE9DC] hover:bg-[#E3DBD0] text-[#1A1715] flex items-center justify-center text-sm font-bold cursor-pointer"
                             >
                                 ✕
                             </button>
                         </div>
 
-                        <div className="text-stone-700 font-serif leading-relaxed text-sm sm:text-base space-y-4">
-                            <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-crimson-800 first-letter:mr-2 first-letter:float-left">
-                                {activeBook.quote}
-                            </p>
-                            <p>
-                                When we take time to reflect on life with a calm and open mind, our daily challenges become opportunities to cultivate patience, humility, and genuine peace.
-                            </p>
-                            <div className="p-4 rounded-xl bg-amber-50 border-l-4 border-amber-600 text-amber-950 italic text-sm">
-                                "Wisdom is something every sincere seeker values; wherever you find truth, hold onto it."
-                            </div>
+                        <div className="bg-white p-5 rounded-2xl border border-[#E3DBD0] text-sm text-[#443E38] leading-relaxed font-serif italic">
+                            "{activeBook.excerpt}"
                         </div>
 
-                        <div className="pt-4 border-t border-stone-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div className="flex items-center justify-between pt-2">
                             <Link
                                 href={activeBook.detailLink}
-                                className="text-xs font-bold text-crimson-800 hover:underline"
+                                className="text-xs font-bold text-[#7A1C1C] hover:underline"
                             >
-                                View Complete Book Details & Chapters →
+                                View Complete Book Details →
                             </Link>
-                            <div className="flex gap-2.5 w-full sm:w-auto">
-                                <a
-                                    href={activeBook.amazonLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn btn-primary flex-1 sm:flex-initial text-xs text-center"
-                                >
-                                    Buy on Amazon ↗
-                                </a>
-                                <button
-                                    onClick={() => setIsSampleModalOpen(false)}
-                                    className="btn btn-outline flex-1 sm:flex-initial text-xs cursor-pointer"
-                                >
-                                    Close Preview
-                                </button>
-                            </div>
+                            <a
+                                href={activeBook.amazonLink}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-5 py-2.5 rounded-xl bg-[#7A1C1C] text-white text-xs font-bold uppercase tracking-wider shadow-xs hover:bg-[#631414]"
+                            >
+                                Order Print Edition ↗
+                            </a>
                         </div>
                     </div>
                 </div>

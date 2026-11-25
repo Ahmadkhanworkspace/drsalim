@@ -51,8 +51,8 @@ export default function Navigation() {
         <header
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
                 scrolled
-                    ? 'bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-xs py-3.5'
-                    : 'bg-white/80 backdrop-blur-sm border-b border-stone-200/60 py-4 sm:py-5'
+                    ? 'bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E3DBD0] shadow-xs py-3.5'
+                    : 'bg-[#FAF7F2]/80 backdrop-blur-sm border-b border-[#E3DBD0]/60 py-4 sm:py-5'
             }`}
         >
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,15 +60,15 @@ export default function Navigation() {
                     
                     {/* Brand Name */}
                     <Link href="/" className="group flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-stone-900 text-white flex items-center justify-center font-serif text-lg font-bold group-hover:bg-crimson-800 transition-colors">
+                        <div className="w-10 h-10 rounded-xl bg-[#7A1C1C] text-white flex items-center justify-center font-serif text-lg font-bold shadow-xs">
                             S
                         </div>
                         <div className="flex flex-col">
-                            <span className="text-lg sm:text-xl font-bold tracking-tight text-stone-900 group-hover:text-crimson-800 transition-colors font-heading leading-tight">
+                            <span className="text-lg sm:text-xl font-bold tracking-tight text-[#1A1715] group-hover:text-[#7A1C1C] transition-colors font-heading leading-tight">
                                 Dr. Muhammad Salim
                             </span>
-                            <span className="text-[11px] font-mono text-stone-500 uppercase tracking-wider">
-                                Author & Scholar
+                            <span className="text-[10px] font-mono text-[#7A726A] uppercase tracking-widest">
+                                Author & Seerat Scholar
                             </span>
                         </div>
                     </Link>
@@ -79,7 +79,7 @@ export default function Navigation() {
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className="text-sm font-medium text-stone-600 hover:text-crimson-800 transition-colors py-1"
+                                className="text-xs font-semibold uppercase tracking-wider text-[#554E48] hover:text-[#7A1C1C] transition-colors py-1"
                             >
                                 {item.label}
                             </Link>
@@ -87,7 +87,7 @@ export default function Navigation() {
 
                         <Link
                             href="/#books"
-                            className="btn btn-primary text-xs tracking-wider uppercase"
+                            className="px-5 py-2.5 rounded-xl bg-[#7A1C1C] hover:bg-[#631414] text-white font-bold text-xs uppercase tracking-widest transition-all shadow-xs"
                         >
                             Browse Books
                         </Link>

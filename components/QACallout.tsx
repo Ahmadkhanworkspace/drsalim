@@ -6,17 +6,17 @@ export default function QACallout() {
     const teaserQA = curatedQA.slice(0, 2);
 
     return (
-        <section className="py-16 sm:py-20 bg-stone-50 border-b border-stone-200">
+        <section className="py-20 sm:py-24 bg-[#F5F1E8] border-b border-[#E3DBD0]">
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-12">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-crimson-800 mb-2 block">
-                        Reader Q&A
+                <div className="max-w-3xl mx-auto text-center mb-12 sm:mb-14">
+                    <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#7A1C1C] mb-2 block">
+                        Scholarly Inquiries & Guidance
                     </span>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-stone-900 mb-3 tracking-tight font-heading">
-                        Ask <span className="text-crimson-800 font-serif italic font-normal">Dr. Muhammad Salim</span>
+                    <h2 className="text-3xl sm:text-4xl font-bold text-[#1A1715] mb-3 tracking-tight font-heading">
+                        Ask <span className="text-[#7A1C1C] font-serif italic font-normal">Dr. Muhammad Salim</span>
                     </h2>
-                    <div className="w-16 h-1 bg-crimson-800 mx-auto mb-4 rounded-full" />
-                    <p className="text-stone-600 text-sm sm:text-base leading-relaxed font-light">
+                    <div className="w-16 h-1 bg-[#7A1C1C] mx-auto mb-4 rounded-full" />
+                    <p className="text-[#554E48] text-sm sm:text-base leading-relaxed font-light">
                         Guidance and answers on personal growth, overcoming spiritual illnesses, and living with purpose.
                     </p>
                 </div>
@@ -25,7 +25,7 @@ export default function QACallout() {
                     {teaserQA.map((item) => (
                         <div
                             key={item.id}
-                            className="p-6 sm:p-7 rounded-2xl bg-white border border-stone-200 hover:border-amber-400 hover:shadow-md transition-all flex flex-col justify-between"
+                            className="p-7 rounded-3xl bg-white border border-[#E3DBD0] hover:border-[#C5A059]/60 hover:shadow-lg transition-all flex flex-col justify-between"
                         >
                             <div className="space-y-3">
                                 <div className="flex items-center justify-between text-xs font-mono">

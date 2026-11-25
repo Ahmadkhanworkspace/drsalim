@@ -33,7 +33,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="bg-white border-t border-stone-200 pt-16 pb-12 text-stone-600">
+        <footer className="bg-[#FAF7F2] border-t border-[#E3DBD0] pt-16 pb-12 text-[#554E48]">
             <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
                 
                 {/* Main 4-Column Grid */}
