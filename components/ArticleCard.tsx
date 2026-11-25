@@ -9,51 +9,84 @@ interface PremiumArticleCardProps {
     index: number;
 }
 
+function cleanExcerpt(content?: string, maxLength: number = 140): string {
+    if (!content || content.trim() === '' || content === 'Seeded content...') {
+        return "An insightful article examining ethical living, moral psychology, and human purpose by Dr. Muhammad Salim.";
+    }
+
+    let text = content.replace(/<!--[\s\S]*?-->/g, ' ');
+    text = text.replace(/<[^>]+>/g, ' ');
+    text = text
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&amp;/gi, '&')
+        .replace(/&quot;/gi, '"')
+        .replace(/&#8217;/g, "'")
+        .replace(/&#8216;/g, "'")
+        .replace(/&#8220;/g, '"')
+        .replace(/&#8221;/g, '"')
+        .replace(/â€™/g, "'")
+        .replace(/â€œ/g, '"')
+        .replace(/â€/g, '"')
+        .replace(/â€˜/g, "'");
+
+    text = text.replace(/^\s*(?:[0-9]+\s*[\.:-]?\s*)?(?:INTRODUCTION|ABSTRACT|FOREWORD|SUMMARY)?\s*/i, '');
+    text = text.replace(/\s+/g, ' ').trim();
+
+    if (!text || text.length < 15) {
+        return "An insightful article examining ethical living, moral psychology, and human purpose by Dr. Muhammad Salim.";
+    }
+
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + '...';
+}
+
+function formatTitle(title: string): string {
+    if (title === title.toUpperCase() && title.length > 4) {
+        return title
+            .toLowerCase()
+            .split(' ')
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(' ');
+    }
+    return title;
+}
+
 export default function PremiumArticleCard({ article }: PremiumArticleCardProps) {
     const randomLikes = ((article.id * 47) % 73) + 12;
     const stats = getReadingStats(article.content);
 
     return (
-        <article className="group flex flex-col bg-white border border-stone-200 hover:border-stone-300 rounded-2xl shadow-2xs hover:shadow-md transition-all overflow-hidden">
-            <Link href={`/articles/${article.id}`} className="flex flex-col h-full w-full">
-                {/* Meta Header */}
-                <div className="p-6 pb-0 flex flex-wrap items-center justify-between gap-2">
-                    <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-stone-100 text-stone-700">
-                        {article.category}
-                    </span>
-                    <div className="flex items-center gap-2 text-xs font-mono text-stone-500">
-                        <span>{stats.text}</span>
+        <article className="group flex flex-col bg-white border border-[#E3DBD0] hover:border-[#C5A059]/60 rounded-3xl shadow-xs hover:shadow-lg transition-all overflow-hidden p-6 sm:p-7">
+            <Link href={`/articles/${article.id}`} className="flex flex-col h-full w-full justify-between space-y-4">
+                <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs">
+                        <span className="px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E3DBD0] text-[#7A1C1C] text-[11px] font-mono font-bold uppercase tracking-wider">
+                            {article.category}
+                        </span>
+                        <span className="font-mono text-[#7A726A] text-xs">
+                            {stats.text}
+                        </span>
                     </div>
-                </div>
 
-                {/* Content */}
-                <div className="p-6 flex flex-col flex-1">
-                    <h3 className="text-xl font-bold text-stone-900 font-heading mb-3 group-hover:text-crimson-800 transition-colors leading-snug line-clamp-2">
-                        {article.title}
+                    <h3 className="text-xl font-bold text-[#1A1715] font-heading group-hover:text-[#7A1C1C] transition-colors leading-snug">
+                        {formatTitle(article.title)}
                     </h3>
 
-                    <p className="text-stone-600 text-sm leading-relaxed mb-6 line-clamp-3 font-light">
-                        {(() => {
-                            if (!article.content || article.content.trim() === '' || article.content === 'Seeded content...') {
-                                return `${article.title} - An insightful article examining ethical living, moral psychology, and human purpose.`;
-                            }
-                            const cleanText = article.content.replace(/<\/?[^>]+(>|$)/g, "");
-                            const normalized = cleanText.replace(/\s+/g, " ").trim();
-                            return normalized.length > 150 ? normalized.substring(0, 150) + "..." : normalized;
-                        })()}
+                    <p className="text-[#554E48] text-xs sm:text-sm font-light leading-relaxed line-clamp-3">
+                        {cleanExcerpt(article.content, 140)}
                     </p>
+                </div>
 
-                    <div className="mt-auto pt-4 border-t border-stone-100 flex justify-between items-center w-full">
-                        <span className="inline-flex items-center gap-1.5 text-xs font-bold text-crimson-800">
-                            <span>Read Article</span>
-                            <span>→</span>
-                        </span>
+                <div className="pt-4 border-t border-[#EAE3D8] flex justify-between items-center w-full text-xs">
+                    <span className="font-bold text-[#7A1C1C] uppercase tracking-wider flex items-center gap-1">
+                        <span>Read Article</span>
+                        <span>→</span>
+                    </span>
 
-                        <div className="flex items-center gap-3 text-xs text-stone-400 font-mono">
-                            <span>📅 {article.date}</span>
-                            <span>💬 {article.comments || 0}</span>
-                            <span>♥ {randomLikes}</span>
-                        </div>
+                    <div className="flex items-center gap-3 text-xs text-[#7A726A] font-mono">
+                        <span>📅 {article.date}</span>
+                        <span>💬 {article.comments || 0}</span>
+                        <span>♥ {randomLikes}</span>
                     </div>
                 </div>
             </Link>

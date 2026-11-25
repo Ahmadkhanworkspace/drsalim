@@ -9,6 +9,64 @@ interface ArticlesSectionProps {
     articles: Article[];
 }
 
+function cleanArticleExcerpt(content?: string, title?: string, maxLength: number = 140): string {
+    if (!content || content.trim() === '' || content === 'Seeded content...') {
+        return "An insightful exploration of Islamic ethics, moral values, and spiritual wisdom by Dr. Muhammad Salim.";
+    }
+
+    // 1. Remove all HTML comments (e.g. <!-- wp:paragraph --> and <!-- /wp:paragraph -->)
+    let text = content.replace(/<!--[\s\S]*?-->/g, ' ');
+
+    // 2. Remove all HTML tags (<p>, <strong>, <em>, etc.)
+    text = text.replace(/<[^>]+>/g, ' ');
+
+    // 3. Decode HTML entities and character artifacts
+    text = text
+        .replace(/&nbsp;/gi, ' ')
+        .replace(/&amp;/gi, '&')
+        .replace(/&quot;/gi, '"')
+        .replace(/&#8217;/g, "'")
+        .replace(/&#8216;/g, "'")
+        .replace(/&#8220;/g, '"')
+        .replace(/&#8221;/g, '"')
+        .replace(/â€™/g, "'")
+        .replace(/â€œ/g, '"')
+        .replace(/â€/g, '"')
+        .replace(/â€˜/g, "'");
+
+    // 4. Strip duplicate title from the start of excerpt if present (case-insensitive)
+    if (title) {
+        const escapedTitle = title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        text = text.replace(new RegExp('^\\s*' + escapedTitle + '\\s*', 'i'), ' ');
+    }
+
+    // 5. Strip leading numbering/headers like "1. INTRODUCTION", "1. INTRODUCTION ", "1.", etc.
+    text = text.replace(/^\s*(?:[0-9]+\s*[\.:-]?\s*)?(?:INTRODUCTION|ABSTRACT|FOREWORD|SUMMARY)?\s*/i, '');
+    text = text.replace(/^\s*(?:[0-9]+\s*[\.:-]\s*)/i, '');
+
+    // 6. Clean extra spaces
+    text = text.replace(/\s+/g, ' ').trim();
+
+    if (!text || text.length < 20) {
+        return "An insightful exploration of Islamic ethics, moral values, and spiritual wisdom by Dr. Muhammad Salim.";
+    }
+
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength).trim() + '...';
+}
+
+function cleanArticleTitle(title: string): string {
+    // If title is ALL CAPS, convert to clean Title Case for editorial elegance
+    if (title === title.toUpperCase() && title.length > 4) {
+        return title
+            .toLowerCase()
+            .split(' ')
+            .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+            .join(' ');
+    }
+    return title;
+}
+
 export default function ArticlesSection({ articles }: ArticlesSectionProps) {
     const [selectedCategory, setSelectedCategory] = useState<string>('All');
     const [isPlayingAudio, setIsPlayingAudio] = useState<number | null>(null);
@@ -84,12 +142,12 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
 
                                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#1A1715] group-hover:text-[#7A1C1C] transition-colors leading-tight font-heading">
                                     <Link href={`/articles/${featuredArticle.id}`}>
-                                        {featuredArticle.title}
+                                        {cleanArticleTitle(featuredArticle.title)}
                                     </Link>
                                 </h3>
 
                                 <p className="text-[#554E48] text-sm sm:text-base font-light leading-relaxed max-w-3xl">
-                                    An insightful examination of what real justice means in everyday society, how moral responsibility builds strong communities, and why fairness matters in personal and public life.
+                                    {cleanArticleExcerpt(featuredArticle.content, featuredArticle.title, 220)}
                                 </p>
 
                                 <div className="flex flex-wrap items-center gap-3 pt-3">
@@ -135,7 +193,6 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
                     {gridArticles.map((article) => {
                         const readTime = ((article.id * 3) % 5) + 4;
-                        const likesCount = ((article.id * 47) % 73) + 12;
 
                         return (
                             <article
@@ -154,12 +211,12 @@ export default function ArticlesSection({ articles }: ArticlesSectionProps) {
 
                                     <h4 className="text-lg sm:text-xl font-bold text-[#1A1715] group-hover:text-[#7A1C1C] transition-colors leading-snug font-heading">
                                         <Link href={`/articles/${article.id}`}>
-                                            {article.title}
+                                            {cleanArticleTitle(article.title)}
                                         </Link>
                                     </h4>
 
                                     <p className="text-[#554E48] text-xs sm:text-sm font-light leading-relaxed line-clamp-3">
-                                        {article.content ? article.content.slice(0, 140) + '...' : 'An insightful exploration of Islamic ethics, moral values, and spiritual wisdom by Dr. Muhammad Salim.'}
+                                        {cleanArticleExcerpt(article.content, article.title, 140)}
                                     </p>
                                 </div>
 
