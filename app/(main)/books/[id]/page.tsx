@@ -4,6 +4,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useState } from 'react';
 import { books, Book } from '@/data/books';
+import FluidTiltCard from '@/components/3d/FluidTiltCard';
 
 export default function BookDetailPage() {
     const params = useParams();
@@ -63,23 +64,14 @@ export default function BookDetailPage() {
                                 </div>
                             )}
 
-                            {/* Book 3D Style Card */}
-                            <div className="w-52 h-72 sm:w-60 sm:h-84 rounded-2xl bg-gradient-to-br from-stone-900 via-stone-800 to-stone-950 text-white p-6 shadow-2xl flex flex-col justify-between border-2 border-amber-400/30 relative transform hover:scale-[1.02] transition-transform">
-                                <div className="absolute left-0 top-0 bottom-0 w-4 bg-black/40 border-r border-white/10 rounded-l-2xl" />
-                                <div className="pl-3">
-                                    <span className="text-[10px] font-mono uppercase tracking-widest text-amber-300 font-bold block mb-1">
-                                        Dr. Muhammad Salim
-                                    </span>
-                                    <h2 className="text-lg sm:text-xl font-bold font-heading text-white leading-tight">
-                                        {book.title}
-                                    </h2>
-                                </div>
-                                <div className="pl-3 border-t border-white/10 pt-3">
-                                    <span className="text-[9px] font-mono uppercase text-stone-300 block">
-                                        Official Edition
-                                    </span>
-                                </div>
-                            </div>
+                            {/* Fluid 3D Tilt Hardcover Book */}
+                            <FluidTiltCard
+                                coverImage={book.coverImage || '/images/books/brotherhood-cover.jpg'}
+                                title={book.title}
+                                badge={book.award ? 'Official Award' : undefined}
+                                pages={book.pages || 350}
+                                price={book.price || '$18.99'}
+                            />
 
                             {/* Clean Pricing summary */}
                             <div className="mt-8 text-center">

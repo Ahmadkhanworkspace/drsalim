@@ -21,7 +21,7 @@ const MILESTONES = [
     { 
         year: '2010s – Present', 
         title: 'Books & Articles on Faith and Life', 
-        desc: 'Authored more than 200 publications and books including Brotherhood, Spiritual Diseases, and articles exploring how faith enriches modern life.' 
+        desc: 'Authored recognized published volumes including Brotherhood, Spiritual Diseases, Divine Providence, and articles exploring how faith enriches modern life.' 
     }
 ];
 
