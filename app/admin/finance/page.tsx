@@ -188,7 +188,7 @@ export default function FinancePage() {
         { name: 'Amazon KDP & FBA', earnings: 1130, sales: 56, percentage: 47.5, icon: '📦' },
         { name: 'Etsy Marketplace', earnings: 605, sales: 30, percentage: 25.4, icon: '🎨' },
         { name: 'Pinterest Commerce', earnings: 410, sales: 20, percentage: 17.2, icon: '📌' },
-        { name: 'Barnes & Noble', earnings: 236, sales: 12, percentage: 9.9, icon: '📚' }
+        { name: 'Amazon Kindle Direct', earnings: 236, sales: 12, percentage: 9.9, icon: '📱' }
     ];
 
     const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([

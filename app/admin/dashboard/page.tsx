@@ -106,7 +106,7 @@ export default function AdminDashboardPage() {
         { name: 'Amazon KDP & FBA', share: '47.5%', amount: '$1,130', color: '#4F46E5' },
         { name: 'Etsy Marketplace', share: '25.4%', amount: '$605', color: '#06B6D4' },
         { name: 'Pinterest Commerce', share: '17.2%', amount: '$410', color: '#F59E0B' },
-        { name: 'Barnes & Noble', share: '9.9%', amount: '$236', color: '#10B981' }
+        { name: 'Direct Reader Orders', share: '9.9%', amount: '$236', color: '#10B981' }
     ];
 
     const topBooks = [
