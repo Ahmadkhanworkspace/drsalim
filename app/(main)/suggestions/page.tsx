@@ -34,9 +34,9 @@ export default function SuggestionsPage() {
     };
 
     return (
-        <main className="bg-white min-h-screen text-stone-900 pt-32 sm:pt-40 pb-24 relative overflow-hidden">
+        <main className="bg-[#FAF7F2] min-h-screen text-[#1A1715] pt-32 sm:pt-40 pb-24 relative overflow-hidden">
             {/* Background Decorative Glows */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-amber-100/40 rounded-full blur-[140px] pointer-events-none z-0" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[#EFE8DC]/60 rounded-full blur-[140px] pointer-events-none z-0" />
 
             <div className="container relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header */}

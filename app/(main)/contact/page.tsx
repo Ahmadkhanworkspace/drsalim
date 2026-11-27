@@ -34,21 +34,18 @@ export default function ContactPage() {
     };
 
     return (
-        <main className="bg-white min-h-screen text-stone-900 pt-32 sm:pt-40 pb-24 relative overflow-hidden">
-            {/* Background Decorative Glows */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-amber-100/40 rounded-full blur-[140px] pointer-events-none z-0" />
-
+        <main className="bg-[#FAF7F2] min-h-screen text-[#1A1715] pt-32 sm:pt-40 pb-24 relative overflow-hidden">
+            {/* Header */}
             <div className="container relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                {/* Header */}
                 <div className="text-center mb-12 sm:mb-16">
-                    <span className="text-crimson-700 font-mono font-bold uppercase tracking-[0.3em] text-[10px] sm:text-xs mb-3 block">
-                        Direct Inquiries
+                    <span className="text-[#7A1C1C] font-mono font-bold uppercase tracking-widest text-[11px] mb-3 block">
+                        Scholarly Correspondence
                     </span>
-                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-stone-900 mb-4 tracking-tight font-heading leading-tight">
-                        Contact the <span className="bg-gradient-to-r from-crimson-700 to-amber-700 bg-clip-text text-transparent font-serif italic font-normal">Author</span>
+                    <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#1A1715] mb-4 tracking-tight font-heading leading-tight">
+                        Contact the <span className="text-[#7A1C1C] font-serif italic font-normal">Author</span>
                     </h1>
-                    <div className="w-16 h-1 bg-gradient-to-r from-crimson-600 via-amber-500 to-transparent mx-auto mb-6 rounded-full" />
-                    <p className="text-stone-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed">
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#7A1C1C] via-[#C5A059] to-transparent mx-auto mb-6 rounded-full" />
+                    <p className="text-[#554E48] text-sm sm:text-base md:text-lg max-w-xl mx-auto font-light leading-relaxed">
                         Have a question, publishing inquiry, or discussion regarding Dr. Salim's books or articles? Please share your message below.
                     </p>
                 </div>
@@ -58,26 +55,25 @@ export default function ContactPage() {
                     
                     {/* Column 1: Contact Information */}
                     <div className="space-y-6">
-                        <h2 className="text-xl font-bold text-stone-900 font-heading tracking-tight">
+                        <h2 className="text-xl font-bold text-[#1A1715] font-heading tracking-tight">
                             Scholarly Channels
                         </h2>
 
                         <div className="space-y-4">
                             {[
                                 { icon: '📧', label: 'Email Correspondence', value: 'contact@drsalim.com' },
-                                { icon: '📱', label: 'Office Telephone', value: '+92 300 000 0000' },
                                 { icon: '📍', label: 'Academic Base', value: 'Islamabad, Punjab, Pakistan' }
                             ].map((item, index) => (
                                 <div 
                                     key={index} 
-                                    className="flex items-start gap-4 p-5 rounded-2xl bg-stone-50/80 border border-stone-200/90 hover:border-amber-400 transition-colors shadow-2xs"
+                                    className="flex items-start gap-4 p-5 rounded-2xl bg-white border border-[#E3DBD0] hover:border-[#C5A059]/60 transition-colors shadow-2xs"
                                 >
                                     <div className="text-2xl mt-0.5">{item.icon}</div>
                                     <div>
-                                        <div className="text-crimson-700 text-[10px] font-mono font-bold uppercase tracking-wider mb-0.5">
+                                        <div className="text-[#7A1C1C] text-[10px] font-mono font-bold uppercase tracking-wider mb-0.5">
                                             {item.label}
                                         </div>
-                                        <div className="text-stone-800 font-medium text-sm">
+                                        <div className="text-[#1A1715] font-medium text-sm">
                                             {item.value}
                                         </div>
                                     </div>
@@ -86,26 +82,26 @@ export default function ContactPage() {
                         </div>
 
                         {/* Scholar Consultation Hours */}
-                        <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200 text-center space-y-2">
+                        <div className="p-6 rounded-2xl bg-[#F5F1E8] border border-[#E3DBD0] text-center space-y-2">
                             <div className="text-2xl">⏰</div>
-                            <div className="font-bold text-amber-950 uppercase tracking-widest text-xs">Academic Desk Hours</div>
-                            <div className="text-xs text-stone-600 leading-relaxed font-light">
+                            <div className="font-bold text-[#1A1715] uppercase tracking-widest text-xs font-mono">Academic Desk Hours</div>
+                            <div className="text-xs text-[#554E48] leading-relaxed font-light">
                                 Monday – Friday: 10:00 AM – 4:00 PM (PKT)<br />
-                                Direct scholarly review of manuscripts & inquiries
+                                Direct scholarly review of inquiries & questions
                             </div>
                         </div>
                     </div>
 
                     {/* Column 2: Contact Form */}
-                    <div className="bg-white border border-stone-200/90 p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-xl relative">
-                        <h3 className="text-xl font-bold text-stone-900 font-heading tracking-tight mb-6">
+                    <div className="bg-white border border-[#E3DBD0] p-6 sm:p-10 rounded-3xl shadow-sm relative">
+                        <h3 className="text-xl font-bold text-[#1A1715] font-heading tracking-tight mb-6">
                             Send a Scholarly Message
                         </h3>
 
                         <form onSubmit={handleSubmit} className="space-y-5">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-1.5">
-                                    <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                    <label htmlFor="name" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#554E48]">
                                         Your Full Name *
                                     </label>
                                     <input
@@ -116,12 +112,12 @@ export default function ContactPage() {
                                         onChange={handleChange}
                                         required
                                         placeholder="Prof. / Dr. / Reader Name"
-                                        className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
+                                        className="w-full bg-[#FAF7F2] border border-[#D9CEBA] rounded-xl px-4 py-3 text-[#1A1715] focus:outline-none focus:ring-2 focus:ring-[#7A1C1C]/20 focus:border-[#7A1C1C] transition-all text-sm"
                                     />
                                 </div>
 
                                 <div className="space-y-1.5">
-                                    <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                    <label htmlFor="email" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#554E48]">
                                         Email Address *
                                     </label>
                                     <input
@@ -132,13 +128,13 @@ export default function ContactPage() {
                                         onChange={handleChange}
                                         required
                                         placeholder="email@example.com"
-                                        className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
+                                        className="w-full bg-[#FAF7F2] border border-[#D9CEBA] rounded-xl px-4 py-3 text-[#1A1715] focus:outline-none focus:ring-2 focus:ring-[#7A1C1C]/20 focus:border-[#7A1C1C] transition-all text-sm"
                                     />
                                 </div>
                             </div>
 
                             <div className="space-y-1.5">
-                                <label htmlFor="subject" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                <label htmlFor="subject" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#554E48]">
                                     Inquiry Subject *
                                 </label>
                                 <input
@@ -149,12 +145,12 @@ export default function ContactPage() {
                                     onChange={handleChange}
                                     required
                                     placeholder="e.g. Theological Inquiry / Book Acquisition / Editorial Review"
-                                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm"
+                                    className="w-full bg-[#FAF7F2] border border-[#D9CEBA] rounded-xl px-4 py-3 text-[#1A1715] focus:outline-none focus:ring-2 focus:ring-[#7A1C1C]/20 focus:border-[#7A1C1C] transition-all text-sm"
                                 />
                             </div>
 
                             <div className="space-y-1.5">
-                                <label htmlFor="message" className="block text-xs font-mono font-bold uppercase tracking-wider text-stone-600">
+                                <label htmlFor="message" className="block text-xs font-mono font-bold uppercase tracking-wider text-[#554E48]">
                                     Detailed Message *
                                 </label>
                                 <textarea
@@ -165,14 +161,14 @@ export default function ContactPage() {
                                     required
                                     rows={5}
                                     placeholder="Please share your questions, suggestions or references..."
-                                    className="w-full bg-stone-50 border border-stone-300 rounded-xl px-4 py-3 text-stone-900 focus:outline-none focus:ring-2 focus:ring-crimson-500/20 focus:border-crimson-600 transition-all text-sm resize-none"
+                                    className="w-full bg-[#FAF7F2] border border-[#D9CEBA] rounded-xl px-4 py-3 text-[#1A1715] focus:outline-none focus:ring-2 focus:ring-[#7A1C1C]/20 focus:border-[#7A1C1C] transition-all text-sm resize-none"
                                 />
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full py-4 rounded-xl bg-gradient-to-r from-crimson-600 via-crimson-700 to-amber-600 hover:from-crimson-700 hover:to-amber-700 text-white font-bold uppercase tracking-wider text-xs shadow-md shadow-crimson-900/15 hover:shadow-lg transition-all cursor-pointer disabled:opacity-50 active:scale-98"
+                                className="w-full py-4 rounded-xl bg-[#7A1C1C] hover:bg-[#631414] text-white font-bold uppercase tracking-widest text-xs shadow-xs hover:shadow-md transition-all cursor-pointer disabled:opacity-50"
                             >
                                 {isSubmitting ? 'Delivering Inquiry...' : 'Send Message →'}
                             </button>

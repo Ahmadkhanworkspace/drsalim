@@ -136,43 +136,43 @@ export default function ArticlePage() {
     };
 
     return (
-        <main className="bg-white min-h-screen pb-24 text-stone-900 relative">
+        <main className="bg-[#FAF7F2] min-h-screen pb-24 text-[#1A1715] relative">
             {/* Top Fixed Reading Progress Bar */}
-            <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-stone-200">
+            <div className="fixed top-0 left-0 right-0 z-50 h-1 bg-[#E3DBD0]">
                 <div
-                    className="h-full bg-crimson-800 transition-all duration-150 ease-out"
+                    className="h-full bg-[#7A1C1C] transition-all duration-150 ease-out"
                     style={{ width: `${scrollProgress}%` }}
                 />
             </div>
 
             {/* Ambient Decorative Background */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-amber-100/40 rounded-full blur-[140px] pointer-events-none z-0" />
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-[#EFE8DC]/60 rounded-full blur-[140px] pointer-events-none z-0" />
 
             {/* Header */}
-            <div className="relative z-10 pt-32 sm:pt-40 pb-10 sm:pb-14 border-b border-stone-200/80 bg-gradient-to-b from-stone-50 via-white to-white">
+            <div className="relative z-10 pt-32 sm:pt-40 pb-10 sm:pb-14 border-b border-[#E3DBD0] bg-gradient-to-b from-[#F7F4EE] via-[#FAF7F2] to-[#FAF7F2]">
                 <div className="container px-4 sm:px-6 max-w-4xl mx-auto text-center space-y-4">
                     {/* Category Badge & Reading Time */}
                     <div className="flex flex-wrap items-center justify-center gap-2">
-                        <span className="px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-widest text-crimson-800 bg-crimson-50 border border-crimson-200 rounded-full">
+                        <span className="px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-widest text-[#7A1C1C] bg-[#7A1C1C]/10 border border-[#7A1C1C]/20 rounded-full">
                             {article.category}
                         </span>
-                        <span className="text-xs font-mono font-medium text-stone-600 bg-stone-100 px-3 py-1 rounded-full border border-stone-200">
+                        <span className="text-xs font-mono font-medium text-[#7A726A] bg-white px-3 py-1 rounded-full border border-[#D9CEBA]">
                             ⏱️ {readingStats.text}
                         </span>
                     </div>
 
                     {/* Title */}
-                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight font-heading text-stone-900 tracking-tight max-w-3xl mx-auto">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold leading-tight font-heading text-[#1A1715] tracking-tight max-w-3xl mx-auto">
                         {article.title}
                     </h1>
 
                     {/* Author & Publication Details */}
-                    <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-xs font-mono text-stone-500 pt-2">
+                    <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-6 text-xs font-mono text-[#7A726A] pt-2">
                         <span>📅 {article.date}</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-crimson-600/40" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#7A1C1C]/40" />
                         <span>👁️ {article.views.toLocaleString()} Readers</span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-crimson-600/40" />
-                        <span className="font-semibold text-stone-800">✍️ Dr. Muhammad Salim</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#7A1C1C]/40" />
+                        <span className="font-semibold text-[#1A1715]">✍️ Dr. Muhammad Salim</span>
                     </div>
                 </div>
             </div>
@@ -245,7 +245,7 @@ export default function ArticlePage() {
                 </div>
 
                 {/* Article Body */}
-                <article className="bg-white p-6 sm:p-12 md:p-16 border border-stone-200/90 rounded-2xl sm:rounded-3xl shadow-xs">
+                <article className="bg-white p-6 sm:p-12 md:p-16 border border-[#E3DBD0] rounded-3xl shadow-sm">
                     <style dangerouslySetInnerHTML={{ __html: `
                         .article-body {
                             color: #292524;
